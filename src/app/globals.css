@@ -60,8 +60,8 @@
 }
 
 @layer utilities {
-  .btn-golden-glow:hover {
-    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+  .btn-golden-glow {
+    @apply hover:shadow-[0_4px_12px_rgba(255,215,0,0.4)];
   }
 
   .animate-golden-glow {

@@ -8,6 +8,7 @@ import GoldenParticles from '@/components/particles';
 import { assessMarmorizedPattern, type MarmorizedPatternAssessmentInput } from '@/ai/flows/marmorized-pattern-assessment';
 import { useToast } from '@/hooks/use-toast';
 import { Award, Gem, Leaf, Sparkles } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
 
 const finishOptions = [
   { id: 'a', label: 'Brilho Espelhado', icon: Sparkles },
@@ -36,11 +37,11 @@ export default function Step3Page() {
     });
     setTimeout(() => {
         setIsCompleted(true);
+        setShowParticles(true);
     }, 500);
   };
 
   const handleFunnelCompletion = async (finalChoices: MarmorizedPatternAssessmentInput) => {
-    setShowParticles(true);
     try {
       await assessMarmorizedPattern(finalChoices);
     } catch (error) {
@@ -63,33 +64,40 @@ export default function Step3Page() {
   };
 
   return (
-    <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-background p-6 text-foreground">
-      <GoldenParticles visible={true} />
+    <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-background p-5 text-foreground">
+      <GoldenParticles visible={showParticles} />
       <div className="relative z-10 flex flex-col items-center w-full max-w-md text-center">
-        <h2 className="font-headline text-3xl font-extrabold md:text-4xl mb-8">Por último, escolha o tipo de acabamento que mais valoriza o piso: 🧱</h2>
+        <Progress value={isCompleted ? 100 : 66} className="h-2.5 w-full mb-8" />
+        <h2 className="font-headline text-3xl md:text-4xl font-extrabold mb-8">Por último, qual acabamento valoriza mais o piso? 🧱</h2>
         <div className="grid grid-cols-1 gap-6 w-full md:grid-cols-3">
           {finishOptions.map(option => (
             <button
               key={option.id}
               onClick={() => handleChoice(option.label)}
-              className={cn("flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 text-lg font-bold transition-all duration-300 transform w-full h-32 md:text-xl", finishChoice === option.label ? 'bg-accent text-accent-foreground border-accent scale-105 shadow-lg' : 'bg-secondary/10 hover:bg-secondary/20 hover:scale-105 border-primary-foreground/20')}
+              className={cn(
+                "flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 text-lg font-bold transition-all duration-250 ease-in-out transform w-full h-32", 
+                finishChoice === option.label 
+                  ? 'bg-accent text-accent-foreground border-accent scale-105 shadow-lg' 
+                  : 'bg-secondary/10 hover:bg-secondary/20 hover:scale-105 border-primary-foreground/20',
+                isCompleted && finishChoice !== option.label ? 'opacity-50' : ''
+              )}
               disabled={isCompleted}
             >
-              <option.icon className="w-10 h-10 text-accent md:w-12 md:h-12" />
+              <option.icon className="w-10 h-10 text-accent" />
               <span className="text-base">{option.label}</span>
+              {finishChoice === option.label && <span className="absolute top-2 right-2">✅</span>}
             </button>
           ))}
         </div>
         {isCompleted && (
           <div className="mt-8 flex flex-col items-center gap-4 text-center animate-fade-in-up w-full">
-            <GoldenParticles visible={showParticles} count={50} />
-            <h3 className="font-headline text-2xl font-extrabold text-accent md:text-2xl">Incrível!</h3>
-            <p className="text-lg md:text-lg">Você completou o Treinamento da IA de Pisos Marmorizados.</p>
-            <div className="flex items-center justify-center gap-2 text-base md:text-lg font-bold bg-accent text-accent-foreground p-3 rounded-lg my-4 animate-bounce w-full">
+            <h3 className="font-headline text-2xl font-extrabold text-accent">Incrível!</h3>
+            <p className="text-lg">Você completou o Treinamento da IA.</p>
+            <div className="flex items-center justify-center gap-2 text-base font-bold bg-accent text-accent-foreground p-3 rounded-lg my-4 animate-bounce w-full">
               <Award size={28}/>
               <span>TODOS OS BÔNUS DESBLOQUEADOS</span>
             </div>
-            <Button variant="outline" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground btn-golden-glow w-full rounded-full" onClick={handleNext}>
+            <Button className="w-full rounded-full text-lg" onClick={handleNext}>
               🔓 VER MEUS BÔNUS DESBLOQUEADOS
             </Button>
           </div>

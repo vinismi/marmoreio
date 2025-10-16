@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "Dark marble texture with golden veins.",
+      "imageUrl": "https://picsum.photos/seed/hero-bg/1920/1080",
+      "imageHint": "dark marble"
+    },
+    {
+      "id": "marble-floor-1",
+      "description": "Luxurious white and gold marble floor.",
+      "imageUrl": "https://picsum.photos/seed/floor1/600/400",
+      "imageHint": "white gold marble"
+    },
+    {
+      "id": "marble-floor-2",
+      "description": "Stunning black marble floor with dramatic white veins.",
+      "imageUrl": "https://picsum.photos/seed/floor2/600/400",
+      "imageHint": "black white marble"
+    },
+    {
+      "id": "marble-floor-3",
+      "description": "Exotic blue and gold marble patterned floor.",
+      "imageUrl": "https://picsum.photos/seed/floor3/600/400",
+      "imageHint": "blue gold marble"
+    }
+  ]
 }

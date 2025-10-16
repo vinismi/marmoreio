@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <main className="overflow-x-hidden">
       {/* Hero Section */}
-      <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-background p-4 text-center text-foreground">
+      <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-background p-6 text-center text-foreground md:p-8">
         {heroImage && (
             <Image src={heroImage.imageUrl} alt={heroImage.description} fill className="object-cover z-0 opacity-20" data-ai-hint={heroImage.imageHint} priority />
         )}
@@ -25,7 +25,7 @@ export default function Home() {
             <h1 className="font-headline text-4xl font-extrabold uppercase tracking-tight md:text-6xl">A técnica que transforma qualquer piso comum em um <span className="text-accent">mármore de luxo.</span></h1>
             <p className="max-w-2xl text-lg text-primary-foreground/80 md:text-xl">Descubra como pintores estão criando pisos marmorizados incríveis com materiais simples — e sendo pagos como artistas.</p>
             <p className="max-w-xl text-base text-primary-foreground/60">Participe do nosso treino interativo e desbloqueie bônus secretos para dominar essa técnica.</p>
-            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 btn-golden-glow text-lg font-bold" onClick={handleStart}>
+            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 btn-golden-glow text-lg font-bold w-full md:w-auto rounded-full" onClick={handleStart}>
                 🧠 PARTICIPAR DO TREINAMENTO INTERATIVO
             </Button>
         </div>

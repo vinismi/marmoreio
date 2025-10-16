@@ -52,13 +52,13 @@ export default function ResultPage() {
   return (
     <main className="overflow-x-hidden">
       {/* Bonus Section */}
-      <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-background p-6 md:p-8 text-foreground">
+      <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-background p-6 text-foreground">
           {heroImage && <Image src={heroImage.imageUrl} alt={heroImage.description} fill className="object-cover z-0 opacity-10" data-ai-hint={heroImage.imageHint} />}
           <div className="relative z-10 flex flex-col items-center w-full max-w-4xl text-center">
-            <h2 className="font-headline text-3xl font-extrabold md:text-5xl text-accent mb-2">🎉 Você desbloqueou módulos profissionais que antes eram pagos!</h2>
-            <p className="text-lg mb-8">Por participar do treino interativo, você liberou acesso gratuito a todos os bônus que antes custavam caro.</p>
+            <h2 className="font-headline text-2xl font-extrabold md:text-5xl text-accent mb-2">🎉 Você desbloqueou módulos profissionais que antes eram pagos!</h2>
+            <p className="text-base md:text-lg mb-8">Por participar do treino interativo, você liberou acesso gratuito a todos os bônus que antes custavam caro.</p>
             <Card className="w-full bg-background/80 backdrop-blur-sm border-accent/30">
-                <CardContent className="p-4 md:p-0">
+                <CardContent className="p-4 md:p-6">
                     <Table>
                         <TableHeader>
                             <TableRow className="border-accent/30 hidden md:table-row">
@@ -69,13 +69,13 @@ export default function ResultPage() {
                         </TableHeader>
                         <TableBody>
                             {bonuses.map((bonus, index) => (
-                                <TableRow key={index} className={cn("transition-all duration-500 ease-out flex flex-col md:table-row p-2 my-2 border-accent/20 rounded-lg md:border-b", bonusRowsVisible[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
-                                    <TableCell className="font-medium text-left text-base p-1 md:p-4">{bonus.name}</TableCell>
-                                    <TableCell className="text-left md:text-center p-1 md:p-4">
+                                <TableRow key={index} className={cn("transition-all duration-500 ease-out flex flex-col p-2 my-2 border-accent/20 rounded-lg md:table-row md:border-b", bonusRowsVisible[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
+                                    <TableCell className="font-medium text-left text-sm p-1 md:text-base md:p-4">{bonus.name}</TableCell>
+                                    <TableCell className="text-left text-sm p-1 md:text-center md:p-4">
                                         <span className="md:hidden font-bold text-accent/80">Antes: </span>
                                         <del>{bonus.before}</del>
                                     </TableCell>
-                                    <TableCell className="text-left md:text-center font-bold text-green-400 p-1 md:p-4 md:bg-green-400/10 rounded-md">
+                                    <TableCell className="text-left text-sm font-bold text-green-400 p-1 md:text-center md:p-4 md:bg-green-400/10 rounded-md">
                                         <span className="md:hidden font-bold text-green-500">Agora: </span>
                                         {bonus.now}
                                     </TableCell>
@@ -85,7 +85,7 @@ export default function ResultPage() {
                     </Table>
                 </CardContent>
             </Card>
-            <p className="mt-8 text-lg max-w-2xl">Você liberou o pacote completo que ensina não só a técnica, mas também o segredo de transformar arte em renda real.</p>
+            <p className="mt-8 text-base md:text-lg max-w-2xl">Você liberou o pacote completo que ensina não só a técnica, mas também o segredo de transformar arte em renda real.</p>
             <Button variant="ghost" className="mt-4 text-accent hover:text-accent/90" onClick={() => scrollTo(testimonialsRef)}>
                 📣 VEJA O QUE DIZEM OS ALUNOS
             </Button>
@@ -93,53 +93,53 @@ export default function ResultPage() {
       </div>
       
       {/* Testimonials */}
-      <section ref={testimonialsRef} className="flex flex-col items-center justify-center gap-8 bg-background py-16 px-6 md:py-24">
-        <h2 className="font-headline text-3xl font-extrabold md:text-4xl text-center">Quem aprendeu essa técnica está mudando de vida</h2>
+      <section ref={testimonialsRef} className="flex flex-col items-center justify-center gap-8 bg-background py-16 px-6">
+        <h2 className="font-headline text-2xl font-extrabold md:text-4xl text-center">Quem aprendeu essa técnica está mudando de vida</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mt-8">
             {testimonials.map((t, i) => (
                 <Card key={i}>
                     <CardContent className="p-6">
-                        <p className="text-lg italic">"{t.quote}"</p>
+                        <p className="text-base italic md:text-lg">"{t.quote}"</p>
                         <p className="text-right font-bold mt-4">- {t.author}</p>
                     </CardContent>
                 </Card>
             ))}
         </div>
-        <p className="mt-8 text-center text-lg max-w-3xl">Assim como eles, você também pode começar do zero e dominar o efeito marmorizado. Agora é só escolher como quer começar.</p>
-        <Button size="lg" className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90 btn-golden-glow text-lg font-bold w-full md:w-auto rounded-full" onClick={() => scrollTo(plansRef)}>
+        <p className="mt-8 text-center text-base md:text-lg max-w-3xl">Assim como eles, você também pode começar do zero e dominar o efeito marmorizado. Agora é só escolher como quer começar.</p>
+        <Button size="lg" className="mt-4 bg-accent text-accent-foreground hover:bg-accent/90 btn-golden-glow font-bold w-full rounded-full md:w-auto text-base md:text-lg" onClick={() => scrollTo(plansRef)}>
             🚀 ESCOLHER MEU ACESSO
         </Button>
       </section>
 
       {/* Plans Section */}
-      <section ref={plansRef} className="dark relative flex flex-col items-center justify-center gap-8 bg-background py-16 px-6 md:py-24">
+      <section ref={plansRef} className="dark relative flex flex-col items-center justify-center gap-8 bg-background py-16 px-6">
         <div className="absolute inset-0 border-t-4 border-b-4 border-accent opacity-50"></div>
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')] opacity-5"></div>
         <div className="relative z-10 flex flex-col items-center w-full max-w-5xl text-center">
-            <h2 className="font-headline text-3xl font-extrabold md:text-4xl mb-4">Escolha como quer começar sua jornada na pintura marmorizada</h2>
-            <p className="text-lg text-primary-foreground/80 mb-12 max-w-3xl">Você desbloqueou todos os bônus do pacote profissional e agora pode escolher entre começar com o acesso básico ou garantir o completo com tudo liberado.</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+            <h2 className="font-headline text-2xl font-extrabold md:text-4xl mb-4">Escolha como quer começar sua jornada na pintura marmorizada</h2>
+            <p className="text-base text-primary-foreground/80 mb-12 max-w-3xl md:text-lg">Você desbloqueou todos os bônus do pacote profissional e agora pode escolher entre começar com o acesso básico ou garantir o completo com tudo liberado.</p>
+            <div className="grid grid-cols-1 gap-8 w-full md:grid-cols-2">
                 <Card className="bg-secondary/5 border-primary-foreground/20 p-6 flex flex-col items-center text-center rounded-xl">
                     <Box className="w-16 h-16 text-accent mb-4"/>
-                    <h3 className="font-headline text-2xl font-extrabold mb-2">Plano Básico</h3>
-                    <p className="mb-6 h-16">Curso essencial — fundamentos e aplicação do piso marmorizado.</p>
-                    <p className="text-4xl font-extrabold mb-4">R$ 5,99</p>
+                    <h3 className="font-headline text-xl font-extrabold mb-2 md:text-2xl">Plano Básico</h3>
+                    <p className="mb-6 h-12 text-sm md:text-base md:h-16">Curso essencial — fundamentos e aplicação do piso marmorizado.</p>
+                    <p className="text-3xl font-extrabold mb-4 md:text-4xl">R$ 5,99</p>
                     <Button size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90 btn-golden-glow rounded-full">QUERO O ACESSO BÁSICO</Button>
                 </Card>
-                <Card className="bg-accent/10 border-accent p-6 flex flex-col items-center text-center relative md:scale-105 shadow-2xl shadow-accent/20 rounded-xl">
-                    <div className="absolute -top-4 bg-accent text-accent-foreground px-4 py-1 rounded-full font-bold text-sm">MAIS ESCOLHIDO</div>
+                <Card className="bg-accent/10 border-accent p-6 flex flex-col items-center text-center relative shadow-2xl shadow-accent/20 rounded-xl md:scale-105">
+                    <div className="absolute -top-4 bg-accent text-accent-foreground px-4 py-1 rounded-full font-bold text-xs md:text-sm">MAIS ESCOLHIDO</div>
                     <Gem className="w-16 h-16 text-accent mb-4"/>
-                    <h3 className="font-headline text-2xl font-extrabold mb-2">Plano Completo + Bônus</h3>
-                    <p className="mb-6 h-16">Curso completo + 5 bônus desbloqueados (renda, precificação, clientes e tintas).</p>
-                    <p className="text-4xl font-extrabold text-accent mb-4">R$ 14,99</p>
+                    <h3 className="font-headline text-xl font-extrabold mb-2 md:text-2xl">Plano Completo + Bônus</h3>
+                    <p className="mb-6 h-12 text-sm md:text-base md:h-16">Curso completo + 5 bônus desbloqueados (renda, precificação, clientes e tintas).</p>
+                    <p className="text-3xl font-extrabold text-accent mb-4 md:text-4xl">R$ 14,99</p>
                     <p className="text-sm -mt-4 mb-4"><del>de R$ 53,99</del></p>
                     <Button size="lg" className="w-full bg-background text-foreground hover:bg-primary-foreground/90 btn-golden-glow rounded-full">GARANTIR O PACOTE COMPLETO</Button>
                 </Card>
             </div>
-            <div className="mt-12 text-amber-400 font-semibold bg-amber-900/50 border border-amber-600 rounded-lg p-4 max-w-3xl">
+            <div className="mt-12 text-amber-400 font-semibold bg-amber-900/50 border border-amber-600 rounded-lg p-4 max-w-3xl text-sm md:text-base">
                 <p>⚠️ Essa condição só é liberada para quem completou o treino da IA. Se sair da página, o desbloqueio pode ser removido.</p>
             </div>
-            <p className="mt-4 text-lg">💡 O primeiro piso que você fizer já paga o investimento inteiro.</p>
+            <p className="mt-4 text-base md:text-lg">💡 O primeiro piso que você fizer já paga o investimento inteiro.</p>
         </div>
       </section>
     </main>

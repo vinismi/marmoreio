@@ -63,19 +63,19 @@ export default function Step3Page() {
   };
 
   return (
-    <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-background p-6 text-foreground md:p-8">
+    <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-background p-6 text-foreground">
       <GoldenParticles visible={true} />
-      <div className="relative z-10 flex flex-col items-center w-full max-w-md md:max-w-4xl text-center">
-        <h2 className="font-headline text-3xl font-extrabold md:text-4xl mb-8">Por último, escolha o tipo de acabamento que mais valoriza o piso: 🧱</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+      <div className="relative z-10 flex flex-col items-center w-full max-w-md text-center">
+        <h2 className="font-headline text-2xl font-extrabold md:text-4xl mb-8">Por último, escolha o tipo de acabamento que mais valoriza o piso: 🧱</h2>
+        <div className="grid grid-cols-1 gap-6 w-full md:grid-cols-3">
           {finishOptions.map(option => (
             <button
               key={option.id}
               onClick={() => handleChoice(option.label)}
-              className={cn("flex flex-col items-center justify-center gap-4 p-6 rounded-xl border-2 text-xl font-bold transition-all duration-300 transform w-full h-32", finishChoice === option.label ? 'bg-accent text-accent-foreground border-accent scale-105 shadow-lg' : 'bg-secondary/10 hover:bg-secondary/20 hover:scale-105 border-primary-foreground/20')}
+              className={cn("flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 text-base font-bold transition-all duration-300 transform w-full h-32 md:text-xl", finishChoice === option.label ? 'bg-accent text-accent-foreground border-accent scale-105 shadow-lg' : 'bg-secondary/10 hover:bg-secondary/20 hover:scale-105 border-primary-foreground/20')}
               disabled={isCompleted}
             >
-              <option.icon className="w-12 h-12 text-accent" />
+              <option.icon className="w-10 h-10 text-accent md:w-12 md:h-12" />
               <span>{option.label}</span>
             </button>
           ))}
@@ -83,9 +83,9 @@ export default function Step3Page() {
         {isCompleted && (
           <div className="mt-8 flex flex-col items-center gap-4 text-center animate-fade-in-up w-full">
             <GoldenParticles visible={showParticles} count={50} />
-            <h3 className="font-headline text-2xl font-extrabold text-accent">Incrível!</h3>
-            <p className="text-lg">Você completou o Treinamento da IA de Pisos Marmorizados.</p>
-            <div className="flex items-center justify-center gap-2 text-lg md:text-xl font-bold bg-accent text-accent-foreground p-3 rounded-lg my-4 animate-bounce w-full">
+            <h3 className="font-headline text-xl font-extrabold text-accent md:text-2xl">Incrível!</h3>
+            <p className="text-base md:text-lg">Você completou o Treinamento da IA de Pisos Marmorizados.</p>
+            <div className="flex items-center justify-center gap-2 text-sm md:text-lg font-bold bg-accent text-accent-foreground p-3 rounded-lg my-4 animate-bounce w-full">
               <Award size={28}/>
               <span>TODOS OS BÔNUS DESBLOQUEADOS</span>
             </div>

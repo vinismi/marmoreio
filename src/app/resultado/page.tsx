@@ -5,19 +5,19 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { Box, Gem } from 'lucide-react';
+import { Box, Gem, Sparkles } from 'lucide-react';
+import GoldenParticles from '@/components/particles';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
 
 const bonuses = [
-    { name: 'Como viver de pintura marmorizada', before: 'R$ 9,99', now: 'GRÁTIS' },
-    { name: 'Transforme a técnica em renda extra ou principal', before: 'R$ 12,99', now: 'GRÁTIS' },
-    { name: 'Guia completo de precificação', before: 'R$ 7,99', now: 'GRÁTIS' },
-    { name: 'Como achar clientes que pagam bem', before: 'R$ 14,99', now: 'GRÁTIS' },
-    { name: 'Melhores tintas, resinas e pigmentos', before: 'R$ 8,99', now: 'GRÁTIS' },
+    { name: '💰 Como viver de pintura marmorizada', before: 'R$ 9,99', now: 'GRÁTIS' },
+    { name: '🔥 Transforme a técnica em renda extra ou principal', before: 'R$ 12,99', now: 'GRÁTIS' },
+    { name: '📊 Guia completo de precificação', before: 'R$ 7,99', now: 'GRÁTIS' },
+    { name: '🎯 Como achar clientes que pagam bem', before: 'R$ 14,99', now: 'GRÁTIS' },
+    { name: '🎨 Melhores tintas, resinas e pigmentos', before: 'R$ 8,99', now: 'GRÁTIS' },
 ];
 
 const testimonials = [
@@ -34,17 +34,17 @@ export default function ResultPage() {
     ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   
-  const [bonusRowsVisible, setBonusRowsVisible] = useState<boolean[]>(new Array(bonuses.length).fill(false));
+  const [bonusItemsVisible, setBonusItemsVisible] = useState<boolean[]>(new Array(bonuses.length).fill(false));
   
   useEffect(() => {
     const timers = bonuses.map((_, index) => 
       setTimeout(() => {
-        setBonusRowsVisible(prev => {
+        setBonusItemsVisible(prev => {
           const newVisible = [...prev];
           newVisible[index] = true;
           return newVisible;
         });
-      }, index * 200)
+      }, 200 + index * 150) // Staggered animation
     );
     return () => timers.forEach(clearTimeout);
   }, []);
@@ -52,41 +52,37 @@ export default function ResultPage() {
   return (
     <main className="overflow-x-hidden">
       {/* Bonus Section */}
-      <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-background p-6 text-foreground">
-          {heroImage && <Image src={heroImage.imageUrl} alt={heroImage.description} fill className="object-cover z-0 opacity-10" data-ai-hint={heroImage.imageHint} />}
+      <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-gradient-to-b from-[#0A0A0A] to-[#1E1500] p-6 text-foreground overflow-hidden">
+          <GoldenParticles visible={true} count={20} />
+          {heroImage && <Image src={heroImage.imageUrl} alt={heroImage.description} fill className="object-cover z-0 opacity-5" data-ai-hint={heroImage.imageHint} />}
           <div className="relative z-10 flex flex-col items-center w-full max-w-4xl text-center">
-            <h2 className="font-headline text-3xl font-extrabold md:text-5xl text-accent mb-2">🎉 Você desbloqueou módulos profissionais que antes eram pagos!</h2>
-            <p className="text-lg md:text-xl mb-8 text-foreground/80">Por participar do treino interativo, você liberou acesso gratuito a todos os bônus que antes custavam caro.</p>
-            <Card className="w-full bg-background/80 backdrop-blur-sm border-accent/30">
-                <CardContent className="p-4 md:p-6">
-                    <Table>
-                        <TableHeader>
-                            <TableRow className="border-accent/30 hidden md:table-row">
-                                <TableHead className="text-left font-bold text-lg text-accent">Bônus</TableHead>
-                                <TableHead className="text-center font-bold text-lg text-accent">Antes</TableHead>
-                                <TableHead className="text-center font-bold text-lg text-accent">Agora</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {bonuses.map((bonus, index) => (
-                                <TableRow key={index} className={cn("transition-all duration-500 ease-out flex flex-col p-2 my-2 border-accent/20 rounded-lg md:table-row md:border-b", bonusRowsVisible[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
-                                    <TableCell className="font-medium text-left text-base p-1 md:text-lg md:p-4">{bonus.name}</TableCell>
-                                    <TableCell className="text-left text-sm p-1 md:text-center md:text-base md:p-4">
-                                        <span className="md:hidden font-bold text-accent/80">Antes: </span>
-                                        <del>{bonus.before}</del>
-                                    </TableCell>
-                                    <TableCell className="text-left text-base font-bold text-green-400 p-1 md:text-center md:text-lg md:p-4 md:bg-green-400/10 rounded-md">
-                                        <span className="md:hidden font-bold text-green-500">Agora: </span>
-                                        {bonus.now}
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-            </Card>
-            <p className="mt-8 text-lg md:text-xl max-w-2xl text-foreground/80">Você liberou o pacote completo que ensina não só a técnica, mas também o segredo de transformar arte em renda real.</p>
-            <Button variant="ghost" className="mt-4 text-accent hover:text-accent/90 text-lg" onClick={() => scrollTo(testimonialsRef)}>
+            <div className="w-full text-center mb-4">
+                <p className="font-bold text-sm md:text-base text-accent animate-pulse">🔥 CONQUISTA DESBLOQUEADA – ACESSO VIP LIBERADO 🔥</p>
+            </div>
+            <h2 className="font-headline text-3xl font-extrabold md:text-5xl text-accent mb-3 animate-golden-glow">🎉 VOCÊ CONSEGUIU!</h2>
+            <p className="text-lg md:text-xl mb-8 text-foreground/80 max-w-3xl">Todos esses módulos eram pagos... mas por ter completado o treino da IA, você acabou de desbloquear o acesso gratuito!</p>
+            
+            <div className="w-full max-w-2xl space-y-3">
+              {bonuses.map((bonus, index) => (
+                  <div
+                    key={index}
+                    className={cn(
+                      "flex flex-col md:flex-row items-start md:items-center justify-between gap-2 text-left p-4 rounded-xl border border-amber-500/40 bg-white/5 backdrop-blur-sm shadow-golden transition-all duration-500",
+                      bonusItemsVisible[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+                    )}
+                  >
+                    <p className="font-headline font-semibold text-base md:text-lg text-white flex-1">{bonus.name}</p>
+                    <div className="flex items-center gap-4">
+                      <p className="text-sm text-red-400"><span className="font-bold">Antes:</span> <del>{bonus.before}</del></p>
+                      <p className="text-base font-bold text-green-400">🔓 AGORA: {bonus.now}</p>
+                    </div>
+                  </div>
+                ))}
+            </div>
+
+            <p className="mt-8 text-lg md:text-xl max-w-3xl text-foreground/80">💎 Aproveite: você acabou de liberar o mesmo conteúdo que os profissionais usam para lucrar com pintura decorativa.</p>
+            
+            <Button variant="ghost" className="mt-6 text-accent hover:text-accent/90 text-lg font-bold" onClick={() => scrollTo(testimonialsRef)}>
                 📣 VEJA O QUE DIZEM OS ALUNOS
             </Button>
           </div>
@@ -145,3 +141,5 @@ export default function ResultPage() {
     </main>
   );
 }
+
+    

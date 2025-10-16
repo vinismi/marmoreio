@@ -22,10 +22,10 @@ export default function Home() {
             <Image src={heroImage.imageUrl} alt={heroImage.description} fill className="object-cover z-0 opacity-20" data-ai-hint={heroImage.imageHint} priority />
         )}
         <div className="z-10 flex flex-col items-center gap-6">
-            <h1 className="font-headline text-3xl font-extrabold uppercase tracking-tight md:text-5xl">A técnica que transforma qualquer piso comum em um <span className="text-accent">mármore de luxo.</span></h1>
-            <p className="max-w-2xl text-base text-primary-foreground/80 md:text-xl">Descubra como pintores estão criando pisos marmorizados incríveis com materiais simples — e sendo pagos como artistas.</p>
-            <p className="max-w-xl text-sm text-primary-foreground/60 md:text-base">Participe do nosso treino interativo e desbloqueie bônus secretos para dominar essa técnica.</p>
-            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 btn-golden-glow text-base font-bold w-full rounded-full md:text-lg" onClick={handleStart}>
+            <h1 className="font-headline text-4xl font-extrabold uppercase tracking-tight md:text-5xl">A técnica que transforma qualquer piso comum em um <span className="text-accent">mármore de luxo.</span></h1>
+            <p className="max-w-2xl text-lg text-primary-foreground/80 md:text-xl">Descubra como pintores estão criando pisos marmorizados incríveis com materiais simples — e sendo pagos como artistas.</p>
+            <p className="max-w-xl text-base text-primary-foreground/60 md:text-base">Participe do nosso treino interativo e desbloqueie bônus secretos para dominar essa técnica.</p>
+            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 btn-golden-glow text-lg font-bold w-full max-w-md rounded-full md:text-lg" onClick={handleStart}>
                 🧠 PARTICIPAR DO TREINAMENTO INTERATIVO
             </Button>
         </div>

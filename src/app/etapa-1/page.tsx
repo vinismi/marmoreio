@@ -32,7 +32,7 @@ export default function Step1Page() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8 bg-background p-6">
-      <h2 className="font-headline text-2xl font-extrabold md:text-4xl text-center">Qual desses pisos você acha mais bonito? 🪩</h2>
+      <h2 className="font-headline text-3xl font-extrabold md:text-4xl text-center">Qual desses pisos você acha mais bonito? 🪩</h2>
       <div className="grid grid-cols-1 gap-6 w-full max-w-sm md:grid-cols-3 md:max-w-4xl">
         {floorImages.map((image) => (
           <button
@@ -50,8 +50,8 @@ export default function Step1Page() {
       </div>
       {isCompleted && (
         <div className="mt-6 flex flex-col items-center gap-4 text-center animate-fade-in-up w-full max-w-md">
-          <p className="flex items-center justify-center gap-2 text-base font-semibold text-green-600 md:text-lg"><CheckCircle size={24} /> Treino IA: Etapa 1 concluída!</p>
-          <p className="max-w-lg text-sm md:text-base">Perfeito! Você acabou de ajudar nossa IA a reconhecer padrões de beleza na pintura marmorizada.</p>
+          <p className="flex items-center justify-center gap-2 text-lg font-semibold text-green-600 md:text-lg"><CheckCircle size={24} /> Treino IA: Etapa 1 concluída!</p>
+          <p className="max-w-lg text-base md:text-base">Perfeito! Você acabou de ajudar nossa IA a reconhecer padrões de beleza na pintura marmorizada.</p>
           <Button variant="outline" className="btn-golden-glow border-accent text-accent hover:bg-accent hover:text-accent-foreground w-full rounded-full" onClick={handleNext}>
             ➡️ CONTINUAR PARA O PRÓXIMO DESAFIO
           </Button>

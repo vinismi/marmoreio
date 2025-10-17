@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { Box, Gem, Sparkles, AlertTriangle } from 'lucide-react';
+import { Box, Gem, Sparkles, AlertTriangle, ShieldCheck } from 'lucide-react';
 import GoldenParticles from '@/components/particles';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
@@ -26,9 +26,16 @@ const testimonials = [
     { quote: "O curso me ensinou o que ninguém mostra no YouTube: como cobrar e onde achar material bom e barato.", author: "Tiago, PR" },
 ];
 
+// SVG para o ícone do WhatsApp
+const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 32 32" {...props}><path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.63-.63c0-1.562 1.033-3.66 1.033-3.66s-1.39-2.75-2.928-2.75c-1.983 0-4.402 2.75-4.402 5.565 0 1.562 1.033 2.75 1.033 2.75s-1.125 1.39-2.928 1.39c-2.25 0-5.565-3.66-5.565-7.222 0-3.66 2.75-7.222 6.163-7.222 3.413 0 5.565 2.75 5.565 5.565 0 1.983-1.033 3.66-1.033 3.66s1.39 1.125 2.928 1.125c2.25 0 4.402-2.75 4.402-5.565 0-2.928-2.25-5.565-5.565-5.565C13.885 4 11 6.75 11 9.638c0 1.562 1.033 2.75 1.033 2.75s-1.39 1.39-2.928 1.39c-1.983 0-4.402-2.75-4.402-5.565C5.105 5.27 7.75 2 12.115 2c4.365 0 7.222 2.75 7.222 6.163 0 3.413-2.75 6.163-5.565 6.163-1.562 0-2.928-1.39-2.928-1.39s1.39-1.125 2.928-1.125c1.562 0 2.928 1.39 2.928 2.928.001 1.563-1.034 2.928-2.928 2.928-1.563 0-2.928-1.39-2.928-2.928s1.39-2.928 2.928-2.928c1.125 0 2.25.63 2.25 1.983 0 1.353-1.125 2.75-2.25 2.75-1.125 0-2.25-.63-2.25-1.983 0-1.353 1.125-2.75 2.25-2.75 1.125 0 2.25.63 2.25 1.983 0 1.353-1.125 2.75-2.25 275-1.125 0-2.25-1.39-2.25-2.928s1.125-2.928 2.25-2.928c1.125 0 2.25 1.39 2.25 2.928s-1.125 2.928-2.25 2.928c-1.125 0-2.25-1.39-2.25-2.928s1.125-2.928 2.25-2.928c.001 0 0 0 0 0z" fill="currentColor"></path></svg>
+);
+
+
 export default function ResultPage() {
   const testimonialsRef = useRef<HTMLDivElement>(null);
   const plansRef = useRef<HTMLDivElement>(null);
+  const guaranteeRef = useRef<HTMLDivElement>(null);
   
   const scrollTo = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -149,6 +156,55 @@ export default function ResultPage() {
             </div>
         </div>
       </section>
+
+      {/* Guarantee and Support Section */}
+      <section ref={guaranteeRef} id="garantia" className="relative bg-black text-white py-16 md:py-24 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-marble.png')] opacity-[0.03]"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black"></div>
+        <div className="relative z-10 container mx-auto flex flex-col md:flex-row items-center gap-12 max-w-6xl">
+          {/* Guarantee Block */}
+          <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+            <div className="flex items-center gap-4 mb-4">
+              <ShieldCheck className="w-12 h-12 text-accent" />
+              <h3 className="font-headline text-2xl md:text-3xl font-bold text-white">
+                Garantia Incondicional de 7 Dias 🕒
+              </h3>
+            </div>
+            <p className="text-base md:text-lg text-gray-300 max-w-xl">
+              Se por qualquer motivo você não ficar satisfeito com o conteúdo, pode solicitar reembolso integral dentro de 7 dias. Sem burocracia. Sem perguntas. 100% do seu dinheiro de volta.
+            </p>
+            <div className="mt-6 w-full h-px bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
+          </div>
+
+          {/* WhatsApp Support Block */}
+          <div className="flex-1 flex flex-col items-center text-center">
+            <p className="text-lg text-white mb-4">
+              Ainda tem dúvidas? Fale com nossa equipe agora mesmo 👇
+            </p>
+            <Button 
+              size="lg"
+              className="bg-[#25D366] hover:bg-[#128C7E] text-white font-bold text-lg w-full max-w-sm rounded-full h-16 shadow-[0_0_18px_rgba(37,211,102,0.5)] hover:scale-105 transition-all duration-300"
+              onClick={() => window.open('https://wa.me/5500000000000?text=Olá,%20tenho%20uma%20dúvida%20sobre%20o%20curso%20de%20piso%20marmorizado', '_blank')}
+            >
+              <WhatsAppIcon className="w-6 h-6 mr-3" />
+              Falar com Suporte no WhatsApp
+            </Button>
+            <p className="text-sm text-white/80 mt-4">
+              Atendimento das 8h às 18h | Resposta em até alguns minutos 💬
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Floating WhatsApp Button */}
+      <a
+        href="https://wa.me/5500000000000?text=Olá,%20tenho%20uma%20dúvida%20sobre%20o%20curso%20de%20piso%2marmorizado"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-lg animate-float"
+      >
+        <WhatsAppIcon className="w-8 h-8" />
+      </a>
     </main>
   );
 }

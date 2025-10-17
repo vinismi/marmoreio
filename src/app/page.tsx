@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { Badge } from '@/components/ui/badge';
+import { ArrowDown } from 'lucide-react';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
 
@@ -17,7 +19,7 @@ export default function Home() {
   return (
     <main className="overflow-x-hidden">
       {/* Hero Section */}
-      <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-background p-6 text-center text-foreground">
+      <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-black via-zinc-900 to-black p-6 text-center text-foreground">
         {heroImage && (
             <Image 
               src={heroImage.imageUrl} 
@@ -28,6 +30,7 @@ export default function Home() {
               priority 
             />
         )}
+        <div className="absolute inset-0 bg-black/50 z-0"></div>
         <div className="z-10 flex flex-col items-center gap-6 p-4">
             <h1 
               className="font-headline text-3xl font-extrabold uppercase tracking-tight md:text-5xl animate-fade-in-up"
@@ -36,11 +39,11 @@ export default function Home() {
               A técnica que transforma qualquer piso comum em um <span className="text-accent animate-golden-glow">mármore de luxo.</span>
             </h1>
             <div 
-              className="animate-fade-in-up"
+              className="flex flex-col gap-4 animate-fade-in-up"
               style={{ animationDelay: '0.6s' }}
             >
-              <p className="max-w-2xl text-lg text-primary-foreground/80 md:text-xl">Descubra como pintores estão criando pisos marmorizados incríveis com materiais simples — e sendo pagos como artistas.</p>
-              <p className="max-w-xl text-base text-primary-foreground/60 md:text-base mt-2">Participe do nosso treino interativo e desbloqueie bônus secretos para dominar essa técnica.</p>
+              <p className="max-w-2xl text-lg text-white md:text-xl">Descubra como pintores estão criando pisos marmorizados incríveis com materiais simples — e sendo pagos como artistas.</p>
+              <p className="max-w-xl text-base text-white/80 md:text-base mt-2">Participe do nosso treino interativo e desbloqueie bônus secretos para dominar essa técnica.</p>
             </div>
             <Button 
               size="lg" 
@@ -50,6 +53,12 @@ export default function Home() {
             >
                 🧠 PARTICIPAR DO TREINAMENTO INTERATIVO
             </Button>
+            <Badge variant="secondary" className="mt-4 animate-fade-in-up" style={{ animationDelay: '1s' }}>
+              🔥 +7.000 pintores já aplicaram essa técnica!
+            </Badge>
+        </div>
+        <div className="absolute bottom-8 animate-bounce z-10">
+          <ArrowDown className="w-6 h-6 text-accent" />
         </div>
       </section>
     </main>

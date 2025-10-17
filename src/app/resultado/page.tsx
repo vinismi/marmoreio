@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { Box, Gem, Sparkles, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Box, Gem, Sparkles, AlertTriangle, ShieldCheck, ArrowDown } from 'lucide-react';
 import GoldenParticles from '@/components/particles';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
@@ -119,8 +119,8 @@ export default function ResultPage() {
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-marble.png')] opacity-[0.03]"></div>
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black via-transparent to-black"></div>
         <div className="relative z-10 flex flex-col items-center w-full max-w-5xl text-center">
-            <h2 className="font-headline text-3xl font-extrabold md:text-4xl mb-4">Escolha como quer começar sua jornada</h2>
-            <p className="text-lg text-primary-foreground/80 mb-12 max-w-3xl md:text-xl">Você desbloqueou todos os bônus e agora pode escolher entre o acesso básico ou o completo com tudo liberado.</p>
+            <h2 className="font-headline text-3xl font-extrabold md:text-4xl mb-4 text-white">Escolha como quer começar sua jornada</h2>
+            <p className="text-lg text-white mb-12 max-w-3xl md:text-xl">Você desbloqueou todos os bônus e agora pode escolher entre o acesso básico ou o completo com tudo liberado.</p>
             <div className="grid grid-cols-1 gap-12 w-full md:grid-cols-2 md:gap-8 max-w-4xl mx-auto">
                 {/* Plano Básico */}
                 <div className="flex flex-col items-center text-center p-8 rounded-2xl bg-[#111] border border-amber-500/25 shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-amber-500/10 animate-fade-in-up" style={{animationDelay: '200ms'}}>

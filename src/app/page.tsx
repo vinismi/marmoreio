@@ -5,7 +5,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
-import { Brain, ArrowDown } from 'lucide-react';
+import { Brain } from 'lucide-react';
 import ShowcaseCarousel from '@/components/showcase-carousel';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
@@ -21,17 +21,19 @@ export default function Home() {
     <main className="overflow-x-hidden">
       {/* Hero Section */}
       <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-black p-6 text-center text-foreground">
-        {heroImage && (
-            <Image 
-              src={heroImage.imageUrl} 
-              alt={heroImage.description} 
-              fill 
-              className="object-cover z-0 opacity-20" 
-              data-ai-hint={heroImage.imageHint} 
-              priority 
-            />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black/95 z-0"></div>
+        <div className="absolute inset-0 z-0">
+          {heroImage && (
+              <Image 
+                src={heroImage.imageUrl} 
+                alt={heroImage.description} 
+                fill 
+                className="object-cover opacity-20" 
+                data-ai-hint={heroImage.imageHint} 
+                priority 
+              />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black/95"></div>
+        </div>
         
         <div className="z-10 flex flex-col items-center gap-6 p-4">
             <h1 
@@ -50,21 +52,27 @@ export default function Home() {
                 <p className="text-base text-white/80 md:text-base">Participe do nosso treino interativo e desbloqueie bônus secretos para dominar essa técnica.</p>
               </div>
             </div>
+
+            <div className="z-20 w-full">
+              <ShowcaseCarousel />
+            </div>
+
+            <div className="z-40 w-full max-w-md mt-6">
+              <Button 
+                size="lg" 
+                className="button-shine-gradient text-black hover:text-black text-lg font-bold w-full rounded-full md:text-lg animate-fade-in-up animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
+                onClick={handleStart}
+                style={{ animationDelay: '0.8s' }}
+              >
+                  <Brain className="mr-2 group-hover:animate-pulse" /> PARTICIPAR DO TREINAMENTO INTERATIVO
+              </Button>
+            </div>
             
-            <ShowcaseCarousel />
-
-            <Button 
-              size="lg" 
-              className="button-shine-gradient text-black hover:text-black text-lg font-bold w-full max-w-md rounded-full md:text-lg animate-fade-in-up animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
-              onClick={handleStart}
-              style={{ animationDelay: '0.8s' }}
-            >
-                <Brain className="mr-2 group-hover:animate-pulse" /> PARTICIPAR DO TREINAMENTO INTERATIVO
-            </Button>
-
-            <Badge variant="secondary" className="mt-4 animate-fade-in-up bg-black/30 border-white/20 text-white shadow-lg" style={{ animationDelay: '1s' }}>
-              🔥 +7.000 pintores já aplicaram essa técnica!
-            </Badge>
+            <div className="z-30 mt-4">
+              <Badge variant="secondary" className="animate-fade-in-up bg-black/30 border-white/20 text-white shadow-lg" style={{ animationDelay: '1s' }}>
+                🔥 +7.000 pintores já aplicaram essa técnica!
+              </Badge>
+            </div>
         </div>
       </section>
     </main>

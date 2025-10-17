@@ -61,7 +61,7 @@
 
 @layer utilities {
   .btn-golden-glow:hover {
-    @apply shadow-[0_4px_12px_rgba(255,215,0,0.4)];
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
   }
 
   .animate-golden-glow {
@@ -170,10 +170,10 @@
   }
 
   @keyframes button-shine {
-    0% {
+    from {
       background-position: 200% 0;
     }
-    100% {
+    to {
       background-position: -200% 0;
     }
   }

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { Box, Gem, Sparkles, AlertTriangle, ShieldCheck, ArrowDown } from 'lucide-react';
+import { Box, Gem, AlertTriangle, ShieldCheck } from 'lucide-react';
 import GoldenParticles from '@/components/particles';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');

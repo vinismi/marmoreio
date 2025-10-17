@@ -42,7 +42,7 @@ export default function Home() {
               className="flex flex-col gap-4 animate-fade-in-up"
               style={{ animationDelay: '0.6s' }}
             >
-              <p className="max-w-2xl text-lg text-white md:text-xl">Descubra como pintores estão criando pisos marmorizados incríveis com materiais simples — e sendo pagos como artistas.</p>
+              <p className="max-w-2xl text-lg text-white md:text-xl">Descubra como pintores estão criando pisos marmorizados incríveis com materiais simples e sendo pagos como artistas.</p>
               <p className="max-w-xl text-base text-white/80 md:text-base mt-2">Participe do nosso treino interativo e desbloqueie bônus secretos para dominar essa técnica.</p>
             </div>
             <Button 

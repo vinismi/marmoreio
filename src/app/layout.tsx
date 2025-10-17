@@ -1,6 +1,20 @@
 import type { Metadata } from 'next';
+import { Inter, Poppins } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: '800',
+  variable: '--font-poppins',
+});
 
 export const metadata: Metadata = {
   title: 'Mestre Marmorista',
@@ -13,12 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&family=Inter:wght@400&display=swap" rel="stylesheet" />
-      </head>
+    <html lang="pt-BR" className={`${inter.variable} ${poppins.variable}`}>
       <body className="font-body antialiased">
         {children}
         <Toaster />

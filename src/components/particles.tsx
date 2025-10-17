@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 interface Particle {
   id: number;
@@ -8,19 +8,28 @@ interface Particle {
 }
 
 const GoldenParticles = ({ count = 30, visible = false }: { count?: number, visible?: boolean }) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const particles = useMemo<Particle[]>(() => {
+    if (!isClient) {
+      return [];
+    }
     return Array.from({ length: count }).map((_, i) => ({
       id: i,
       style: {
         top: `${Math.random() * 100}%`,
         left: `${Math.random() * 100}%`,
-        animationDelay: `${Math.random() * 2.5}s`,
-        animationDuration: `${1.5 + Math.random() * 2}s`,
+        animationDelay: `${Math.random() * 4}s`,
+        animationDuration: `${2 + Math.random() * 3}s`,
       },
     }));
-  }, [count]);
+  }, [count, isClient]);
 
-  if (!visible) return null;
+  if (!visible || !isClient) return null;
 
   return (
     <div className="particle-container">

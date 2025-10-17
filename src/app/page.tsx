@@ -5,7 +5,8 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
-import { Brain } from 'lucide-react';
+import { Brain, ArrowDown } from 'lucide-react';
+import ShowcaseCarousel from '@/components/showcase-carousel';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
 
@@ -49,6 +50,8 @@ export default function Home() {
                 <p className="text-base text-white/80 md:text-base">Participe do nosso treino interativo e desbloqueie bônus secretos para dominar essa técnica.</p>
               </div>
             </div>
+            
+            <ShowcaseCarousel />
 
             <Button 
               size="lg" 

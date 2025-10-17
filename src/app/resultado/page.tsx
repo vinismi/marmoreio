@@ -190,7 +190,7 @@ export default function ResultPage() {
               Falar com Suporte no WhatsApp
             </Button>
             <p className="text-sm text-white/80 mt-4">
-              Atendimento das 8h às 18h | Resposta em até alguns minutos 💬
+              Suporte 24h por dia | Resposta em até alguns minutos 💬
             </p>
           </div>
         </div>

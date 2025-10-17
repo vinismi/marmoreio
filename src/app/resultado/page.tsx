@@ -119,7 +119,7 @@ export default function ResultPage() {
                 <div className="flex flex-col items-center text-center p-8 rounded-2xl bg-[#111] border border-amber-500/25 shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-amber-500/10 animate-fade-in-up" style={{animationDelay: '200ms'}}>
                     <Box className="w-16 h-16 text-amber-400 mb-4"/>
                     <h3 className="font-headline text-2xl font-bold mb-2">Plano Básico</h3>
-                    <p className="mb-6 h-12 text-base md:h-16 text-white/70">Curso essencial fundamentos e aplicação do piso marmorizado.</p>
+                    <p className="mb-6 h-12 text-base md:h-16 text-white/70">Curso essencial: fundamentos e aplicação do piso marmorizado.</p>
                     <p className="text-4xl font-extrabold mb-4 text-amber-400">R$ 5,99</p>
                     <Button size="lg" className="w-full rounded-full bg-amber-400 text-black hover:bg-amber-300 font-bold text-base shadow-[0_4px_14px_rgba(255,215,0,0.4)] hover:shadow-[0_6px_20px_rgba(255,215,0,0.5)] transition-all">QUERO O ACESSO BÁSICO</Button>
                 </div>

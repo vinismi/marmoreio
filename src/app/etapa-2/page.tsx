@@ -22,9 +22,7 @@ export default function Step2Page() {
 
   const handleChoice = (value: string) => {
     setColorTextureChoice(value);
-    setTimeout(() => {
-      setIsCompleted(true);
-    }, 500);
+    setIsCompleted(true);
   };
   
   const handleNext = () => {

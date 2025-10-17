@@ -35,10 +35,8 @@ export default function Step3Page() {
         colorTextureChoice,
         finishChoice: value
     });
-    setTimeout(() => {
-        setIsCompleted(true);
-        setShowParticles(true);
-    }, 500);
+    setIsCompleted(true);
+    setShowParticles(true);
   };
 
   const handleFunnelCompletion = async (finalChoices: MarmorizedPatternAssessmentInput) => {

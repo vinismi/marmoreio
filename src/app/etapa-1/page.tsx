@@ -21,9 +21,7 @@ export default function Step1Page() {
 
   const handleChoice = (value: string) => {
     setAestheticChoice(value);
-    setTimeout(() => {
-      setIsCompleted(true);
-    }, 500);
+    setIsCompleted(true);
   };
 
   const handleNext = () => {

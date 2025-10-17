@@ -66,7 +66,7 @@ export default function Step3Page() {
       <GoldenParticles visible={showParticles} />
       <div className="relative z-10 flex flex-col items-center w-full max-w-md text-center">
         <Progress value={isCompleted ? 100 : 66} className="h-2.5 w-full mb-8" />
-        <h2 className="font-headline text-3xl md:text-4xl font-extrabold mb-8">Por último, qual acabamento valoriza mais o piso? 🧱</h2>
+        <h2 className="font-headline text-3xl md:text-4xl font-extrabold mb-8">Por último, qual acabamento valoriza mais o piso? ✨</h2>
         <div className="grid grid-cols-1 gap-6 w-full md:grid-cols-3">
           {finishOptions.map(option => (
             <button
@@ -89,13 +89,13 @@ export default function Step3Page() {
         </div>
         {isCompleted && (
           <div className="mt-8 flex flex-col items-center gap-4 text-center animate-fade-in-up w-full">
-            <h3 className="font-headline text-2xl font-extrabold text-accent">Incrível!</h3>
+            <h3 className="font-headline text-2xl font-extrabold text-accent">🏆 Incrível!</h3>
             <p className="text-lg">Você completou o Treinamento da IA.</p>
             <div className="flex items-center justify-center gap-2 text-base font-bold bg-accent text-accent-foreground p-3 rounded-lg my-4 animate-bounce w-full">
               <Award size={28}/>
-              <span>TODOS OS BÔNUS DESBLOQUEADOS</span>
+              <span>🎉 TODOS OS BÔNUS DESBLOQUEADOS</span>
             </div>
-            <Button className="w-full rounded-full text-lg" onClick={handleNext}>
+            <Button className="w-full rounded-full text-lg bg-background text-foreground border-2 border-accent hover:bg-accent hover:text-accent-foreground" onClick={handleNext}>
               🔓 VER MEUS BÔNUS DESBLOQUEADOS
             </Button>
           </div>

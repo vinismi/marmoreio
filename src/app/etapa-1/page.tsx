@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { CheckCircle } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
 
 const floorImages = [
   PlaceHolderImages.find(img => img.id === 'marble-floor-1'),
@@ -28,10 +29,14 @@ export default function Step1Page() {
     router.push(`/etapa-2?aestheticChoice=${encodeURIComponent(aestheticChoice)}`);
   };
 
+  const progress = isCompleted ? 33 : 0;
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8 bg-background p-5">
       <div className="w-full max-w-md text-center">
-        <h2 className="font-headline text-3xl md:text-4xl font-extrabold mb-8">Qual desses pisos você acha mais bonito? 🪩</h2>
+        <Progress value={progress} className="h-2.5 w-full mb-8 shadow-inner bg-gray-200" />
+        <h2 className="font-headline text-2xl md:text-3xl font-extrabold mb-2">Qual desses pisos você acha mais bonito? 🪩</h2>
+        <p className="text-secondary-foreground/60 mb-8">Ajude nossa IA a identificar o padrão de beleza perfeito.</p>
         <div className="grid grid-cols-1 gap-6 w-full">
           {floorImages.map((image) => (
             <button

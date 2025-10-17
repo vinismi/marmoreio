@@ -5,7 +5,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
-import { ArrowDown, Brain } from 'lucide-react';
+import { Brain } from 'lucide-react';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
 
@@ -44,7 +44,7 @@ export default function Home() {
               className="flex flex-col gap-4 animate-fade-in-up"
               style={{ animationDelay: '0.6s' }}
             >
-              <p className="max-w-2xl text-lg text-neutral-300 md:text-xl">Descubra como pintores estão criando pisos marmorizados incríveis com materiais simples e sendo pagos como artistas.</p>
+              <p className="max-w-2xl text-lg text-white md:text-xl">Descubra como pintores estão criando pisos marmorizados incríveis com materiais simples e sendo pagos como artistas.</p>
               <div className="mt-2 rounded-lg bg-amber-400/10 px-4 py-2 border border-amber-400/20 max-w-xl mx-auto">
                 <p className="text-base text-white/80 md:text-base">Participe do nosso treino interativo e desbloqueie bônus secretos para dominar essa técnica.</p>
               </div>
@@ -62,9 +62,6 @@ export default function Home() {
             <Badge variant="secondary" className="mt-4 animate-fade-in-up bg-black/30 border-white/20 text-white shadow-lg" style={{ animationDelay: '1s' }}>
               🔥 +7.000 pintores já aplicaram essa técnica!
             </Badge>
-        </div>
-        <div className="absolute bottom-8 animate-bounce z-10">
-          <ArrowDown className="w-6 h-6 text-accent" />
         </div>
       </section>
     </main>

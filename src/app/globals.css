@@ -23,7 +23,7 @@
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
     --ring: 51 100% 50%;
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
  
   .dark {
@@ -60,8 +60,8 @@
 }
 
 @layer utilities {
-  .btn-golden-glow {
-    @apply hover:shadow-[0_4px_12px_rgba(255,215,0,0.4)];
+  .btn-golden-glow:hover {
+    @apply shadow-[0_4px_12px_rgba(255,215,0,0.4)];
   }
 
   .animate-golden-glow {
@@ -107,7 +107,7 @@
     height: 100%;
     pointer-events: none;
     overflow: hidden;
-    z-index: 50;
+    z-index: 0;
   }
 
   .particle {
@@ -136,7 +136,7 @@
   }
 
   .animate-fade-in-up {
-    animation: fade-in-up 0.5s ease-out forwards;
+    animation: fade-in-up 0.6s ease-out forwards;
   }
   
   @keyframes fade-in-up {

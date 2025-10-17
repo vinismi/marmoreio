@@ -5,7 +5,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, Brain } from 'lucide-react';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
 
@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <main className="overflow-x-hidden">
       {/* Hero Section */}
-      <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-black via-zinc-900 to-black p-6 text-center text-foreground">
+      <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-black p-6 text-center text-foreground">
         {heroImage && (
             <Image 
               src={heroImage.imageUrl} 
@@ -30,30 +30,36 @@ export default function Home() {
               priority 
             />
         )}
-        <div className="absolute inset-0 bg-black/50 z-0"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black/95 z-0"></div>
+        
         <div className="z-10 flex flex-col items-center gap-6 p-4">
             <h1 
-              className="font-headline text-3xl font-extrabold uppercase tracking-tight md:text-5xl animate-fade-in-up"
-              style={{ animationDelay: '0.4s' }}
+              className="font-headline text-3xl font-extrabold uppercase tracking-tight md:text-5xl lg:text-6xl animate-fade-in-up max-w-4xl"
+              style={{ textShadow: '0 0 10px rgba(0,0,0,0.5)', animationDelay: '0.4s' }}
             >
-              A técnica que transforma qualquer piso comum em um <span className="text-accent animate-golden-glow">mármore de luxo.</span>
+              A técnica que transforma qualquer piso comum em um <span className="text-gradient-gold animated-text-gradient" style={{textShadow: '0 0 22px hsla(var(--accent), 0.7)'}}>mármore de luxo.</span>
             </h1>
+            
             <div 
               className="flex flex-col gap-4 animate-fade-in-up"
               style={{ animationDelay: '0.6s' }}
             >
-              <p className="max-w-2xl text-lg text-white md:text-xl">Descubra como pintores estão criando pisos marmorizados incríveis com materiais simples e sendo pagos como artistas.</p>
-              <p className="max-w-xl text-base text-white/80 md:text-base mt-2">Participe do nosso treino interativo e desbloqueie bônus secretos para dominar essa técnica.</p>
+              <p className="max-w-2xl text-lg text-neutral-300 md:text-xl">Descubra como pintores estão criando pisos marmorizados incríveis com materiais simples e sendo pagos como artistas.</p>
+              <div className="mt-2 rounded-lg bg-amber-400/10 px-4 py-2 border border-amber-400/20 max-w-xl mx-auto">
+                <p className="text-base text-white/80 md:text-base">Participe do nosso treino interativo e desbloqueie bônus secretos para dominar essa técnica.</p>
+              </div>
             </div>
+
             <Button 
               size="lg" 
-              className="bg-accent text-accent-foreground hover:bg-accent/90 btn-golden-glow text-lg font-bold w-full max-w-md rounded-full md:text-lg animate-fade-in-up"
+              className="button-shine-gradient text-black hover:text-black text-lg font-bold w-full max-w-md rounded-full md:text-lg animate-fade-in-up animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
               onClick={handleStart}
               style={{ animationDelay: '0.8s' }}
             >
-                🧠 PARTICIPAR DO TREINAMENTO INTERATIVO
+                <Brain className="mr-2 group-hover:animate-pulse" /> PARTICIPAR DO TREINAMENTO INTERATIVO
             </Button>
-            <Badge variant="secondary" className="mt-4 animate-fade-in-up" style={{ animationDelay: '1s' }}>
+
+            <Badge variant="secondary" className="mt-4 animate-fade-in-up bg-black/30 border-white/20 text-white shadow-lg" style={{ animationDelay: '1s' }}>
               🔥 +7.000 pintores já aplicaram essa técnica!
             </Badge>
         </div>

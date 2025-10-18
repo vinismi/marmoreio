@@ -8,21 +8,21 @@
     },
     {
       "id": "marble-floor-1",
-      "description": "Luxurious white and gold marble floor.",
-      "imageUrl": "https://images.unsplash.com/photo-1637195078975-14c8a247bddb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx3aGl0ZSUyMGdvbGQlMjBtYXJibGV8ZW58MHx8fHwxNzYwNzQzNDc5fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "white gold marble"
+      "description": "Piso marmorizado azul em ambiente moderno.",
+      "imageUrl": "https://i.postimg.cc/ncRD5WHR/img1.jpg",
+      "imageHint": "blue marble floor"
     },
     {
       "id": "marble-floor-2",
-      "description": "Stunning black marble floor with dramatic white veins.",
-      "imageUrl": "https://images.unsplash.com/photo-1669552550711-d415f149c969?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxibGFjayUyMHdoaXRlJTIwbWFyYmxlfGVufDB8fHx8MTc2MDc0MzQ3OXww&ixlibrb-4.1.0&q=80&w=1080",
-      "imageHint": "black white marble"
+      "description": "Piso de resina com efeito de mármore branco e cinza.",
+      "imageUrl": "https://i.postimg.cc/DwSXKcZR/piso-marmore-resina-eco-empresa-pisos-e1716861650969.png",
+      "imageHint": "white grey marble"
     },
     {
       "id": "marble-floor-3",
-      "description": "Exotic blue and gold marble patterned floor.",
-      "imageUrl": "https://images.unsplash.com/photo-1506483033392-4ea1826e73de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxibHVlJTIwZ29sZCUyMG1hcmJsZXxlbnwwfHx8fDE3NjA3NDM0Nzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "blue gold marble"
+      "description": "Cadeira de design em frente a uma parede com textura.",
+      "imageUrl": "https://i.postimg.cc/W1dkP73H/uma-cadeira-que-esta-fora-580184-60.avif",
+      "imageHint": "textured wall"
     },
     {
       "id": "showcase-1",

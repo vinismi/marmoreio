@@ -63,9 +63,9 @@ export default function Step1Page() {
               <Image 
                 src={image.imageUrl} 
                 alt={image.description} 
-                width={600} 
-                height={400} 
-                className="w-full h-auto object-cover aspect-[3/2] rounded-[11px] transition-transform duration-300" 
+                width={400} 
+                height={500} 
+                className="w-full h-auto object-cover aspect-[4/5] rounded-[11px] transition-transform duration-300" 
                 data-ai-hint={image.imageHint} 
               />
               {aestheticChoice === image.description && (

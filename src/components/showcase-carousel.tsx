@@ -42,12 +42,13 @@ export default function ShowcaseCarousel() {
           {showcaseImages.map((image, index) => (
             <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
               <div className="p-1">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-amber-500/25 shadow-lg shadow-amber-500/10 transition-all duration-300 hover:scale-105 hover:shadow-amber-500/20">
+                <div className="overflow-hidden rounded-2xl border border-amber-500/25 shadow-lg shadow-amber-500/10 transition-all duration-300 hover:scale-105 hover:shadow-amber-500/20">
                     <Image
                       src={image.imageUrl}
                       alt={image.description}
-                      fill
-                      className="object-cover"
+                      width={400}
+                      height={300}
+                      className="aspect-[4/3] w-full object-cover"
                       data-ai-hint={image.imageHint}
                     />
                 </div>

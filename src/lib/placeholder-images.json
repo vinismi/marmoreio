@@ -15,7 +15,7 @@
     {
       "id": "marble-floor-2",
       "description": "Stunning black marble floor with dramatic white veins.",
-      "imageUrl": "https://images.unsplash.com/photo-1669552550711-d415f149c969?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxibGFjayUyMHdoaXRlJTIwbWFyYmxlfGVufDB8fHx8MTc2MDc0MzQ3OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1669552550711-d415f149c969?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxibGFjayUyMHdoaXRlJTIwbWFyYmxlfGVufDB8fHx8MTc2MDc0MzQ3OXww&ixlibrb-4.1.0&q=80&w=1080",
       "imageHint": "black white marble"
     },
     {
@@ -27,25 +27,25 @@
     {
       "id": "showcase-1",
       "description": "Piso marmorizado preto com veios dourados.",
-      "imageUrl": "https://images.unsplash.com/photo-1603739592262-e66a6708e141?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxibGFjayUyMGdvbGQlMjBtYXJibGV8ZW58MHx8fHwxNzYwNzQzNDc5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://i.postimg.cc/rshkVxsk/07753f3546ac6cc19acdc1647aeba6b5.jpg",
       "imageHint": "black gold marble"
     },
     {
       "id": "showcase-2",
       "description": "Parede branca com textura marmorizada acetinada.",
-      "imageUrl": "https://images.unsplash.com/photo-1586609143615-019f8824129f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3aGl0ZSUyMHNhdGluJTIwbWFyYmxlfGVufDB8fHx8MTc2MDc0MzQ3OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://i.postimg.cc/3NLT8mNQ/488360255-1272173491362768-952132503083529148-n.jpg",
       "imageHint": "white satin marble"
     },
     {
       "id": "showcase-3",
       "description": "Piso cinza perolado com reflexo.",
-      "imageUrl": "https://images.unsplash.com/photo-1620787313321-a6d20df9ece7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxncmF5JTIwcGVhcmwlMjBtYXJibGV8ZW58MHx8fHwxNzYwNzQzNDc5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://i.postimg.cc/sxnrj7xd/71-Zwxkt4jz-L.jpg",
       "imageHint": "gray pearl marble"
     },
     {
       "id": "showcase-4",
       "description": "Bancada de cozinha com efeito marmorizado escuro.",
-      "imageUrl": "https://images.unsplash.com/photo-1601971988253-cdb59d718f9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkYXJrJTIwbWFyYmxlJTIwY291bnRlcnRvcHxlbnwwfHx8fDE3NjA3NDM0Nzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://i.postimg.cc/Wz9vNgzP/8998ba5b8decfb53697f4e346be84f61.jpg",
       "imageHint": "dark marble countertop"
     }
   ]

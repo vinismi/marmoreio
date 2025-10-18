@@ -47,8 +47,8 @@ export default function ShowcaseCarousel() {
                       src={image.imageUrl}
                       alt={image.description}
                       width={400}
-                      height={300}
-                      className="aspect-[4/3] w-full object-cover"
+                      height={500}
+                      className="aspect-[4/5] w-full object-cover"
                       data-ai-hint={image.imageHint}
                     />
                 </div>

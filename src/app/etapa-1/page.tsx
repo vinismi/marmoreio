@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { CheckCircle, Zap } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import GoldenParticles from '@/components/particles';
+import Link from 'next/link';
 
 const floorImages = [
   PlaceHolderImages.find(img => img.id === 'marble-floor-1'),
@@ -24,10 +25,6 @@ export default function Step1Page() {
   const handleChoice = (value: string) => {
     setAestheticChoice(value);
     setIsCompleted(true);
-  };
-
-  const handleNext = () => {
-    router.push(`/etapa-2?aestheticChoice=${encodeURIComponent(aestheticChoice)}`);
   };
 
   const progress = isCompleted ? 33 : 0;
@@ -85,9 +82,13 @@ export default function Step1Page() {
               <p className="flex items-center justify-center gap-2 text-lg font-semibold text-green-400"><CheckCircle size={24} /> Treino IA: Etapa 1 concluída!</p>
               <p className="mt-1 max-w-lg text-secondary-foreground/80 text-base">Perfeito! Você ajudou nossa IA a reconhecer padrões.</p>
             </div>
-            <Button className="button-shine-gradient mt-5 w-full rounded-full text-lg h-14 font-bold text-black" onClick={handleNext}>
-              <Zap className="mr-2"/> CONTINUAR PARA A PRÓXIMA ETAPA
-            </Button>
+             <Link href={`/etapa-2?aestheticChoice=${encodeURIComponent(aestheticChoice)}`} passHref legacyBehavior>
+                <a className="w-full">
+                    <Button className="button-shine-gradient mt-5 w-full rounded-full text-lg h-14 font-bold text-black">
+                    <Zap className="mr-2"/> CONTINUAR PARA A PRÓXIMA ETAPA
+                    </Button>
+                </a>
+            </Link>
           </div>
         )}
       </div>

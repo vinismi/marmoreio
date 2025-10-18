@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Brain, CheckCircle, Rocket } from 'lucide-react';
+import Link from 'next/link';
 
 const colorTextureOptions = [
   { id: 'a', label: 'Branco + Veios dourados' },
@@ -25,10 +26,6 @@ export default function Step2Page() {
     setIsCompleted(true);
   };
   
-  const handleNext = () => {
-    router.push(`/etapa-3?aestheticChoice=${encodeURIComponent(aestheticChoice)}&colorTextureChoice=${encodeURIComponent(colorTextureChoice)}`);
-  };
-
   const progress = isCompleted ? 66 : 33;
 
   return (
@@ -71,12 +68,15 @@ export default function Step2Page() {
               <p className="text-black/80 text-base mt-1">Você desbloqueou um novo estilo de efeito marmorizado.</p>
             </div>
             
-            <Button 
-              className="button-shine-gradient mt-5 w-full rounded-full text-lg h-14 font-bold text-black" 
-              onClick={handleNext}
-            >
-              <Rocket className="mr-2"/> IR PARA O ÚLTIMO DESAFIO
-            </Button>
+            <Link href={`/etapa-3?aestheticChoice=${encodeURIComponent(aestheticChoice)}&colorTextureChoice=${encodeURIComponent(colorTextureChoice)}`} passHref legacyBehavior>
+              <a className='w-full'>
+                <Button 
+                  className="button-shine-gradient mt-5 w-full rounded-full text-lg h-14 font-bold text-black"
+                >
+                  <Rocket className="mr-2"/> IR PARA O ÚLTIMO DESAFIO
+                </Button>
+              </a>
+            </Link>
           </div>
         )}
       </div>

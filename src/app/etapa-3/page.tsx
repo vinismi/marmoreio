@@ -9,6 +9,7 @@ import { assessMarmorizedPattern, type MarmorizedPatternAssessmentInput } from '
 import { useToast } from '@/hooks/use-toast';
 import { Award, Gem, Leaf, Sparkles, Lock } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
+import Link from 'next/link';
 
 const finishOptions = [
   { id: 'a', label: 'Brilho Espelhado', icon: Sparkles },
@@ -52,14 +53,11 @@ export default function Step3Page() {
     }
   };
 
-  const handleNext = () => {
-    const params = new URLSearchParams({
-        aestheticChoice,
-        colorTextureChoice,
-        finishChoice,
-    }).toString();
-    router.push(`/resultado?${params}`);
-  };
+  const params = new URLSearchParams({
+    aestheticChoice,
+    colorTextureChoice,
+    finishChoice,
+  }).toString();
 
   return (
     <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-background p-5 text-foreground">
@@ -102,9 +100,13 @@ export default function Step3Page() {
               <Award size={28}/>
               <span>🎉 TODOS OS BÔNUS DESBLOQUEADOS</span>
             </div>
-            <Button className="button-shine-gradient w-full rounded-full text-lg h-14 font-bold text-black" onClick={handleNext}>
-              <Lock className="mr-2"/> VER MEUS BÔNUS DESBLOQUEADOS
-            </Button>
+            <Link href={`/resultado?${params}`} passHref legacyBehavior>
+                <a className="w-full">
+                    <Button className="button-shine-gradient w-full rounded-full text-lg h-14 font-bold text-black">
+                        <Lock className="mr-2"/> VER MEUS BÔNUS DESBLOQUEADOS
+                    </Button>
+                </a>
+            </Link>
           </div>
         )}
       </div>

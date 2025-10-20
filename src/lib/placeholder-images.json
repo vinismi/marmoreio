@@ -65,6 +65,24 @@
       "description": "Azul perolado",
       "imageUrl": "https://i.postimg.cc/4yfTqg80/2112527-2.png",
       "imageHint": "blue pearl marble"
+    },
+    {
+      "id": "finish-shine",
+      "description": "Acabamento com brilho espelhado.",
+      "imageUrl": "https://i.postimg.cc/jjvVf9q3/0f16b36ae934f6b7a1ada05900f86adb.jpg",
+      "imageHint": "shine finish"
+    },
+    {
+      "id": "finish-satin",
+      "description": "Acabamento acetinado natural.",
+      "imageUrl": "https://i.postimg.cc/YS8cFV2b/images.jpg",
+      "imageHint": "satin finish"
+    },
+    {
+      "id": "finish-pearl",
+      "description": "Acabamento com efeito perolado.",
+      "imageUrl": "https://i.postimg.cc/SKV095QG/images-1.jpg",
+      "imageHint": "pearl finish"
     }
   ]
 }

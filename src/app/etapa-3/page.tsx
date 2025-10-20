@@ -2,19 +2,33 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import GoldenParticles from '@/components/particles';
 import { assessMarmorizedPattern, type MarmorizedPatternAssessmentInput } from '@/ai/flows/marmorized-pattern-assessment';
 import { useToast } from '@/hooks/use-toast';
-import { Award, Gem, Leaf, Sparkles, Lock } from 'lucide-react';
+import { Award, Lock, CheckCircle } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import Link from 'next/link';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const finishOptions = [
-  { id: 'a', label: 'Brilho Espelhado', icon: Sparkles },
-  { id: 'b', label: 'Acetinado Natural', icon: Leaf },
-  { id: 'c', label: 'Efeito Perolado', icon: Gem },
+  { 
+    id: 'a', 
+    label: 'Brilho Espelhado', 
+    image: PlaceHolderImages.find(img => img.id === 'finish-shine')!
+  },
+  { 
+    id: 'b', 
+    label: 'Acetinado Natural',
+    image: PlaceHolderImages.find(img => img.id === 'finish-satin')!
+  },
+  { 
+    id: 'c', 
+    label: 'Efeito Perolado',
+    image: PlaceHolderImages.find(img => img.id === 'finish-pearl')!
+  },
 ];
 
 export default function Step3Page() {
@@ -71,23 +85,38 @@ export default function Step3Page() {
             </h2>
         </div>
 
-        <div className="mt-8 grid w-full grid-cols-1 gap-6 animate-fade-in-up md:grid-cols-3" style={{ animationDelay: '0.2s' }}>
+        <div className="mt-8 grid w-full grid-cols-1 gap-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           {finishOptions.map(option => (
             <button
               key={option.id}
               onClick={() => handleChoice(option.label)}
               className={cn(
-                "group relative flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 text-lg font-bold transition-all duration-300 ease-in-out transform w-full h-32", 
+                "group relative overflow-hidden rounded-xl border-2 border-transparent transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background w-full",
                 finishChoice === option.label 
-                  ? 'bg-accent text-accent-foreground border-accent scale-105 shadow-[0_0_24px_rgba(255,215,0,0.5)]' 
-                  : 'bg-secondary/10 hover:bg-secondary/20 hover:scale-105 border-primary-foreground/20 hover:border-accent/50',
+                  ? 'border-accent shadow-[0_0_24px_rgba(255,215,0,0.5)] scale-105' 
+                  : 'hover:scale-105 hover:shadow-xl hover:border-accent/50',
                 isCompleted && finishChoice !== option.label ? 'opacity-50 blur-[2px] grayscale' : ''
               )}
               disabled={isCompleted}
             >
-              <option.icon className="w-10 h-10 text-accent transition-transform duration-300 group-hover:scale-110" />
-              <span className="text-base text-white">{option.label}</span>
-              {finishChoice === option.label && <span className="absolute top-2 right-2 animate-bounce">✅</span>}
+              <Image 
+                src={option.image.imageUrl} 
+                alt={option.image.description} 
+                width={400} 
+                height={500} 
+                className="w-full h-auto object-cover aspect-[4/5] rounded-[11px] transition-transform duration-300" 
+                data-ai-hint={option.image.imageHint} 
+              />
+               <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-3 backdrop-blur-sm">
+                <p className="font-bold text-white text-lg">{option.label}</p>
+              </div>
+              {finishChoice === option.label && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-[2px]">
+                  <span className="font-headline text-2xl text-white flex items-center gap-2 animate-bounce">
+                    <CheckCircle className="text-green-400"/> Selecionado
+                  </span>
+                </div>
+              )}
             </button>
           ))}
         </div>
@@ -102,7 +131,7 @@ export default function Step3Page() {
             </div>
             <Link href={`/resultado?${params}`} passHref legacyBehavior>
                 <a className="w-full">
-                    <Button className="button-shine-gradient w-full rounded-full text-lg h-14 font-bold text-black">
+                    <Button className="button-shine-gradient mt-5 w-full rounded-full text-lg h-14 font-bold text-black">
                         <Lock className="mr-2"/> VER MEUS BÔNUS DESBLOQUEADOS
                     </Button>
                 </a>

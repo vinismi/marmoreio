@@ -152,7 +152,13 @@ export default function ResultPage() {
                       <p className="text-5xl font-extrabold text-black">R$ 14,99</p>
                       <p className="text-base text-black/70"><del>de R$ 53,99</del></p>
                     </div>
-                    <Button size="lg" className="w-full rounded-full bg-black text-amber-400 hover:bg-gray-800 font-bold text-base shadow-lg hover:shadow-2xl transition-all">GARANTIR O PACOTE COMPLETO</Button>
+                    <Button 
+                      size="lg" 
+                      className="w-full rounded-full bg-black text-amber-400 hover:bg-gray-800 font-bold text-base shadow-lg hover:shadow-2xl transition-all"
+                      onClick={() => window.open('https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS', '_blank')}
+                    >
+                      GARANTIR O PACOTE COMPLETO
+                    </Button>
                 </div>
             </div>
 

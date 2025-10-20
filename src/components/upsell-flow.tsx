@@ -44,10 +44,17 @@ const OfferScreen = () => {
                 </div>
 
                 <div className="flex w-full flex-col items-center gap-4">
-                     <Button className="button-shine-gradient w-full rounded-full text-lg h-14 font-bold text-black animate-subtle-pulse">
+                     <Button 
+                        className="button-shine-gradient w-full rounded-full text-lg h-14 font-bold text-black animate-subtle-pulse"
+                        onClick={() => window.open('https://www.ggcheckout.com/checkout/v2/Yj4f7amE5UXaHzZUt3Uz', '_blank')}
+                    >
                         <Sparkles className="mr-2"/> SIM, QUERO O PACOTE COMPLETO COM DESCONTO
                     </Button>
-                    <Button variant="outline" className="w-full rounded-full border-accent/50 bg-transparent text-white/80 h-12 hover:bg-accent/10 hover:text-white">
+                    <Button 
+                        variant="outline" 
+                        className="w-full rounded-full border-accent/50 bg-transparent text-white/80 h-12 hover:bg-accent/10 hover:text-white"
+                        onClick={() => window.open('https://www.ggcheckout.com/checkout/v2/kinHlxMmxB9mSAelkzX5', '_blank')}
+                    >
                         Continuar com apenas a versão básica (R$5,99)
                     </Button>
                 </div>

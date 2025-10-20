@@ -47,6 +47,24 @@
       "description": "Bancada de cozinha com efeito marmorizado escuro.",
       "imageUrl": "https://i.postimg.cc/Wz9vNgzP/8998ba5b8decfb53697f4e346be84f61.jpg",
       "imageHint": "dark marble countertop"
+    },
+    {
+      "id": "color-texture-white",
+      "description": "Branco + Veios dourados",
+      "imageUrl": "https://i.postimg.cc/Qd2Zs54m/2011e84a26ddcf02b33e889fc49f6144.jpg",
+      "imageHint": "white gold marble"
+    },
+    {
+      "id": "color-texture-black",
+      "description": "Preto espelhado",
+      "imageUrl": "https://i.postimg.cc/4xDRZtLw/20220425porcelanato-preto-29.jpg",
+      "imageHint": "black mirrored marble"
+    },
+    {
+      "id": "color-texture-blue",
+      "description": "Azul perolado",
+      "imageUrl": "https://i.postimg.cc/4yfTqg80/2112527-2.png",
+      "imageHint": "blue pearl marble"
     }
   ]
 }

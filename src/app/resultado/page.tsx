@@ -9,6 +9,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 import { Box, Gem, AlertTriangle, ShieldCheck } from 'lucide-react';
 import GoldenParticles from '@/components/particles';
+import UpsellFlow from '@/components/upsell-flow';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
 
@@ -36,6 +37,7 @@ export default function ResultPage() {
   const testimonialsRef = useRef<HTMLDivElement>(null);
   const plansRef = useRef<HTMLDivElement>(null);
   const guaranteeRef = useRef<HTMLDivElement>(null);
+  const [startUpsell, setStartUpsell] = useState(false);
   
   const scrollTo = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -55,6 +57,10 @@ export default function ResultPage() {
     );
     return () => timers.forEach(clearTimeout);
   }, []);
+
+  if (startUpsell) {
+    return <UpsellFlow />;
+  }
 
   return (
     <main className="overflow-x-hidden bg-black">
@@ -128,7 +134,13 @@ export default function ResultPage() {
                     <h3 className="font-headline text-2xl font-bold mb-2 text-white">Plano Básico</h3>
                     <p className="mb-6 h-12 text-base md:h-16 text-white/70">Curso essencial: fundamentos e aplicação do piso marmorizado.</p>
                     <p className="text-4xl font-extrabold mb-4 text-amber-400">R$ 5,99</p>
-                    <Button size="lg" className="w-full rounded-full bg-amber-400 text-black hover:bg-amber-300 font-bold text-base shadow-[0_4px_14px_rgba(255,215,0,0.4)] hover:shadow-[0_6px_20px_rgba(255,215,0,0.5)] transition-all">QUERO O ACESSO BÁSICO</Button>
+                    <Button 
+                      size="lg" 
+                      className="w-full rounded-full bg-amber-400 text-black hover:bg-amber-300 font-bold text-base shadow-[0_4px_14px_rgba(255,215,0,0.4)] hover:shadow-[0_6px_20px_rgba(255,215,0,0.5)] transition-all"
+                      onClick={() => setStartUpsell(true)}
+                    >
+                      QUERO O ACESSO BÁSICO
+                    </Button>
                 </div>
                 {/* Plano Completo */}
                 <div className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 border-2 border-amber-300 shadow-2xl shadow-amber-500/30 transform transition-all duration-300 md:scale-105 hover:scale-110 animate-fade-in-up" style={{animationDelay: '400ms'}}>

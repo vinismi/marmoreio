@@ -78,7 +78,10 @@ function ResultContent() {
             <div className="w-full text-center mb-4 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
                 <p className="font-bold text-sm md:text-base text-accent animate-pulse" style={{textShadow: '0 0 8px hsl(var(--accent))'}}>🔥 CONQUISTA DESBLOQUEADA – ACESSO VIP LIBERADO 🔥</p>
             </div>
-            <h2 className="font-headline text-3xl font-extrabold md:text-5xl text-accent animate-golden-glow animate-fade-in-up" style={{ animationDelay: '400ms', textShadow: '0 0 15px rgba(255, 215, 0, 0.4)'}}>🎉 VOCÊ CONSEGUIU!</h2>
+            <h2 className="font-headline text-3xl font-extrabold md:text-5xl animate-fade-in-up" style={{ animationDelay: '400ms' }}>
+              <span>🎉 </span>
+              <span className="text-accent animate-golden-glow" style={{ textShadow: '0 0 15px rgba(255, 215, 0, 0.4)'}}>VOCÊ CONSEGUIU!</span>
+            </h2>
              <p className="text-lg md:text-xl mb-8 text-foreground/90 max-w-3xl animate-fade-in-up" style={{ animationDelay: '600ms', lineHeight: '1.6' }}>Todos esses módulos eram pagos... mas por ter completado o treino da IA, você acabou de desbloquear o <span className="text-[#9FFF8C] font-bold" style={{textShadow: '0 0 8px rgba(144, 255, 120, 0.6)'}}>acesso gratuito!</span></p>
             
             <div className="w-full max-w-2xl space-y-3">

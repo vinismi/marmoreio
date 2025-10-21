@@ -71,22 +71,22 @@ function ResultContent() {
   return (
     <main className="overflow-x-hidden bg-black">
       {/* Bonus Section */}
-      <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-gradient-to-b from-[#0A0A0A] to-[#1E1500] p-6 text-foreground overflow-hidden origin-top scale-[.8] sm:scale-100 transition-transform duration-300">
-          <GoldenParticles visible={true} count={20} />
+       <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-gradient-to-b from-[#0A0A0A] to-[#1E1500] p-6 text-foreground overflow-hidden origin-top scale-[.8] sm:scale-100 transition-transform duration-300">
+          <GoldenParticles visible={true} count={40} />
           {heroImage && <Image src={heroImage.imageUrl} alt={heroImage.description} fill className="object-cover z-0 opacity-5" data-ai-hint={heroImage.imageHint} priority />}
           <div className="relative z-10 flex flex-col items-center w-full max-w-4xl text-center">
             <div className="w-full text-center mb-4 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-                <p className="font-bold text-sm md:text-base text-accent animate-pulse">🔥 CONQUISTA DESBLOQUEADA – ACESSO VIP LIBERADO 🔥</p>
+                <p className="font-bold text-sm md:text-base text-accent animate-pulse" style={{textShadow: '0 0 8px hsl(var(--accent))'}}>🔥 CONQUISTA DESBLOQUEADA – ACESSO VIP LIBERADO 🔥</p>
             </div>
-            <h2 className="font-headline text-3xl font-extrabold md:text-5xl text-accent mb-3 animate-golden-glow animate-fade-in-up" style={{ animationDelay: '400ms' }}>🎉 VOCÊ CONSEGUIU!</h2>
-            <p className="text-lg md:text-xl mb-8 text-foreground/80 max-w-3xl animate-fade-in-up" style={{ animationDelay: '600ms' }}>Todos esses módulos eram pagos... mas por ter completado o treino da IA, você acabou de desbloquear o acesso gratuito!</p>
+            <h2 className="font-headline text-3xl font-extrabold md:text-5xl text-accent animate-golden-glow animate-fade-in-up" style={{ animationDelay: '400ms', textShadow: '0 0 15px rgba(255, 215, 0, 0.4)'}}>🎉 VOCÊ CONSEGUIU!</h2>
+             <p className="text-lg md:text-xl mb-8 text-foreground/90 max-w-3xl animate-fade-in-up" style={{ animationDelay: '600ms', lineHeight: '1.6' }}>Todos esses módulos eram pagos... mas por ter completado o treino da IA, você acabou de desbloquear o <span className="text-[#9FFF8C] font-bold" style={{textShadow: '0 0 8px rgba(144, 255, 120, 0.6)'}}>acesso gratuito!</span></p>
             
             <div className="w-full max-w-2xl space-y-3">
               {bonuses.map((bonus, index) => (
                   <div
                     key={index}
                     className={cn(
-                      "flex flex-col md:flex-row items-start md:items-center justify-between gap-2 text-left p-4 rounded-xl border border-amber-500/40 bg-white/5 backdrop-blur-sm shadow-golden transition-all duration-500",
+                      "flex flex-col md:flex-row items-start md:items-center justify-between gap-2 text-left p-4 rounded-xl border border-amber-500/40 bg-gradient-to-br from-black/20 to-amber-900/20 backdrop-blur-sm shadow-golden transition-all duration-500 hover:scale-[1.03] hover:shadow-amber-500/30",
                       bonusItemsVisible[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
                     )}
                   >

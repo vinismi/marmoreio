@@ -65,7 +65,11 @@
   }
 
   .animate-golden-glow {
-    animation: golden-glow 2.5s ease-in-out infinite;
+    background: linear-gradient(90deg, #FFD700, #FF9900, #FFD700);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 4s linear infinite;
   }
 
   @keyframes golden-glow {

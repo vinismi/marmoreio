@@ -32,7 +32,7 @@ export default function Step1Page() {
   return (
     <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 overflow-hidden bg-background p-5">
       <GoldenParticles visible={true} count={15} />
-      <div className="relative z-10 flex w-full max-w-md flex-col items-center text-center origin-top scale-[.9] sm:scale-100 transition-transform duration-300">
+      <div className="relative z-10 flex w-full max-w-md flex-col items-center text-center origin-top scale-[.8] sm:scale-100 transition-transform duration-300">
         <Progress value={progress} className="mb-8 h-2.5 w-full" />
         <div className="animate-fade-in-up">
             <h2 className="font-headline text-3xl font-extrabold text-white md:text-4xl">

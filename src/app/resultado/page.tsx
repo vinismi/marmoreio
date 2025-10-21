@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { Box, Gem, AlertTriangle, ShieldCheck } from 'lucide-react';
 import GoldenParticles from '@/components/particles';
 import UpsellFlow from '@/components/upsell-flow';
+import TestimonialCarousel from '@/components/testimonial-carousel';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
 
@@ -21,11 +22,8 @@ const bonuses = [
     { name: '🎨 Melhores tintas, resinas e pigmentos', before: 'R$ 8,99', now: 'GRÁTIS' },
 ];
 
-const testimonials = [
-    { quote: "Aprendi com o método e comecei a fazer pisos decorativos no meu bairro. Hoje já estou cobrando R$ 220/m².", author: "Rafael, SP" },
-    { quote: "Comecei com o básico e agora faço paredes marmorizadas, os clientes amam!", author: "Carlos, MG" },
-    { quote: "O curso me ensinou o que ninguém mostra no YouTube: como cobrar e onde achar material bom e barato.", author: "Tiago, PR" },
-];
+const videoTestimonials1 = ["6tdjfbsqle", "xab9r7nndh"];
+const videoTestimonials2 = ["ihs0hcvo3h", "foutga0xyz"];
 
 // SVG para o ícone do WhatsApp
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -104,15 +102,9 @@ export default function ResultPage() {
       {/* Testimonials */}
       <section ref={testimonialsRef} className="flex flex-col items-center justify-center gap-8 bg-background py-16 px-6 md:py-24">
         <h2 className="font-headline text-3xl font-extrabold md:text-4xl text-center">Quem aprendeu essa técnica está mudando de vida</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mt-8 w-full">
-            {testimonials.map((t, i) => (
-                <Card key={i} className="bg-secondary/50 border-border">
-                    <CardContent className="p-6">
-                        <p className="text-lg italic">"{t.quote}"</p>
-                        <p className="text-right font-bold mt-4">- {t.author}</p>
-                    </CardContent>
-                </Card>
-            ))}
+        <div className='w-full max-w-6xl mx-auto space-y-8'>
+          <TestimonialCarousel videoIds={videoTestimonials1} />
+          <TestimonialCarousel videoIds={videoTestimonials2} />
         </div>
         <p className="mt-8 text-center text-lg md:text-xl max-w-3xl text-foreground/80">Assim como eles, você também pode começar do zero e dominar o efeito marmorizado. Agora é só escolher como quer começar.</p>
         <Button size="lg" className="mt-4 text-lg font-bold w-full max-w-xs rounded-full" onClick={() => scrollTo(plansRef)}>
@@ -226,3 +218,5 @@ export default function ResultPage() {
     </main>
   );
 }
+
+    

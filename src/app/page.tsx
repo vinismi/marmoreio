@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <main className="overflow-x-hidden">
       {/* Hero Section */}
-      <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-black p-6 text-center text-foreground">
+      <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-black p-5 text-center text-foreground">
         <div className="absolute inset-0 z-0">
           {heroImage && (
               <Image 
@@ -35,7 +35,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black/95"></div>
         </div>
         
-        <div className="z-10 flex flex-col items-center gap-6 p-4">
+        <div className="z-10 flex flex-col items-center gap-6 p-4 origin-top scale-[.9] sm:scale-100 transition-transform duration-300">
             <h1 
               className="font-headline text-3xl font-extrabold uppercase tracking-tight md:text-5xl lg:text-6xl animate-fade-in-up max-w-4xl"
               style={{ textShadow: '0 0 10px rgba(0,0,0,0.5)', animationDelay: '0.4s' }}
@@ -60,7 +60,7 @@ export default function Home() {
             <div className="z-40 w-full max-w-md mt-6">
               <Button 
                 size="lg" 
-                className="button-shine-gradient text-black hover:text-black text-lg font-bold w-full rounded-full md:text-lg animate-fade-in-up animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
+                className="button-shine-gradient text-black hover:text-black text-lg font-bold w-full rounded-full h-14 md:text-lg animate-fade-in-up animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
                 onClick={handleStart}
                 style={{ animationDelay: '0.8s' }}
               >

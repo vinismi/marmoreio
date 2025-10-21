@@ -76,7 +76,7 @@ export default function Step3Page() {
   return (
     <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-background p-5 text-foreground">
       <GoldenParticles visible={showParticles} count={isCompleted ? 50: 15} />
-      <div className="relative z-10 flex w-full max-w-md flex-col items-center text-center">
+      <div className="relative z-10 flex w-full max-w-md flex-col items-center text-center origin-top scale-[.9] sm:scale-100 transition-transform duration-300">
         <Progress value={isCompleted ? 100 : 66} className="mb-8 h-2.5 w-full" />
         
         <div className="animate-fade-in-up">

@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={`${inter.variable} ${poppins.variable}`}>
-      <body className="font-body antialiased">
+      <body className="font-body antialiased overflow-x-hidden">
         {children}
         <Toaster />
       </body>

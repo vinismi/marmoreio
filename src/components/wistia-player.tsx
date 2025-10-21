@@ -9,16 +9,20 @@ type WistiaPlayerProps = {
 // Global Wistia script loading promise
 let wistiaScriptLoadingPromise: Promise<void> | null = null;
 const loadWistiaScript = () => {
+  if (typeof window === 'undefined') {
+    return Promise.resolve();
+  }
   if (wistiaScriptLoadingPromise) {
     return wistiaScriptLoadingPromise;
   }
   wistiaScriptLoadingPromise = new Promise((resolve, reject) => {
-    if (document.querySelector('script[src="https://fast.wistia.com/player.js"]')) {
+    // Check if the script already exists
+    if (document.querySelector('script[src="https://fast.wistia.com/assets/external/E-v1.js"]')) {
       resolve();
       return;
     }
     const script = document.createElement('script');
-    script.src = 'https://fast.wistia.com/player.js';
+    script.src = 'https://fast.wistia.com/assets/external/E-v1.js';
     script.async = true;
     script.onload = () => resolve();
     script.onerror = () => {
@@ -33,40 +37,32 @@ const loadWistiaScript = () => {
 
 const WistiaPlayer = ({ mediaId }: WistiaPlayerProps) => {
   const videoId = `wistia_async_${mediaId}`;
+  const videoRef = useRef<any>(null);
 
   useEffect(() => {
-    let video: any;
-
-    const initializePlayer = async () => {
-      try {
-        await loadWistiaScript();
-        
-        // Ensure the global _wq is available
-        (window as any)._wq = (window as any)._wq || [];
-        (window as any)._wq.push({
-          id: videoId,
-          onReady: (v: any) => {
-            video = v;
-          },
-        });
-      } catch (error) {
-        console.error(error);
-      }
+    const init = async () => {
+      await loadWistiaScript();
+      
+      (window as any)._wq = (window as any)._wq || [];
+      (window as any)._wq.push({
+        id: videoId,
+        onReady: (video: any) => {
+          videoRef.current = video;
+        },
+      });
     };
-    
-    initializePlayer();
 
-    // Cleanup function
+    init();
+
     return () => {
-        // Wistia's API might not always have a remove function on the video object
-        // depending on how it's loaded. A safer way is to find the embed and replace it.
-        const embed = document.getElementById(videoId);
-        if (embed) {
-           // A simple way to "remove" the player is to clear the container's contents.
-           // This prevents React from losing its node reference and causing errors.
-           // While not a formal Wistia remove(), it's effective for component unmounts.
-           embed.innerHTML = '';
+      if (videoRef.current) {
+        // This is the correct way to remove a Wistia player instance
+        try {
+            videoRef.current.remove();
+        } catch (e) {
+            console.error("Error removing Wistia player:", e);
         }
+      }
     };
   }, [mediaId, videoId]);
 
@@ -75,7 +71,7 @@ const WistiaPlayer = ({ mediaId }: WistiaPlayerProps) => {
       <div className="wistia_responsive_wrapper" style={{ height: '100%', left: 0, position: 'absolute', top: 0, width: '100%' }}>
         <div
           id={videoId}
-          className={`wistia_embed ${videoId} videoFoam=true`}
+          className={`wistia_embed wistia_async_${mediaId} videoFoam=true`}
           style={{ height: '100%', position: 'relative', width: '100%' }}
         >
           <div className="wistia_swatch" style={{ height: '100%', left: 0, opacity: 0, overflow: 'hidden', position: 'absolute', top: 0, transition: 'opacity 200ms', width: '100%' }}>

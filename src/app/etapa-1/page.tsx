@@ -44,7 +44,7 @@ export default function Step1Page() {
         </div>
 
         <div className="mt-8 grid grid-cols-1 gap-6 w-full animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          {floorImages.map((image) => (
+          {floorImages.map((image, index) => (
             <button
               key={image.id}
               onClick={() => handleChoice(image.description)}
@@ -63,7 +63,8 @@ export default function Step1Page() {
                 width={400} 
                 height={500} 
                 className="w-full h-auto object-cover aspect-[4/5] rounded-[11px] transition-transform duration-300" 
-                data-ai-hint={image.imageHint} 
+                data-ai-hint={image.imageHint}
+                priority={index === 0}
               />
               {aestheticChoice === image.description && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-[2px]">

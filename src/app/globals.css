@@ -192,19 +192,4 @@
       box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
     }
   }
-
-  .handle-pulse {
-    animation: handle-pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes handle-pulse {
-    0%, 100% {
-      transform: scale(1);
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-    }
-    50% {
-      transform: scale(1.1);
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-    }
-  }
 }

@@ -86,7 +86,7 @@ export default function Step3Page() {
         </div>
 
         <div className="mt-8 grid w-full grid-cols-1 gap-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          {finishOptions.map(option => (
+          {finishOptions.map((option, index) => (
             <button
               key={option.id}
               onClick={() => handleChoice(option.label)}
@@ -105,7 +105,8 @@ export default function Step3Page() {
                 width={400} 
                 height={500} 
                 className="w-full h-auto object-cover aspect-[4/5] rounded-[11px] transition-transform duration-300" 
-                data-ai-hint={option.image.imageHint} 
+                data-ai-hint={option.image.imageHint}
+                priority={index === 0}
               />
                <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-3 backdrop-blur-sm">
                 <p className="font-bold text-white text-lg">{option.label}</p>

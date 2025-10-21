@@ -25,7 +25,7 @@ export default function ShowcaseCarousel() {
 
   return (
     <section className="relative w-full max-w-4xl mx-auto my-8 animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
-      <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-black/0 to-black/80 z-0 sm:h-24"></div>
+      <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-black/0 to-black/80 z-0 sm:h-12"></div>
       <h3 className="text-center font-headline text-lg md:text-xl text-accent mb-6" style={{ textShadow: '0 0 10px rgba(255,215,0,0.4)'}}>
         Veja como simples superfícies se transformam em obras de arte ✨
       </h3>
@@ -50,6 +50,7 @@ export default function ShowcaseCarousel() {
                       height={500}
                       className="aspect-[4/5] w-full object-cover"
                       data-ai-hint={image.imageHint}
+                      priority={index < 2}
                     />
                 </div>
               </div>
@@ -57,7 +58,7 @@ export default function ShowcaseCarousel() {
           ))}
         </CarouselContent>
       </Carousel>
-      <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/0 to-black/80 z-0 sm:h-24"></div>
+      <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/0 to-black/80 z-0 sm:h-12"></div>
     </section>
   );
 }

@@ -56,7 +56,7 @@ export default function Step2Page() {
         </div>
 
         <div className="mt-8 grid grid-cols-1 gap-6 w-full animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          {colorTextureOptions.map(option => (
+          {colorTextureOptions.map((option, index) => (
             <button
               key={option.id}
               onClick={() => handleChoice(option.label)}
@@ -76,6 +76,7 @@ export default function Step2Page() {
                 height={500} 
                 className="w-full h-auto object-cover aspect-[4/5] rounded-[11px] transition-transform duration-300" 
                 data-ai-hint={option.image.imageHint} 
+                priority={index === 0}
               />
                <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-3 backdrop-blur-sm">
                 <p className="font-bold text-white text-lg">{option.label}</p>

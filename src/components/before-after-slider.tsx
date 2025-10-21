@@ -25,6 +25,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after }) 
   }, []);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     setIsDragging(true);
   }, []);
@@ -53,23 +54,33 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after }) 
   }, [isDragging, handleMove]);
 
   useEffect(() => {
+    const currentHandle = handleRef.current;
+    if (currentHandle) {
+      currentHandle.addEventListener('mousedown', handleMouseDown as any);
+      currentHandle.addEventListener('touchstart', handleTouchStart as any, { passive: true });
+    }
+
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('touchmove', handleTouchMove, { passive: false });
     window.addEventListener('mouseup', handleUp);
     window.addEventListener('touchend', handleUp);
     
     return () => {
+      if (currentHandle) {
+        currentHandle.removeEventListener('mousedown', handleMouseDown as any);
+        currentHandle.removeEventListener('touchstart', handleTouchStart as any);
+      }
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('mouseup', handleUp);
       window.removeEventListener('touchend', handleUp);
     };
-  }, [handleMouseMove, handleTouchMove, handleUp]);
+  }, [handleMouseDown, handleTouchStart, handleMouseMove, handleTouchMove, handleUp]);
 
   return (
     <div
         ref={containerRef}
-        className="group relative w-full aspect-[4/3] max-w-full overflow-hidden rounded-lg shadow-2xl shadow-black/50 select-none cursor-ew-resize"
+        className="relative w-full aspect-[4/3] max-w-full overflow-hidden rounded-lg shadow-2xl shadow-black/50 select-none"
     >
         {/* After Image (Top Layer) */}
         <div
@@ -109,9 +120,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after }) 
         >
           <div
             ref={handleRef}
-            onMouseDown={handleMouseDown}
-            onTouchStart={handleTouchStart}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-accent rounded-full text-black shadow-lg cursor-ew-resize handle-pulse"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-accent rounded-full text-black shadow-lg cursor-ew-resize"
             style={{ pointerEvents: 'auto' }}
           >
             <ChevronsLeftRight size={24} />

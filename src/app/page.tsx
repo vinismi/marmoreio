@@ -39,7 +39,7 @@ export default function Home() {
         
         <div className="relative z-10 flex flex-col items-center gap-6 p-4 origin-top scale-[.8] sm:scale-100 transition-transform duration-300">
             <h1 
-              className="font-headline text-3xl font-extrabold uppercase tracking-tight text-white md:text-5xl lg:text-6xl animate-fade-in-up max-w-4xl"
+              className="font-headline text-3xl font-extrabold uppercase tracking-normal text-white md:text-5xl lg:text-6xl animate-fade-in-up max-w-4xl"
               style={{ textShadow: '0 0 10px rgba(0,0,0,0.5)', animationDelay: '0.2s' }}
             >
               TRANSFORME QUALQUER PAREDE OU PISO EM UM <span className="text-gradient-gold animated-text-gradient" style={{textShadow: '0 0 22px hsla(var(--accent), 0.7)'}}>MÁRMORE DE LUXO. 💎</span>

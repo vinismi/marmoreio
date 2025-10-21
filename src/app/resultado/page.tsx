@@ -185,7 +185,7 @@ function ResultContent() {
                 </div>
             </div>
 
-            <p className="mt-12 text-lg text-white font-semibold">👉 Escolha seu acesso e começa ainda hoje — quem tá aplicando, já tá faturando.</p>
+            <p className="mt-12 text-lg text-white font-semibold">👉 Escolha seu acesso e começa ainda hoje. Quem tá aplicando, já tá faturando.</p>
             
             <div className="mt-16 w-full max-w-3xl">
               <div className="h-px w-full bg-gradient-to-r from-transparent via-amber-500/50 to-transparent mb-8"></div>

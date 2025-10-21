@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -28,7 +29,7 @@ const colorTextureOptions = [
   },
 ];
 
-export default function Step2Page() {
+function Step2Content() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const aestheticChoice = searchParams.get('aestheticChoice') || '';
@@ -112,5 +113,14 @@ export default function Step2Page() {
         )}
       </div>
     </div>
+  );
+}
+
+
+export default function Step2Page() {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <Step2Content />
+    </Suspense>
   );
 }

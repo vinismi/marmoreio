@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
@@ -37,8 +38,7 @@ const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg viewBox="0 0 32 32" {...props}><path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.63-.63c0-1.562 1.033-3.66 1.033-3.66s-1.39-2.75-2.928-2.75c-1.983 0-4.402 2.75-4.402 5.565 0 1.562 1.033 2.75 1.033 2.75s-1.125 1.39-2.928 1.39c-2.25 0-5.565-3.66-5.565-7.222 0-3.66 2.75-7.222 6.163-7.222 3.413 0 5.565 2.75 5.565 5.565 0 1.983-1.033 3.66-1.033 3.66s1.39 1.125 2.928 1.125c2.25 0 4.402-2.75 4.402-5.565 0-2.928-2.25-5.565-5.565-5.565C13.885 4 11 6.75 11 9.638c0 1.562 1.033 2.75 1.033 2.75s-1.39 1.39-2.928 1.39c-1.983 0-4.402-2.75-4.402-5.565C5.105 5.27 7.75 2 12.115 2c4.365 0 7.222 2.75 7.222 6.163 0 3.413-2.75 6.163-5.565 6.163-1.562 0-2.928-1.39-2.928-1.39s1.39-1.125 2.928-1.125c1.562 0 2.928 1.39 2.928 2.928.001 1.563-1.034 2.928-2.928 2.928-1.563 0-2.928-1.39-2.928-2.928s1.39-2.928 2.928-2.928c1.125 0 2.25.63 2.25 1.983 0 1.353-1.125 2.75-2.25 2.75-1.125 0-2.25-.63-2.25-1.983 0-1.353 1.125-2.75 2.25-2.75 1.125 0 2.25.63 2.25 1.983 0 1.353-1.125 2.75-2.25 275-1.125 0-2.25-1.39-2.25-2.928s1.125-2.928 2.25-2.928c1.125 0 2.25 1.39 2.25 2.928s-1.125 2.928-2.25 2.928c-1.125 0-2.25-1.39-2.25-2.928s1.125-2.928 2.25-2.928c.001 0 0 0 0 0z" fill="currentColor"></path></svg>
 );
 
-
-export default function ResultPage() {
+function ResultContent() {
   const testimonialsRef = useRef<HTMLDivElement>(null);
   const plansRef = useRef<HTMLDivElement>(null);
   const guaranteeRef = useRef<HTMLDivElement>(null);
@@ -248,5 +248,14 @@ export default function ResultPage() {
         <WhatsAppIcon className="w-8 h-8" />
       </a>
     </main>
+  );
+}
+
+
+export default function ResultPage() {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <ResultContent />
+    </Suspense>
   );
 }

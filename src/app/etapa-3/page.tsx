@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -30,7 +31,7 @@ const finishOptions = [
   },
 ];
 
-export default function Step3Page() {
+function Step3Content() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { toast } = useToast();
@@ -140,5 +141,13 @@ export default function Step3Page() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function Step3Page() {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <Step3Content />
+    </Suspense>
   );
 }

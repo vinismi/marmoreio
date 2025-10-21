@@ -123,7 +123,7 @@ export default function ResultPage() {
           </p>
           
           <Carousel
-            opts={{ loop: true }}
+            opts={{ loop: true, dragFree: false }}
             plugins={[Autoplay({ delay: 8000, stopOnInteraction: true })]}
             className="w-full"
           >

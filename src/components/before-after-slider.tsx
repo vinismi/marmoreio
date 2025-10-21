@@ -24,12 +24,10 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after }) 
   }, []);
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    e.stopPropagation();
     setIsDragging(true);
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    e.stopPropagation();
     setIsDragging(true);
   };
 

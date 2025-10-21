@@ -5,7 +5,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
-import { Brain, Zap } from 'lucide-react';
+import { Zap } from 'lucide-react';
 import ShowcaseCarousel from '@/components/showcase-carousel';
 import GoldenParticles from '@/components/particles';
 
@@ -49,7 +49,7 @@ export default function Home() {
               className="flex flex-col gap-4 animate-fade-in-up"
               style={{ animationDelay: '0.4s' }}
             >
-              <p className="max-w-3xl text-lg text-white/90 md:text-xl">Aprenda a técnica que está fazendo pintores comuns faturarem com pisos e paredes marmorizadas — usando materiais simples e baratos.</p>
+              <p className="max-w-3xl text-lg text-white/90 md:text-xl">Aprenda a técnica que está fazendo pintores comuns faturarem com pisos e paredes marmorizadas usando materiais simples e baratos.</p>
               <div className="mt-2 rounded-lg bg-amber-400/10 px-4 py-2 border border-amber-400/20 max-w-2xl mx-auto">
                 <p className="text-base text-white/80 md:text-base">Participe do treino interativo gratuito e desbloqueie bônus exclusivos pra dominar essa arte valorizada.</p>
               </div>

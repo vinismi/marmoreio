@@ -12,9 +12,6 @@ import GoldenParticles from '@/components/particles';
 import UpsellFlow from '@/components/upsell-flow';
 import TestimonialCarousel from '@/components/testimonial-carousel';
 import BeforeAfterSlider from '@/components/before-after-slider';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import Autoplay from "embla-carousel-autoplay"
-
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
 
@@ -122,26 +119,15 @@ export default function ResultPage() {
             Arraste a linha nas imagens e veja o antes e depois das pinturas feitas com a técnica do curso.
           </p>
           
-          <Carousel
-            opts={{ loop: true, dragFree: false }}
-            plugins={[Autoplay({ delay: 8000, stopOnInteraction: true })]}
-            className="w-full"
-          >
-            <CarouselContent>
-              {transformations.map(t => (
-                <CarouselItem key={t.id}>
-                  <div className="p-1">
-                    <BeforeAfterSlider
-                      before={t.before.imageUrl}
-                      after={t.after.imageUrl}
-                    />
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="-left-4 text-white bg-black/50 border-accent/50 hover:bg-accent hover:text-black shadow-lg shadow-accent/20" />
-            <CarouselNext className="-right-4 text-white bg-black/50 border-accent/50 hover:bg-accent hover:text-black shadow-lg shadow-accent/20" />
-          </Carousel>
+          <div className="flex flex-col items-center gap-20">
+            {transformations.map(t => (
+              <BeforeAfterSlider
+                key={t.id}
+                before={t.before.imageUrl}
+                after={t.after.imageUrl}
+              />
+            ))}
+          </div>
         </div>
       </section>
 

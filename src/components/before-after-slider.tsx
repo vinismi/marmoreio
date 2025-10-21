@@ -3,7 +3,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
-import { ChevronLeft, ChevronRight, MoveHorizontal } from 'lucide-react';
+import { MoveHorizontal } from 'lucide-react';
 
 interface BeforeAfterSliderProps {
   before: string;
@@ -24,8 +24,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after }) 
   }, []);
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    e.stopPropagation(); 
-    e.preventDefault();
+    e.stopPropagation();
     setIsDragging(true);
   };
 
@@ -34,9 +33,9 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after }) 
     setIsDragging(true);
   };
 
-  const handleUp = () => {
+  const handleUp = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (isDragging) {
@@ -51,13 +50,11 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after }) 
   }, [isDragging, handleMove]);
 
   useEffect(() => {
-    // Add event listeners to the window
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('touchmove', handleTouchMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
     window.addEventListener('mouseup', handleUp);
     window.addEventListener('touchend', handleUp);
     
-    // Cleanup event listeners
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchmove', handleTouchMove);
@@ -67,60 +64,66 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after }) 
   }, [handleMouseMove, handleTouchMove, handleUp]);
 
   return (
-    <div
-      ref={containerRef}
-      className="group relative w-full aspect-[4/3] overflow-hidden rounded-lg shadow-lg select-none"
-    >
-      {/* Control Bar */}
-      <div 
-        className="absolute top-0 left-0 right-0 z-30 h-12 bg-black/50 backdrop-blur-sm border-b-2 border-accent/70 flex items-center justify-center text-accent font-semibold cursor-ew-resize transition-all duration-300 hover:shadow-[0_0_8px_rgba(255,215,0,0.5)]"
-        onMouseDown={handleMouseDown}
-        onTouchStart={handleTouchStart}
-      >
-        <div className="flex items-center gap-2 text-sm md:text-base text-white">
-          <MoveHorizontal className="h-5 w-5 text-accent animate-pulse" />
-          Arraste para comparar
-        </div>
-      </div>
-
-      {/* Main Image Area (no pointer events) */}
-      <div className="relative w-full h-full pointer-events-none">
-        {/* After Image (Top Layer) */}
-        <div
-          className="absolute inset-0 z-10 w-full h-full"
-          style={{
-            clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
-          }}
+    <div className="relative w-full mb-12">
+        {/* Floating Control Bar */}
+        <div 
+          className="absolute -top-14 left-1/2 -translate-x-1/2 z-30 h-11 w-[85%] md:w-[60%] flex items-center justify-center rounded-lg bg-black/50 backdrop-blur-sm border-b-2 border-accent/70 shadow-lg cursor-ew-resize transition-all duration-300 hover:shadow-accent/20"
+          onMouseDown={handleMouseDown}
+          onTouchStart={handleTouchStart}
+          style={{ touchAction: 'none' }}
         >
-          <Image
-            src={after}
-            alt="Depois"
-            fill
-            className="object-cover"
-            priority
-          />
+            <div className="flex items-center gap-2 text-sm md:text-base text-white font-semibold">
+                <MoveHorizontal className="h-5 w-5 text-accent animate-pulse" />
+                Arraste para comparar
+            </div>
         </div>
 
-        {/* Before Image (Bottom Layer) */}
-        <div className="absolute inset-0 w-full h-full">
-          <Image
-            src={before}
-            alt="Antes"
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-
-        {/* Slider Line (visual only) */}
+        {/* Image Container */}
         <div
-          className="absolute top-0 bottom-0 z-20 w-1 bg-accent/80"
-          style={{
-            left: `calc(${sliderPosition}% - 2px)`,
-            pointerEvents: 'none'
-          }}
-        ></div>
-      </div>
+            ref={containerRef}
+            className="group relative w-full aspect-[4/3] overflow-hidden rounded-lg shadow-lg select-none"
+        >
+            <div 
+                className="relative w-full h-full"
+                style={{ pointerEvents: isDragging ? 'auto' : 'none' }}
+            >
+                {/* After Image (Top Layer) */}
+                <div
+                className="absolute inset-0 z-10 w-full h-full"
+                style={{
+                    clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
+                }}
+                >
+                <Image
+                    src={after}
+                    alt="Depois"
+                    fill
+                    className="object-cover"
+                    priority
+                />
+                </div>
+
+                {/* Before Image (Bottom Layer) */}
+                <div className="absolute inset-0 w-full h-full">
+                <Image
+                    src={before}
+                    alt="Antes"
+                    fill
+                    className="object-cover"
+                    priority
+                />
+                </div>
+
+                {/* Slider Line (visual only) */}
+                <div
+                    className="absolute top-0 bottom-0 z-20 w-1 bg-accent/80"
+                    style={{
+                        left: `calc(${sliderPosition}% - 2px)`,
+                        pointerEvents: 'none'
+                    }}
+                ></div>
+            </div>
+        </div>
     </div>
   );
 };

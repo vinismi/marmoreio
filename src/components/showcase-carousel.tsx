@@ -20,11 +20,11 @@ const showcaseImages = [
 
 export default function ShowcaseCarousel() {
     const plugin = React.useRef(
-        Autoplay({ delay: 4000, stopOnInteraction: true })
+        Autoplay({ delay: 3000, stopOnInteraction: true })
     )
 
   return (
-    <section className="relative w-full max-w-4xl mx-auto my-8 animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
+    <section className="relative w-full max-w-4xl mx-auto my-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
       <h3 className="text-center font-headline text-lg md:text-xl text-accent mb-6" style={{ textShadow: '0 0 10px rgba(255,215,0,0.4)'}}>
         Veja como simples superfícies se transformam em obras de arte ✨
       </h3>
@@ -35,21 +35,22 @@ export default function ShowcaseCarousel() {
         onMouseLeave={plugin.current.reset}
         opts={{
             loop: true,
+            align: 'start',
         }}
       >
         <CarouselContent className="-ml-4">
           {showcaseImages.map((image, index) => (
             <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
               <div className="p-1">
-                <div className="overflow-hidden rounded-2xl border border-amber-500/25 shadow-lg shadow-amber-500/10 transition-all duration-300 hover:scale-105 hover:shadow-amber-500/20">
+                <div className="overflow-hidden rounded-xl border border-amber-500/25 shadow-lg shadow-amber-500/10 transition-all duration-300 group hover:shadow-amber-500/20">
                     <Image
                       src={image.imageUrl}
                       alt={image.description}
                       width={400}
                       height={500}
-                      className="aspect-[4/5] w-full object-cover"
+                      className="aspect-[4/5] w-full object-cover transition-transform duration-300 group-hover:scale-105"
                       data-ai-hint={image.imageHint}
-                      priority={index < 2}
+                      priority={index < 3}
                     />
                 </div>
               </div>
@@ -57,7 +58,7 @@ export default function ShowcaseCarousel() {
           ))}
         </CarouselContent>
       </Carousel>
-      <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-black/0 to-black/80 z-0 sm:h-12"></div>
+      <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-black to-transparent z-10"></div>
     </section>
   );
 }

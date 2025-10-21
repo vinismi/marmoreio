@@ -5,8 +5,9 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
-import { Brain } from 'lucide-react';
+import { Brain, Zap } from 'lucide-react';
 import ShowcaseCarousel from '@/components/showcase-carousel';
+import GoldenParticles from '@/components/particles';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
 
@@ -21,6 +22,7 @@ export default function Home() {
     <main className="overflow-x-hidden">
       {/* Hero Section */}
       <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-black p-5 text-center text-foreground">
+        <GoldenParticles visible={true} count={20} />
         <div className="absolute inset-0 z-0">
           {heroImage && (
               <Image 
@@ -35,21 +37,21 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black/95"></div>
         </div>
         
-        <div className="z-10 flex flex-col items-center gap-6 p-4 origin-top scale-[.8] sm:scale-100 transition-transform duration-300">
+        <div className="relative z-10 flex flex-col items-center gap-6 p-4 origin-top scale-[.8] sm:scale-100 transition-transform duration-300">
             <h1 
-              className="font-headline text-3xl font-extrabold uppercase tracking-tight md:text-5xl lg:text-6xl animate-fade-in-up max-w-4xl"
-              style={{ textShadow: '0 0 10px rgba(0,0,0,0.5)', animationDelay: '0.4s' }}
+              className="font-headline text-3xl font-extrabold uppercase tracking-tight text-white md:text-5xl lg:text-6xl animate-fade-in-up max-w-4xl"
+              style={{ textShadow: '0 0 10px rgba(0,0,0,0.5)', animationDelay: '0.2s' }}
             >
-              A técnica que transforma qualquer piso comum em um <span className="text-gradient-gold animated-text-gradient" style={{textShadow: '0 0 22px hsla(var(--accent), 0.7)'}}>mármore de luxo.</span>
+              TRANSFORME QUALQUER PAREDE OU PISO EM UM <span className="text-gradient-gold animated-text-gradient" style={{textShadow: '0 0 22px hsla(var(--accent), 0.7)'}}>MÁRMORE DE LUXO. 💎</span>
             </h1>
             
             <div 
               className="flex flex-col gap-4 animate-fade-in-up"
-              style={{ animationDelay: '0.6s' }}
+              style={{ animationDelay: '0.4s' }}
             >
-              <p className="max-w-2xl text-lg text-white md:text-xl">Descubra como pintores estão criando pisos marmorizados incríveis com materiais simples e sendo pagos como artistas.</p>
-              <div className="mt-2 rounded-lg bg-amber-400/10 px-4 py-2 border border-amber-400/20 max-w-xl mx-auto">
-                <p className="text-base text-white/80 md:text-base">Participe do nosso treino interativo e desbloqueie bônus secretos para dominar essa técnica.</p>
+              <p className="max-w-3xl text-lg text-white/90 md:text-xl">Aprenda a técnica que está fazendo pintores comuns faturarem com pisos e paredes marmorizadas — usando materiais simples e baratos.</p>
+              <div className="mt-2 rounded-lg bg-amber-400/10 px-4 py-2 border border-amber-400/20 max-w-2xl mx-auto">
+                <p className="text-base text-white/80 md:text-base">Participe do treino interativo gratuito e desbloqueie bônus exclusivos pra dominar essa arte valorizada.</p>
               </div>
             </div>
 
@@ -64,7 +66,7 @@ export default function Home() {
                 onClick={handleStart}
                 style={{ animationDelay: '0.8s' }}
               >
-                  <Brain className="mr-2 group-hover:animate-pulse" /> PARTICIPAR DO TREINAMENTO INTERATIVO
+                  <Zap className="mr-2 group-hover:animate-pulse" /> 🔥 QUERO PARTICIPAR DO TREINAMENTO INTERATIVO
               </Button>
             </div>
             

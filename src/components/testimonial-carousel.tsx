@@ -25,7 +25,7 @@ export default function TestimonialCarousel({ videoIds }: TestimonialCarouselPro
       <CarouselContent>
         {videoIds.map(videoId => (
           <CarouselItem key={videoId} className="md:basis-1/2">
-            <div className="p-1">
+            <div className="p-1 aspect-w-9 aspect-h-16">
                 <WistiaPlayer mediaId={videoId} />
             </div>
           </CarouselItem>
@@ -36,5 +36,3 @@ export default function TestimonialCarousel({ videoIds }: TestimonialCarouselPro
     </Carousel>
   );
 }
-
-    

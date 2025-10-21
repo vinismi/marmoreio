@@ -52,7 +52,7 @@ export default function Step2Page() {
             <h2 className="font-headline text-3xl font-extrabold text-white">Agora a combinação ideal de cor e textura:</h2>
             <Brain className="h-8 w-8 text-accent animate-pulse" />
           </div>
-          <p className="text-gradient-gold animated-text-gradient -mt-1 font-semibold text-lg">para uma casa de luxo</p>
+          <p className="-mt-1 font-semibold text-lg text-accent">para uma casa de luxo</p>
         </div>
 
         <div className="mt-8 grid grid-cols-1 gap-6 w-full animate-fade-in-up" style={{ animationDelay: '0.2s' }}>

@@ -28,10 +28,11 @@ const videoTestimonials1 = ["6tdjfbsqle", "xab9r7nndh"];
 const videoTestimonials2 = ["ihs0hcvo3h", "foutga0xyz"];
 
 const transformations = [
-  { id: 't1', before: PlaceHolderImages.find(img => img.id === 'transform-1-before')!, after: PlaceHolderImages.find(img => img.id === 'transform-1-after')! },
-  { id: 't2', before: PlaceHolderImages.find(img => img.id === 'transform-2-before')!, after: PlaceHolderImages.find(img => img.id === 'transform-2-after')! },
-  { id: 't3', before: PlaceHolderImages.find(img => img.id === 'transform-3-before')!, after: PlaceHolderImages.find(img => img.id === 'transform-3-after')! },
+  { id: 't1', before: 'https://i.postimg.cc/N0LdhbSS/1-antes.png', after: 'https://i.postimg.cc/13vvYb79/1-depois.png' },
+  { id: 't2', before: 'https://i.postimg.cc/VkKKH2Zm/2-antes.png', after: 'https://i.postimg.cc/Z5wwDXsJ/2-depois.png' },
+  { id: 't3', before: 'https://i.postimg.cc/bvdmXL4P/3-antes.png', after: 'https://i.postimg.cc/wjwwbnfr/3-depois.png' },
 ];
+
 
 // SVG para o ícone do WhatsApp
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -70,10 +71,10 @@ function ResultContent() {
   return (
     <main className="overflow-x-hidden bg-black">
       {/* Bonus Section */}
-      <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-gradient-to-b from-[#0A0A0A] to-[#1E1500] p-6 text-foreground overflow-hidden">
+      <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-gradient-to-b from-[#0A0A0A] to-[#1E1500] p-6 text-foreground overflow-hidden origin-top scale-[.8] sm:scale-100 transition-transform duration-300">
           <GoldenParticles visible={true} count={20} />
           {heroImage && <Image src={heroImage.imageUrl} alt={heroImage.description} fill className="object-cover z-0 opacity-5" data-ai-hint={heroImage.imageHint} priority />}
-          <div className="relative z-10 flex flex-col items-center w-full max-w-4xl text-center origin-top scale-[.8] sm:scale-100 transition-transform duration-300">
+          <div className="relative z-10 flex flex-col items-center w-full max-w-4xl text-center">
             <div className="w-full text-center mb-4 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
                 <p className="font-bold text-sm md:text-base text-accent animate-pulse">🔥 CONQUISTA DESBLOQUEADA – ACESSO VIP LIBERADO 🔥</p>
             </div>
@@ -123,8 +124,8 @@ function ResultContent() {
             {transformations.map(t => (
               <BeforeAfterSlider
                 key={t.id}
-                before={t.before.imageUrl}
-                after={t.after.imageUrl}
+                before={t.before}
+                after={t.after}
               />
             ))}
           </div>
@@ -149,8 +150,9 @@ function ResultContent() {
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-marble.png')] opacity-[0.03]"></div>
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black via-transparent to-black"></div>
         <div className="relative z-10 flex flex-col items-center w-full max-w-5xl text-center">
-            <h2 className="font-headline text-3xl font-extrabold md:text-4xl mb-4 text-white">Escolha como quer começar sua jornada</h2>
-            <p className="text-lg text-white mb-12 max-w-3xl md:text-xl">Você desbloqueou todos os bônus e agora pode escolher entre o acesso básico ou o completo com tudo liberado.</p>
+            <h2 className="font-headline text-3xl font-extrabold md:text-4xl mb-2 text-white">🚀 Você chegou até o fim e agora é a hora de decidir.</h2>
+            <p className="text-lg text-white/80 mb-10 max-w-3xl md:text-xl">A técnica tá aí, o desconto tá liberado e os bônus estão prontos pra você aplicar. <br/>⚡ <span className='font-bold'>O primeiro piso marmorizado que você fizer paga o curso inteiro.</span></p>
+            
             <div className="grid grid-cols-1 gap-12 w-full md:grid-cols-2 md:gap-8 max-w-4xl mx-auto">
                 {/* Plano Básico */}
                 <div className="flex flex-col items-center text-center p-8 rounded-2xl bg-[#111] border border-amber-500/25 shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-amber-500/10 animate-fade-in-up" style={{animationDelay: '200ms'}}>
@@ -186,6 +188,8 @@ function ResultContent() {
                 </div>
             </div>
 
+            <p className="mt-12 text-lg text-white font-semibold">👉 Escolha seu acesso e começa ainda hoje — quem tá aplicando, já tá faturando.</p>
+            
             <div className="mt-16 w-full max-w-3xl">
               <div className="h-px w-full bg-gradient-to-r from-transparent via-amber-500/50 to-transparent mb-8"></div>
               <div className="bg-[#2B1C00]/80 border border-amber-600 rounded-lg p-6 text-center animate-fade-in-up" style={{animationDelay: '600ms'}}>
@@ -193,7 +197,6 @@ function ResultContent() {
                     <AlertTriangle className="inline-block w-6 h-6 mr-2 text-amber-400 animate-pulse" />
                     <span className="font-bold text-amber-400">Oferta exclusiva</span> para quem completou o treino da IA. Ao sair da página, o desbloqueio pode ser perdido.
                   </p>
-                  <p className="mt-4 text-base md:text-lg text-white/80">💡 O primeiro piso que você fizer já paga o curso inteiro. <span className='font-bold'>Escolha seu acesso e comece hoje!</span></p>
               </div>
             </div>
         </div>
@@ -225,7 +228,7 @@ function ResultContent() {
             </p>
             <Button 
               size="lg"
-              className="bg-[#25D366] hover:bg-[#128C7E] text-white font-bold text-lg w-full max-w-sm rounded-full h-16 shadow-[0_0_18px_rgba(37,211,102,0.5)] hover:scale-105 transition-all duration-300"
+              className="bg-[#25D366] hover:bg-[#128C7E] text-white font-bold text-lg w-full max-w-sm rounded-full h-16 shadow-[0_0_18px_rgba(37,211,102,0.5)] hover:scale-105 transition-all duration-300 animate-subtle-pulse"
               onClick={() => window.open('https://wa.me/5500000000000?text=Olá,%20tenho%20uma%20dúvida%20sobre%20o%20curso%20de%20piso%20marmorizado', '_blank')}
             >
               <WhatsAppIcon className="w-6 h-6 mr-3" />

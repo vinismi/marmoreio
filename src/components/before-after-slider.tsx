@@ -24,19 +24,17 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after }) 
   }, []);
 
   const handleMouseDown = (e: React.MouseEvent) => {
+    e.stopPropagation();
     e.preventDefault();
     setIsDragging(true);
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
+    e.stopPropagation();
     setIsDragging(true);
   };
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleTouchEnd = () => {
+  const handleUp = () => {
     setIsDragging(false);
   };
 
@@ -55,20 +53,22 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after }) 
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('touchmove', handleTouchMove);
-    window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('touchend', handleTouchEnd);
+    window.addEventListener('mouseup', handleUp);
+    window.addEventListener('touchend', handleUp);
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('mouseup', handleUp);
+      window.removeEventListener('touchend', handleUp);
     };
-  }, [handleMouseMove, handleTouchMove, handleMouseUp, handleTouchEnd]);
+  }, [handleMouseMove, handleTouchMove, handleUp]);
 
   return (
     <div
       ref={containerRef}
       className="group relative w-full aspect-[4/3] overflow-hidden rounded-lg shadow-lg cursor-ew-resize select-none"
+      onMouseDown={(e) => e.stopPropagation()}
+      onTouchStart={(e) => e.stopPropagation()}
     >
       {/* After Image (Top Layer) */}
       <div

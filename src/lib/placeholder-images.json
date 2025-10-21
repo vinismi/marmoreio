@@ -83,6 +83,42 @@
       "description": "Acabamento com efeito perolado.",
       "imageUrl": "https://i.postimg.cc/SKV095QG/images-1.jpg",
       "imageHint": "pearl finish"
+    },
+    {
+      "id": "transform-1-before",
+      "description": "Antes da transformação 1",
+      "imageUrl": "https://i.postimg.cc/N0LdhbSS/1-antes.png",
+      "imageHint": "floor before"
+    },
+    {
+      "id": "transform-1-after",
+      "description": "Depois da transformação 1",
+      "imageUrl": "https://i.postimg.cc/13vvYb79/1-depois.png",
+      "imageHint": "floor after"
+    },
+    {
+      "id": "transform-2-before",
+      "description": "Antes da transformação 2",
+      "imageUrl": "https://i.postimg.cc/VkKKH2Zm/2-antes.png",
+      "imageHint": "wall before"
+    },
+    {
+      "id": "transform-2-after",
+      "description": "Depois da transformação 2",
+      "imageUrl": "https://i.postimg.cc/Z5wwDXsJ/2-depois.png",
+      "imageHint": "wall after"
+    },
+    {
+      "id": "transform-3-before",
+      "description": "Antes da transformação 3",
+      "imageUrl": "https://i.postimg.cc/bvdmXL4P/3-antes.png",
+      "imageHint": "countertop before"
+    },
+    {
+      "id": "transform-3-after",
+      "description": "Depois da transformação 3",
+      "imageUrl": "https://i.postimg.cc/wjwwbnfr/3-depois.png",
+      "imageHint": "countertop after"
     }
   ]
 }

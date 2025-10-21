@@ -11,6 +11,10 @@ import { Box, Gem, AlertTriangle, ShieldCheck } from 'lucide-react';
 import GoldenParticles from '@/components/particles';
 import UpsellFlow from '@/components/upsell-flow';
 import TestimonialCarousel from '@/components/testimonial-carousel';
+import BeforeAfterSlider from '@/components/before-after-slider';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import Autoplay from "embla-carousel-autoplay"
+
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
 
@@ -24,6 +28,12 @@ const bonuses = [
 
 const videoTestimonials1 = ["6tdjfbsqle", "xab9r7nndh"];
 const videoTestimonials2 = ["ihs0hcvo3h", "foutga0xyz"];
+
+const transformations = [
+  { id: 't1', before: PlaceHolderImages.find(img => img.id === 'transform-1-before')!, after: PlaceHolderImages.find(img => img.id === 'transform-1-after')! },
+  { id: 't2', before: PlaceHolderImages.find(img => img.id === 'transform-2-before')!, after: PlaceHolderImages.find(img => img.id === 'transform-2-after')! },
+  { id: 't3', before: PlaceHolderImages.find(img => img.id === 'transform-3-before')!, after: PlaceHolderImages.find(img => img.id === 'transform-3-after')! },
+];
 
 // SVG para o ícone do WhatsApp
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -99,6 +109,42 @@ export default function ResultPage() {
           </div>
       </div>
       
+      {/* Transformations Section */}
+      <section className="bg-gradient-to-b from-[#0A0A0A] to-[#1A1A1A] py-16 md:py-24 px-6">
+        <div className="container mx-auto max-w-5xl text-center">
+          <h2 className="font-headline text-2xl md:text-3xl font-extrabold text-white mb-2" style={{ textShadow: '0 0 8px rgba(255,215,0,0.4)' }}>
+            Veja o poder da técnica marmorizada 🧱✨
+          </h2>
+          <p className="text-base md:text-lg text-gray-300 mb-4">
+            Esses resultados foram feitos por alunos que aplicaram as técnicas ensinadas no curso.
+          </p>
+          <p className="text-sm md:text-base text-gray-400 mb-10">
+            Arraste a linha nas imagens e veja o antes e depois das pinturas feitas com a técnica do curso.
+          </p>
+          
+          <Carousel
+            opts={{ loop: true }}
+            plugins={[Autoplay({ delay: 8000, stopOnInteraction: true })]}
+            className="w-full"
+          >
+            <CarouselContent>
+              {transformations.map(t => (
+                <CarouselItem key={t.id}>
+                  <div className="p-1">
+                    <BeforeAfterSlider
+                      before={t.before.imageUrl}
+                      after={t.after.imageUrl}
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="-left-4 text-white bg-black/50 border-accent/50 hover:bg-accent hover:text-black shadow-lg shadow-accent/20" />
+            <CarouselNext className="-right-4 text-white bg-black/50 border-accent/50 hover:bg-accent hover:text-black shadow-lg shadow-accent/20" />
+          </Carousel>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section ref={testimonialsRef} className="flex flex-col items-center justify-center gap-8 bg-background py-16 px-6 md:py-24">
         <h2 className="font-headline text-3xl font-extrabold md:text-4xl text-center">Quem aprendeu essa técnica está mudando de vida</h2>
@@ -218,5 +264,3 @@ export default function ResultPage() {
     </main>
   );
 }
-
-    

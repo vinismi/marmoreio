@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { cn } from '@/lib/utils';
-import { Zap, Gem, Award, UserCheck, TrendingUp, Sparkles } from 'lucide-react';
+import { Zap, Gem, Award, UserCheck, TrendingUp, Sparkles, Star, Rocket } from 'lucide-react';
 
 const messages = [
   { icon: <Zap className="h-5 w-5 text-yellow-400" />, text: 'Carlos M. acabou de desbloquear o pacote completo!' },
@@ -11,6 +11,10 @@ const messages = [
   { icon: <TrendingUp className="h-5 w-5 text-blue-400" />, text: 'Marcos L. aplicou a técnica e fechou seu primeiro serviço!' },
   { icon: <Gem className="h-5 w-5 text-fuchsia-500" />, text: 'João S. terminou a Etapa 2 e desbloqueou o acesso premium!' },
   { icon: <Sparkles className="h-5 w-5 text-white" />, text: 'Novos alunos estão entrando a cada minuto!' },
+  { icon: <Star className="h-5 w-5 text-yellow-300" />, text: 'Fernanda R. de SP acabou de se inscrever no plano VIP.' },
+  { icon: <Rocket className="h-5 w-5 text-red-500" />, text: 'O último acesso foi vendido há menos de 5 minutos!' },
+  { icon: <UserCheck className="h-5 w-5 text-teal-400" />, text: 'Lucas B. concluiu o treinamento com sucesso.' },
+  { icon: <Award className="h-5 w-5 text-orange-400" />, text: 'Juliana C. desbloqueou um bônus de acabamento especial!' },
 ];
 
 const SocialProofToast = () => {
@@ -29,10 +33,10 @@ const SocialProofToast = () => {
     };
 
     // Show first notification after a delay
-    const initialTimeout = setTimeout(showRandomNotification, 10000);
+    const initialTimeout = setTimeout(showRandomNotification, 8000);
 
     // Then, show notifications periodically
-    const interval = setInterval(showRandomNotification, 22000); // 20-25 seconds
+    const interval = setInterval(showRandomNotification, 12000); // 10-15 seconds
 
     return () => {
         clearTimeout(initialTimeout);

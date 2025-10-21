@@ -101,9 +101,6 @@ function ResultContent() {
 
             <p className="mt-8 text-lg md:text-xl max-w-3xl text-foreground/80 animate-fade-in-up" style={{ animationDelay: '800ms' }}>💎 Aproveite: você acabou de liberar o mesmo conteúdo que os profissionais usam para lucrar com pintura decorativa.</p>
             
-            <Button variant="ghost" className="mt-6 text-accent hover:text-accent/90 text-lg font-bold animate-fade-in-up" style={{ animationDelay: '1000ms' }} onClick={() => scrollTo(testimonialsRef)}>
-                📣 VEJA O QUE DIZEM OS ALUNOS
-            </Button>
           </div>
       </div>
       

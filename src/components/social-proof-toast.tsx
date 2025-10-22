@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { Zap, Gem, Award, UserCheck, TrendingUp, Sparkles, Star, Rocket } from 'lucide-react';
+import { Zap, Gem, Award, UserCheck, TrendingUp, Sparkles, Star, Rocket, ShoppingCart, ThumbsUp, Activity, BarChart } from 'lucide-react';
 
 const messages = [
   { icon: <Zap className="h-5 w-5 text-yellow-400" />, text: 'Carlos M. acabou de desbloquear o pacote completo!' },
@@ -15,16 +15,34 @@ const messages = [
   { icon: <Rocket className="h-5 w-5 text-red-500" />, text: 'O último acesso foi vendido há menos de 5 minutos!' },
   { icon: <UserCheck className="h-5 w-5 text-teal-400" />, text: 'Lucas B. concluiu o treinamento com sucesso.' },
   { icon: <Award className="h-5 w-5 text-orange-400" />, text: 'Juliana C. desbloqueou um bônus de acabamento especial!' },
+  { icon: <ShoppingCart className="h-5 w-5 text-cyan-400" />, text: 'Mais 3 pessoas adicionaram o curso ao carrinho!' },
+  { icon: <ThumbsUp className="h-5 w-5 text-lime-400" />, text: '“Incrível!” - Avaliação 5 estrelas de um novo aluno.' },
+  { icon: <Activity className="h-5 w-5 text-pink-400" />, text: 'Grande atividade no módulo de precificação agora.' },
+  { icon: <BarChart className="h-5 w-5 text-indigo-400" />, text: '97% dos alunos recomendam o curso completo.' },
 ];
+
+const positions = [
+  'bottom-5 left-5',
+  'bottom-5 right-5',
+  'top-5 left-5',
+  'top-5 right-5',
+  'top-1/2 -translate-y-1/2 left-5',
+  'top-1/2 -translate-y-1/2 right-5',
+];
+
 
 const SocialProofToast = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(messages[0]);
+  const [currentPosition, setCurrentPosition] = useState(positions[0]);
 
   useEffect(() => {
     const showRandomNotification = () => {
-      const randomIndex = Math.floor(Math.random() * messages.length);
-      setCurrentMessage(messages[randomIndex]);
+      const messageIndex = Math.floor(Math.random() * messages.length);
+      const positionIndex = Math.floor(Math.random() * positions.length);
+      
+      setCurrentMessage(messages[messageIndex]);
+      setCurrentPosition(positions[positionIndex]);
       setIsVisible(true);
 
       setTimeout(() => {
@@ -36,7 +54,7 @@ const SocialProofToast = () => {
     const initialTimeout = setTimeout(showRandomNotification, 8000);
 
     // Then, show notifications periodically
-    const interval = setInterval(showRandomNotification, 12000); // 10-15 seconds
+    const interval = setInterval(showRandomNotification, 12000);
 
     return () => {
         clearTimeout(initialTimeout);
@@ -47,7 +65,8 @@ const SocialProofToast = () => {
   return (
     <div
       className={cn(
-        'fixed bottom-5 left-5 z-[9999] flex items-center gap-3 rounded-lg border border-amber-500/30 bg-black/80 p-3 pr-4 shadow-2xl shadow-black/50 backdrop-blur-md transition-all duration-500 md:left-5 md:bottom-5 sm:bottom-auto sm:right-5 sm:left-auto',
+        'fixed z-[9999] flex items-center gap-3 rounded-lg border border-amber-500/30 bg-black/80 p-3 pr-4 shadow-2xl shadow-black/50 backdrop-blur-md transition-all duration-500',
+        currentPosition,
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0',
         'font-headline' // Ensure Poppins is used
       )}

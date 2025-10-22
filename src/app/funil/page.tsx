@@ -102,7 +102,7 @@ const Step1 = ({ onComplete }: { onComplete: (choice: string) => void }) => {
                               height={500}
                               className="w-full h-auto object-cover aspect-[4/5] rounded-[11px] transition-transform duration-300"
                               data-ai-hint={image.imageHint}
-                              priority={index === 0}
+                              priority={index < 2}
                           />
                           {aestheticChoice === image.description && (
                               <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-[2px]">
@@ -223,24 +223,22 @@ const Step3 = ({ aestheticChoice, colorTextureChoice }: { aestheticChoice: strin
     setShowParticles(true);
   };
   
-  const handleFunnelCompletion = async (finalChoices: MarmorizedPatternAssessmentInput) => {
-    try {
-      await assessMarmorizedPattern(finalChoices);
-      const params = new URLSearchParams({
-        aestheticChoice: finalChoices.aestheticChoice,
-        colorTextureChoice: finalChoices.colorTextureChoice,
-        finishChoice: finalChoices.finishChoice,
-      }).toString();
-      router.push(`/resultado?${params}`);
-    } catch (error) {
-      console.error("AI assessment failed:", error);
-      toast({
-        title: "Erro na Análise",
-        description: "Não foi possível completar a análise da IA. Por favor, tente novamente.",
-        variant: "destructive",
-      });
-    }
+  const handleFunnelCompletion = (finalChoices: MarmorizedPatternAssessmentInput) => {
+    // Fire-and-forget the AI assessment
+    assessMarmorizedPattern(finalChoices).catch(error => {
+      // Log error silently or handle it in a non-blocking way
+      console.error("AI assessment failed in the background:", error);
+    });
+
+    // Immediately navigate to the results page
+    const params = new URLSearchParams({
+      aestheticChoice: finalChoices.aestheticChoice,
+      colorTextureChoice: finalChoices.colorTextureChoice,
+      finishChoice: finalChoices.finishChoice,
+    }).toString();
+    router.push(`/resultado?${params}`);
   };
+
 
   return (
     <div className="dark relative flex w-full flex-col items-center justify-center gap-8 bg-background p-5 text-foreground">

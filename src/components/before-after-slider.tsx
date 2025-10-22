@@ -8,9 +8,10 @@ import { ChevronsLeftRight } from 'lucide-react';
 interface BeforeAfterSliderProps {
   before: string;
   after: string;
+  priority?: boolean;
 }
 
-const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after }) => {
+const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after, priority = false }) => {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -94,7 +95,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after }) 
                 alt="Depois"
                 fill
                 className="object-cover pointer-events-none"
-                priority
+                priority={priority}
             />
         </div>
 
@@ -105,7 +106,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after }) 
                 alt="Antes"
                 fill
                 className="object-cover pointer-events-none"
-                priority
+                priority={priority}
             />
         </div>
 

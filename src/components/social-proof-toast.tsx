@@ -21,28 +21,44 @@ const messages = [
   { icon: <BarChart className="h-5 w-5 text-indigo-400" />, text: '97% dos alunos recomendam o curso completo.' },
 ];
 
-const positions = [
+const sidePositions = [
   'bottom-5 left-5',
   'bottom-5 right-5',
   'top-5 left-5',
   'top-5 right-5',
+];
+
+const centerPositions = [
   'top-5 left-1/2 -translate-x-1/2',
   'bottom-5 left-1/2 -translate-x-1/2',
 ];
+
+const TEXT_LENGTH_THRESHOLD = 50; // Character count to distinguish between short and long notifications
 
 
 const SocialProofToast = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(messages[0]);
-  const [currentPosition, setCurrentPosition] = useState(positions[0]);
+  const [currentPosition, setCurrentPosition] = useState(sidePositions[0]);
 
   useEffect(() => {
     const showRandomNotification = () => {
       const messageIndex = Math.floor(Math.random() * messages.length);
-      const positionIndex = Math.floor(Math.random() * positions.length);
+      const selectedMessage = messages[messageIndex];
       
-      setCurrentMessage(messages[messageIndex]);
-      setCurrentPosition(positions[positionIndex]);
+      let positionPool = [];
+      if (selectedMessage.text.length < TEXT_LENGTH_THRESHOLD) {
+        // Shorter "squarish" messages can go to the sides
+        positionPool = sidePositions;
+      } else {
+        // Longer "rectangular" messages should be centered
+        positionPool = centerPositions;
+      }
+      
+      const positionIndex = Math.floor(Math.random() * positionPool.length);
+      
+      setCurrentMessage(selectedMessage);
+      setCurrentPosition(positionPool[positionIndex]);
       setIsVisible(true);
 
       setTimeout(() => {

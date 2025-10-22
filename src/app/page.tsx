@@ -37,7 +37,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black/95"></div>
         </div>
         
-        <div className="relative z-10 flex flex-col items-center gap-6 p-4 origin-top scale-[.8] sm:scale-100 transition-transform duration-300">
+        <div className="relative z-10 flex flex-col items-center gap-6 p-4 origin-top transition-transform duration-300">
             <h1 
               className="font-headline text-3xl font-extrabold uppercase tracking-normal text-white md:text-5xl lg:text-6xl animate-fade-in-up max-w-4xl"
               style={{ textShadow: '0 0 10px rgba(0,0,0,0.5)', animationDelay: '0.2s' }}

@@ -45,7 +45,7 @@ function Step2Content() {
 
   return (
     <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-background p-5">
-      <div className="relative z-10 flex w-full max-w-md flex-col items-center text-center origin-top scale-[.8] sm:scale-100 transition-transform duration-300">
+      <div className="relative z-10 flex w-full max-w-md flex-col items-center text-center origin-top transition-transform duration-300">
         <Progress value={progress} className="mb-8 h-2.5 w-full" />
         
         <div className="mb-8 flex flex-col items-center animate-fade-in-up">

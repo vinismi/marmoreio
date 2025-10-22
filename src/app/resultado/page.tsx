@@ -90,7 +90,8 @@ function ResultContent() {
              <p className="text-lg md:text-xl mb-8 text-foreground/90 max-w-3xl animate-fade-in-up" style={{ animationDelay: '600ms', lineHeight: '1.6' }}>Todos esses módulos eram pagos... mas por ter completado o treino da IA, você acabou de desbloquear o <span className="text-[#9FFF8C] font-bold" style={{textShadow: '0 0 8px rgba(144, 255, 120, 0.6)'}}>acesso gratuito!</span></p>
             
             <div className="w-full max-w-2xl space-y-3">
-              {bonuses.map((bonus, index) => (
+              {bonuses.map((bonus, index) => {
+                  return (
                   <div
                     key={index}
                     className={cn(
@@ -104,7 +105,8 @@ function ResultContent() {
                       <p className="text-base font-bold text-green-400">🔓 POR: {bonus.now}</p>
                     </div>
                   </div>
-                ))}
+                )
+              })}
             </div>
 
             <p className="mt-8 text-lg md:text-xl max-w-3xl text-foreground/80 animate-fade-in-up" style={{ animationDelay: '800ms' }}>💎 Aproveite: você acabou de liberar o mesmo conteúdo que os profissionais usam para lucrar com pintura decorativa.</p>

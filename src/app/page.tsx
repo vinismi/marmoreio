@@ -3,21 +3,15 @@
 import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Zap } from 'lucide-react';
 import ShowcaseCarousel from '@/components/showcase-carousel';
 import GoldenParticles from '@/components/particles';
+import Link from 'next/link';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
 
 export default function Home() {
-  const router = useRouter();
-  
-  const handleStart = () => {
-    router.push('/etapa-1');
-  };
-
   return (
     <main className="overflow-x-hidden">
       {/* Hero Section */}
@@ -60,14 +54,17 @@ export default function Home() {
             </div>
 
             <div className="z-40 w-full max-w-md mt-6">
-              <Button 
-                size="lg" 
-                className="button-shine-gradient text-black hover:text-black text-lg font-bold w-full rounded-full h-14 md:text-lg animate-fade-in-up animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
-                onClick={handleStart}
-                style={{ animationDelay: '0.8s' }}
-              >
-                  <Zap className="mr-2 group-hover:animate-pulse" /> 🔥 QUERO PARTICIPAR DO TREINAMENTO INTERATIVO
-              </Button>
+                <Link href="/funil" passHref legacyBehavior>
+                    <a className='w-full'>
+                        <Button 
+                            size="lg" 
+                            className="button-shine-gradient text-black hover:text-black text-lg font-bold w-full rounded-full h-14 md:text-lg animate-fade-in-up animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
+                            style={{ animationDelay: '0.8s' }}
+                        >
+                            <Zap className="mr-2 group-hover:animate-pulse" /> 🔥 QUERO PARTICIPAR DO TREINAMENTO INTERATIVO
+                        </Button>
+                    </a>
+                </Link>
             </div>
             
             <div className="z-30 mt-4">

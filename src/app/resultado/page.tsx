@@ -229,7 +229,7 @@ function ResultContent() {
             <Button 
               size="lg"
               className="bg-[#25D366] hover:bg-[#128C7E] text-white font-bold text-lg w-full max-w-sm rounded-full h-16 shadow-[0_0_18px_rgba(37,211,102,0.5)] hover:scale-105 transition-all duration-300 animate-subtle-pulse"
-              onClick={() => window.open('https://wa.me/5500000000000?text=Olá,%20tenho%20uma%20dúvida%20sobre%20o%20curso%20de%20piso%20marmorizado', '_blank')}
+              onClick={() => window.open('https://wa.me/5534988790436?text=Olá,%20tenho%20uma%20dúvida%20sobre%20o%20curso%20de%20piso%20marmorizado', '_blank')}
             >
               <WhatsAppIcon className="w-6 h-6 mr-3" />
               Falar com Suporte no WhatsApp
@@ -243,7 +243,7 @@ function ResultContent() {
 
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/5500000000000?text=Olá,%20tenho%20uma%20dúvida%20sobre%20o%20curso%20de%20piso%2marmorizado"
+        href="https://wa.me/5534988790436?text=Olá,%20tenho%20uma%20dúvida%20sobre%20o%20curso%20de%20piso%2marmorizado"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-lg animate-float"

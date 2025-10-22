@@ -36,10 +36,10 @@ const transformations = [
 
 // SVG para o ícone do WhatsApp
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg viewBox="0 0 24 24" {...props}>
+  <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       fill="currentColor"
-      d="M16.75 13.96c.25.01.5.03.75.06v-1.1c-.25.02-.5.04-.75.05m-1.5 2.1c.25.02.5.04.75.06v-1.1c-.25.02-.5.04-.75.05m-1.5 2.08c.25.02.5.04.75.06v-1.1c-.25.02-.5.04-.75.05m-1.5 2.09c.25.02.5.04.75.06v-1.1c-.25.02-.5.04-.75.05M12 2C6.48 2 2 6.48 2 12c0 1.62.4 3.14 1.11 4.51L2 22l5.63-1.44A9.922 9.922 0 0 0 12 22a10 10 0 0 0 10-10c0-5.52-4.48-10-10-10m5.25 13.98c-.25.03-.5.05-.75.08v1.1c.25-.03.5-.05.75-.07m1.5-2.08c-.25.03-.5.05-.75.08v1.1c.25-.03.5-.05.75-.07m1.5-2.08c-.25.03-.5.05-.75.08v1.1c.25-.03.5-.05. ৭৫-.07m-6-1.02h-.03c-.52 0-1.02-.2-1.38-.57l-.09-.08l-2.7-2.64c-.2-.2-.34-.43-.43-.69c-.04-.13-.06-.26-.06-.39c0-.52.21-1.02.57-1.38l.08-.09c.36-.36.86-.57 1.38-.57h.02c.52 0 1.01.2 1.38.57l.09.08l2.69 2.64c.21.2.35.43.44.69c.04.13.06.26.06.39c0 .52-.21 1.02-.57 1.38l-.08.09a1.948 1.948 0 0 1-1.38.57M12 4.04A7.96 7.96 0 0 1 18.06 17.5a7.923 7.923 0 0 1-3.63 1.88l-1 .23l-3.32.85l.86-3.29l.21-.82a7.923 7.923 0 0 1 1.88-3.63A7.96 7.96 0 0 1 12 4.04"
+      d="M12.04 2.01A10.03 10.03 0 0 0 2 12.05a10.02 10.02 0 0 0 10.04 10.03c5.52 0 10.03-4.49 10.03-10.03S17.56 2.01 12.04 2.01zM17.47 15.3c-.28.46-.57.92-1.12 1.13-.5.18-1.01.2-1.54.12-.59-.1-1.11-.32-1.78-.73-1.16-.7-2.2-1.59-3.08-2.6-.9-1.03-1.63-2.2-2.13-3.48-.1-.28-.18-.56-.25-.85-.06-.28-.08-.57-.06-.86.03-.28.08-.56.17-.83.18-.55.51-.97 1.01-1.23.32-.16.68-.23 1.05-.23.23 0 .46.03.68.08.43.1.8.32 1.08.68.12.16.2.34.25.54.1.37.01.76-.23 1.06-.18.23-.41.42-.67.57-.2.12-.42.2-.64.24-.1.03-.2.05-.3.08-.12.04-.23.1-.33.18-.08.06-.15.14-.2.23-.05.08-.08.17-.1.27-.12.42-.06.87.14 1.28.32.65.75 1.25 1.28 1.8.6.62 1.3 1.14 2.08 1.53.28.14.58.24.9.3.2.04.4.05.6.05.23 0 .46-.04.68-.13.48-.18.88-.5 1.15-.93.18-.3.26-.64.24-.98-.03-.32-.15-.63-.34-.9-.1-.13-.2-.25-.33-.35-.3-.26-.64-.45-1-.56-.3-.1-.6-.13-.92-.12l-.33.02c-.04.01-.08.01-.12.02-.1 0-.2.02-.28.03-.78.1-1.55.23-2.32.33-.2.03-.4.07-.6.1-.28.04-.56.04-.84-.02-.32-.07-.6-.2-.86-.4-.2-.15-.38-.33-.52-.55-.1-.16-.18-.34-.23-.53-.1-.38-.04-.78.2-1.1.2-.28.46-.5.76-.66.22-.12.46-.2.7-.26.4-.1.8-.13 1.2-.13.43 0 .85.04 1.28.13.8.17 1.52.5 2.13 1.08.4.38.73.83.95 1.34.2.48.3.98.3 1.5s-.1 1.02-.3 1.5z"
     ></path>
   </svg>
 );
@@ -193,7 +193,9 @@ function ResultContent() {
                 </div>
             </div>
 
-            <p className="mt-12 text-lg text-white font-semibold">👉 Escolha seu acesso e começa ainda hoje. Quem tá aplicando, já tá faturando.</p>
+            <p className="mt-12 text-lg text-white font-semibold">
+              👉 Escolha seu acesso e começa ainda hoje. Quem tá aplicando, já tá faturando.
+            </p>
             
             <div className="mt-16 w-full max-w-3xl">
               <div className="h-px w-full bg-gradient-to-r from-transparent via-amber-500/50 to-transparent mb-8"></div>
@@ -234,7 +236,7 @@ function ResultContent() {
             <Button 
               size="lg"
               className="bg-[#25D366] hover:bg-[#128C7E] text-white font-bold text-lg w-full max-w-sm rounded-full h-16 shadow-[0_0_18px_rgba(37,211,102,0.5)] hover:scale-105 transition-all duration-300 animate-subtle-pulse"
-              onClick={() => window.open('https://wa.me/34988790436?text=Olá,%20tenho%20uma%20dúvida%20sobre%20o%20curso%20de%20piso%20marmorizado', '_blank')}
+              onClick={() => window.open('https://wa.me/5534988790436?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20curso!', '_blank')}
             >
               <WhatsAppIcon className="w-6 h-6 mr-3" />
               Falar com Suporte no WhatsApp
@@ -248,7 +250,7 @@ function ResultContent() {
 
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/34988790436?text=Olá,%20tenho%20uma%20dúvida%20sobre%20o%20curso%20de%20piso%2marmorizado"
+        href="https://wa.me/5534988790436?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20curso!"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-lg animate-float"

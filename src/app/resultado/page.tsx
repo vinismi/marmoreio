@@ -13,6 +13,7 @@ import GoldenParticles from '@/components/particles';
 import UpsellFlow from '@/components/upsell-flow';
 import TestimonialCarousel from '@/components/testimonial-carousel';
 import BeforeAfterSlider from '@/components/before-after-slider';
+import WistiaEmbed from '@/components/wistia-embed';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
 
@@ -36,8 +37,8 @@ const transformations = [
 
 // SVG para o ícone do WhatsApp
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-        <path d="M16.75 13.96c-.25-.12-1.47-.72-1.7-.81-.23-.09-.39-.08-.55.15-.16.23-.64.72-.78.87-.14.15-.29.16-.53.04-.24-.12-1-.37-1.9-1.15C10.13 12.01 9.53 11.2 9.4 10.95c-.13-.25-.03-.39.09-.51.11-.11.25-.29.37-.43.12-.14.16-.25.24-.41.08-.17.04-.31-.02-.43s-.55-1.32-.75-1.81c-.2-.48-.4-.42-.55-.42H6.4c-.15 0-.38.03-.57.23-.19.2-.64.63-.64 1.55 0 .92.66 1.8 1.1 2.39.44.59 2.25 3.2 4.6 4.6.59.35 1.01.52 1.52.64.4.1.84.06 1.15-.1.36-.18.6-.45.8-.87.2-.41.2-.77.14-.87-.06-.11-.22-.18-.47-.3zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+    <svg viewBox="0 0 32 32" fill="currentColor" {...props}>
+        <path d="M16.003 0a16 16 0 0 0-16 16c0 4.14 1.57 7.9 4.16 10.84l-4.16 4.16 4.95-3.3c2.6.96 5.48 1.48 8.44 1.48h.01c8.837 0 16-7.163 16-16s-7.163-16-16-16zm7.98 23.36c-.34.34-.78.53-1.25.53-.41 0-.82-.12-1.19-.36-.37-.24-.86-.53-1.47-1.02-.6-.49-1.2-.99-1.8-1.5-.6-.51-1.13-1.13-1.57-1.83-.44-.7-.8-1.57-1.01-2.58-.21-1.01.02-1.8.46-2.38.44-.58 1.1-1.03 1.7-1.11.6-.08 1.1.16 1.47.6.37.44.53.94.6 1.13.07.19.07.37.02.51-.05.14-.14.28-.28.42-.14.14-.28.28-.42.42-.14.14-.23.23-.28.33-.05.09-.09.19-.05.33.05.14.44.83 1.07 1.47.63.63 1.29 1.02 1.42 1.07.14.05.23.05.33-.05.09-.09.28-.28.42-.42.14-.14.28-.28.42-.42.14-.14.28-.23.47-.23.19 0 .99.46 1.18.69.19.23.34.46.46.74.12.28.16.58.12.83-.04.25-.16.48-.34.66zm-3.99-10.83c.24-.24.24-.63 0-.87s-.63-.24-.87 0l-1.13 1.13c-.24.24-.24.63 0 .87s.63.24.87 0l1.13-1.13zm-2.27 2.27c.24-.24.24-.63 0-.87s-.63-.24-.87 0l-1.13 1.13c-.24.24-.24.63 0 .87s.63.24.87 0l1.13-1.13z"/>
     </svg>
 );
 
@@ -145,9 +146,54 @@ function ResultContent() {
           <TestimonialCarousel videoIds={videoTestimonials2} />
         </div>
         <p className="mt-8 text-center text-lg md:text-xl max-w-3xl text-foreground/80">Assim como eles, você também pode começar do zero e dominar o efeito marmorizado. Agora é só escolher como quer começar.</p>
-        <Button size="lg" className="mt-4 text-lg font-bold w-full max-w-xs rounded-full" onClick={() => scrollTo(plansRef)}>
-            🚀 ESCOLHER MEU ACESSO
-        </Button>
+      </section>
+
+      {/* What You'll Receive Section */}
+      <section className="dark relative bg-black py-16 md:py-24 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-marble.png')] opacity-[0.03]"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-black"></div>
+        <div className="container mx-auto max-w-6xl text-center relative z-10">
+          <h2 
+            className="font-headline text-3xl md:text-4xl font-extrabold text-accent mb-4"
+            style={{ textShadow: '0 0 10px rgba(255, 215, 0, 0.4), 0 0 20px rgba(255, 215, 0, 0.2)' }}
+          >
+            VEJA EXATAMENTE O QUE VOCÊ VAI RECEBER AO ENTRAR HOJE 👇
+          </h2>
+          <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-12">
+            Assista aos vídeos abaixo e veja como é o acesso completo à plataforma — disponível pra computador 💻 e celular 📱. <br/>Você vai aprender passo a passo em uma área profissional e fácil de usar.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center justify-center">
+            {/* Desktop Video */}
+            <div className="w-full max-w-xl mx-auto rounded-lg border border-amber-500/30 p-1.5 shadow-2xl shadow-amber-500/10">
+              <div className="overflow-hidden rounded-md">
+                <WistiaEmbed mediaId="gfij5gu2lb" />
+              </div>
+            </div>
+
+            {/* Mobile Video */}
+            <div className="w-full max-w-xs mx-auto rounded-lg border border-amber-500/30 p-1.5 shadow-2xl shadow-amber-500/10">
+              <div className="overflow-hidden rounded-md">
+                <WistiaEmbed mediaId="k69ofj609q" />
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-12 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl font-semibold text-white mb-4">Tudo isso é 100% online e vitalício — acesse quando e onde quiser.</p>
+            <p className="text-base md:text-lg text-gray-300">Seja pelo computador, tablet ou celular, você vai aprender com clareza, suporte e acesso completo à comunidade exclusiva.</p>
+            
+            <div className="mt-8">
+              <Button 
+                size="lg" 
+                className="button-shine-gradient text-black hover:text-black text-lg font-bold w-full max-w-md mx-auto rounded-full h-14 md:text-lg animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
+                onClick={() => scrollTo(plansRef)}
+              >
+                🟨 QUERO TER ACESSO À PLATAFORMA AGORA
+              </Button>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Plans Section */}
@@ -236,7 +282,7 @@ function ResultContent() {
               className="bg-[#25D366] hover:bg-[#128C7E] text-white font-bold text-lg w-full max-w-sm rounded-full h-16 shadow-[0_0_18px_rgba(37,211,102,0.5)] hover:scale-105 transition-all duration-300 animate-subtle-pulse"
               onClick={() => window.open('https://wa.me/5534988790436?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20curso!', '_blank')}
             >
-              <WhatsAppIcon className="w-7 h-7 mr-3" />
+              <WhatsAppIcon className="w-8 h-8 mr-3" />
               Falar com Suporte no WhatsApp
             </Button>
             <p className="text-sm text-white/80 mt-4">

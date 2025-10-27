@@ -1,19 +1,20 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
-
-// This component is designed to work with Wistia's <wistia-player> custom element.
-// It handles loading the necessary Wistia scripts and embedding the player.
+import React, { useEffect, useRef, useState } from 'react';
 
 type WistiaEmbedProps = {
   mediaId: string;
 };
 
 // Global promise to ensure the Wistia player script is loaded only once.
-let wistiaScriptLoadingPromise: Promise<void> | null = null;
+const wistiaScriptPromises: { [key: string]: Promise<void> } = {};
 
 const loadWistiaScript = (src: string): Promise<void> => {
-  return new Promise((resolve, reject) => {
+  if (wistiaScriptPromises[src]) {
+    return wistiaScriptPromises[src];
+  }
+
+  wistiaScriptPromises[src] = new Promise((resolve, reject) => {
     // Check if the script is already on the page
     if (document.querySelector(`script[src="${src}"]`)) {
       resolve();
@@ -23,32 +24,75 @@ const loadWistiaScript = (src: string): Promise<void> => {
     script.src = src;
     script.async = true;
     script.onload = () => resolve();
-    script.onerror = () => reject(`Failed to load script: ${src}`);
+    script.onerror = () => {
+        delete wistiaScriptPromises[src];
+        reject(`Failed to load script: ${src}`);
+    };
     document.body.appendChild(script);
   });
+
+  return wistiaScriptPromises[src];
 };
 
 const WistiaEmbed: React.FC<WistiaEmbedProps> = ({ mediaId }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isIntersecting, setIsIntersecting] = useState(false);
 
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Update state when element comes into view
+        if (entry.isIntersecting) {
+          setIsIntersecting(true);
+          // Stop observing once it's visible
+          observer.unobserve(entry.target);
+        }
+      },
+      {
+        rootMargin: '50px', // Load 50px before it enters the viewport
+      }
+    );
+
+    const currentRef = containerRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isIntersecting) {
+      return;
+    }
+
     const loadPlayer = async () => {
       try {
-        // Load player.js and the specific embed script in parallel
         await Promise.all([
           loadWistiaScript('https://fast.wistia.com/player.js'),
           loadWistiaScript(`https://fast.wistia.com/embed/${mediaId}.js`),
         ]);
-        // The scripts automatically find the custom element and initialize it.
       } catch (error) {
         console.error('Wistia script loading failed:', error);
       }
     };
 
     loadPlayer();
+  }, [isIntersecting, mediaId]);
+
+  // Create a unique style element for each media ID to prevent conflicts
+  useEffect(() => {
+    const styleId = `wistia-style-${mediaId}`;
+    if (document.getElementById(styleId)) {
+        return;
+    }
     
-    // Create a style element for the placeholder
     const style = document.createElement('style');
+    style.id = styleId;
     style.textContent = `
       wistia-player[media-id='${mediaId}']:not(:defined) {
         background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/${mediaId}/swatch');
@@ -59,10 +103,7 @@ const WistiaEmbed: React.FC<WistiaEmbedProps> = ({ mediaId }) => {
     `;
     document.head.appendChild(style);
 
-    return () => {
-      // Cleanup the style element when the component unmounts
-      document.head.removeChild(style);
-    };
+    // No cleanup needed since we are checking for existence
   }, [mediaId]);
 
   return (

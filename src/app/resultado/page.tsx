@@ -160,7 +160,7 @@ function ResultContent() {
             VEJA EXATAMENTE O QUE VOCÊ VAI RECEBER AO ENTRAR HOJE 👇
           </h2>
           <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-12">
-            Assista aos vídeos abaixo e veja como é o acesso completo à plataforma — disponível pra computador 💻 e celular 📱. <br/>Você vai aprender passo a passo em uma área profissional e fácil de usar.
+            Assista aos vídeos abaixo e veja como é o acesso completo à plataforma disponível pra computador 💻 e celular 📱. <br/>Você vai aprender passo a passo em uma área profissional e fácil de usar.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center justify-center">

@@ -4,6 +4,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import SocialProofToast from '@/components/social-proof-toast';
 import Script from 'next/script';
+import Head from 'next/head';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -31,6 +32,21 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} ${poppins.variable}`}>
       <head>
+        <link rel="preload" href="/_next/static/css/app/layout.css" as="style" />
+        <link
+          rel="preload"
+          href={inter.style.fontFamily}
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href={poppins.style.fontFamily}
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         <Script id="fb-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)

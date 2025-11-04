@@ -330,6 +330,7 @@ export default function FunnelPage() {
     const [step, setStep] = useState<FunnelStep>(1);
     const [aestheticChoice, setAestheticChoice] = useState('');
     const [colorTextureChoice, setColorTextureChoice] = useState('');
+    const router = useRouter();
 
     const handleStep1Complete = (choice: string) => {
         setAestheticChoice(choice);
@@ -341,6 +342,7 @@ export default function FunnelPage() {
         setColorTextureChoice(choice);
         setStep(3);
         window.scrollTo(0, 0);
+        router.prefetch('/resultado');
     };
 
 

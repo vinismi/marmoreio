@@ -80,6 +80,7 @@ const WistiaPlayer = ({ mediaId }: WistiaPlayerProps) => {
               style={{ filter: 'blur(5px)', height: '100%', objectFit: 'contain', width: '100%' }}
               alt=""
               aria-hidden="true"
+              loading="lazy"
               onLoad={(e) => (e.currentTarget.style.opacity = '1')}
             />
           </div>

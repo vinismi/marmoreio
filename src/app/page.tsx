@@ -9,10 +9,19 @@ import { Zap } from 'lucide-react';
 import ShowcaseCarousel from '@/components/showcase-carousel';
 import GoldenParticles from '@/components/particles';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
 
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Prefetch a página do funil para uma transição mais rápida
+    router.prefetch('/funil');
+  }, [router]);
+
   return (
     <main className="overflow-x-hidden">
       {/* Hero Section */}
@@ -62,7 +71,7 @@ export default function Home() {
                             className="button-shine-gradient text-black hover:text-black text-lg font-bold w-full rounded-full h-14 md:text-lg animate-fade-in-up animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
                             style={{ animationDelay: '0.8s' }}
                         >
-                            <Zap className="mr-2 group-hover:animate-pulse" /> QUERO PARTICIPAR DO TREINAMENTO
+                            QUERO PARTICIPAR DO TREINAMENTO
                         </Button>
                     </a>
                 </Link>

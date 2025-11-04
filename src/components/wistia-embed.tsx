@@ -7,14 +7,13 @@ type WistiaEmbedProps = {
 };
 
 // Global promise to ensure the Wistia player script is loaded only once.
-const wistiaScriptPromises: { [key: string]: Promise<void> } = {};
-
+let wistiaScriptPromise: Promise<void> | null = null;
 const loadWistiaScript = (src: string): Promise<void> => {
-  if (wistiaScriptPromises[src]) {
-    return wistiaScriptPromises[src];
+  if (wistiaScriptPromise) {
+    return wistiaScriptPromise;
   }
 
-  wistiaScriptPromises[src] = new Promise((resolve, reject) => {
+  wistiaScriptPromise = new Promise((resolve, reject) => {
     // Check if the script is already on the page
     if (document.querySelector(`script[src="${src}"]`)) {
       resolve();
@@ -25,32 +24,29 @@ const loadWistiaScript = (src: string): Promise<void> => {
     script.async = true;
     script.onload = () => resolve();
     script.onerror = () => {
-        delete wistiaScriptPromises[src];
+        wistiaScriptPromise = null;
         reject(`Failed to load script: ${src}`);
     };
     document.body.appendChild(script);
   });
 
-  return wistiaScriptPromises[src];
+  return wistiaScriptPromise;
 };
 
 const WistiaEmbed: React.FC<WistiaEmbedProps> = ({ mediaId }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
+  const [isScriptLoaded, setIsScriptLoaded] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Update state when element comes into view
         if (entry.isIntersecting) {
           setIsIntersecting(true);
-          // Stop observing once it's visible
           observer.unobserve(entry.target);
         }
       },
-      {
-        rootMargin: '50px', // Load 50px before it enters the viewport
-      }
+      { rootMargin: '200px' }
     );
 
     const currentRef = containerRef.current;
@@ -66,51 +62,103 @@ const WistiaEmbed: React.FC<WistiaEmbedProps> = ({ mediaId }) => {
   }, []);
 
   useEffect(() => {
-    if (!isIntersecting) {
+    if (!isIntersecting || isScriptLoaded) {
       return;
     }
 
     const loadPlayer = async () => {
       try {
-        await Promise.all([
-          loadWistiaScript('https://fast.wistia.com/player.js'),
-          loadWistiaScript(`https://fast.wistia.com/embed/${mediaId}.js`),
-        ]);
+        await loadWistiaScript('https://fast.wistia.com/assets/external/E-v1.js');
+        setIsScriptLoaded(true);
       } catch (error) {
         console.error('Wistia script loading failed:', error);
       }
     };
 
     loadPlayer();
-  }, [isIntersecting, mediaId]);
+  }, [isIntersecting, isScriptLoaded]);
 
-  // Create a unique style element for each media ID to prevent conflicts
   useEffect(() => {
     const styleId = `wistia-style-${mediaId}`;
-    if (document.getElementById(styleId)) {
-        return;
-    }
+    if (document.getElementById(styleId)) return;
     
     const style = document.createElement('style');
     style.id = styleId;
+    const paddingTop = mediaId === 'gfij5gu2lb' ? '56.25%' : '177.78%';
     style.textContent = `
-      wistia-player[media-id='${mediaId}']:not(:defined) {
-        background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/${mediaId}/swatch');
+      .wistia_responsive_wrapper {
+        position: relative;
+        height: 100%;
+        width: 100%;
+      }
+      .wistia_embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+      }
+      .wistia_swatch {
         display: block;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
         filter: blur(5px);
-        padding-top: ${mediaId === 'gfij5gu2lb' ? '56.25%' : '133.33%'};
+        transition: opacity 200ms;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
       }
     `;
     document.head.appendChild(style);
-
-    // No cleanup needed since we are checking for existence
   }, [mediaId]);
 
+  const videoId = `wistia_async_${mediaId}`;
+  const videoRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (!isScriptLoaded) return;
+    
+    (window as any)._wq = (window as any)._wq || [];
+    (window as any)._wq.push({
+      id: videoId,
+      onReady: (video: any) => {
+        videoRef.current = video;
+      },
+    });
+
+    return () => {
+      if (videoRef.current) {
+        try {
+          videoRef.current.remove();
+        } catch (e) {
+          console.error("Error removing Wistia player:", e);
+        }
+      }
+    };
+  }, [isScriptLoaded, videoId]);
+
   return (
-    <div ref={containerRef}>
-      <wistia-player media-id={mediaId} aspect={mediaId === 'gfij5gu2lb' ? "1.7777777777777777" : "0.75"}></wistia-player>
+    <div ref={containerRef} className="wistia_responsive_padding" style={{ padding: mediaId === 'gfij5gu2lb' ? '56.25% 0 0 0' : '177.78% 0 0 0', position: 'relative' }}>
+      {isIntersecting && (
+        <div className="wistia_responsive_wrapper">
+          <div
+            className={`wistia_embed wistia_async_${mediaId} videoFoam=true`}
+            id={videoId}
+          >
+            <div className="wistia_swatch" style={{backgroundImage: `url(https://fast.wistia.com/embed/medias/${mediaId}/swatch)`}}>
+            </div>
+          </div>
+        </div>
+      )}
+      {!isIntersecting && (
+        <div className="wistia_responsive_wrapper" style={{background: '#000'}}>
+             <div className="wistia_swatch" style={{backgroundImage: `url(https://fast.wistia.com/embed/medias/${mediaId}/swatch)`}}></div>
+        </div>
+      )}
     </div>
   );
 };
+
 
 export default WistiaEmbed;

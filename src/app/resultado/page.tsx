@@ -30,9 +30,9 @@ const videoTestimonials1 = ["6tdjfbsqle", "xab9r7nndh"];
 const videoTestimonials2 = ["ihs0hcvo3h", "foutga0xyz"];
 
 const transformations = [
-  { id: 't1', before: 'https://i.postimg.cc/N0LdhbSS/1-antes.png', after: 'https://i.postimg.cc/13vvYb79/1-depois.png' },
-  { id: 't2', before: 'https://i.postimg.cc/VkKKH2Zm/2-antes.png', after: 'https://i.postimg.cc/Z5wwDXsJ/2-depois.png' },
-  { id: 't3', before: 'https://i.postimg.cc/bvdmXL4P/3-antes.png', after: 'https://i.postimg.cc/wjwwbnfr/3-depois.png' },
+  { id: 't1', before: 'https://i.postimg.cc/N0LdhbSS/1-antes.png', after: 'https://i.postimg.cc/13vvYb79/1-depois.png', priority: true },
+  { id: 't2', before: 'https://i.postimg.cc/VkKKH2Zm/2-antes.png', after: 'https://i.postimg.cc/Z5wwDXsJ/2-depois.png', priority: false },
+  { id: 't3', before: 'https://i.postimg.cc/bvdmXL4P/3-antes.png', after: 'https://i.postimg.cc/wjwwbnfr/3-depois.png', priority: false },
 ];
 
 
@@ -134,7 +134,7 @@ function ResultContent() {
                 key={t.id}
                 before={t.before}
                 after={t.after}
-                priority={t.id === 't1'}
+                priority={t.priority}
               />
             ))}
           </div>

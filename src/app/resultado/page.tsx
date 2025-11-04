@@ -38,7 +38,7 @@ const transformations = [
 // SVG para o ícone do WhatsApp
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 12c0 1.77.46 3.45 1.29 4.94L2 22l5.09-1.34a9.87 9.87 0 0 0 4.86 1.24h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.91-9.91zm4.95 13.23c-.11.31-.41.59-1.2.78s-1.42.23-2.15.11a7.84 7.84 0 0 1-3.78-2.14c-.62-.62-1.12-1.36-1.36-1.74s-.37-1.31-.78-2.04c-.12-.73-.08-1.36.11-2.15s.47-1.09.78-1.2c.31-.11.63-.16.88-.16s.5.04.71.08c.21.04.38.08.5.2s.2.28.23.46.04.33.04.42-.04.15-.08.2c-.04.04-.08.08-.12.12l-.28.32c-.12.12-.2.24-.28.36s-.12.28-.08.42.16.33.32.54c.16.21.36.42.58.67s.46.5.71.75.5.46.75.71.46.38.67.58c.21.16.38.28.54.32s.28,0,.42-.08.28-.2.36-.28.2-.16.32-.28l.28-.24c.12-.12.24-.2.36-.28s.28-.12.42-.08.33.16.54.32c.21.16.38.36.58.58s.36.46.46.71c.11.25.16.54.16.84-.01.3-.05.59-.17.88z"/>
+      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 12c0 1.77.46 3.45 1.29 4.94L2 22l5.09-1.34a9.87 9.87 0 0 0 4.86 1.24h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.91-9.91zM16.99 15.23c-.11.31-.41.59-1.2.78s-1.42.23-2.15.11a7.84 7.84 0 0 1-3.78-2.14c-.62-.62-1.12-1.36-1.36-1.74s-.37-1.31-.78-2.04c-.12-.73-.08-1.36.11-2.15s.47-1.09.78-1.2c.31-.11.63-.16.88-.16s.5.04.71.08c.21.04.38.08.5.2s.2.28.23.46.04.33.04.42-.04.15-.08.2c-.04.04-.08.08-.12.12l-.28.32c-.12.12-.2.24-.28.36s-.12.28-.08.42.16.33.32.54c.16.21.36.42.58.67s.46.5.71.75.5.46.75.71.46.38.67.58c.21.16.38.28.54.32s.28,0,.42-.08.28-.2.36-.28.2-.16.32-.28l.28-.24c.12-.12.24-.2.36-.28s.28-.12.42-.08.33.16.54.32c.21.16.38.36.58.58s.36.46.46.71c.11.25.16.54.16.84-.01.3-.05.59-.17.88z"/>
     </svg>
 );
 
@@ -192,14 +192,15 @@ function ResultContent() {
         <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-black"></div>
         <div className="container mx-auto max-w-6xl text-center relative z-10">
           <div className="rounded-xl border border-amber-500/30 bg-black/30 p-8 shadow-golden backdrop-blur-sm">
-            <h3 className="font-headline text-2xl font-bold text-accent mb-4 text-center">✨ Como funciona o curso Efeito Marmorizado:</h3>
+            <h3 className="font-headline text-2xl font-bold text-accent mb-4 text-center">✨ Como o Efeito Marmorizado vai transformar o que você cria:</h3>
             <ul className="space-y-4 text-base text-left md:text-lg text-white/90 max-w-3xl mx-auto">
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💡</span><span>O acesso é instantâneo e vitalício, liberado assim que o pagamento é confirmado.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>📘</span><span>Dentro da plataforma, você vai encontrar mais de 300 modelos e efeitos diferentes de pintura marmorizada, com instruções passo a passo.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🧰</span><span>Todo o conteúdo é 100% online e pode ser acessado pelo celular, tablet ou computador, de onde quiser.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>⚙️</span><span>Você aprenderá desde os fundamentos até os efeitos avançados incluindo pisos, paredes e combinações profissionais com brilho e resina.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🎨</span><span>É o material mais completo do mercado pra quem quer aprender de verdade e começar a aplicar ainda hoje.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💡</span><span>Acesso imediato e vitalício: ao confirmar o pagamento, seu acesso é liberado na hora, pra você começar de onde estiver.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🎨</span><span>Mais de 300 modelos e efeitos exclusivos: aprenda a dominar técnicas que criam superfícies com aparência de mármore real, perfeitas para pisos, paredes e peças decorativas.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>⚙️</span><span>Método simples, direto e completo: pensado pra quem quer aprender de forma prática e aplicar resultados profissionais rapidamente.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💰</span><span>Crie, impressione e lucre: transforme o que seria apenas uma pintura em uma verdadeira arte valorizada, uma habilidade que abre portas pra uma nova fonte de renda.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🚀</span><span>Tudo dentro de uma plataforma moderna e fácil de usar: avance no seu ritmo, volte quando quiser e veja sua evolução módulo a módulo.</span></li>
             </ul>
+             <p className="mt-6 text-base md:text-lg text-white/80 max-w-3xl mx-auto">✨ Do básico ao avançado, do amador ao profissional — tudo o que você precisa está aqui.</p>
           </div>
         </div>
       </section>

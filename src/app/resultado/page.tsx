@@ -148,7 +148,7 @@ function ResultContent() {
             VEJA EXATAMENTE O QUE VOCÊ VAI RECEBER AO ENTRAR HOJE 👇
           </h2>
           <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-12">
-            Assista aos vídeos abaixo e veja como é o acesso completo à plataforma disponível pra computador 💻 e celular 📱. Você vai aprender passo a passo em uma área profissional e fácil de usar.
+Assista aos vídeos abaixo e veja como é o acesso completo à plataforma disponível pra computador 💻 e celular 📱. Você vai aprender passo a passo em uma área profissional e fácil de usar.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center justify-center">
@@ -333,7 +333,8 @@ function ResultContent() {
 
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/5534988790436?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20curso!"
+        href="https://wa.me/5534988790436?text=Ol%C3%A1,%20gostaria%
+20de%20saber%20mais%20sobre%20o%20curso!"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-lg animate-float"

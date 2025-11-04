@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -61,7 +62,7 @@ export default function Home() {
                             className="button-shine-gradient text-black hover:text-black text-lg font-bold w-full rounded-full h-14 md:text-lg animate-fade-in-up animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
                             style={{ animationDelay: '0.8s' }}
                         >
-                            <Zap className="mr-2 group-hover:animate-pulse" /> 🔥 QUERO PARTICIPAR DO TREINAMENTO INTERATIVO
+                            <Zap className="mr-2 group-hover:animate-pulse" /> QUERO PARTICIPAR DO TREINAMENTO
                         </Button>
                     </a>
                 </Link>

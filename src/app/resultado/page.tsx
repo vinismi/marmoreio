@@ -38,10 +38,14 @@ const transformations = [
 
 // SVG para o ícone do WhatsApp
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 12c0 1.77.46 3.45 1.29 4.94L2 22l5.09-1.34a9.87 9.87 0 0 0 4.86 1.24h.01c5.46 0 9.91-4.45 9.91-9.91S4.45-9.91 9.9-9.91zM16.53 15.8c-.24.63-1.05 1.15-2.01 1.34-1.1.21-2.28-.04-3.37-.5-1.55-.65-2.9-1.63-4.01-2.98-1.1-1.35-1.85-2.93-2.07-4.57-.18-1.38.16-2.64.9-3.71.6-.87 1.4-1.33 2.3-1.5.3-.06.63-.09.95-.09.43 0 .85.08 1.25.25.4.17.75.42.98.74s.37.6.4.9c.03.3.01.6-.08.88-.09.28-.2.53-.34.73l-.48.55c-.2.23-.4.48-.5.71s-.12.5.03.79c.15.29.35.58.6.87s.52.59.81.87.59.52.87.81c.29.25.59.43.87.6.29.15.58.17.79.03.23-.1.48-.28.71-.5l.55-.48c.2-.14.45-.25.73-.34.28-.09.58-.11.88-.08.3.03.6.14.9.4.24.23.49.58.66.98.17.4.25.82.25 1.25-.01.52-.16 1.03-.43 1.49z"/>
-  </svg>
-);
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      {...props}
+    >
+      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 12c0 1.77.46 3.45 1.29 4.94L2 22l5.09-1.34a9.87 9.87 0 0 0 4.86 1.24h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.91-9.91zM17.47 15.35c-.27.53-1.03 1-1.76 1.15-.81.16-1.63.1-2.61-.33-1.42-.62-2.68-1.5-3.69-2.73s-1.8-2.6-2.02-4.14c-.16-1.22.18-2.31.8-3.11.53-.7 1.27-1.12 2.1-1.26.27-.05.54-.08.82-.08.38 0 .76.07 1.12.21.36.14.68.35.88.62.2.27.33.56.36.87.03.27.01.54-.07.78-.08.24-.18.47-.31.65l-.42.48c-.18.2-.36.42-.45.64s-.11.45.03.71c.14.26.31.51.52.76s.45.51.7.74.52.45.76.7c.26.22.52.39.78.53.26.14.54.16.71.03.22-.1.44-.27.64-.45l.48-.42c.18-.13.41-.23.65-.31s.51-.1.78-.07c.27.03.55.15.82.36.27.21.52.5.62.88.1.38.16.78.16 1.18-.01.46-.14.92-.38 1.32z" />
+    </svg>
+  );
 
 
 function ResultContent() {
@@ -81,7 +85,7 @@ function ResultContent() {
           {heroImage && <Image src={heroImage.imageUrl} alt={heroImage.description} fill className="object-cover z-0 opacity-5" data-ai-hint={heroImage.imageHint} priority />}
           <div className="relative z-10 flex flex-col items-center w-full max-w-4xl text-center">
              <h2 className="font-headline text-3xl font-extrabold md:text-5xl animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-              <span>🎉 </span><span className="text-accent animate-golden-glow" style={{ textShadow: '0 0 15px rgba(255, 215, 0, 0.4)'}}>VOCÊ CONSEGUIU OS BÔNUS!</span>
+              <span>🎉</span> <span className="text-accent animate-golden-glow" style={{ textShadow: '0 0 15px rgba(255, 215, 0, 0.4)'}}>VOCÊ CONSEGUIU OS BÔNUS!</span>
             </h2>
             <div className="w-full text-center my-4 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
                 <p className="font-bold text-sm md:text-base text-accent animate-pulse" style={{textShadow: '0 0 8px hsl(var(--accent))'}}>🔥 Conquista desbloqueada – Acesso VIP garantido! 🔥</p>
@@ -183,21 +187,21 @@ function ResultContent() {
         </div>
       </section>
 
-      {/* Course Info Section - Moved from the top of the funnel */}
+      {/* Course Info Section */}
       <section className="dark relative bg-black py-16 md:py-24 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-marble.png')] opacity-[0.03]"></div>
         <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-black"></div>
         <div className="container mx-auto max-w-6xl text-center relative z-10">
           <div className="rounded-xl border border-amber-500/30 bg-black/30 p-8 shadow-golden backdrop-blur-sm">
-            <h3 className="font-headline text-2xl font-bold text-accent mb-4 text-center">✨ Como o Efeito Marmorizado vai transformar o que você cria:</h3>
+            <h3 className="font-headline text-2xl font-bold text-accent mb-6 text-center">⚡ Como o Efeito Marmorizado vai mudar o seu trabalho:</h3>
             <ul className="space-y-4 text-base text-left md:text-lg text-white/90 max-w-3xl mx-auto">
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💡</span><span>Acesso imediato e vitalício: ao confirmar o pagamento, seu acesso é liberado na hora, pra você começar de onde estiver.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🎨</span><span>Mais de 300 modelos e efeitos exclusivos: aprenda a dominar técnicas que criam superfícies com aparência de mármore real, perfeitas para pisos, paredes e peças decorativas.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>⚙️</span><span>Método simples, direto e completo: pensado pra quem quer aprender de forma prática e aplicar resultados profissionais rapidamente.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💰</span><span>Crie, impressione e lucre: transforme o que seria apenas uma pintura em uma verdadeira arte valorizada, uma habilidade que abre portas pra uma nova fonte de renda.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🚀</span><span>Tudo dentro de uma plataforma moderna e fácil de usar: avance no seu ritmo, volte quando quiser e veja sua evolução módulo a módulo.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💎</span><span>Acesso imediato e vitalício — liberação instantânea após o pagamento.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🎨</span><span>+300 modelos e efeitos exclusivos pra dominar do básico ao avançado.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🚀</span><span>Método rápido e direto, sem complicação, com resultados profissionais reais.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💰</span><span>Transforme arte em renda — aprenda a cobrar e valorizar seu talento.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>📱</span><span>Estude no seu ritmo, de qualquer lugar, quando quiser.</span></li>
             </ul>
-             <p className="mt-6 text-base md:text-lg text-white/80 max-w-3xl mx-auto">✨ Do básico ao avançado, do amador ao profissional — tudo o que você precisa está aqui.</p>
+             <p className="mt-6 text-base md:text-lg text-white/80 max-w-3xl mx-auto">✨ Simples, prático e poderoso. O efeito que transforma o comum em luxo.</p>
           </div>
         </div>
       </section>
@@ -332,8 +336,7 @@ function ResultContent() {
 
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/5534988790436?text=Ol%C3%A1,%20gostaria%
-20de%20saber%20mais%20sobre%20o%20curso!"
+        href="https://wa.me/5534988790436?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20curso!"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-lg animate-float"

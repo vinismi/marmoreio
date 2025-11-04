@@ -245,23 +245,23 @@ function ResultContent() {
                     <Gem className="w-16 h-16 text-black mb-4 drop-shadow-lg"/>
                     <h3 className="font-headline text-2xl font-extrabold text-black mb-4">💥 Garanta agora o acesso completo ao treinamento Efeito Marmorizado!</h3>
                      <div className="w-full text-left text-black/90 font-medium px-2 my-6 space-y-3">
-                        <p className='font-bold text-black'>💎 Você vai receber imediatamente:</p>
-                        <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Acesso vitalício à plataforma (sem mensalidades)</p>
+                        <p className='font-bold text-black'>💎 Você vai receber:</p>
+                        <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Acesso vitalício e imediato à plataforma</p>
                         <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> +300 modelos e efeitos marmorizados exclusivos</p>
-                        <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Guia completo para pisos, paredes e técnicas de brilho profissional</p>
-                        <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Acesso total via celular, computador ou tablet</p>
+                        <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Guia completo de aplicação e técnicas de brilho</p>
+                        <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Acesso por celular, tablet ou computador</p>
                         <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Suporte direto via WhatsApp e e-mail</p>
                         
-                        <p className='font-bold text-black pt-4'>🎁 Todos os 5 bônus já desbloqueados (100% gratuitos):</p>
+                        <p className='font-bold text-black pt-4'>🎁 Bônus 100% liberados:</p>
                         <ol className="list-none space-y-2 pl-1">
-                           <li><span className='mr-2'>1️⃣</span>💰 Como viver de pintura marmorizada – transforme sua arte em renda estável.</li>
-                           <li><span className='mr-2'>2️⃣</span>🔥 Transforme a técnica em renda extra ou principal – o passo a passo pra começar ainda hoje.</li>
-                           <li><span className='mr-2'>3️⃣</span>📊 Guia completo de precificação profissional – aprenda a cobrar o que realmente vale.</li>
-                           <li><span className='mr-2'>4️⃣</span>🎯 Como achar clientes que pagam bem – estratégias práticas de posicionamento.</li>
-                           <li><span className='mr-2'>5️⃣</span>🎨 Melhores tintas, resinas e pigmentos do mercado – lista e marcas recomendadas.</li>
+                           <li><span className='mr-2'>1️⃣</span>Como viver de pintura marmorizada</li>
+                           <li><span className='mr-2'>2️⃣</span>Transforme a técnica em renda extra ou principal</li>
+                           <li><span className='mr-2'>3️⃣</span>Guia completo de precificação</li>
+                           <li><span className='mr-2'>4️⃣</span>Como achar clientes que pagam bem</li>
+                           <li><span className='mr-2'>5️⃣</span>Melhores tintas, resinas e pigmentos do mercado</li>
                         </ol>
                         
-                        <p className='text-center font-bold text-black pt-4'>✨ Tudo isso liberado automaticamente após a compra!<br/>⚡ Sem esperas, sem burocracia, acesso garantido em segundos.</p>
+                        <p className='text-center font-bold text-black pt-4'>🚀 Tudo desbloqueado imediatamente após a compra.</p>
                     </div>
 
                     <div className='my-4 w-full bg-black/10 p-4 rounded-lg'>

@@ -20,7 +20,7 @@ const showcaseImages = [
 
 export default function ShowcaseCarousel() {
     const plugin = React.useRef(
-        Autoplay({ delay: 3000, stopOnInteraction: true })
+        Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })
     )
 
   return (
@@ -32,7 +32,7 @@ export default function ShowcaseCarousel() {
         plugins={[plugin.current]}
         className="w-full"
         onMouseEnter={plugin.current.stop}
-        onMouseLeave={plugin.current.reset}
+        onMouseLeave={plugin.current.play}
         opts={{
             loop: true,
             align: 'start',
@@ -48,7 +48,7 @@ export default function ShowcaseCarousel() {
                       alt={image.description}
                       width={400}
                       height={500}
-                      className="aspect-[4/5] w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="aspect-[4/5] w-full object-cover transition-transform duration-1000 ease-in-out group-hover:scale-105"
                       data-ai-hint={image.imageHint}
                       priority={index < 3}
                     />

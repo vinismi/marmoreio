@@ -38,7 +38,7 @@ const transformations = [
 // SVG para o ícone do WhatsApp
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 12c0 1.77.46 3.45 1.29 4.94L2 22l5.09-1.34a9.87 9.87 0 0 0 4.86 1.24h.01c5.46 0 9.91-4.45 9.91-9.91C22 6.45 17.55 2 12.05 2zM17 15.23c-.11.31-.41.59-1.2.78s-1.42.23-2.15.11a7.84 7.84 0 0 1-3.78-2.14c-.62-.62-1.12-1.36-1.36-1.74s-.37-1.31-.78-2.04c-.12-.73-.08-1.36.11-2.15s.47-1.09.78-1.2c.31-.11.63-.16.88-.16s.5.04.71.08c.21.04.38.08.5.2s.2.28.23.46.04.33.04.42-.04.15-.08.2c-.04.04-.08.08-.12.12l-.28.32c-.12.12-.2.24-.28.36s-.12.28-.08.42.16.33.32.54c.16.21.36.42.58.67s.46.5.71.75.5.46.75.71.46.38.67.58c.21.16.38.28.54.32s.28,0,.42-.08.28-.2.36-.28.2-.16.32-.28l.28-.24c.12-.12.24-.2.36-.28s.28-.12.42-.08.33.16.54.32c.21.16.38.36.58.58s.36.46.46.71c.11.25.16.54.16.84-.01.3-.05.59-.17.88z" />
+      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 12c0 1.77.46 3.45 1.29 4.94L2 22l5.09-1.34a9.87 9.87 0 0 0 4.86 1.24h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.91-9.91zm4.95 13.23c-.11.31-.41.59-1.2.78s-1.42.23-2.15.11a7.84 7.84 0 0 1-3.78-2.14c-.62-.62-1.12-1.36-1.36-1.74s-.37-1.31-.78-2.04c-.12-.73-.08-1.36.11-2.15s.47-1.09.78-1.2c.31-.11.63-.16.88-.16s.5.04.71.08c.21.04.38.08.5.2s.2.28.23.46.04.33.04.42-.04.15-.08.2c-.04.04-.08.08-.12.12l-.28.32c-.12.12-.2.24-.28.36s-.12.28-.08.42.16.33.32.54c.16.21.36.42.58.67s.46.5.71.75.5.46.75.71.46.38.67.58c.21.16.38.28.54.32s.28,0,.42-.08.28-.2.36-.28.2-.16.32-.28l.28-.24c.12-.12.24-.2.36-.28s.28-.12.42-.08.33.16.54.32c.21.16.38.36.58.58s.36.46.46.71c.11.25.16.54.16.84-.01.3-.05.59-.17.88z"/>
     </svg>
 );
 
@@ -138,34 +138,6 @@ function ResultContent() {
         </div>
       </section>
 
-      {/* What You'll Receive Section */}
-      <section className="dark relative bg-black py-16 md:py-24 px-6 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-marble.png')] opacity-[0.03]"></div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-black"></div>
-        <div className="container mx-auto max-w-6xl text-center relative z-10">
-          <div className="rounded-xl border border-amber-500/30 bg-black/30 p-8 shadow-golden backdrop-blur-sm">
-            <h3 className="font-headline text-2xl font-bold text-accent mb-4 text-center">✨ Como funciona o curso Efeito Marmorizado:</h3>
-            <ul className="space-y-4 text-base text-left md:text-lg text-white/90 max-w-3xl mx-auto">
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💡</span><span>O acesso é instantâneo e vitalício, liberado assim que o pagamento é confirmado.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>📘</span><span>Dentro da plataforma, você vai encontrar mais de 300 modelos e efeitos diferentes de pintura marmorizada, com instruções passo a passo.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🧰</span><span>Todo o conteúdo é 100% online e pode ser acessado pelo celular, tablet ou computador, de onde quiser.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>⚙️</span><span>Você aprenderá desde os fundamentos até os efeitos avançados incluindo pisos, paredes e combinações profissionais com brilho e resina.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🎨</span><span>É o material mais completo do mercado pra quem quer aprender de verdade e começar a aplicar ainda hoje.</span></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section ref={testimonialsRef} className="flex flex-col items-center justify-center gap-8 bg-background py-16 px-6 md:py-24">
-        <h2 className="font-headline text-3xl font-extrabold md:text-4xl text-center">Quem aprendeu essa técnica está mudando de vida</h2>
-        <div className='w-full max-w-6xl mx-auto space-y-8'>
-          <TestimonialCarousel videoIds={videoTestimonials1} />
-          <TestimonialCarousel videoIds={videoTestimonials2} />
-        </div>
-        <p className="mt-8 text-center text-lg md:text-xl max-w-3xl text-foreground/80">Assim como eles, você também pode começar do zero e dominar o efeito marmorizado. Agora é só escolher como quer começar.</p>
-      </section>
-
       {/* What You'll REALLY Receive Section */}
       <section className="dark relative bg-black py-16 md:py-24 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-marble.png')] opacity-[0.03]"></div>
@@ -177,7 +149,9 @@ function ResultContent() {
           >
             VEJA EXATAMENTE O QUE VOCÊ VAI RECEBER AO ENTRAR HOJE 👇
           </h2>
-          <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-12">Assista aos vídeos abaixo e veja como é o acesso completo à plataforma disponível pra computador 💻 e celular 📱. Você vai aprender passo a passo em uma área profissional e fácil de usar.</p>
+          <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-12">
+            Assista aos vídeos abaixo e veja como é o acesso completo à plataforma disponível pra computador 💻 e celular 📱. Você vai aprender passo a passo em uma área profissional e fácil de usar.
+          </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center justify-center">
             {/* Desktop Video */}
@@ -212,6 +186,34 @@ function ResultContent() {
         </div>
       </section>
 
+      {/* Course Info Section - Moved from the top of the funnel */}
+      <section className="dark relative bg-black py-16 md:py-24 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-marble.png')] opacity-[0.03]"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-black"></div>
+        <div className="container mx-auto max-w-6xl text-center relative z-10">
+          <div className="rounded-xl border border-amber-500/30 bg-black/30 p-8 shadow-golden backdrop-blur-sm">
+            <h3 className="font-headline text-2xl font-bold text-accent mb-4 text-center">✨ Como funciona o curso Efeito Marmorizado:</h3>
+            <ul className="space-y-4 text-base text-left md:text-lg text-white/90 max-w-3xl mx-auto">
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💡</span><span>O acesso é instantâneo e vitalício, liberado assim que o pagamento é confirmado.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>📘</span><span>Dentro da plataforma, você vai encontrar mais de 300 modelos e efeitos diferentes de pintura marmorizada, com instruções passo a passo.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🧰</span><span>Todo o conteúdo é 100% online e pode ser acessado pelo celular, tablet ou computador, de onde quiser.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>⚙️</span><span>Você aprenderá desde os fundamentos até os efeitos avançados incluindo pisos, paredes e combinações profissionais com brilho e resina.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🎨</span><span>É o material mais completo do mercado pra quem quer aprender de verdade e começar a aplicar ainda hoje.</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section ref={testimonialsRef} className="flex flex-col items-center justify-center gap-8 bg-background py-16 px-6 md:py-24">
+        <h2 className="font-headline text-3xl font-extrabold md:text-4xl text-center">Quem aprendeu essa técnica está mudando de vida</h2>
+        <div className='w-full max-w-6xl mx-auto space-y-8'>
+          <TestimonialCarousel videoIds={videoTestimonials1} />
+          <TestimonialCarousel videoIds={videoTestimonials2} />
+        </div>
+        <p className="mt-8 text-center text-lg md:text-xl max-w-3xl text-foreground/80">Assim como eles, você também pode começar do zero e dominar o efeito marmorizado. Agora é só escolher como quer começar.</p>
+      </section>
+
       {/* Plans Section */}
       <section ref={plansRef} className="dark relative flex flex-col items-center justify-center gap-8 bg-black py-16 px-6 md:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-marble.png')] opacity-[0.03]"></div>
@@ -239,35 +241,40 @@ function ResultContent() {
                 <div className="relative flex flex-col items-center text-center p-8 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 border-2 border-amber-300 shadow-2xl shadow-amber-500/30 transform transition-all duration-300 md:scale-105 hover:scale-110 animate-fade-in-up" style={{animationDelay: '400ms'}}>
                     <div className="absolute -top-4 bg-red-600 text-white px-4 py-1 rounded-full font-bold text-sm shadow-lg animate-pulse">🔥 MAIS ESCOLHIDO</div>
                     <Gem className="w-16 h-16 text-black mb-4 drop-shadow-lg"/>
-                    <h3 className="font-headline text-3xl font-extrabold text-black mb-2">Plano Completo + Bônus</h3>
-                     <div className="w-full text-left text-black/80 font-medium px-4 my-6 space-y-3">
-                        <h4 className='font-headline text-lg text-black font-bold text-center mb-4'>💎 Você vai receber:</h4>
-                        <p className='flex items-center gap-2'><CheckCircle className='w-5 h-5 text-green-800' /> Acesso vitalício à plataforma</p>
-                        <p className='flex items-center gap-2'><CheckCircle className='w-5 h-5 text-green-800' /> Mais de 300 modelos e efeitos exclusivos</p>
-                        <p className='flex items-center gap-2'><CheckCircle className='w-5 h-5 text-green-800' /> Guia completo para pisos, paredes e técnicas de brilho</p>
-                        <p className='flex items-center gap-2'><CheckCircle className='w-5 h-5 text-green-800' /> Suporte via WhatsApp e e-mail após a compra</p>
-                        <p className='font-bold mt-3'>✅ Todos os 5 bônus desbloqueados:</p>
-                        <ol className="list-decimal list-inside space-y-2 pl-2">
-                           <li>💰 Como viver de pintura marmorizada</li>
-                           <li>🔥 Transforme a técnica em renda extra ou principal</li>
-                           <li>📊 Guia completo de precificação profissional</li>
-                           <li>🎯 Como achar clientes que pagam bem</li>
-                           <li>🎨 Melhores tintas, resinas e pigmentos do mercado</li>
+                    <h3 className="font-headline text-2xl font-extrabold text-black mb-4">💥 Garanta agora o acesso completo ao treinamento Efeito Marmorizado!</h3>
+                     <div className="w-full text-left text-black/90 font-medium px-2 my-6 space-y-3">
+                        <p className='font-bold text-black'>💎 Você vai receber imediatamente:</p>
+                        <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Acesso vitalício à plataforma (sem mensalidades)</p>
+                        <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> +300 modelos e efeitos marmorizados exclusivos</p>
+                        <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Guia completo para pisos, paredes e técnicas de brilho profissional</p>
+                        <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Acesso total via celular, computador ou tablet</p>
+                        <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Suporte direto via WhatsApp e e-mail</p>
+                        
+                        <p className='font-bold text-black pt-4'>🎁 Todos os 5 bônus já desbloqueados (100% gratuitos):</p>
+                        <ol className="list-none space-y-2 pl-1">
+                           <li><span className='mr-2'>1️⃣</span>💰 Como viver de pintura marmorizada – transforme sua arte em renda estável.</li>
+                           <li><span className='mr-2'>2️⃣</span>🔥 Transforme a técnica em renda extra ou principal – o passo a passo pra começar ainda hoje.</li>
+                           <li><span className='mr-2'>3️⃣</span>📊 Guia completo de precificação profissional – aprenda a cobrar o que realmente vale.</li>
+                           <li><span className='mr-2'>4️⃣</span>🎯 Como achar clientes que pagam bem – estratégias práticas de posicionamento.</li>
+                           <li><span className='mr-2'>5️⃣</span>🎨 Melhores tintas, resinas e pigmentos do mercado – lista e marcas recomendadas.</li>
                         </ol>
-                        <p className='text-center font-bold text-black mt-4'>✨ Tudo isso liberado imediatamente após a compra!</p>
+                        
+                        <p className='text-center font-bold text-black pt-4'>✨ Tudo isso liberado automaticamente após a compra!<br/>⚡ Sem esperas, sem burocracia, acesso garantido em segundos.</p>
                     </div>
 
-                    <div className='my-4'>
+                    <div className='my-4 w-full bg-black/10 p-4 rounded-lg'>
+                      <p className='text-sm font-semibold text-black'>💸 Oferta exclusiva e limitada</p>
+                      <p className="text-lg text-black/80">De <del>R$ 79,90</del> por apenas</p>
                       <p className="text-5xl font-extrabold text-black">R$ 14,99</p>
-                      <p className="text-base text-black/70"><del>de R$ 53,99</del></p>
+                      <p className="text-xs text-black/70 font-medium">(valor simbólico de acesso vitalício)</p>
                     </div>
                     <Button 
                       size="lg" 
-                      className="w-full rounded-full bg-black text-amber-400 hover:bg-gray-800 font-bold text-base shadow-lg hover:shadow-2xl transition-all h-auto py-3 leading-tight flex flex-col"
+                      className="w-full rounded-full bg-green-600 text-white hover:bg-green-700 font-bold text-base shadow-lg hover:shadow-2xl transition-all h-auto py-3 leading-tight flex flex-col"
                       onClick={() => window.open('https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS', '_blank')}
                     >
-                      GARANTIR O PACOTE COMPLETO
-                      <span className="text-xs font-normal opacity-80 mt-1">Acesso imediato + todos os bônus liberados agora 🔓</span>
+                      Garantir meu acesso agora →
+                      <span className="text-xs font-normal opacity-90 mt-1">Acesso imediato + todos os bônus liberados 🔓</span>
                     </Button>
                 </div>
             </div>

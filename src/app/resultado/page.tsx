@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Suspense } from 'react';
@@ -38,7 +39,7 @@ const transformations = [
 // SVG para o ícone do WhatsApp
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 12c0 1.77.46 3.45 1.29 4.94L2 22l5.09-1.34a9.87 9.87 0 0 0 4.86 1.24h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.91-9.91zM16.99 15.23c-.11.31-.41.59-1.2.78s-1.42.23-2.15.11a7.84 7.84 0 0 1-3.78-2.14c-.62-.62-1.12-1.36-1.36-1.74s-.37-1.31-.78-2.04c-.12-.73-.08-1.36.11-2.15s.47-1.09.78-1.2c.31-.11.63-.16.88-.16s.5.04.71.08c.21.04.38.08.5.2s.2.28.23.46.04.33.04.42-.04.15-.08.2c-.04.04-.08.08-.12.12l-.28.32c-.12.12-.2.24-.28.36s-.12.28-.08.42.16.33.32.54c.16.21.36.42.58.67s.46.5.71.75.5.46.75.71.46.38.67.58c.21.16.38.28.54.32s.28,0,.42-.08.28-.2.36-.28.2-.16.32-.28l.28-.24c.12-.12.24-.2.36-.28s.28-.12.42-.08.33.16.54.32c.21.16.38.36.58.58s.36.46.46.71c.11.25.16.54.16.84-.01.3-.05.59-.17.88z"/>
+      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 12c0 1.77.46 3.45 1.29 4.94L2 22l5.09-1.34a9.87 9.87 0 0 0 4.86 1.24h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.91-9.91zM17.21 15.23c-.11.31-.41.59-1.2.78s-1.42.23-2.15.11c-1.34-.23-2.58-.9-3.62-1.93s-1.7-2.28-1.93-3.62c-.12-.73-.08-1.36.11-2.15s.47-1.09.78-1.2c.31-.11.63-.16.88-.16s.5.04.71.08c.21.04.38.08.5.2s.2.28.23.46.04.33.04.42-.04.15-.08.2c-.04.04-.08.08-.12.12l-.28.32c-.12.12-.2.24-.28.36s-.12.28-.08.42.16.33.32.54c.16.21.36.42.58.67s.46.5.71.75.5.46.75.71.46.38.67.58c.21.16.38.28.54.32s.28,0,.42-.08.28-.2.36-.28.2-.16.32-.28l.28-.24c.12-.12.24-.2.36-.28s.28-.12.42-.08.33.16.54.32c.21.16.38.36.58.58s.36.46.46.71c.11.25.16.54.16.84-.01.3-.05.59-.17.88z" />
     </svg>
 );
 
@@ -78,16 +79,16 @@ function ResultContent() {
           <GoldenParticles visible={true} count={40} />
           {heroImage && <Image src={heroImage.imageUrl} alt={heroImage.description} fill className="object-cover z-0 opacity-5" data-ai-hint={heroImage.imageHint} priority />}
           <div className="relative z-10 flex flex-col items-center w-full max-w-4xl text-center">
-            <div className="w-full text-center mb-4 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-                <p className="font-bold text-sm md:text-base text-accent animate-pulse" style={{textShadow: '0 0 8px hsl(var(--accent))'}}>🔥 CONQUISTA DESBLOQUEADA – ACESSO VIP LIBERADO 🔥</p>
-            </div>
-            <h2 className="font-headline text-3xl font-extrabold md:text-5xl animate-fade-in-up" style={{ animationDelay: '400ms' }}>
-              <span>🎉</span>
-              <span className="text-accent animate-golden-glow" style={{ textShadow: '0 0 15px rgba(255, 215, 0, 0.4)'}}>VOCÊ CONSEGUIU!</span>
+            <h2 className="font-headline text-3xl font-extrabold md:text-5xl animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+              <span className="text-accent animate-golden-glow" style={{ textShadow: '0 0 15px rgba(255, 215, 0, 0.4)'}}>🎉 VOCÊ CONSEGUIU OS BÔNUS!</span>
             </h2>
-             <p className="text-lg md:text-xl mb-8 text-foreground/90 max-w-3xl animate-fade-in-up" style={{ animationDelay: '600ms', lineHeight: '1.6' }}>Todos esses módulos eram pagos... mas por ter completado o treino da IA, você acabou de desbloquear o <span className="text-[#9FFF8C] font-bold" style={{textShadow: '0 0 8px rgba(144, 255, 120, 0.6)'}}>acesso gratuito!</span></p>
+            <div className="w-full text-center my-4 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
+                <p className="font-bold text-sm md:text-base text-accent animate-pulse" style={{textShadow: '0 0 8px hsl(var(--accent))'}}>🔥 Conquista desbloqueada – Acesso VIP garantido! 🔥</p>
+            </div>
+             <p className="text-lg md:text-xl mb-4 text-foreground/90 max-w-3xl animate-fade-in-up" style={{ animationDelay: '600ms', lineHeight: '1.6' }}>Todos esses bônus eram pagos… mas por ter completado o treino da IA, você acabou de liberar o <span className="text-[#9FFF8C] font-bold" style={{textShadow: '0 0 8px rgba(144, 255, 120, 0.6)'}}>acesso gratuito</span> a todos eles!</p>
+            <p className="text-lg md:text-xl text-foreground/90 max-w-3xl animate-fade-in-up" style={{ animationDelay: '700ms', lineHeight: '1.6' }}>✨ Aproveite seus bônus e mergulhe nos segredos do Efeito Marmorizado — a técnica que está revolucionando o mercado da pintura decorativa.</p>
             
-            <div className="w-full max-w-2xl space-y-3">
+            <div className="w-full max-w-2xl space-y-3 mt-8">
               {bonuses.map((bonus, index) => {
                   return (
                   <div
@@ -106,9 +107,6 @@ function ResultContent() {
                 )
               })}
             </div>
-
-            <p className="mt-8 text-lg md:text-xl max-w-3xl text-foreground/80 animate-fade-in-up" style={{ animationDelay: '800ms' }}>💎 Aproveite: você acabou de liberar o mesmo conteúdo que os profissionais usam para lucrar com pintura decorativa.</p>
-            
           </div>
       </div>
       

@@ -84,8 +84,8 @@ function ResultContent() {
           <GoldenParticles visible={true} count={40} />
           {heroImage && <Image src={heroImage.imageUrl} alt={heroImage.description} fill className="object-cover z-0 opacity-5" data-ai-hint={heroImage.imageHint} priority />}
           <div className="relative z-10 flex flex-col items-center w-full max-w-4xl text-center">
-             <h2 className="font-headline text-3xl font-extrabold md:text-5xl animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-              <span>🎉</span> <span className="text-accent animate-golden-glow" style={{ textShadow: '0 0 15px rgba(255, 215, 0, 0.4)'}}>VOCÊ CONSEGUIU OS BÔNUS!</span>
+            <h2 className="font-headline text-3xl font-extrabold md:text-5xl animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+              <span className="mr-2">🎉</span><span className="text-accent animate-golden-glow" style={{ textShadow: '0 0 15px rgba(255, 215, 0, 0.4)'}}>VOCÊ CONSEGUIU OS BÔNUS!</span>
             </h2>
             <div className="w-full text-center my-4 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
                 <p className="font-bold text-sm md:text-base text-accent animate-pulse" style={{textShadow: '0 0 8px hsl(var(--accent))'}}>🔥 Conquista desbloqueada – Acesso VIP garantido! 🔥</p>
@@ -177,7 +177,7 @@ function ResultContent() {
             <div className="mt-8">
               <Button 
                 size="lg" 
-                className="button-shine-gradient text-black hover:text-black text-lg font-bold w-full max-w-md mx-auto rounded-full h-16 md:h-14 md:text-lg animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
+                className="button-shine-gradient text-black hover:text-black font-bold w-full max-w-md mx-auto rounded-full h-16 md:h-14 text-base md:text-lg animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
                 onClick={() => scrollTo(plansRef)}
               >
                 🟨 QUERO TER ACESSO À PLATAFORMA AGORA
@@ -198,7 +198,7 @@ function ResultContent() {
               <li className="flex items-start gap-3"><span className='text-xl pt-1'>💎</span><span>Acesso imediato e vitalício — liberação instantânea após o pagamento.</span></li>
               <li className="flex items-start gap-3"><span className='text-xl pt-1'>🎨</span><span>+300 modelos e efeitos exclusivos pra dominar do básico ao avançado.</span></li>
               <li className="flex items-start gap-3"><span className='text-xl pt-1'>🚀</span><span>Método rápido e direto, sem complicação, com resultados profissionais reais.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💰</span><span>Transforme arte em renda — aprenda a cobrar e valorizar seu talento.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💰</span><span>Transforme arte em renda, aprenda a cobrar e valorizar seu talento.</span></li>
               <li className="flex items-start gap-3"><span className='text-xl pt-1'>📱</span><span>Estude no seu ritmo, de qualquer lugar, quando quiser.</span></li>
             </ul>
              <p className="mt-6 text-base md:text-lg text-white/80 max-w-3xl mx-auto">✨ Simples, prático e poderoso. O efeito que transforma o comum em luxo.</p>

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useRouter } from 'next/navigation';
@@ -66,7 +67,7 @@ const CourseInfoSection = () => (
           <li className="flex items-start gap-3"><span className='text-xl'>💡</span>O acesso é instantâneo e vitalício, liberado assim que o pagamento é confirmado.</li>
           <li className="flex items-start gap-3"><span className='text-xl'>📘</span>Dentro da plataforma, você vai encontrar mais de 300 modelos e efeitos diferentes de pintura marmorizada, com instruções passo a passo.</li>
           <li className="flex items-start gap-3"><span className='text-xl'>🧰</span>Todo o conteúdo é 100% online e pode ser acessado pelo celular, tablet ou computador, de onde quiser.</li>
-          <li className="flex items-start gap-3"><span className='text-xl'>⚙️</span>Você aprenderá desde os fundamentos até os efeitos avançados — incluindo pisos, paredes e combinações profissionais com brilho e resina.</li>
+          <li className="flex items-start gap-3"><span className='text-xl'>⚙️</span>Você aprenderá desde os fundamentos até os efeitos avançados, incluindo pisos, paredes e combinações profissionais com brilho e resina.</li>
           <li className="flex items-start gap-3"><span className='text-xl'>🎨</span>É o material mais completo do mercado pra quem quer aprender de verdade e começar a aplicar ainda hoje.</li>
         </ul>
       </div>

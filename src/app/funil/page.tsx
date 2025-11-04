@@ -50,13 +50,29 @@ const finishOptions = [
     image: PlaceHolderImages.find(img => img.id === 'finish-satin')!
   },
   { 
-    id: 'c', 
+    id: 'c',
     label: 'Efeito Perolado',
     image: PlaceHolderImages.find(img => img.id === 'finish-pearl')!
   },
 ];
 
 type FunnelStep = 1 | 2 | 3;
+
+const CourseInfoSection = () => (
+    <div className="relative z-10 w-full max-w-2xl my-10 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+      <div className="rounded-xl border border-amber-500/30 bg-black/30 p-6 shadow-golden backdrop-blur-sm">
+        <h3 className="font-headline text-2xl font-bold text-accent mb-4 text-center">✨ Como funciona o curso Efeito Marmorizado:</h3>
+        <ul className="space-y-4 text-base text-white/90">
+          <li className="flex items-start gap-3"><span className='text-xl'>💡</span>O acesso é instantâneo e vitalício, liberado assim que o pagamento é confirmado.</li>
+          <li className="flex items-start gap-3"><span className='text-xl'>📘</span>Dentro da plataforma, você vai encontrar mais de 300 modelos e efeitos diferentes de pintura marmorizada, com instruções passo a passo em texto e imagens ilustrativas.</li>
+          <li className="flex items-start gap-3"><span className='text-xl'>🧰</span>Todo o conteúdo é 100% online e pode ser acessado pelo celular, tablet ou computador, de onde quiser.</li>
+          <li className="flex items-start gap-3"><span className='text-xl'>⚙️</span>Você aprenderá desde os fundamentos até os efeitos avançados — incluindo pisos, paredes e combinações profissionais com brilho e resina.</li>
+          <li className="flex items-start gap-3"><span className='text-xl'>🎨</span>É o material mais completo do mercado pra quem quer aprender de verdade e começar a aplicar ainda hoje.</li>
+        </ul>
+      </div>
+    </div>
+);
+
 
 const Step1 = ({ onComplete }: { onComplete: (choice: string) => void }) => {
   const [aestheticChoice, setAestheticChoice] = useState('');
@@ -117,6 +133,7 @@ const Step1 = ({ onComplete }: { onComplete: (choice: string) => void }) => {
 
               {isCompleted && (
                   <div className="mt-8 flex flex-col items-center gap-4 text-center animate-fade-in-up w-full" style={{ animationDelay: '0.4s' }}>
+                      <CourseInfoSection />
                       <div className="w-full rounded-lg bg-green-500/10 p-4 border border-green-500/20">
                           <p className="flex items-center justify-center gap-2 text-lg font-semibold text-green-400"><CheckCircle size={24} /> Treino IA: Etapa 1 concluída!</p>
                           <p className="mt-1 max-w-lg text-secondary-foreground/80 text-base">Perfeito! Você ajudou nossa IA a reconhecer padrões.</p>

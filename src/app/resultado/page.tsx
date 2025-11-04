@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { Box, Gem, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Box, Gem, AlertTriangle, ShieldCheck, CheckCircle } from 'lucide-react';
 import GoldenParticles from '@/components/particles';
 import UpsellFlow from '@/components/upsell-flow';
 import TestimonialCarousel from '@/components/testimonial-carousel';
@@ -38,7 +38,7 @@ const transformations = [
 // SVG para o ícone do WhatsApp
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M16.75 13.96c.25.42.42.84.5 1.25.08.42.08.84.04 1.25-.04.42-.12.84-.33 1.25s-.42.75-.71 1c-.29.25-.62.46-.96.63-.33.16-.71.25-1.08.25-.46 0-.92-.12-1.33-.38s-1.17-.67-2.21-1.29c-1.04-.63-2.08-1.42-3.12-2.38s-1.77-2.04-2.38-3.12c-.63-1.04-.96-1.77-1.29-2.21-.25-.42-.38-.88-.38-1.33s.08-.92.25-1.33.38-.79.63-1.08c.25-.29.54-.5.88-.63s.67-.21 1-.21c.33 0 .67.04 1 .12s.63.21.92.38c.29.16.54.38.75.63s.38.5.5.75c.12.25.21.5.25.75s.08.5.04.75c-.04.25-.12.5-.25.71s-.25.42-.42.58c-.16.16-.33.33-.5.54s-.29.33-.38.46c-.08.12-.12.25-.12.38s.04.25.12.38c.08.12.21.29.38.46.16.16.33.33.5.5.21.21.46.42.71.63.25.21.5.42.75.58.25.17.5.29.71.38.16.04.33.08.46.08.21 0 .38-.04.5-.12.12-.08.25-.21.38-.33.12-.12.29-.25.46-.38s.33-.25.5-.33c.17-.08.33-.12.5-.12.21 0 .42.04.63.12.21.08.42.21.63.38.21.16.38.33.54.54.16.21.29.46.38.71.08.25.12.5.12.75s-.04.5-.12.75c-.08.25-.21.5-.38.71-.16.21-.33.42-.54.63-.21.21-.46.38-.71.58z M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4.75-12.96c.25.42.42.84.5 1.25.08.42.08.84.04 1.25-.04.42-.12.84-.33 1.25s-.42.75-.71 1c-.29.25-.62.46-.96.63-.33.16-.71.25-1.08.25-.46 0-.92-.12-1.33-.38s-1.17-.67-2.21-1.29c-1.04-.63-2.08-1.42-3.12-2.38s-1.77-2.04-2.38-3.12c-.63-1.04-.96-1.77-1.29-2.21-.25-.42-.38-.88-.38-1.33s.08-.92.25-1.33.38-.79.63-1.08c.25-.29.54-.5.88-.63s.67-.21 1-.21c.33 0 .67.04 1 .12s.63.21.92.38c.29.16.54.38.75.63s.38.5.5.75c.12.25.21.5.25.75s.08.5.04.75c-.04.25-.12.5-.25.71s-.25.42-.42.58c-.16.16-.33.33-.5.54s-.29.33-.38.46c-.08.12-.12.25-.12.38s.04.25.12.38c.08.12.21.29.38.46.16.16.33.33.5.5.21.21.46.42.71.63.25.21.5.42.75.58.25.17.5.29.71.38.16.04.33.08.46.08.21 0 .38-.04.5-.12.12-.08.25-.21.38-.33.12-.12.29-.25.46-.38s.33-.25.5-.33c.17-.08.33-.12.5-.12.21 0 .42.04.63.12.21.08.42.21.63.38.21.16.38.33.54.54.16.21.29.46.38.71.08.25.12.5.12.75s-.04.5-.12.75c-.08.25-.21.5-.38.71-.16.21-.33.42-.54.63-.21.21-.46.38-.71.58z"></path>
     </svg>
 );
 
@@ -138,6 +138,24 @@ function ResultContent() {
         </div>
       </section>
 
+      {/* What You'll Receive Section */}
+      <section className="dark relative bg-black py-16 md:py-24 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-marble.png')] opacity-[0.03]"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-black"></div>
+        <div className="container mx-auto max-w-6xl text-center relative z-10">
+          <div className="rounded-xl border border-amber-500/30 bg-black/30 p-8 shadow-golden backdrop-blur-sm">
+            <h3 className="font-headline text-2xl font-bold text-accent mb-4 text-center">✨ Como funciona o curso Efeito Marmorizado:</h3>
+            <ul className="space-y-4 text-base text-left md:text-lg text-white/90 max-w-3xl mx-auto">
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💡</span><span>O acesso é instantâneo e vitalício, liberado assim que o pagamento é confirmado.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>📘</span><span>Dentro da plataforma, você vai encontrar mais de 300 modelos e efeitos diferentes de pintura marmorizada, com instruções passo a passo em texto e imagens ilustrativas.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🧰</span><span>Todo o conteúdo é 100% online e pode ser acessado pelo celular, tablet ou computador, de onde quiser.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>⚙️</span><span>Você aprenderá desde os fundamentos até os efeitos avançados incluindo pisos, paredes e combinações profissionais com brilho e resina.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🎨</span><span>É o material mais completo do mercado pra quem quer aprender de verdade e começar a aplicar ainda hoje.</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section ref={testimonialsRef} className="flex flex-col items-center justify-center gap-8 bg-background py-16 px-6 md:py-24">
         <h2 className="font-headline text-3xl font-extrabold md:text-4xl text-center">Quem aprendeu essa técnica está mudando de vida</h2>
@@ -148,7 +166,7 @@ function ResultContent() {
         <p className="mt-8 text-center text-lg md:text-xl max-w-3xl text-foreground/80">Assim como eles, você também pode começar do zero e dominar o efeito marmorizado. Agora é só escolher como quer começar.</p>
       </section>
 
-      {/* What You'll Receive Section */}
+      {/* What You'll REALLY Receive Section */}
       <section className="dark relative bg-black py-16 md:py-24 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-marble.png')] opacity-[0.03]"></div>
         <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-black"></div>
@@ -160,7 +178,7 @@ function ResultContent() {
             VEJA EXATAMENTE O QUE VOCÊ VAI RECEBER AO ENTRAR HOJE 👇
           </h2>
           <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-12">
-            Assista aos vídeos abaixo e veja como é o acesso completo à plataforma disponível pra computador 💻 e celular 📱.<br/>Você vai aprender passo a passo em uma área profissional e fácil de usar.
+            Assista aos vídeos abaixo e veja como é o acesso completo à plataforma disponível pra computador 💻 e celular 📱. Você vai aprender passo a passo em uma área profissional e fácil de usar.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center justify-center">
@@ -224,17 +242,34 @@ function ResultContent() {
                     <div className="absolute -top-4 bg-red-600 text-white px-4 py-1 rounded-full font-bold text-sm shadow-lg animate-pulse">🔥 MAIS ESCOLHIDO</div>
                     <Gem className="w-16 h-16 text-black mb-4 drop-shadow-lg"/>
                     <h3 className="font-headline text-3xl font-extrabold text-black mb-2">Plano Completo + Bônus</h3>
-                    <p className="mb-6 h-12 text-base md:h-16 text-black/80 font-medium">Curso completo + 5 bônus desbloqueados (renda, precificação, clientes e tintas).</p>
+                     <div className="w-full text-left text-black/80 font-medium px-4 my-6 space-y-3">
+                        <h4 className='font-headline text-lg text-black font-bold text-center mb-4'>💎 Você vai receber:</h4>
+                        <p className='flex items-center gap-2'><CheckCircle className='w-5 h-5 text-green-800' /> Acesso vitalício à plataforma</p>
+                        <p className='flex items-center gap-2'><CheckCircle className='w-5 h-5 text-green-800' /> Mais de 300 modelos e efeitos exclusivos</p>
+                        <p className='flex items-center gap-2'><CheckCircle className='w-5 h-5 text-green-800' /> Guia completo para pisos, paredes e técnicas de brilho</p>
+                        <p className='flex items-center gap-2'><CheckCircle className='w-5 h-5 text-green-800' /> Suporte via WhatsApp e e-mail após a compra</p>
+                        <p className='font-bold mt-3'>✅ Todos os 5 bônus desbloqueados:</p>
+                        <ol className="list-decimal list-inside space-y-2 pl-2">
+                           <li>💰 Como viver de pintura marmorizada</li>
+                           <li>🔥 Transforme a técnica em renda extra ou principal</li>
+                           <li>📊 Guia completo de precificação profissional</li>
+                           <li>🎯 Como achar clientes que pagam bem</li>
+                           <li>🎨 Melhores tintas, resinas e pigmentos do mercado</li>
+                        </ol>
+                        <p className='text-center font-bold text-black mt-4'>✨ Tudo isso liberado imediatamente após a compra!</p>
+                    </div>
+
                     <div className='my-4'>
                       <p className="text-5xl font-extrabold text-black">R$ 14,99</p>
                       <p className="text-base text-black/70"><del>de R$ 53,99</del></p>
                     </div>
                     <Button 
                       size="lg" 
-                      className="w-full rounded-full bg-black text-amber-400 hover:bg-gray-800 font-bold text-base shadow-lg hover:shadow-2xl transition-all"
+                      className="w-full rounded-full bg-black text-amber-400 hover:bg-gray-800 font-bold text-base shadow-lg hover:shadow-2xl transition-all h-auto py-3 leading-tight flex flex-col"
                       onClick={() => window.open('https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS', '_blank')}
                     >
                       GARANTIR O PACOTE COMPLETO
+                      <span className="text-xs font-normal opacity-80 mt-1">Acesso imediato + todos os bônus liberados agora 🔓</span>
                     </Button>
                 </div>
             </div>

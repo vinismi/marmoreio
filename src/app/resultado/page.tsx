@@ -38,7 +38,7 @@ const transformations = [
 // SVG para o ícone do WhatsApp
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 12c0 1.77.46 3.45 1.29 4.94L2 22l5.09-1.34c1.47.78 3.12 1.24 4.86 1.24h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.91-9.91zM17 15.23c-.11.31-.41.59-1.2.78-.79.19-1.42.23-2.15.11-.73-.11-1.42-.41-2.04-.78-.62-.37-1.2-.82-1.74-1.36s-1-1.12-1.36-1.74c-.37-.62-.67-1.31-.78-2.04-.11-.73-.08-1.36.11-2.15.19-.79.47-1.09.78-1.2.31-.11.63-.16.88-.16.25 0 .5.04.71.08.21.04.38.08.5.2.12.12.2.28.23.46.04.19.04.33.04.42s-.04.15-.08.2c-.04.04-.08.08-.12.12l-.28.32c-.12.12-.2.24-.28.36s-.12.28-.08.42c.04.15.16.33.32.54.16.21.36.42.58.67.23.25.46.5.71.75s.5.46.75.71c.25.21.46.38.67.58.21.16.38.28.54.32.15.04.28,0,.42-.08.15-.08.28-.2.36-.28s.2-.16.32-.28l.28-.24c.12-.12.24-.2.36-.28s.28-.12.42-.08c.15.04.33.16.54.32.21.16.38.36.58.58.2.23.36.46.46.71.11.25.16.54.16.84 0 .3-.04.59-.16.88z" />
+        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 12c0 1.77.46 3.45 1.29 4.94L2 22l5.09-1.34a9.87 9.87 0 0 0 4.86 1.24h.01c5.46 0 9.91-4.45 9.91-9.91C22 6.45 17.55 2 12.05 2zM17 15.23c-.11.31-.41.59-1.2.78s-1.42.23-2.15.11a7.84 7.84 0 0 1-3.78-2.14c-.62-.62-1.12-1.36-1.36-1.74s-.37-1.31-.78-2.04c-.12-.73-.08-1.36.11-2.15s.47-1.09.78-1.2c.31-.11.63-.16.88-.16s.5.04.71.08c.21.04.38.08.5.2s.2.28.23.46.04.33.04.42-.04.15-.08.2c-.04.04-.08.08-.12.12l-.28.32c-.12.12-.2.24-.28.36s-.12.28-.08.42.16.33.32.54c.16.21.36.42.58.67s.46.5.71.75.5.46.75.71.46.38.67.58c.21.16.38.28.54.32s.28,0,.42-.08.28-.2.36-.28.2-.16.32-.28l.28-.24c.12-.12.24-.2.36-.28s.28-.12.42-.08.33.16.54.32c.21.16.38.36.58.58s.36.46.46.71c.11.25.16.54.16.84-.01.3-.05.59-.17.88z" />
     </svg>
 );
 
@@ -177,9 +177,7 @@ function ResultContent() {
           >
             VEJA EXATAMENTE O QUE VOCÊ VAI RECEBER AO ENTRAR HOJE 👇
           </h2>
-          <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-12">
-            Assista aos vídeos abaixo e veja como é o acesso completo à plataforma disponível pra computador 💻 e celular 📱. Você vai aprender passo a passo em uma área profissional e fácil de usar.
-          </p>
+          <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-12">Assista aos vídeos abaixo e veja como é o acesso completo à plataforma disponível pra computador 💻 e celular 📱. Você vai aprender passo a passo em uma área profissional e fácil de usar.</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center justify-center">
             {/* Desktop Video */}
@@ -204,7 +202,7 @@ function ResultContent() {
             <div className="mt-8">
               <Button 
                 size="lg" 
-                className="button-shine-gradient text-black hover:text-black text-lg font-bold w-full max-w-md mx-auto rounded-full h-14 md:text-lg animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
+                className="button-shine-gradient text-black hover:text-black text-base md:text-lg font-bold w-full max-w-md mx-auto rounded-full h-16 md:h-14 animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
                 onClick={() => scrollTo(plansRef)}
               >
                 🟨 QUERO TER ACESSO À PLATAFORMA AGORA

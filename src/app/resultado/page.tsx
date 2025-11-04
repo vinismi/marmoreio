@@ -39,9 +39,10 @@ const transformations = [
 // SVG para o ícone do WhatsApp
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 12c0 1.77.46 3.45 1.29 4.94L2 22l5.09-1.34a9.87 9.87 0 0 0 4.86 1.24h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.9-9.91zm4.49 13.8c-.24.63-1.05 1.15-2.01 1.34-1.1.21-2.28-.04-3.37-.5-1.55-.65-2.9-1.63-4.01-2.98-1.1-1.35-1.85-2.93-2.07-4.57-.18-1.38.16-2.64.9-3.71.6-.87 1.4-1.33 2.3-1.5.3-.06.63-.09.95-.09.43 0 .85.08 1.25.25.4.17.75.42.98.74s.37.6.4.9c.03.3.01.6-.08.88-.09.28-.2.53-.34.73l-.48.55c-.2.23-.4.48-.5.71s-.12.5.03.79c.15.29.35.58.6.87s.52.59.81.87.59.52.87.81c.29.25.59.43.87.6.29.15.58.17.79.03.23-.1.48-.28.71-.5l.55-.48c.2-.14.45-.25.73-.34.28-.09.58-.11.88-.08.3.03.6.14.9.4.24.23.49.58.66.98.17.4.25.82.25 1.25-.01.52-.16 1.03-.43 1.49z" />
+    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 12c0 1.77.46 3.45 1.29 4.94L2 22l5.09-1.34a9.87 9.87 0 0 0 4.86 1.24h.01c5.46 0 9.91-4.45 9.91-9.91S4.45-9.91 9.9-9.91zM16.53 15.8c-.24.63-1.05 1.15-2.01 1.34-1.1.21-2.28-.04-3.37-.5-1.55-.65-2.9-1.63-4.01-2.98-1.1-1.35-1.85-2.93-2.07-4.57-.18-1.38.16-2.64.9-3.71.6-.87 1.4-1.33 2.3-1.5.3-.06.63-.09.95-.09.43 0 .85.08 1.25.25.4.17.75.42.98.74s.37.6.4.9c.03.3.01.6-.08.88-.09.28-.2.53-.34.73l-.48.55c-.2.23-.4.48-.5.71s-.12.5.03.79c.15.29.35.58.6.87s.52.59.81.87.59.52.87.81c.29.25.59.43.87.6.29.15.58.17.79.03.23-.1.48-.28.71-.5l.55-.48c.2-.14.45-.25.73-.34.28-.09.58-.11.88-.08.3.03.6.14.9.4.24.23.49.58.66.98.17.4.25.82.25 1.25-.01.52-.16 1.03-.43 1.49z"/>
   </svg>
 );
+
 
 function ResultContent() {
   const testimonialsRef = useRef<HTMLDivElement>(null);
@@ -79,8 +80,8 @@ function ResultContent() {
           <GoldenParticles visible={true} count={40} />
           {heroImage && <Image src={heroImage.imageUrl} alt={heroImage.description} fill className="object-cover z-0 opacity-5" data-ai-hint={heroImage.imageHint} priority />}
           <div className="relative z-10 flex flex-col items-center w-full max-w-4xl text-center">
-            <h2 className="font-headline text-3xl font-extrabold md:text-5xl animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-              <span className="text-accent animate-golden-glow" style={{ textShadow: '0 0 15px rgba(255, 215, 0, 0.4)'}}>🎉 VOCÊ CONSEGUIU OS BÔNUS!</span>
+             <h2 className="font-headline text-3xl font-extrabold md:text-5xl animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+              <span>🎉 </span><span className="text-accent animate-golden-glow" style={{ textShadow: '0 0 15px rgba(255, 215, 0, 0.4)'}}>VOCÊ CONSEGUIU OS BÔNUS!</span>
             </h2>
             <div className="w-full text-center my-4 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
                 <p className="font-bold text-sm md:text-base text-accent animate-pulse" style={{textShadow: '0 0 8px hsl(var(--accent))'}}>🔥 Conquista desbloqueada – Acesso VIP garantido! 🔥</p>
@@ -147,9 +148,7 @@ function ResultContent() {
           >
             VEJA EXATAMENTE O QUE VOCÊ VAI RECEBER AO ENTRAR HOJE 👇
           </h2>
-          <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-12">
-Assista aos vídeos abaixo e veja como é o acesso completo à plataforma disponível pra computador 💻 e celular 📱. Você vai aprender passo a passo em uma área profissional e fácil de usar.
-          </p>
+          <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto mb-12">Assista aos vídeos abaixo e veja como é o acesso completo à plataforma disponível pra computador 💻 e celular 📱. Você vai aprender passo a passo em uma área profissional e fácil de usar.</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center justify-center">
             {/* Desktop Video */}
@@ -174,7 +173,7 @@ Assista aos vídeos abaixo e veja como é o acesso completo à plataforma dispon
             <div className="mt-8">
               <Button 
                 size="lg" 
-                className="button-shine-gradient text-black hover:text-black text-base md:text-lg font-bold w-full max-w-md mx-auto rounded-full h-16 md:h-14 animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
+                className="button-shine-gradient text-black hover:text-black text-lg font-bold w-full max-w-md mx-auto rounded-full h-16 md:h-14 md:text-lg animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
                 onClick={() => scrollTo(plansRef)}
               >
                 🟨 QUERO TER ACESSO À PLATAFORMA AGORA

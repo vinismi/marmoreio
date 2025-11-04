@@ -177,7 +177,7 @@ function ResultContent() {
             <div className="mt-8">
               <Button 
                 size="lg" 
-                className="button-shine-gradient text-black hover:text-black font-bold w-full max-w-md mx-auto rounded-full h-16 md:h-14 text-base md:text-lg animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
+                className="button-shine-gradient text-black hover:text-black font-bold w-full max-w-md mx-auto rounded-full h-auto py-4 md:h-14 text-base md:text-lg animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
                 onClick={() => scrollTo(plansRef)}
               >
                 🟨 QUERO TER ACESSO À PLATAFORMA AGORA

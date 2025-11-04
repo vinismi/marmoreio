@@ -195,7 +195,7 @@ function ResultContent() {
           <div className="rounded-xl border border-amber-500/30 bg-black/30 p-8 shadow-golden backdrop-blur-sm">
             <h3 className="font-headline text-2xl font-bold text-accent mb-6 text-center">⚡ Como o Efeito Marmorizado vai mudar o seu trabalho:</h3>
             <ul className="space-y-4 text-base text-left md:text-lg text-white/90 max-w-3xl mx-auto">
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💎</span><span>Acesso imediato e vitalício — liberação instantânea após o pagamento.</span></li>
+              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💎</span><span>Acesso imediato e vitalício, liberação instantânea após o pagamento.</span></li>
               <li className="flex items-start gap-3"><span className='text-xl pt-1'>🎨</span><span>+300 modelos e efeitos exclusivos pra dominar do básico ao avançado.</span></li>
               <li className="flex items-start gap-3"><span className='text-xl pt-1'>🚀</span><span>Método rápido e direto, sem complicação, com resultados profissionais reais.</span></li>
               <li className="flex items-start gap-3"><span className='text-xl pt-1'>💰</span><span>Transforme arte em renda, aprenda a cobrar e valorizar seu talento.</span></li>
@@ -322,7 +322,7 @@ function ResultContent() {
             <Button 
               size="lg"
               className="bg-[#25D366] hover:bg-[#128C7E] text-white font-bold text-lg w-full max-w-sm rounded-full h-16 shadow-[0_0_18px_rgba(37,211,102,0.5)] hover:scale-105 transition-all duration-300 animate-subtle-pulse"
-              onClick={() => window.open('https://wa.me/5534988790436?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20curso!', '_blank')}
+              onClick={() => window.open('https://api.whatsapp.com/send/?phone=5534988790436&text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20curso%20de%20efeito%20marmorizado!', '_blank')}
             >
               <WhatsAppIcon className="w-8 h-8 mr-3" />
               Falar com Suporte no WhatsApp
@@ -336,7 +336,7 @@ function ResultContent() {
 
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/5534988790436?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20curso!"
+        href="https://api.whatsapp.com/send/?phone=5534988790436&text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20o%20curso%20de%20efeito%20marmorizado!"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-lg animate-float"

@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <main className="overflow-x-hidden">
       {/* Hero Section */}
-      <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-black p-5 text-center text-foreground">
+      <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-black p-5 pb-12 text-center text-foreground md:pb-5">
         <GoldenParticles visible={true} count={20} />
         <div className="absolute inset-0 z-0">
           {heroImage && (

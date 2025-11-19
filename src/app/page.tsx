@@ -41,12 +41,12 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black/95"></div>
         </div>
         
-        <div className="relative z-10 flex flex-col items-center gap-6 p-4 w-full">
+        <div className="relative z-10 flex flex-col items-center gap-6 p-4 w-full max-w-7xl">
             <h1 
-              className="font-headline text-4xl sm:text-5xl md:text-6xl font-extrabold uppercase leading-tight tracking-tight text-white animate-fade-in-up max-w-4xl"
+              className="font-headline text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold uppercase leading-tight tracking-tight text-white animate-fade-in-up max-w-4xl"
               style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)', animationDelay: '0.2s', lineHeight: '1.2' }}
             >
-              TRANSFORME QUALQUER PAREDE OU PISO EM UM <span className="text-gradient-gold animated-text-gradient" style={{textShadow: '0 0 35px hsla(var(--accent), 0.9), 0 2px 2px rgba(0,0,0,0.5)'}}>MÁRMORE DE LUXO. <span className="text-4xl align-middle">💎</span></span>
+              TRANSFORME QUALQUER PAREDE OU PISO EM UM <span className="text-gradient-gold animated-text-gradient" style={{textShadow: '0 0 35px hsla(var(--accent), 0.9), 0 2px 2px rgba(0,0,0,0.5)'}}>MÁRMORE DE LUXO. <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl align-middle">💎</span></span>
             </h1>
             
             <p 

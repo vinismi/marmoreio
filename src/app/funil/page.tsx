@@ -60,7 +60,7 @@ const finishOptions = [
 type FunnelStep = 1 | 2 | 3;
 
 const CourseInfoSection = () => (
-    <div className="relative z-10 w-full max-w-2xl my-10 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+    <div className="relative z-10 w-full my-10 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
       <div className="rounded-xl border border-amber-500/30 bg-black/30 p-6 shadow-golden backdrop-blur-sm">
         <h3 className="font-headline text-2xl font-bold text-accent mb-4 text-center">✨ Como funciona o curso Efeito Marmorizado:</h3>
         <ul className="space-y-4 text-base text-white/90">
@@ -347,7 +347,7 @@ export default function FunnelPage() {
 
 
     return (
-        <main className="min-h-screen">
+        <main className="min-h-screen bg-background">
             {step === 1 && <Step1 onComplete={handleStep1Complete} />}
             {step === 2 && <Step2 onComplete={handleStep2Complete} aestheticChoice={aestheticChoice} />}
             {step === 3 && <Step3 aestheticChoice={aestheticChoice} colorTextureChoice={colorTextureChoice} />}

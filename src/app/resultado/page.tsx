@@ -350,7 +350,7 @@ function ResultContent() {
 
 export default function ResultPage() {
   return (
-    <Suspense fallback={<div>Carregando...</div>}>
+    <Suspense fallback={<div className="bg-black text-white text-center p-12">Carregando...</div>}>
       <ResultContent />
     </Suspense>
   );

@@ -43,7 +43,7 @@ export default function Home() {
         
         <div className="relative z-10 flex w-full max-w-7xl flex-col items-center gap-6 px-4 pt-12 md:px-6 md:pt-0">
             <h1 
-              className="font-headline text-4xl font-extrabold uppercase leading-tight tracking-tight text-white animate-fade-in-up max-w-4xl pt-12 text-center sm:text-6xl md:text-7xl lg:text-8xl"
+              className="font-headline text-5xl font-extrabold uppercase leading-tight tracking-tight text-white animate-fade-in-up max-w-4xl pt-12 text-center sm:text-6xl md:text-7xl lg:text-8xl"
               style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)', animationDelay: '0.2s', lineHeight: '1.2' }}
             >
               TRANSFORME QUALQUER PAREDE OU PISO EM UM <br className="hidden md:block" /> <span className="text-transparent bg-clip-text bg-gradient-to-br from-[#FFD86A] to-[#E8B449]" style={{textShadow: '0 0 35px hsla(var(--accent), 0.9), 0 2px 2px rgba(0,0,0,0.5)'}}>MÁRMORE DE LUXO. <span className="align-middle text-4xl sm:text-6xl md:text-7xl lg:text-8xl">💎</span></span>
@@ -93,12 +93,12 @@ export default function Home() {
         </div>
         
         <div className="relative z-10 flex w-full flex-col items-center gap-6 px-4">
-             <div className="z-40 w-full max-w-xs sm:max-w-xl md:max-w-lg mt-10">
+             <div className="z-40 w-full max-w-xs sm:max-w-md md:max-w-lg mt-10">
                 <Link href="/funil" passHref legacyBehavior>
                     <a className='w-full'>
                         <Button 
                             size="lg" 
-                            className="button-shine-gradient text-black hover:text-black text-sm md:text-lg font-bold w-full rounded-full h-16 animate-fade-in-up animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
+                            className="button-shine-gradient text-black hover:text-black text-base md:text-lg font-bold w-full rounded-full h-16 animate-fade-in-up animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
                             style={{ animationDelay: '1.2s' }}
                         >
                             QUERO PARTICIPAR DO TREINAMENTO

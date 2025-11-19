@@ -33,7 +33,7 @@ export default function ShowcaseCarousel() {
       </h3>
       <Carousel
         plugins={[plugin.current]}
-        className="w-full max-w-none"
+        className="w-full max-w-6xl mx-auto"
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.play}
         opts={{
@@ -41,7 +41,7 @@ export default function ShowcaseCarousel() {
             align: 'center',
         }}
       >
-        <CarouselContent className="-ml-0">
+        <CarouselContent className="-ml-4">
           {showcaseImages.map((image, index) => (
             <CarouselItem key={index} className={cn("pl-4 basis-full md:basis-1/2 lg:basis-1/3")}>
               <div className="p-0">
@@ -51,7 +51,7 @@ export default function ShowcaseCarousel() {
                       alt={image.description}
                       width={600}
                       height={800}
-                      className="aspect-[3/4] w-full object-cover transition-transform duration-1000 ease-in-out group-hover:scale-105"
+                      className="aspect-[3/4] w-full h-auto object-cover transition-transform duration-1000 ease-in-out group-hover:scale-105"
                       data-ai-hint={image.imageHint}
                       priority={index < 2}
                     />

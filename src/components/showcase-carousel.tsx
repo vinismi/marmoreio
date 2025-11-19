@@ -26,7 +26,7 @@ export default function ShowcaseCarousel() {
     )
 
   return (
-    <section className="relative w-full max-w-4xl mx-auto my-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+    <section className="relative w-full max-w-5xl mx-auto my-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
       <h3 className="text-center font-headline text-lg md:text-xl text-accent mb-6" style={{ textShadow: '0 0 10px rgba(255,215,0,0.4)'}}>
         Veja como simples superfícies se transformam em obras de arte ✨
       </h3>
@@ -42,25 +42,25 @@ export default function ShowcaseCarousel() {
       >
         <CarouselContent className="-ml-4">
           {showcaseImages.map((image, index) => (
-            <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
+            <CarouselItem key={index} className="pl-4 basis-4/5 md:basis-1/2">
               <div className="p-1">
                 <div className="overflow-hidden rounded-xl border border-amber-500/25 shadow-lg shadow-amber-500/10 transition-all duration-300 group hover:shadow-amber-500/20">
                     <Image
                       src={image.imageUrl}
                       alt={image.description}
-                      width={400}
-                      height={500}
+                      width={500}
+                      height={625}
                       className="aspect-[4/5] w-full object-cover transition-transform duration-1000 ease-in-out group-hover:scale-105"
                       data-ai-hint={image.imageHint}
-                      priority={index < 3}
+                      priority={index < 2}
                     />
                 </div>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 fill-current" />
-        <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 fill-current" />
+        <CarouselPrevious className="absolute left-[-8px] top-1/2 -translate-y-1/2 z-10 fill-current" />
+        <CarouselNext className="absolute right-[-8px] top-1/2 -translate-y-1/2 z-10 fill-current" />
       </Carousel>
       <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-black to-transparent z-10"></div>
     </section>

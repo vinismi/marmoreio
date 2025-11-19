@@ -10,7 +10,8 @@ import GoldenParticles from '@/components/particles';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { Sparkles } from 'lucide-react';
+import { Award, Sparkles, Trophy, Zap } from 'lucide-react';
+import BeforeAfterCarousel from '@/components/before-after-carousel';
 
 const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
 
@@ -41,7 +42,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black/95"></div>
         </div>
         
-        <div className="relative z-10 flex flex-col items-center gap-6 p-4 origin-top scale-[.8] sm:scale-100 transition-transform duration-300">
+        <div className="relative z-10 flex flex-col items-center gap-6 p-4">
             <h1 
               className="font-headline text-5xl font-extrabold uppercase leading-tight tracking-tight text-white md:text-7xl lg:text-8xl animate-fade-in-up max-w-4xl"
               style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)', animationDelay: '0.2s', lineHeight: '1.2' }}
@@ -50,31 +51,46 @@ export default function Home() {
             </h1>
             
             <p 
-              className="mt-2 text-lg md:text-xl font-medium text-white/95 animate-fade-in-up"
+              className="mt-4 text-xl md:text-2xl font-medium text-white/95 animate-fade-in-up"
               style={{ animationDelay: '0.4s', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}
             >
               A técnica que mais gera contratos para pintores em 2024.
             </p>
 
+             <div className="w-3/5 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent mx-auto my-4 opacity-70"></div>
+
             <div 
-              className="flex flex-col gap-5 my-6 text-white/90 text-lg md:text-xl animate-fade-in-up"
+              className="flex flex-col gap-6 my-2 text-white/90 text-lg md:text-xl animate-fade-in-up"
               style={{ animationDelay: '0.6s', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}
             >
-              <p className="flex items-center justify-center gap-3"><Sparkles className="text-amber-400 size-7" style={{filter: 'drop-shadow(0 0 5px hsl(var(--accent)))'}}/> Pintores comuns estão faturando alto</p>
-              <p className="flex items-center justify-center gap-3"><Sparkles className="text-amber-400 size-7" style={{filter: 'drop-shadow(0 0 5px hsl(var(--accent)))'}}/> Materiais simples, resultados de luxo</p>
-              <p className="flex items-center justify-center gap-3"><Sparkles className="text-amber-400 size-7" style={{filter: 'drop-shadow(0 0 5px hsl(var(--accent)))'}}/> Aprenda rápido e aplique no mesmo dia</p>
+              <p className="flex items-center justify-center gap-3">
+                <Trophy className="text-[#FFD86A] size-8 drop-shadow-[0_0_6px_#FFD86A]" />
+                <span>Pintores comuns estão fechando contratos altos</span>
+              </p>
+              <p className="flex items-center justify-center gap-3">
+                <Sparkles className="text-[#FFD86A] size-8 drop-shadow-[0_0_6px_#FFD86A]" />
+                <span>Materiais simples com resultado de luxo imediato</span>
+              </p>
+              <p className="flex items-center justify-center gap-3">
+                <Zap className="text-[#FFD86A] size-8 drop-shadow-[0_0_6px_#FFD86A]" />
+                <span>Aprenda rápido e aplique no mesmo dia</span>
+              </p>
             </div>
             
             <p 
-              className="text-base md:text-lg text-white/80 animate-fade-in-up"
+              className="text-base md:text-lg text-white/80 animate-fade-in-up mt-4"
               style={{ animationDelay: '0.8s', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}
             >
-              Você aprende do zero e cria efeitos iguais aos profissionais.
+              Você aprende do zero e cria efeitos iguais aos profissionais que mais faturam hoje.
             </p>
+            
+            <div className="w-3/5 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent mx-auto mt-6 mb-8 opacity-70"></div>
 
 
-            <div className="z-20 w-full mt-8">
-              <div className="w-4/5 h-px bg-gradient-to-r from-transparent via-amber-400/70 to-transparent mx-auto my-8 animate-fade-in-up" style={{ animationDelay: '1s' }}></div>
+            <div className="z-20 w-full mt-4">
+               <h3 className="text-center font-headline text-lg md:text-xl text-accent mb-6 animate-fade-in-up" style={{ animationDelay: '1s', textShadow: '0 0 10px rgba(255,215,0,0.4)'}}>
+                Veja como simples superfícies se transformam em obras de arte ✨
+              </h3>
               <ShowcaseCarousel />
             </div>
 

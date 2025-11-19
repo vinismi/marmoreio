@@ -63,7 +63,6 @@ export default function ShowcaseCarousel() {
         <CarouselPrevious className="absolute left-6 top-1/2 -translate-y-1/2 z-10 fill-current" />
         <CarouselNext className="absolute right-6 top-1/2 -translate-y-1/2 z-10 fill-current" />
       </Carousel>
-      <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-black to-transparent z-10"></div>
     </section>
   );
 }

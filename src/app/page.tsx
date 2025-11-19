@@ -86,20 +86,23 @@ export default function Home() {
             <div className="w-3/5 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent mx-auto mt-8 mb-8 opacity-70"></div>
         </div>
 
-        <div className="z-20 w-full mt-4">
-            <ShowcaseCarousel />
-        </div>
-        
-        <div className="relative z-10 flex w-full max-w-7xl flex-col items-center gap-6 px-4">
-             <div className="z-40 w-full max-w-md mt-10">
+      </section>
+      
+      <div className="z-20 w-full -mt-48">
+          <ShowcaseCarousel />
+      </div>
+      
+      <section className="dark relative bg-black pt-12 pb-24 px-4">
+        <div className="relative z-10 flex w-full flex-col items-center gap-6">
+             <div className="z-40 w-full max-w-xs sm:max-w-md mt-10">
                 <Link href="/funil" passHref legacyBehavior>
                     <a className='w-full'>
                         <Button 
                             size="lg" 
-                            className="button-shine-gradient text-black hover:text-black text-base md:text-lg font-bold w-full rounded-full h-16 animate-fade-in-up animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
+                            className="button-shine-gradient text-black hover:text-black text-sm md:text-lg font-bold w-full rounded-full h-16 animate-fade-in-up animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95"
                             style={{ animationDelay: '1.2s' }}
                         >
-                            QUERO PARTICIPAR
+                            QUERO PARTICIPAR DO TREINAMENTO
                         </Button>
                     </a>
                 </Link>

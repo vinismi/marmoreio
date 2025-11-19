@@ -43,7 +43,7 @@ export default function Home() {
         
         <div className="relative z-10 flex w-full max-w-7xl flex-col items-center gap-6 px-4 pt-12 md:px-6 md:pt-0">
             <h1 
-              className="font-headline text-4xl font-extrabold uppercase leading-tight tracking-tight text-white animate-fade-in-up max-w-4xl pt-12 sm:text-6xl md:text-7xl lg:text-8xl"
+              className="font-headline text-5xl font-extrabold uppercase leading-tight tracking-tight text-white animate-fade-in-up max-w-4xl pt-12 sm:text-6xl md:text-7xl lg:text-8xl text-center"
               style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)', animationDelay: '0.2s', lineHeight: '1.2' }}
             >
               TRANSFORME QUALQUER PAREDE OU PISO EM UM <br className="hidden md:block" /> <span className="text-transparent bg-clip-text bg-gradient-to-br from-[#FFD86A] to-[#E8B449]" style={{textShadow: '0 0 35px hsla(var(--accent), 0.9), 0 2px 2px rgba(0,0,0,0.5)'}}>MÁRMORE DE LUXO. <span className="align-middle text-5xl sm:text-6xl md:text-7xl lg:text-8xl">💎</span></span>
@@ -85,16 +85,15 @@ export default function Home() {
             
             <div className="w-3/5 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent mx-auto mt-8 mb-8 opacity-70"></div>
         </div>
-
       </section>
       
-      <div className="z-20 w-full -mt-48">
+      <div className="z-20 w-full md:-mt-32">
           <ShowcaseCarousel />
       </div>
       
       <section className="dark relative bg-black pt-12 pb-24 px-4">
         <div className="relative z-10 flex w-full flex-col items-center gap-6">
-             <div className="z-40 w-full max-w-xs sm:max-w-md mt-10">
+             <div className="z-40 w-full max-w-xs sm:max-w-lg mt-10">
                 <Link href="/funil" passHref legacyBehavior>
                     <a className='w-full'>
                         <Button 

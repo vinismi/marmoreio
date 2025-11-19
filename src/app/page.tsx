@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <main className="overflow-x-hidden">
       {/* Hero Section */}
-      <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-black p-5 pb-20 text-center text-foreground md:pb-20">
+      <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-black p-5 pb-20 text-center text-foreground md:pb-28">
         <GoldenParticles visible={true} count={20} />
         <div className="absolute inset-0 z-0">
           {heroImage && (
@@ -43,10 +43,10 @@ export default function Home() {
         
         <div className="relative z-10 flex flex-col items-center gap-6 p-4 w-full">
             <h1 
-              className="font-headline text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold uppercase leading-tight tracking-tight text-white animate-fade-in-up max-w-4xl"
+              className="font-headline text-4xl sm:text-5xl md:text-6xl font-extrabold uppercase leading-tight tracking-tight text-white animate-fade-in-up max-w-4xl"
               style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)', animationDelay: '0.2s', lineHeight: '1.2' }}
             >
-              TRANSFORME QUALQUER PAREDE OU PISO EM UM <span className="whitespace-nowrap text-gradient-gold animated-text-gradient" style={{textShadow: '0 0 35px hsla(var(--accent), 0.9), 0 2px 2px rgba(0,0,0,0.5)'}}>MÁRMORE DE LUXO. <span className="text-4xl md:text-6xl align-middle">💎</span></span>
+              TRANSFORME QUALQUER PAREDE OU PISO EM UM <span className="text-gradient-gold animated-text-gradient" style={{textShadow: '0 0 35px hsla(var(--accent), 0.9), 0 2px 2px rgba(0,0,0,0.5)'}}>MÁRMORE DE LUXO. <span className="text-4xl align-middle">💎</span></span>
             </h1>
             
             <p 

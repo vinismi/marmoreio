@@ -59,8 +59,8 @@ export default function ShowcaseCarousel() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2 fill-current" />
-        <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2 fill-current" />
+        <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 fill-current" />
+        <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 fill-current" />
       </Carousel>
       <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-black to-transparent z-10"></div>
     </section>

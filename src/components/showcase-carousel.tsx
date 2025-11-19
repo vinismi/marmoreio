@@ -33,7 +33,7 @@ export default function ShowcaseCarousel() {
       </h3>
       <Carousel
         plugins={[plugin.current]}
-        className="w-full max-w-6xl mx-auto"
+        className="w-full"
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.play}
         opts={{
@@ -43,7 +43,7 @@ export default function ShowcaseCarousel() {
       >
         <CarouselContent className="-ml-4">
           {showcaseImages.map((image, index) => (
-            <CarouselItem key={index} className={cn("pl-4 basis-full md:basis-1/2 lg:basis-1/3")}>
+            <CarouselItem key={index} className={cn("pl-4 basis-full")}>
               <div className="p-0">
                 <div className="overflow-hidden transition-all duration-300 group rounded-lg md:rounded-xl">
                     <Image
@@ -60,8 +60,8 @@ export default function ShowcaseCarousel() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-6 top-1/2 -translate-y-1/2 z-10" />
-        <CarouselNext className="absolute right-6 top-1/2 -translate-y-1/2 z-10" />
+        <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-black/40 text-white border-accent/50 hover:bg-accent hover:text-black" />
+        <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-black/40 text-white border-accent/50 hover:bg-accent hover:text-black" />
       </Carousel>
     </div>
   );

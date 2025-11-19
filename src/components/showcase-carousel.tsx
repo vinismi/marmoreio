@@ -42,7 +42,7 @@ export default function ShowcaseCarousel() {
       >
         <CarouselContent className="-ml-4">
           {showcaseImages.map((image, index) => (
-            <CarouselItem key={index} className="pl-4 basis-4/5 md:basis-1/2">
+            <CarouselItem key={index} className="pl-4 basis-full md:basis-1/2">
               <div className="p-1">
                 <div className="overflow-hidden rounded-xl border border-amber-500/25 shadow-lg shadow-amber-500/10 transition-all duration-300 group hover:shadow-amber-500/20">
                     <Image
@@ -59,8 +59,8 @@ export default function ShowcaseCarousel() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-[-8px] top-1/2 -translate-y-1/2 z-10 fill-current" />
-        <CarouselNext className="absolute right-[-8px] top-1/2 -translate-y-1/2 z-10 fill-current" />
+        <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10 fill-current" />
+        <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10 fill-current" />
       </Carousel>
       <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-black to-transparent z-10"></div>
     </section>

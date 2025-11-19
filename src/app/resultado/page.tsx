@@ -47,6 +47,14 @@ const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
     </svg>
   );
 
+const newBenefits = [
+  { icon: '💎', text: 'Acesso imediato e vitalício' },
+  { icon: '🎨', text: '300 modelos exclusivos para copiar' },
+  { icon: '🚀', text: 'Método rápido com resultado profissional' },
+  { icon: '🪙', text: 'Transforme arte em renda verdadeira' },
+  { icon: '📱', text: 'Estude onde e quando quiser' },
+  { icon: '✨', text: 'O efeito que transforma o comum em luxo' }
+];
 
 function ResultContent() {
   const testimonialsRef = useRef<HTMLDivElement>(null);
@@ -193,15 +201,18 @@ function ResultContent() {
         <div className="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-black"></div>
         <div className="container mx-auto max-w-6xl text-center relative z-10">
           <div className="rounded-xl border border-amber-500/30 bg-black/30 p-8 shadow-golden backdrop-blur-sm">
-            <h3 className="font-headline text-2xl font-bold text-accent mb-6 text-center">⚡ Como o Efeito Marmorizado vai mudar o seu trabalho:</h3>
-            <ul className="space-y-4 text-base text-left md:text-lg text-white/90 max-w-3xl mx-auto">
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💎</span><span>Acesso imediato e vitalício, liberação instantânea após o pagamento.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🎨</span><span>+300 modelos e efeitos exclusivos pra dominar do básico ao avançado.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>🚀</span><span>Método rápido e direto, sem complicação, com resultados profissionais reais.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>💰</span><span>Transforme arte em renda, aprenda a cobrar e valorizar seu talento.</span></li>
-              <li className="flex items-start gap-3"><span className='text-xl pt-1'>📱</span><span>Estude no seu ritmo, de qualquer lugar, quando quiser.</span></li>
+            <h3 className="font-headline text-3xl md:text-4xl font-bold text-white mb-8 mt-4 text-center flex items-center justify-center gap-3">
+              <span className="text-4xl md:text-5xl text-amber-400" style={{filter: 'drop-shadow(0 0 5px #FFD86A)'}}>⚡</span>
+              <span>Como o Efeito Marmorizado vai mudar o seu trabalho</span>
+            </h3>
+            <ul className="space-y-6 text-base md:text-lg text-white/90 max-w-3xl mx-auto">
+              {newBenefits.map((benefit, index) => (
+                <li key={index} className="flex items-center gap-3">
+                  <span className="text-3xl md:text-4xl" style={{color: '#FFD86A', filter: 'drop-shadow(0 0 8px rgba(255,218,106,0.5))'}}>{benefit.icon}</span>
+                  <span className="text-lg md:text-xl font-medium">{benefit.text}</span>
+                </li>
+              ))}
             </ul>
-             <p className="mt-6 text-base md:text-lg text-white/80 max-w-3xl mx-auto">✨ Simples, prático e poderoso. O efeito que transforma o comum em luxo.</p>
           </div>
         </div>
       </section>
@@ -350,8 +361,10 @@ function ResultContent() {
 
 export default function ResultPage() {
   return (
-    <Suspense fallback={<div>Carregando...</div>}>
+    <Suspense fallback={<div className="bg-black text-white text-center p-12">Carregando...</div>}>
       <ResultContent />
     </Suspense>
   );
 }
+
+    

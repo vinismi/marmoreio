@@ -60,7 +60,7 @@ const finishOptions = [
 type FunnelStep = 1 | 2 | 3;
 
 const CourseInfoSection = () => (
-    <div className="relative z-10 w-full max-w-2xl my-10 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+    <div className="relative z-10 w-full my-10 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
       <div className="rounded-xl border border-amber-500/30 bg-black/30 p-6 shadow-golden backdrop-blur-sm">
         <h3 className="font-headline text-2xl font-bold text-accent mb-4 text-center">✨ Como funciona o curso Efeito Marmorizado:</h3>
         <ul className="space-y-4 text-base text-white/90">
@@ -139,8 +139,8 @@ const Step1 = ({ onComplete }: { onComplete: (choice: string) => void }) => {
                           <p className="flex items-center justify-center gap-2 text-lg font-semibold text-green-400"><CheckCircle size={24} /> Treino IA: Etapa 1 concluída!</p>
                           <p className="mt-1 max-w-lg text-secondary-foreground/80 text-base">Perfeito! Você ajudou nossa IA a reconhecer padrões.</p>
                       </div>
-                      <Button onClick={() => onComplete(aestheticChoice)} className="button-shine-gradient mt-5 w-full rounded-full text-lg h-14 font-bold text-black">
-                          <Zap className="mr-2" /> CONTINUAR PARA A PRÓXIMA ETAPA
+                      <Button onClick={() => onComplete(aestheticChoice)} className="button-shine-gradient mt-5 w-full rounded-full text-sm md:text-lg h-14 font-bold text-black">
+                          CONTINUAR PARA A PRÓXIMA ETAPA
                       </Button>
                   </div>
               )}
@@ -347,7 +347,7 @@ export default function FunnelPage() {
 
 
     return (
-        <main className="min-h-screen">
+        <main className="min-h-screen bg-background">
             {step === 1 && <Step1 onComplete={handleStep1Complete} />}
             {step === 2 && <Step2 onComplete={handleStep2Complete} aestheticChoice={aestheticChoice} />}
             {step === 3 && <Step3 aestheticChoice={aestheticChoice} colorTextureChoice={colorTextureChoice} />}

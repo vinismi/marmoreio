@@ -47,6 +47,19 @@ export default function RootLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
+
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.pixelId = "691d35bfa6b29da467aa13a1";
+              var a = document.createElement("script");
+              a.setAttribute("async", "");
+              a.setAttribute("defer", "");
+              a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+              document.head.appendChild(a);
+            `,
+          }}
+        />
         <Script id="fb-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
@@ -61,6 +74,15 @@ export default function RootLayout({
             fbq('track', 'PageView');
           `}
         </Script>
+
+        <script
+          src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+          data-utmify-prevent-xcod-sck
+          data-utmify-prevent-subids
+          async
+          defer
+        ></script>
+        
         <noscript>
           <img
             height="1"

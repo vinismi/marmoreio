@@ -38,20 +38,20 @@ export default function ShowcaseCarousel() {
         onMouseLeave={plugin.current.play}
         opts={{
             loop: true,
-            align: 'start',
+            align: 'center',
         }}
       >
         <CarouselContent className="-ml-4">
           {showcaseImages.map((image, index) => (
-            <CarouselItem key={index} className={cn("pl-4", "md:basis-1/2")}>
+            <CarouselItem key={index} className={cn("pl-4 basis-full md:basis-1/2")}>
               <div className="p-0">
                 <div className="overflow-hidden transition-all duration-300 group rounded-lg md:rounded-xl">
                     <Image
                       src={image.imageUrl}
                       alt={image.description}
-                      width={1280}
-                      height={720}
-                      className="aspect-video w-full object-cover transition-transform duration-1000 ease-in-out group-hover:scale-105"
+                      width={600}
+                      height={800}
+                      className="aspect-[3/4] w-full object-cover transition-transform duration-1000 ease-in-out group-hover:scale-105"
                       data-ai-hint={image.imageHint}
                       priority={index < 2}
                     />

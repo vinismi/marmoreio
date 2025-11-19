@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <main className="overflow-x-hidden">
       {/* Hero Section */}
-      <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-black p-5 pb-20 text-center text-foreground md:pb-28">
+      <section className="dark relative flex min-h-screen flex-col items-center justify-center bg-black p-5 pb-28 text-center text-foreground">
         <GoldenParticles visible={true} count={20} />
         <div className="absolute inset-0 z-0">
           {heroImage && (
@@ -41,16 +41,16 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black/95"></div>
         </div>
         
-        <div className="relative z-10 flex flex-col items-center gap-6 p-4 w-full max-w-7xl">
+        <div className="relative z-10 flex w-full max-w-7xl flex-col items-center gap-6 p-4">
             <h1 
-              className="font-headline text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold uppercase leading-tight tracking-tight text-white animate-fade-in-up max-w-4xl"
+              className="font-headline text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold uppercase leading-tight tracking-tight text-white animate-fade-in-up max-w-4xl pt-3"
               style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)', animationDelay: '0.2s', lineHeight: '1.2' }}
             >
-              TRANSFORME QUALQUER PAREDE OU PISO EM UM <span className="text-gradient-gold animated-text-gradient" style={{textShadow: '0 0 35px hsla(var(--accent), 0.9), 0 2px 2px rgba(0,0,0,0.5)'}}>MÁRMORE DE LUXO. <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl align-middle">💎</span></span>
+              TRANSFORME QUALQUER PAREDE OU PISO EM UM <span className="text-gradient-gold animated-text-gradient" style={{textShadow: '0 0 35px hsla(var(--accent), 0.9), 0 2px 2px rgba(0,0,0,0.5)'}}>MÁRMORE DE LUXO. <span className="align-middle text-4xl sm:text-5xl md:text-6xl lg:text-7xl">💎</span></span>
             </h1>
             
             <p 
-              className="mt-4 text-lg md:text-xl font-medium text-white/95 animate-fade-in-up max-w-full sm:max-w-[85%] pb-2"
+              className="mt-2 text-lg md:text-xl font-medium text-white/95 animate-fade-in-up max-w-full sm:max-w-[85%] pb-2"
               style={{ animationDelay: '0.4s', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}
             >
               A técnica que mais gera contratos para pintores em 2025.

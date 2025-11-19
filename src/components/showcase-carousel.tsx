@@ -27,13 +27,13 @@ export default function ShowcaseCarousel() {
     )
 
   return (
-    <section className="relative w-full my-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+    <div className="relative w-full my-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
       <h3 className="text-center font-headline text-lg md:text-xl text-accent mb-6 px-4" style={{ textShadow: '0 0 10px rgba(255,215,0,0.4)'}}>
         Veja como simples superfícies se transformam em obras de arte ✨
       </h3>
       <Carousel
         plugins={[plugin.current]}
-        className="w-full"
+        className="w-full max-w-none"
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.play}
         opts={{
@@ -41,9 +41,9 @@ export default function ShowcaseCarousel() {
             align: 'center',
         }}
       >
-        <CarouselContent className="-ml-4">
+        <CarouselContent className="-ml-0">
           {showcaseImages.map((image, index) => (
-            <CarouselItem key={index} className={cn("pl-4 basis-full md:basis-1/2")}>
+            <CarouselItem key={index} className={cn("pl-4 basis-full md:basis-1/2 lg:basis-1/3")}>
               <div className="p-0">
                 <div className="overflow-hidden transition-all duration-300 group rounded-lg md:rounded-xl">
                     <Image
@@ -60,9 +60,9 @@ export default function ShowcaseCarousel() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-6 top-1/2 -translate-y-1/2 z-10 fill-current" />
-        <CarouselNext className="absolute right-6 top-1/2 -translate-y-1/2 z-10 fill-current" />
+        <CarouselPrevious className="absolute left-6 top-1/2 -translate-y-1/2 z-10" />
+        <CarouselNext className="absolute right-6 top-1/2 -translate-y-1/2 z-10" />
       </Carousel>
-    </section>
+    </div>
   );
 }

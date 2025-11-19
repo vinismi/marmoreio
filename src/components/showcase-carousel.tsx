@@ -26,8 +26,8 @@ export default function ShowcaseCarousel() {
     )
 
   return (
-    <section className="relative w-full max-w-7xl mx-auto my-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-      <h3 className="text-center font-headline text-lg md:text-xl text-accent mb-6" style={{ textShadow: '0 0 10px rgba(255,215,0,0.4)'}}>
+    <section className="relative w-full my-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+      <h3 className="text-center font-headline text-lg md:text-xl text-accent mb-6 px-4" style={{ textShadow: '0 0 10px rgba(255,215,0,0.4)'}}>
         Veja como simples superfícies se transformam em obras de arte ✨
       </h3>
       <Carousel
@@ -40,17 +40,17 @@ export default function ShowcaseCarousel() {
             align: 'start',
         }}
       >
-        <CarouselContent className="-ml-4">
+        <CarouselContent className="-ml-0">
           {showcaseImages.map((image, index) => (
-            <CarouselItem key={index} className="pl-4 basis-full md:basis-1/2">
-              <div className="p-1">
-                <div className="overflow-hidden rounded-xl border border-amber-500/25 shadow-lg shadow-amber-500/10 transition-all duration-300 group hover:shadow-amber-500/20">
+            <CarouselItem key={index} className="pl-0 basis-full">
+              <div className="p-0">
+                <div className="overflow-hidden transition-all duration-300 group">
                     <Image
                       src={image.imageUrl}
                       alt={image.description}
-                      width={500}
-                      height={625}
-                      className="aspect-[4/5] w-full object-cover transition-transform duration-1000 ease-in-out group-hover:scale-105"
+                      width={1920}
+                      height={1080}
+                      className="aspect-[16/10] w-full object-cover transition-transform duration-1000 ease-in-out group-hover:scale-105"
                       data-ai-hint={image.imageHint}
                       priority={index < 2}
                     />
@@ -59,8 +59,8 @@ export default function ShowcaseCarousel() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10 fill-current" />
-        <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10 fill-current" />
+        <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 fill-current" />
+        <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 fill-current" />
       </Carousel>
       <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-black to-transparent z-10"></div>
     </section>

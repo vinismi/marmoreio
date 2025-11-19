@@ -139,8 +139,8 @@ const Step1 = ({ onComplete }: { onComplete: (choice: string) => void }) => {
                           <p className="flex items-center justify-center gap-2 text-lg font-semibold text-green-400"><CheckCircle size={24} /> Treino IA: Etapa 1 concluída!</p>
                           <p className="mt-1 max-w-lg text-secondary-foreground/80 text-base">Perfeito! Você ajudou nossa IA a reconhecer padrões.</p>
                       </div>
-                      <Button onClick={() => onComplete(aestheticChoice)} className="button-shine-gradient mt-5 w-full rounded-full text-base md:text-lg h-14 font-bold text-black">
-                          <Zap className="mr-2" /> CONTINUAR PARA A PRÓXIMA ETAPA
+                      <Button onClick={() => onComplete(aestheticChoice)} className="button-shine-gradient mt-5 w-full rounded-full text-sm md:text-lg h-14 font-bold text-black">
+                          CONTINUAR PARA A PRÓXIMA ETAPA
                       </Button>
                   </div>
               )}

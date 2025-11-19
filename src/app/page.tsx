@@ -43,20 +43,20 @@ export default function Home() {
         
         <div className="relative z-10 flex w-full max-w-7xl flex-col items-center gap-6 px-4 md:px-6 pt-12 md:pt-0">
             <h1 
-              className="font-headline text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-extrabold uppercase leading-tight tracking-tight text-white animate-fade-in-up max-w-4xl pt-8"
+              className="font-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold uppercase leading-tight tracking-tight text-white animate-fade-in-up max-w-4xl pt-8"
               style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)', animationDelay: '0.2s', lineHeight: '1.2' }}
             >
-              TRANSFORME QUALQUER PAREDE OU PISO EM UM <span className="text-gradient-gold animated-text-gradient" style={{textShadow: '0 0 35px hsla(var(--accent), 0.9), 0 2px 2px rgba(0,0,0,0.5)'}}>MÁRMORE DE LUXO. <span className="align-middle text-5xl sm:text-6xl md:text-7xl lg:text-8xl">💎</span></span>
+              TRANSFORME QUALQUER PAREDE OU PISO EM UM <span className="text-gradient-gold animated-text-gradient" style={{textShadow: '0 0 35px hsla(var(--accent), 0.9), 0 2px 2px rgba(0,0,0,0.5)'}}>MÁRMORE DE LUXO. <span className="align-middle text-5xl sm:text-6xl md:text-7xl lg:text-9xl">💎</span></span>
             </h1>
             
+            <div className="w-3/5 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent mx-auto my-4 opacity-70"></div>
+
             <p 
-              className="mt-4 text-base md:text-xl font-medium text-white/95 animate-fade-in-up max-w-sm sm:max-w-md md:max-w-2xl mx-auto pb-2"
+              className="mt-4 text-base md:text-lg font-medium text-white/95 animate-fade-in-up max-w-sm sm:max-w-md md:max-w-2xl mx-auto pb-2"
               style={{ animationDelay: '0.4s', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}
             >
               A técnica que mais gera contratos para pintores em 2025.
             </p>
-
-            <div className="w-3/5 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent mx-auto my-4 opacity-70"></div>
 
             <div 
               className="flex flex-col gap-5 my-2 text-white/90 text-sm md:text-lg animate-fade-in-up max-w-sm sm:max-w-md md:max-w-2xl mx-auto"

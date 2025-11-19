@@ -53,7 +53,7 @@ export default function Home() {
               className="mt-4 text-lg md:text-xl font-medium text-white/95 animate-fade-in-up max-w-full sm:max-w-[85%] pb-2"
               style={{ animationDelay: '0.4s', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}
             >
-              A técnica que mais gera contratos para pintores em 2024.
+              A técnica que mais gera contratos para pintores em 2025.
             </p>
 
              <div className="w-3/5 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent mx-auto my-4 opacity-70"></div>

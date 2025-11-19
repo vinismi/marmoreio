@@ -8,6 +8,8 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay"
 
@@ -20,7 +22,7 @@ const showcaseImages = [
 
 export default function ShowcaseCarousel() {
     const plugin = React.useRef(
-        Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })
+        Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })
     )
 
   return (
@@ -57,6 +59,8 @@ export default function ShowcaseCarousel() {
             </CarouselItem>
           ))}
         </CarouselContent>
+        <CarouselPrevious className="absolute left-[-50px] top-1/2 -translate-y-1/2 fill-current" />
+        <CarouselNext className="absolute right-[-50px] top-1/2 -translate-y-1/2 fill-current" />
       </Carousel>
       <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-black to-transparent z-10"></div>
     </section>

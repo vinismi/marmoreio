@@ -12,6 +12,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay"
+import { cn } from '@/lib/utils';
 
 const showcaseImages = [
   PlaceHolderImages.find(img => img.id === 'showcase-1'),
@@ -40,17 +41,17 @@ export default function ShowcaseCarousel() {
             align: 'start',
         }}
       >
-        <CarouselContent className="-ml-0">
+        <CarouselContent className="-ml-4">
           {showcaseImages.map((image, index) => (
-            <CarouselItem key={index} className="pl-0 basis-full">
+            <CarouselItem key={index} className={cn("pl-4", "md:basis-1/2")}>
               <div className="p-0">
-                <div className="overflow-hidden transition-all duration-300 group">
+                <div className="overflow-hidden transition-all duration-300 group rounded-lg md:rounded-xl">
                     <Image
                       src={image.imageUrl}
                       alt={image.description}
-                      width={1920}
-                      height={1080}
-                      className="aspect-[16/10] w-full object-cover transition-transform duration-1000 ease-in-out group-hover:scale-105"
+                      width={1280}
+                      height={720}
+                      className="aspect-video w-full object-cover transition-transform duration-1000 ease-in-out group-hover:scale-105"
                       data-ai-hint={image.imageHint}
                       priority={index < 2}
                     />
@@ -59,8 +60,8 @@ export default function ShowcaseCarousel() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 fill-current" />
-        <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 fill-current" />
+        <CarouselPrevious className="absolute left-6 top-1/2 -translate-y-1/2 z-10 fill-current" />
+        <CarouselNext className="absolute right-6 top-1/2 -translate-y-1/2 z-10 fill-current" />
       </Carousel>
       <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-black to-transparent z-10"></div>
     </section>

@@ -48,7 +48,18 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
 
-        {/* COLE SEU SCRIPT DE PIXEL AQUI DENTRO, SUBSTITUINDO O EXEMPLO */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.pixelId = "691d35bfa6b29da467aa13a1";
+              var a = document.createElement("script");
+              a.setAttribute("async", "");
+              a.setAttribute("defer", "");
+              a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+              document.head.appendChild(a);
+            `,
+          }}
+        />
         <Script id="fb-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
@@ -64,14 +75,13 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* COLE SEU SCRIPT DE UTMs AQUI DENTRO */}
-        <Script id="utm-script" strategy="afterInteractive">
-          {`
-            // Cole seu código de script para UTMs aqui.
-            // Por exemplo:
-            // (function() { ... seu código ... })();
-          `}
-        </Script>
+        <script
+          src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+          data-utmify-prevent-xcod-sck
+          data-utmify-prevent-subids
+          async
+          defer
+        ></script>
         
         <noscript>
           <img

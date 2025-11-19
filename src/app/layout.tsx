@@ -47,6 +47,8 @@ export default function RootLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
+
+        {/* COLE SEU SCRIPT DE PIXEL AQUI DENTRO, SUBSTITUINDO O EXEMPLO */}
         <Script id="fb-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
@@ -61,6 +63,16 @@ export default function RootLayout({
             fbq('track', 'PageView');
           `}
         </Script>
+
+        {/* COLE SEU SCRIPT DE UTMs AQUI DENTRO */}
+        <Script id="utm-script" strategy="afterInteractive">
+          {`
+            // Cole seu código de script para UTMs aqui.
+            // Por exemplo:
+            // (function() { ... seu código ... })();
+          `}
+        </Script>
+        
         <noscript>
           <img
             height="1"

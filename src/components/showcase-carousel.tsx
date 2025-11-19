@@ -26,7 +26,7 @@ export default function ShowcaseCarousel() {
     )
 
   return (
-    <section className="relative w-full max-w-5xl mx-auto my-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+    <section className="relative w-full max-w-7xl mx-auto my-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
       <h3 className="text-center font-headline text-lg md:text-xl text-accent mb-6" style={{ textShadow: '0 0 10px rgba(255,215,0,0.4)'}}>
         Veja como simples superfícies se transformam em obras de arte ✨
       </h3>

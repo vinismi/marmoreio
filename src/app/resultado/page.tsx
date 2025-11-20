@@ -49,8 +49,8 @@ const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 const newBenefits = [
     { icon: '💎', text: 'Acesso imediato e vitalício' },
-    { icon: '🎨', text: '300 modelos exclusivos para copiar' },
     { icon: '🎥', text: 'Aulas em vídeo' },
+    { icon: '🎨', text: '300 modelos exclusivos para copiar' },
     { icon: '🚀', text: 'Método rápido com resultado profissional' },
     { icon: '🪙', text: 'Transforme arte em renda verdadeira' },
     { icon: '📱', text: 'Estude onde e quando quiser' },
@@ -252,7 +252,7 @@ function ResultContent() {
                 <div className="flex flex-col items-center text-center p-8 rounded-2xl bg-[#111] border border-amber-500/25 shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-amber-500/10 animate-fade-in-up" style={{animationDelay: '200ms'}}>
                     <Box className="w-16 h-16 text-amber-400 mb-4"/>
                     <h3 className="font-headline text-2xl font-bold mb-2 text-white">Plano Básico</h3>
-                    <p className="mb-6 h-12 text-base md:h-16 text-white/70">Curso essencial: fundamentos e aplicação do piso marmorizado.</p>
+                    <p className="mb-6 h-12 text-base md:h-16 text-white/70">Curso essencial: fundamentos e aplicação do piso marmorizado. <span className="font-semibold text-white/80">Sem os 5 bônus e sem aulas em vídeo.</span></p>
                     <p className="text-4xl font-extrabold mb-4 text-amber-400">R$ 5,99</p>
                     <Button 
                       size="lg" 
@@ -269,6 +269,7 @@ function ResultContent() {
                     <h3 className="font-headline text-2xl font-extrabold text-black mb-4">💥 Garanta agora o acesso completo ao treinamento Efeito Marmorizado!</h3>
                      <div className="w-full text-left text-black/90 font-medium px-2 my-6 space-y-3">
                         <p className='font-bold text-black'>💎 Você vai receber:</p>
+                        <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Aulas em vídeo</p>
                         <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Acesso vitalício e imediato à plataforma</p>
                         <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> +300 modelos e efeitos marmorizados exclusivos</p>
                         <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Guia completo de aplicação e técnicas de brilho</p>

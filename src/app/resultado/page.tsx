@@ -219,7 +219,7 @@ function ResultContent() {
             </h3>
             <ul className="space-y-6 text-base md:text-lg text-white/90 max-w-3xl mx-auto">
               {newBenefits.map((benefit, index) => (
-                <li key={index} className="flex items-center gap-3">
+                <li key={index} className="flex items-center justify-center gap-3">
                   <span className="text-3xl md:text-4xl" style={{color: '#FFD86A', filter: 'drop-shadow(0 0 8px rgba(255,218,106,0.5))'}}>{benefit.icon}</span>
                   <span className="text-lg md:text-xl font-medium">{benefit.text}</span>
                 </li>
@@ -297,7 +297,11 @@ function ResultContent() {
                     <Button 
                       size="lg" 
                       className="w-full rounded-full bg-green-600 text-white hover:bg-green-700 font-bold text-base shadow-lg hover:shadow-2xl transition-all h-auto py-3 leading-tight flex flex-col"
-                      onClick={() => window.open(checkoutUrl, '_blank')}
+                      onClick={() => {
+                        const params = new URLSearchParams(window.location.search);
+                        const checkoutUrlWithParams = `https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS?${params.toString()}`;
+                        window.open(checkoutUrlWithParams, '_blank');
+                      }}
                     >
                       Garantir meu acesso agora →
                       <span className="text-xs font-normal opacity-90 mt-1">Acesso imediato + todos os bônus liberados 🔓</span>

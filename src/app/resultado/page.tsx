@@ -70,15 +70,22 @@ function ResultContent() {
   const [bonusItemsVisible, setBonusItemsVisible] = useState<boolean[]>(new Array(bonuses.length).fill(false));
 
   const [checkoutUrl, setCheckoutUrl] = useState('https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS');
+  const [basicCheckoutUrl, setBasicCheckoutUrl] = useState('https://www.ggcheckout.com/checkout/v2/kinHlxMmxB9mSAelkzX5');
+  const [completeCheckoutUrl, setCompleteCheckoutUrl] = useState('https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS');
+
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const baseCheckoutUrl = 'https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS';
+    const baseBasicUrl = 'https://www.ggcheckout.com/checkout/v2/kinHlxMmxB9mSAelkzX5';
+    const baseCompleteUrl = 'https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS';
     
-    if (params.toString()) {
-      setCheckoutUrl(`${baseCheckoutUrl}?${params.toString()}`);
+    const paramsString = params.toString();
+    if (paramsString) {
+      setBasicCheckoutUrl(`${baseBasicUrl}?${paramsString}`);
+      setCompleteCheckoutUrl(`${baseCompleteUrl}?${paramsString}`);
     } else {
-      setCheckoutUrl(baseCheckoutUrl);
+      setBasicCheckoutUrl(baseBasicUrl);
+      setCompleteCheckoutUrl(baseCompleteUrl);
     }
     
     const timers = bonuses.map((_, index) => 
@@ -257,7 +264,7 @@ function ResultContent() {
                     <Button 
                       size="lg" 
                       className="w-full rounded-full bg-amber-400 text-black hover:bg-amber-300 font-bold text-base shadow-[0_4px_14px_rgba(255,215,0,0.4)] hover:shadow-[0_6px_20px_rgba(255,215,0,0.5)] transition-all"
-                      onClick={() => setStartUpsell(true)}
+                      onClick={() => window.open(basicCheckoutUrl, '_blank')}
                     >
                       QUERO O ACESSO BÁSICO
                     </Button>
@@ -269,21 +276,14 @@ function ResultContent() {
                     <h3 className="font-headline text-2xl font-extrabold text-black mb-4">💥 Garanta agora o acesso completo ao treinamento Efeito Marmorizado!</h3>
                      <div className="w-full text-left text-black/90 font-medium px-2 my-6 space-y-3">
                         <p className='font-bold text-black'>💎 Você vai receber:</p>
-                        <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Aulas em vídeo</p>
+                        <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' />Aulas em vídeo</p>
                         <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Acesso vitalício e imediato à plataforma</p>
                         <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> +300 modelos e efeitos marmorizados exclusivos</p>
                         <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Guia completo de aplicação e técnicas de brilho</p>
                         <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Acesso por celular, tablet ou computador</p>
                         <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Suporte direto via WhatsApp e e-mail</p>
                         
-                        <p className='font-bold text-black pt-4'>🎁 Bônus 100% liberados:</p>
-                        <ol className="list-none space-y-2 pl-1">
-                           <li><span className='mr-2'>1️⃣</span>Como viver de pintura marmorizada</li>
-                           <li><span className='mr-2'>2️⃣</span>Transforme a técnica em renda extra ou principal</li>
-                           <li><span className='mr-2'>3️⃣</span>Guia completo de precificação</li>
-                           <li><span className='mr-2'>4️⃣</span>Como achar clientes que pagam bem</li>
-                           <li><span className='mr-2'>5️⃣</span>Melhores tintas, resinas e pigmentos do mercado</li>
-                        </ol>
+                        <p className='font-bold text-black pt-4'>🎁 5 Bônus 100% liberados:</p>
                         
                         <p className='text-center font-bold text-black pt-4'>🚀 Tudo desbloqueado imediatamente após a compra.</p>
                     </div>
@@ -298,9 +298,7 @@ function ResultContent() {
                       size="lg" 
                       className="w-full rounded-full bg-green-600 text-white hover:bg-green-700 font-bold text-base shadow-lg hover:shadow-2xl transition-all h-auto py-3 leading-tight flex flex-col"
                       onClick={() => {
-                        const params = new URLSearchParams(window.location.search);
-                        const checkoutUrlWithParams = `https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS?${params.toString()}`;
-                        window.open(checkoutUrlWithParams, '_blank');
+                        window.open(completeCheckoutUrl, '_blank');
                       }}
                     >
                       Garantir meu acesso agora →
@@ -387,3 +385,4 @@ export default function ResultPage() {
     
 
     
+

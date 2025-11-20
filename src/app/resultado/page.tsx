@@ -48,12 +48,13 @@ const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
   );
 
 const newBenefits = [
-  { icon: '💎', text: 'Acesso imediato e vitalício' },
-  { icon: '🎨', text: '300 modelos exclusivos para copiar' },
-  { icon: '🚀', text: 'Método rápido com resultado profissional' },
-  { icon: '🪙', text: 'Transforme arte em renda verdadeira' },
-  { icon: '📱', text: 'Estude onde e quando quiser' },
-  { icon: '✨', text: 'O efeito que transforma o comum em luxo' }
+    { icon: '💎', text: 'Acesso imediato e vitalício' },
+    { icon: '🎨', text: '300 modelos exclusivos para copiar' },
+    { icon: '🎥', text: 'Aulas em vídeo' },
+    { icon: '🚀', text: 'Método rápido com resultado profissional' },
+    { icon: '🪙', text: 'Transforme arte em renda verdadeira' },
+    { icon: '📱', text: 'Estude onde e quando quiser' },
+    { icon: '✨', text: 'O efeito que transforma o comum em luxo' }
 ];
 
 function ResultContent() {
@@ -67,8 +68,19 @@ function ResultContent() {
   };
   
   const [bonusItemsVisible, setBonusItemsVisible] = useState<boolean[]>(new Array(bonuses.length).fill(false));
-  
+
+  const [checkoutUrl, setCheckoutUrl] = useState('https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS');
+
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const baseCheckoutUrl = 'https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS';
+    
+    if (params.toString()) {
+      setCheckoutUrl(`${baseCheckoutUrl}?${params.toString()}`);
+    } else {
+      setCheckoutUrl(baseCheckoutUrl);
+    }
+    
     const timers = bonuses.map((_, index) => 
       setTimeout(() => {
         setBonusItemsVisible(prev => {
@@ -218,13 +230,13 @@ function ResultContent() {
       </section>
 
       {/* Testimonials */}
-      <section ref={testimonialsRef} className="flex flex-col items-center justify-center gap-8 bg-background py-16 px-6 md:py-24">
-        <h2 className="font-headline text-3xl font-extrabold md:text-4xl text-center">Quem aprendeu essa técnica está mudando de vida</h2>
+      <section ref={testimonialsRef} className="flex flex-col items-center justify-center gap-8 bg-black py-16 px-6 md:py-24">
+        <h2 className="font-headline text-3xl font-extrabold md:text-4xl text-center text-white">Quem aprendeu essa técnica está mudando de vida</h2>
         <div className='w-full max-w-6xl mx-auto space-y-8'>
           <TestimonialCarousel videoIds={videoTestimonials1} />
           <TestimonialCarousel videoIds={videoTestimonials2} />
         </div>
-        <p className="mt-8 text-center text-lg md:text-xl max-w-3xl text-foreground/80">Assim como eles, você também pode começar do zero e dominar o efeito marmorizado. Agora é só escolher como quer começar.</p>
+        <p className="mt-8 text-center text-lg md:text-xl max-w-3xl text-white/80">Assim como eles, você também pode começar do zero e dominar o efeito marmorizado. Agora é só escolher como quer começar.</p>
       </section>
 
       {/* Plans Section */}
@@ -284,7 +296,7 @@ function ResultContent() {
                     <Button 
                       size="lg" 
                       className="w-full rounded-full bg-green-600 text-white hover:bg-green-700 font-bold text-base shadow-lg hover:shadow-2xl transition-all h-auto py-3 leading-tight flex flex-col"
-                      onClick={() => window.open('https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS', '_blank')}
+                      onClick={() => window.open(checkoutUrl, '_blank')}
                     >
                       Garantir meu acesso agora →
                       <span className="text-xs font-normal opacity-90 mt-1">Acesso imediato + todos os bônus liberados 🔓</span>
@@ -366,5 +378,7 @@ export default function ResultPage() {
     </Suspense>
   );
 }
+
+    
 
     

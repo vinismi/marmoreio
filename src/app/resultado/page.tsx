@@ -48,12 +48,13 @@ const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
   );
 
 const newBenefits = [
-  { icon: '💎', text: 'Acesso imediato e vitalício' },
-  { icon: '🎨', text: '300 modelos exclusivos para copiar' },
-  { icon: '🚀', text: 'Método rápido com resultado profissional' },
-  { icon: '🪙', text: 'Transforme arte em renda verdadeira' },
-  { icon: '📱', text: 'Estude onde e quando quiser' },
-  { icon: '✨', text: 'O efeito que transforma o comum em luxo' }
+    { icon: '💎', text: 'Acesso imediato e vitalício' },
+    { icon: '🎥', text: 'Aulas em vídeo' },
+    { icon: '🎨', text: '300 modelos exclusivos para copiar' },
+    { icon: '🚀', text: 'Método rápido com resultado profissional' },
+    { icon: '🪙', text: 'Transforme arte em renda verdadeira' },
+    { icon: '📱', text: 'Estude onde e quando quiser' },
+    { icon: '✨', text: 'O efeito que transforma o comum em luxo' }
 ];
 
 function ResultContent() {
@@ -67,8 +68,26 @@ function ResultContent() {
   };
   
   const [bonusItemsVisible, setBonusItemsVisible] = useState<boolean[]>(new Array(bonuses.length).fill(false));
-  
+
+  const [checkoutUrl, setCheckoutUrl] = useState('https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS');
+  const [basicCheckoutUrl, setBasicCheckoutUrl] = useState('https://www.ggcheckout.com/checkout/v2/kinHlxMmxB9mSAelkzX5');
+  const [completeCheckoutUrl, setCompleteCheckoutUrl] = useState('https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS');
+
+
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const baseBasicUrl = 'https://www.ggcheckout.com/checkout/v2/kinHlxMmxB9mSAelkzX5';
+    const baseCompleteUrl = 'https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS';
+    
+    const paramsString = params.toString();
+    if (paramsString) {
+      setBasicCheckoutUrl(`${baseBasicUrl}?${paramsString}`);
+      setCompleteCheckoutUrl(`${baseCompleteUrl}?${paramsString}`);
+    } else {
+      setBasicCheckoutUrl(baseBasicUrl);
+      setCompleteCheckoutUrl(baseCompleteUrl);
+    }
+    
     const timers = bonuses.map((_, index) => 
       setTimeout(() => {
         setBonusItemsVisible(prev => {
@@ -207,7 +226,7 @@ function ResultContent() {
             </h3>
             <ul className="space-y-6 text-base md:text-lg text-white/90 max-w-3xl mx-auto">
               {newBenefits.map((benefit, index) => (
-                <li key={index} className="flex items-center gap-3">
+                <li key={index} className="flex items-center justify-center gap-3">
                   <span className="text-3xl md:text-4xl" style={{color: '#FFD86A', filter: 'drop-shadow(0 0 8px rgba(255,218,106,0.5))'}}>{benefit.icon}</span>
                   <span className="text-lg md:text-xl font-medium">{benefit.text}</span>
                 </li>
@@ -218,13 +237,13 @@ function ResultContent() {
       </section>
 
       {/* Testimonials */}
-      <section ref={testimonialsRef} className="flex flex-col items-center justify-center gap-8 bg-background py-16 px-6 md:py-24">
-        <h2 className="font-headline text-3xl font-extrabold md:text-4xl text-center">Quem aprendeu essa técnica está mudando de vida</h2>
+      <section ref={testimonialsRef} className="flex flex-col items-center justify-center gap-8 bg-black py-16 px-6 md:py-24">
+        <h2 className="font-headline text-3xl font-extrabold md:text-4xl text-center text-white">Quem aprendeu essa técnica está mudando de vida</h2>
         <div className='w-full max-w-6xl mx-auto space-y-8'>
           <TestimonialCarousel videoIds={videoTestimonials1} />
           <TestimonialCarousel videoIds={videoTestimonials2} />
         </div>
-        <p className="mt-8 text-center text-lg md:text-xl max-w-3xl text-foreground/80">Assim como eles, você também pode começar do zero e dominar o efeito marmorizado. Agora é só escolher como quer começar.</p>
+        <p className="mt-8 text-center text-lg md:text-xl max-w-3xl text-white/80">Assim como eles, você também pode começar do zero e dominar o efeito marmorizado. Agora é só escolher como quer começar.</p>
       </section>
 
       {/* Plans Section */}
@@ -240,12 +259,12 @@ function ResultContent() {
                 <div className="flex flex-col items-center text-center p-8 rounded-2xl bg-[#111] border border-amber-500/25 shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-amber-500/10 animate-fade-in-up" style={{animationDelay: '200ms'}}>
                     <Box className="w-16 h-16 text-amber-400 mb-4"/>
                     <h3 className="font-headline text-2xl font-bold mb-2 text-white">Plano Básico</h3>
-                    <p className="mb-6 h-12 text-base md:h-16 text-white/70">Curso essencial: fundamentos e aplicação do piso marmorizado.</p>
+                    <p className="mb-6 h-12 text-base md:h-16 text-white/70">Curso essencial: fundamentos e aplicação do piso marmorizado. <span className="font-semibold text-white/80">Sem os 5 bônus e sem aulas em vídeo.</span></p>
                     <p className="text-4xl font-extrabold mb-4 text-amber-400">R$ 5,99</p>
                     <Button 
                       size="lg" 
                       className="w-full rounded-full bg-amber-400 text-black hover:bg-amber-300 font-bold text-base shadow-[0_4px_14px_rgba(255,215,0,0.4)] hover:shadow-[0_6px_20px_rgba(255,215,0,0.5)] transition-all"
-                      onClick={() => setStartUpsell(true)}
+                      onClick={() => window.open(basicCheckoutUrl, '_blank')}
                     >
                       QUERO O ACESSO BÁSICO
                     </Button>
@@ -257,20 +276,14 @@ function ResultContent() {
                     <h3 className="font-headline text-2xl font-extrabold text-black mb-4">💥 Garanta agora o acesso completo ao treinamento Efeito Marmorizado!</h3>
                      <div className="w-full text-left text-black/90 font-medium px-2 my-6 space-y-3">
                         <p className='font-bold text-black'>💎 Você vai receber:</p>
+                        <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' />Aulas em vídeo</p>
                         <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Acesso vitalício e imediato à plataforma</p>
                         <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> +300 modelos e efeitos marmorizados exclusivos</p>
                         <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Guia completo de aplicação e técnicas de brilho</p>
                         <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Acesso por celular, tablet ou computador</p>
                         <p className='flex items-start gap-2'><CheckCircle className='w-5 h-5 mt-0.5 shrink-0 text-green-800' /> Suporte direto via WhatsApp e e-mail</p>
                         
-                        <p className='font-bold text-black pt-4'>🎁 Bônus 100% liberados:</p>
-                        <ol className="list-none space-y-2 pl-1">
-                           <li><span className='mr-2'>1️⃣</span>Como viver de pintura marmorizada</li>
-                           <li><span className='mr-2'>2️⃣</span>Transforme a técnica em renda extra ou principal</li>
-                           <li><span className='mr-2'>3️⃣</span>Guia completo de precificação</li>
-                           <li><span className='mr-2'>4️⃣</span>Como achar clientes que pagam bem</li>
-                           <li><span className='mr-2'>5️⃣</span>Melhores tintas, resinas e pigmentos do mercado</li>
-                        </ol>
+                        <p className='font-bold text-black pt-4'>🎁 5 Bônus 100% liberados:</p>
                         
                         <p className='text-center font-bold text-black pt-4'>🚀 Tudo desbloqueado imediatamente após a compra.</p>
                     </div>
@@ -284,7 +297,9 @@ function ResultContent() {
                     <Button 
                       size="lg" 
                       className="w-full rounded-full bg-green-600 text-white hover:bg-green-700 font-bold text-base shadow-lg hover:shadow-2xl transition-all h-auto py-3 leading-tight flex flex-col"
-                      onClick={() => window.open('https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS', '_blank')}
+                      onClick={() => {
+                        window.open(completeCheckoutUrl, '_blank');
+                      }}
                     >
                       Garantir meu acesso agora →
                       <span className="text-xs font-normal opacity-90 mt-1">Acesso imediato + todos os bônus liberados 🔓</span>
@@ -368,3 +383,6 @@ export default function ResultPage() {
 }
 
     
+
+    
+

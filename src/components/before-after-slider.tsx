@@ -65,7 +65,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after, pr
     window.addEventListener('touchmove', handleTouchMove, { passive: false });
     window.addEventListener('mouseup', handleUp);
     window.addEventListener('touchend', handleUp);
-    
+
     return () => {
       if (currentHandle) {
         currentHandle.removeEventListener('mousedown', handleMouseDown as any);
@@ -80,53 +80,55 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after, pr
 
   return (
     <div
-        ref={containerRef}
-        className="relative w-full aspect-[4/3] max-w-full overflow-hidden rounded-lg shadow-2xl shadow-black/50 select-none"
+      ref={containerRef}
+      className="relative w-full aspect-[4/3] max-w-full overflow-hidden rounded-lg shadow-2xl shadow-black/50 select-none"
     >
-        {/* After Image (Top Layer) */}
-        <div
-            className="absolute inset-0 z-10 w-full h-full"
-            style={{
-                clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
-            }}
-        >
-            <Image
-                src={after}
-                alt="Depois"
-                fill
-                className="object-cover pointer-events-none"
-                priority={priority}
-            />
-        </div>
+      {/* After Image (Top Layer) */}
+      <div
+        className="absolute inset-0 z-10 w-full h-full"
+        style={{
+          clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
+        }}
+      >
+        <Image
+          src={after}
+          alt="Depois"
+          fill
+          className="object-cover pointer-events-none"
+          priority={priority}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+      </div>
 
-        {/* Before Image (Bottom Layer) */}
-        <div className="absolute inset-0 w-full h-full">
-            <Image
-                src={before}
-                alt="Antes"
-                fill
-                className="object-cover pointer-events-none"
-                priority={priority}
-            />
-        </div>
+      {/* Before Image (Bottom Layer) */}
+      <div className="absolute inset-0 w-full h-full">
+        <Image
+          src={before}
+          alt="Antes"
+          fill
+          className="object-cover pointer-events-none"
+          priority={priority}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+      </div>
 
-        {/* Slider Line & Handle */}
+      {/* Slider Line & Handle */}
+      <div
+        className="absolute top-0 bottom-0 z-20 w-1 bg-accent/90 cursor-ew-resize"
+        style={{
+          left: `${sliderPosition}%`,
+          boxShadow: '0 0 10px rgba(255,215,0,0.4)',
+          pointerEvents: 'none'
+        }}
+      >
         <div
-            className="absolute top-0 bottom-0 z-20 w-1 bg-accent/90 cursor-ew-resize"
-            style={{ 
-              left: `${sliderPosition}%`,
-              boxShadow: '0 0 10px rgba(255,215,0,0.4)',
-              pointerEvents: 'none'
-            }}
+          ref={handleRef}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-accent rounded-full text-black shadow-lg cursor-ew-resize"
+          style={{ pointerEvents: 'auto' }}
         >
-          <div
-            ref={handleRef}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-accent rounded-full text-black shadow-lg cursor-ew-resize"
-            style={{ pointerEvents: 'auto' }}
-          >
-            <ChevronsLeftRight size={24} />
-          </div>
+          <ChevronsLeftRight size={24} />
         </div>
+      </div>
     </div>
   );
 };

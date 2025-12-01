@@ -7,7 +7,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Award, Brain, CheckCircle, Lock, Rocket, Zap } from 'lucide-react';
+import { Award, Brain, CheckCircle, Lock, Rocket, Zap, BookOpen, Smartphone, Settings, Palette, Sparkles } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import GoldenParticles from '@/components/particles';
 import Link from 'next/link';
@@ -40,17 +40,17 @@ const colorTextureOptions = [
 ];
 
 const finishOptions = [
-  { 
-    id: 'a', 
-    label: 'Brilho Espelhado', 
+  {
+    id: 'a',
+    label: 'Brilho Espelhado',
     image: PlaceHolderImages.find(img => img.id === 'finish-shine')!
   },
-  { 
-    id: 'b', 
+  {
+    id: 'b',
     label: 'Acetinado Natural',
     image: PlaceHolderImages.find(img => img.id === 'finish-satin')!
   },
-  { 
+  {
     id: 'c',
     label: 'Efeito Perolado',
     image: PlaceHolderImages.find(img => img.id === 'finish-pearl')!
@@ -60,18 +60,37 @@ const finishOptions = [
 type FunnelStep = 1 | 2 | 3;
 
 const CourseInfoSection = () => (
-    <div className="relative z-10 w-full my-10 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-      <div className="rounded-xl border border-amber-500/30 bg-black/30 p-6 shadow-golden backdrop-blur-sm">
-        <h3 className="font-headline text-2xl font-bold text-accent mb-4 text-center">✨ Como funciona o curso Efeito Marmorizado:</h3>
-        <ul className="space-y-4 text-base text-white/90">
-          <li className="flex items-start gap-3"><span className='text-xl'>💡</span>O acesso é instantâneo e vitalício, liberado assim que o pagamento é confirmado.</li>
-          <li className="flex items-start gap-3"><span className='text-xl'>📘</span>Dentro da plataforma, você vai encontrar mais de 300 modelos e efeitos diferentes de pintura marmorizada, com instruções passo a passo.</li>
-          <li className="flex items-start gap-3"><span className='text-xl'>🧰</span>Todo o conteúdo é 100% online e pode ser acessado pelo celular, tablet ou computador, de onde quiser.</li>
-          <li className="flex items-start gap-3"><span className='text-xl'>⚙️</span>Você aprenderá desde os fundamentos até os efeitos avançados, incluindo pisos, paredes e combinações profissionais com brilho e resina.</li>
-          <li className="flex items-start gap-3"><span className='text-xl'>🎨</span>É o material mais completo do mercado pra quem quer aprender de verdade e começar a aplicar ainda hoje.</li>
-        </ul>
+  <div className="relative z-10 w-full my-8 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 p-5 shadow-2xl backdrop-blur-md">
+
+      <div className="flex items-center justify-center gap-2 mb-6">
+        <Sparkles className="w-5 h-5 text-amber-400" />
+        <h3 className="font-headline text-xl md:text-2xl font-black text-white text-center uppercase tracking-wide">
+          O QUE VOCÊ LEVA:
+        </h3>
+        <Sparkles className="w-5 h-5 text-amber-400" />
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        {[
+          { icon: Zap, title: "Acesso Imediato", text: "Comece agora mesmo." },
+          { icon: BookOpen, title: "+300 Modelos", text: "Passo a passo completo." },
+          { icon: Smartphone, title: "100% Online", text: "Celular ou PC." },
+          { icon: Settings, title: "Do Zero ao Pro", text: "Sem experiência." },
+          { icon: Palette, title: "Material Completo", text: "Lista de materiais." },
+          { icon: Award, title: "Certificado", text: "Incluso no final." }
+        ].map((item, index) => (
+          <div key={index} className="flex flex-col items-center text-center p-3 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-amber-500/30 transition-all duration-300 group">
+            <div className="mb-2 p-2 rounded-full bg-black/50 border border-amber-500/20 group-hover:border-amber-500/50 group-hover:shadow-[0_0_10px_rgba(245,158,11,0.3)] transition-all">
+              <item.icon size={20} className="text-amber-400" />
+            </div>
+            <h4 className="font-bold text-sm text-white mb-0.5 leading-tight">{item.title}</h4>
+            <p className="text-xs text-gray-400 leading-tight">{item.text}</p>
+          </div>
+        ))}
       </div>
     </div>
+  </div>
 );
 
 
@@ -83,69 +102,67 @@ const Step1 = ({ onComplete }: { onComplete: (choice: string) => void }) => {
     setAestheticChoice(value);
     setIsCompleted(true);
   };
-  
+
   return (
-      <div className="dark relative flex w-full flex-col items-center justify-center gap-8 overflow-hidden bg-background p-5">
-          <GoldenParticles visible={true} count={15} />
-          <div className="relative z-10 flex w-full max-w-md flex-col items-center text-center origin-top transition-transform duration-300">
-              <Progress value={isCompleted ? 33 : 0} className="mb-8 h-2.5 w-full" />
-              <div className="animate-fade-in-up">
-                  <h2 className="font-headline text-3xl font-extrabold text-white md:text-4xl">
-                      <span className="text-accent">Qual</span> desses pisos você acha mais bonito?
-                  </h2>
-                  <p className="mt-2 text-base text-secondary-foreground/60 md:text-lg">
-                      Ajude nossa IA a identificar o padrão de beleza perfeito.
-                  </p>
-              </div>
+    <div className="dark relative flex w-full flex-col items-center justify-center gap-8 overflow-hidden bg-background p-5">
+      <GoldenParticles visible={true} count={15} />
+      <div className="relative z-10 flex w-full max-w-md flex-col items-center text-center origin-top transition-transform duration-300">
+        <Progress value={isCompleted ? 33 : 0} className="mb-8 h-2.5 w-full" />
+        <div className="animate-fade-in-up">
+          <h2 className="font-headline text-3xl font-extrabold text-white md:text-4xl">
+            <span className="text-accent">Qual</span> desses pisos você acha mais bonito?
+          </h2>
+          <p className="mt-2 text-base text-secondary-foreground/60 md:text-lg">
+            Ajude nossa IA a identificar o padrão de beleza perfeito.
+          </p>
+        </div>
 
-              <div className="mt-8 grid grid-cols-1 gap-6 w-full animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-                  {floorImages.map((image, index) => (
-                      <button
-                          key={image.id}
-                          onClick={() => handleChoice(image.description)}
-                          className={cn(
-                              "group relative overflow-hidden rounded-xl border-2 border-transparent transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background w-full",
-                              aestheticChoice === image.description
-                                  ? 'border-accent shadow-[0_0_24px_rgba(255,215,0,0.5)] scale-105'
-                                  : 'hover:scale-105 hover:shadow-xl hover:border-accent/50',
-                              isCompleted && aestheticChoice !== image.description ? 'opacity-50 blur-[2px] grayscale' : ''
-                          )}
-                          disabled={isCompleted}
-                      >
-                          <Image
-                              src={image.imageUrl}
-                              alt={image.description}
-                              width={400}
-                              height={500}
-                              className="w-full h-auto object-cover aspect-[4/5] rounded-[11px] transition-transform duration-300"
-                              data-ai-hint={image.imageHint}
-                              priority={index < 2}
-                          />
-                          {aestheticChoice === image.description && (
-                              <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-[2px]">
-                                  <span className="font-headline text-2xl text-white flex items-center gap-2 animate-bounce">
-                                      <CheckCircle className="text-green-400" /> Selecionado
-                                  </span>
-                              </div>
-                          )}
-                      </button>
-                  ))}
-              </div>
-
-              {isCompleted && (
-                  <div className="mt-8 flex flex-col items-center gap-4 text-center animate-fade-in-up w-full" style={{ animationDelay: '0.4s' }}>
-                      <CourseInfoSection />
-                      <div className="w-full rounded-lg bg-green-500/10 p-4 border border-green-500/20">
-                          <p className="flex items-center justify-center gap-2 text-lg font-semibold text-green-400"><CheckCircle size={24} /> Treino IA: Etapa 1 concluída!</p>
-                          <p className="mt-1 max-w-lg text-secondary-foreground/80 text-base">Perfeito! Você ajudou nossa IA a reconhecer padrões.</p>
-                      </div>
-                      <Button onClick={() => onComplete(aestheticChoice)} className="button-shine-gradient mt-5 w-full rounded-full text-sm md:text-lg h-14 font-bold text-black">
-                          CONTINUAR PARA A PRÓXIMA ETAPA
-                      </Button>
-                  </div>
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 w-full animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          {floorImages.map((image, index) => (
+            <button
+              key={image.id}
+              onClick={() => handleChoice(image.description)}
+              className={cn(
+                "group relative overflow-hidden rounded-xl border-2 border-transparent transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background w-full",
+                aestheticChoice === image.description
+                  ? 'border-accent shadow-[0_0_24px_rgba(255,215,0,0.5)] scale-105 ring-2 ring-accent'
+                  : 'hover:scale-105 hover:shadow-xl hover:border-accent/50 opacity-80 hover:opacity-100'
               )}
+            >
+              <Image
+                src={image.imageUrl}
+                alt={image.description}
+                width={400}
+                height={500}
+                className="w-full h-auto object-cover aspect-[4/5] rounded-[11px] transition-transform duration-300"
+                data-ai-hint={image.imageHint}
+                priority={index < 3}
+              />
+              {aestheticChoice === image.description && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[1px]">
+                  <span className="font-headline text-xl md:text-2xl text-white flex items-center gap-2 animate-bounce drop-shadow-lg">
+                    <CheckCircle className="text-green-400 w-6 h-6 md:w-8 md:h-8" /> Selecionado
+                  </span>
+                </div>
+              )}
+            </button>
+          ))}
+        </div>
+
+        {isCompleted && (
+          <div className="mt-8 flex flex-col items-center gap-4 text-center animate-fade-in-up w-full" style={{ animationDelay: '0.4s' }}>
+            <CourseInfoSection />
+            <div className="w-full rounded-lg bg-green-500/10 p-4 border border-green-500/20">
+              <p className="flex items-center justify-center gap-2 text-lg font-semibold text-green-400"><CheckCircle size={24} /> Treino IA: Etapa 1 concluída!</p>
+              <p className="mt-1 max-w-lg text-secondary-foreground/80 text-base">Perfeito! Você ajudou nossa IA a reconhecer padrões.</p>
+            </div>
+            <Button onClick={() => onComplete(aestheticChoice)} className="button-shine-gradient mt-5 w-full rounded-full text-sm md:text-lg h-14 font-bold text-black">
+              CONTINUAR PARA A PRÓXIMA ETAPA
+            </Button>
           </div>
+        )}
       </div>
+    </div>
   );
 }
 
@@ -157,12 +174,12 @@ const Step2 = ({ onComplete, aestheticChoice }: { onComplete: (choice: string) =
     setColorTextureChoice(value);
     setIsCompleted(true);
   };
-  
+
   return (
     <div className="dark relative flex w-full flex-col items-center justify-center gap-8 bg-background p-5">
       <div className="relative z-10 flex w-full max-w-md flex-col items-center text-center origin-top transition-transform duration-300">
         <Progress value={isCompleted ? 66 : 33} className="mb-8 h-2.5 w-full" />
-        
+
         <div className="mb-8 flex flex-col items-center animate-fade-in-up">
           <div className="flex items-center gap-2">
             <h2 className="font-headline text-3xl font-extrabold text-white">Agora a combinação ideal de cor e textura:</h2>
@@ -171,54 +188,52 @@ const Step2 = ({ onComplete, aestheticChoice }: { onComplete: (choice: string) =
           <p className="-mt-1 font-semibold text-lg text-accent">para uma casa de luxo</p>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-6 w-full animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 w-full animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           {colorTextureOptions.map((option, index) => (
             <button
               key={option.id}
               onClick={() => handleChoice(option.label)}
               className={cn(
                 "group relative overflow-hidden rounded-xl border-2 border-transparent transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background w-full",
-                colorTextureChoice === option.label 
-                  ? 'border-accent shadow-[0_0_24px_rgba(255,215,0,0.5)] scale-105' 
-                  : 'hover:scale-105 hover:shadow-xl hover:border-accent/50',
-                isCompleted && colorTextureChoice !== option.label ? 'opacity-50 blur-[2px] grayscale' : ''
+                colorTextureChoice === option.label
+                  ? 'border-accent shadow-[0_0_24px_rgba(255,215,0,0.5)] scale-105 ring-2 ring-accent'
+                  : 'hover:scale-105 hover:shadow-xl hover:border-accent/50 opacity-80 hover:opacity-100'
               )}
-              disabled={isCompleted}
             >
-              <Image 
-                src={option.image.imageUrl} 
-                alt={option.image.description} 
-                width={400} 
-                height={500} 
-                className="w-full h-auto object-cover aspect-[4/5] rounded-[11px] transition-transform duration-300" 
-                data-ai-hint={option.image.imageHint} 
-                priority={index === 0}
+              <Image
+                src={option.image.imageUrl}
+                alt={option.image.description}
+                width={400}
+                height={500}
+                className="w-full h-auto object-cover aspect-[4/5] rounded-[11px] transition-transform duration-300"
+                data-ai-hint={option.image.imageHint}
+                priority={index < 3}
               />
-               <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-3 backdrop-blur-sm">
+              <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-3 backdrop-blur-sm transition-opacity duration-300 group-hover:bg-black/80">
                 <p className="font-bold text-white text-lg">{option.label}</p>
               </div>
               {colorTextureChoice === option.label && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-[2px]">
-                  <span className="font-headline text-2xl text-white flex items-center gap-2 animate-bounce">
-                    <CheckCircle className="text-green-400"/> Selecionado
+                <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[1px]">
+                  <span className="font-headline text-xl md:text-2xl text-white flex items-center gap-2 animate-bounce drop-shadow-lg">
+                    <CheckCircle className="text-green-400 w-6 h-6 md:w-8 md:h-8" /> Selecionado
                   </span>
                 </div>
               )}
             </button>
           ))}
         </div>
-        
+
         {isCompleted && (
           <div className="mt-8 flex flex-col items-center gap-4 text-center animate-fade-in-up w-full" style={{ animationDelay: '0.4s' }}>
             <div className="w-full rounded-lg bg-green-500/10 p-4 border border-green-500/20">
-              <p className="font-headline text-lg font-semibold text-white flex items-center justify-center gap-2"><CheckCircle size={22}/> Excelente escolha!</p>
+              <p className="font-headline text-lg font-semibold text-white flex items-center justify-center gap-2"><CheckCircle size={22} /> Excelente escolha!</p>
               <p className="text-white/80 text-base mt-1">Você desbloqueou um novo estilo de efeito marmorizado.</p>
             </div>
-             <Button 
-                onClick={() => onComplete(colorTextureChoice)}
-                className="button-shine-gradient mt-5 w-full rounded-full text-lg h-14 font-bold text-black"
-              >
-                <Rocket className="mr-2"/> IR PARA O ÚLTIMO DESAFIO
+            <Button
+              onClick={() => onComplete(colorTextureChoice)}
+              className="button-shine-gradient mt-5 w-full rounded-full text-lg h-14 font-bold text-black"
+            >
+              <Rocket className="mr-2" /> IR PARA O ÚLTIMO DESAFIO
             </Button>
           </div>
         )}
@@ -240,12 +255,12 @@ const Step3 = ({ aestheticChoice, colorTextureChoice }: { aestheticChoice: strin
     setIsCompleted(true);
     setShowParticles(true);
   };
-  
+
   const handleFunnelCompletion = (finalChoices: MarmorizedPatternAssessmentInput) => {
     assessMarmorizedPattern(finalChoices).catch(error => {
       console.error("AI assessment failed in the background:", error);
     });
-    
+
     const params = new URLSearchParams({
       aestheticChoice: finalChoices.aestheticChoice,
       colorTextureChoice: finalChoices.colorTextureChoice,
@@ -257,46 +272,44 @@ const Step3 = ({ aestheticChoice, colorTextureChoice }: { aestheticChoice: strin
 
   return (
     <div className="dark relative flex w-full flex-col items-center justify-center gap-8 bg-background p-5 text-foreground">
-      <GoldenParticles visible={showParticles} count={isCompleted ? 50: 15} />
+      <GoldenParticles visible={showParticles} count={isCompleted ? 50 : 15} />
       <div className="relative z-10 flex w-full max-w-md flex-col items-center text-center origin-top transition-transform duration-300">
         <Progress value={isCompleted ? 100 : 66} className="mb-8 h-2.5 w-full" />
-        
+
         <div className="animate-fade-in-up">
-            <h2 className="font-headline text-3xl font-extrabold md:text-4xl">
-              Por último, qual <span className="text-gradient-gold animated-text-gradient">acabamento</span> valoriza mais? ✨
-            </h2>
+          <h2 className="font-headline text-3xl font-extrabold md:text-4xl">
+            Por último, qual <span className="text-gradient-gold animated-text-gradient">acabamento</span> valoriza mais? ✨
+          </h2>
         </div>
 
-        <div className="mt-8 grid w-full grid-cols-1 gap-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <div className="mt-8 grid w-full grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           {finishOptions.map((option, index) => (
             <button
               key={option.id}
               onClick={() => handleChoice(option.label)}
               className={cn(
                 "group relative overflow-hidden rounded-xl border-2 border-transparent transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background w-full",
-                finishChoice === option.label 
-                  ? 'border-accent shadow-[0_0_24px_rgba(255,215,0,0.5)] scale-105' 
-                  : 'hover:scale-105 hover:shadow-xl hover:border-accent/50',
-                isCompleted && finishChoice !== option.label ? 'opacity-50 blur-[2px] grayscale' : ''
+                finishChoice === option.label
+                  ? 'border-accent shadow-[0_0_24px_rgba(255,215,0,0.5)] scale-105 ring-2 ring-accent'
+                  : 'hover:scale-105 hover:shadow-xl hover:border-accent/50 opacity-80 hover:opacity-100'
               )}
-              disabled={isCompleted}
             >
-              <Image 
-                src={option.image.imageUrl} 
-                alt={option.image.description} 
-                width={400} 
-                height={500} 
-                className="w-full h-auto object-cover aspect-[4/5] rounded-[11px] transition-transform duration-300" 
+              <Image
+                src={option.image.imageUrl}
+                alt={option.image.description}
+                width={400}
+                height={500}
+                className="w-full h-auto object-cover aspect-[4/5] rounded-[11px] transition-transform duration-300"
                 data-ai-hint={option.image.imageHint}
-                priority={index === 0}
+                priority={index < 3}
               />
-               <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-3 backdrop-blur-sm">
+              <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-3 backdrop-blur-sm transition-opacity duration-300 group-hover:bg-black/80">
                 <p className="font-bold text-white text-lg">{option.label}</p>
               </div>
               {finishChoice === option.label && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-[2px]">
-                  <span className="font-headline text-2xl text-white flex items-center gap-2 animate-bounce">
-                    <CheckCircle className="text-green-400"/> Selecionado
+                <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[1px]">
+                  <span className="font-headline text-xl md:text-2xl text-white flex items-center gap-2 animate-bounce drop-shadow-lg">
+                    <CheckCircle className="text-green-400 w-6 h-6 md:w-8 md:h-8" /> Selecionado
                   </span>
                 </div>
               )}
@@ -309,14 +322,14 @@ const Step3 = ({ aestheticChoice, colorTextureChoice }: { aestheticChoice: strin
             <h3 className="font-headline text-2xl font-extrabold text-accent">🏆 Incrível!</h3>
             <p className="text-lg">Você completou o Treinamento da IA.</p>
             <div className="flex items-center justify-center gap-2 text-base font-bold bg-accent text-accent-foreground p-3 rounded-lg my-4 animate-bounce w-full shadow-lg">
-              <Award size={28}/>
+              <Award size={28} />
               <span>🎉 TODOS OS BÔNUS DESBLOQUEADOS</span>
             </div>
-            <Button 
-                onClick={() => handleFunnelCompletion({ aestheticChoice, colorTextureChoice, finishChoice })} 
-                className="button-shine-gradient mt-5 w-full rounded-full text-lg h-14 font-bold text-black"
+            <Button
+              onClick={() => handleFunnelCompletion({ aestheticChoice, colorTextureChoice, finishChoice })}
+              className="button-shine-gradient mt-5 w-full rounded-full text-lg h-14 font-bold text-black"
             >
-                <Lock className="mr-2"/> VER MEUS BÔNUS DESBLOQUEADOS
+              <Lock className="mr-2" /> VER MEUS BÔNUS DESBLOQUEADOS
             </Button>
           </div>
         )}
@@ -327,30 +340,30 @@ const Step3 = ({ aestheticChoice, colorTextureChoice }: { aestheticChoice: strin
 
 
 export default function FunnelPage() {
-    const [step, setStep] = useState<FunnelStep>(1);
-    const [aestheticChoice, setAestheticChoice] = useState('');
-    const [colorTextureChoice, setColorTextureChoice] = useState('');
-    const router = useRouter();
+  const [step, setStep] = useState<FunnelStep>(1);
+  const [aestheticChoice, setAestheticChoice] = useState('');
+  const [colorTextureChoice, setColorTextureChoice] = useState('');
+  const router = useRouter();
 
-    const handleStep1Complete = (choice: string) => {
-        setAestheticChoice(choice);
-        setStep(2);
-        window.scrollTo(0, 0);
-    };
+  const handleStep1Complete = (choice: string) => {
+    setAestheticChoice(choice);
+    setStep(2);
+    window.scrollTo(0, 0);
+  };
 
-    const handleStep2Complete = (choice: string) => {
-        setColorTextureChoice(choice);
-        setStep(3);
-        window.scrollTo(0, 0);
-        router.prefetch('/resultado');
-    };
+  const handleStep2Complete = (choice: string) => {
+    setColorTextureChoice(choice);
+    setStep(3);
+    window.scrollTo(0, 0);
+    router.prefetch('/resultado');
+  };
 
 
-    return (
-        <main className="min-h-screen bg-background">
-            {step === 1 && <Step1 onComplete={handleStep1Complete} />}
-            {step === 2 && <Step2 onComplete={handleStep2Complete} aestheticChoice={aestheticChoice} />}
-            {step === 3 && <Step3 aestheticChoice={aestheticChoice} colorTextureChoice={colorTextureChoice} />}
-        </main>
-    );
+  return (
+    <main className="min-h-screen bg-background">
+      {step === 1 && <Step1 onComplete={handleStep1Complete} />}
+      {step === 2 && <Step2 onComplete={handleStep2Complete} aestheticChoice={aestheticChoice} />}
+      {step === 3 && <Step3 aestheticChoice={aestheticChoice} colorTextureChoice={colorTextureChoice} />}
+    </main>
+  );
 }

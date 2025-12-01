@@ -8,7 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import WistiaEmbed from './wistia-embed';
+import WistiaWebPlayer from './wistia-web-player';
 
 type TestimonialCarouselProps = {
   videoIds: string[];
@@ -23,10 +23,10 @@ export default function TestimonialCarousel({ videoIds }: TestimonialCarouselPro
       }}
     >
       <CarouselContent>
-        {videoIds.map(videoId => (
-          <CarouselItem key={videoId} className="md:basis-1/2">
+        {videoIds.map((videoId, index) => (
+          <CarouselItem key={`${videoId}-${index}`} className="md:basis-1/2">
             <div className="p-1">
-                <WistiaEmbed mediaId={videoId} />
+              <WistiaWebPlayer mediaId={videoId} />
             </div>
           </CarouselItem>
         ))}

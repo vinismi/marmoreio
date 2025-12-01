@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
-import { Cpu, Sparkles } from 'lucide-react';
+import { Cpu, Sparkles, CheckCircle, Lock } from 'lucide-react';
 import GoldenParticles from './particles';
 
 const ProcessingScreen = () => {
@@ -22,46 +22,75 @@ const ProcessingScreen = () => {
 };
 
 const OfferScreen = () => {
+    const openCheckout = (url: string) => {
+        const params = window.location.search;
+        const separator = url.includes('?') ? '&' : '?';
+        window.open(`${url}${separator}${params.substring(1)}`, '_blank');
+    };
+
     return (
-        <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-4 overflow-hidden bg-gradient-to-b from-[#111] to-[#2B1A00] p-5 text-white animate-fade-in-up">
-            <GoldenParticles visible={true} count={50} />
-            <div className="relative z-10 flex w-full max-w-2xl flex-col items-center rounded-2xl border border-amber-500/30 bg-black/30 p-8 text-center shadow-2xl shadow-amber-500/10 backdrop-blur-md">
-                <div className="mb-4 flex items-center gap-2 rounded-full bg-accent/10 px-4 py-2 text-sm font-semibold text-accent border border-accent/20">
-                   <Sparkles className="h-5 w-5" />
-                   Parabéns! Desconto exclusivo desbloqueado!
-                </div>
-                <h1 className="font-headline text-3xl font-extrabold md:text-4xl" style={{ textShadow: '0 0 10px rgba(255,215,0,0.6)'}}>
-                    🎉 Você desbloqueou um desconto exclusivo de última chance!
-                </h1>
-                <p className="mt-2 max-w-xl text-base text-white/80 md:text-lg">
-                    Por ter completado o treino interativo da IA, você ganhou acesso total com bônus por apenas R$9,99.
-                </p>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 animate-fade-in overflow-y-auto">
+            <div className="relative w-full max-w-lg overflow-hidden rounded-3xl bg-[#111] border border-amber-500/30 shadow-[0_0_50px_rgba(245,158,11,0.15)] my-auto">
+                {/* Top Decoration */}
+                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-600 via-yellow-400 to-amber-600"></div>
 
-                <div className="my-8 w-full rounded-lg border-2 border-dashed border-accent bg-accent/10 p-6">
-                    <p className="text-lg font-semibold">Oferta Especial</p>
-                    <h3 className="font-headline text-2xl font-bold text-white">Curso Completo + Todos os Bônus</h3>
-                    <p className="text-2xl font-extrabold text-accent">de <del className="text-red-400/80">R$14,99</del> por apenas R$9,99</p>
-                </div>
+                <div className="p-6 md:p-8 flex flex-col items-center text-center relative z-10">
 
-                <div className="flex w-full flex-col items-center gap-4">
-                     <Button 
-                        className="button-shine-gradient w-full rounded-full text-lg h-14 font-bold text-black animate-subtle-pulse"
-                        onClick={() => window.open('https://www.ggcheckout.com/checkout/v2/Yj4f7amE5UXaHzZUt3Uz', '_blank')}
-                    >
-                        <Sparkles className="mr-2"/> SIM, QUERO O PACOTE COMPLETO COM DESCONTO
-                    </Button>
-                    <Button 
-                        variant="outline" 
-                        className="w-full rounded-full border-accent/50 bg-transparent text-white/80 h-12 hover:bg-accent/10 hover:text-white"
-                        onClick={() => window.open('https://www.ggcheckout.com/checkout/v2/kinHlxMmxB9mSAelkzX5', '_blank')}
-                    >
-                        Continuar com apenas a versão básica (R$5,99)
-                    </Button>
-                </div>
+                    {/* Badge */}
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs md:text-sm font-bold uppercase tracking-wider mb-6 animate-pulse">
+                        <Sparkles className="w-4 h-4" /> Oferta Exclusiva Desbloqueada
+                    </div>
 
-                <p className="mt-6 text-xs text-white/60">
-                    Oferta válida apenas nesta tela. Após sair, o valor volta ao normal.
-                </p>
+                    {/* Title */}
+                    <h2 className="font-headline text-3xl md:text-4xl font-black text-white mb-4 leading-tight">
+                        NÃO FECHE ESSA TELA! <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-500">VOCÊ GANHOU UM PRESENTE</span>
+                    </h2>
+
+                    <p className="text-gray-300 text-base md:text-lg mb-8 leading-relaxed">
+                        Como recompensa por ter completado o treinamento, liberamos o <span className="text-white font-bold">Pacote Completo + Todos os Bônus</span> por um valor simbólico.
+                    </p>
+
+                    {/* Offer Box */}
+                    <div className="w-full bg-gradient-to-b from-white/5 to-transparent border border-white/10 rounded-2xl p-6 mb-8 relative overflow-hidden group">
+                        <div className="absolute inset-0 bg-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                        <div className="flex flex-col gap-1 mb-4">
+                            <span className="text-gray-500 text-sm line-through">De R$ 14,99</span>
+                            <div className="flex items-center justify-center gap-2">
+                                <span className="text-5xl font-black text-white tracking-tighter">9,99</span>
+                                <span className="text-xl font-bold text-amber-400 self-end mb-2">R$</span>
+                            </div>
+                        </div>
+
+                        <ul className="text-sm text-gray-400 space-y-2 text-left bg-black/30 p-4 rounded-xl border border-white/5">
+                            <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" /> <span className="text-white">Curso Completo em Vídeo</span></li>
+                            <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" /> <span className="text-white">5 Bônus Exclusivos (Grátis)</span></li>
+                            <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" /> <span className="text-white">Acesso Vitalício</span></li>
+                        </ul>
+                    </div>
+
+                    {/* Buttons */}
+                    <div className="w-full space-y-4">
+                        <Button
+                            className="w-full h-16 rounded-xl bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-black text-lg md:text-xl shadow-[0_0_20px_rgba(34,197,94,0.4)] hover:shadow-[0_0_30px_rgba(34,197,94,0.6)] hover:scale-[1.02] transition-all duration-300 animate-subtle-pulse"
+                            onClick={() => openCheckout('https://www.ggcheckout.com/checkout/v2/Yj4f7amE5UXaHzZUt3Uz')}
+                        >
+                            SIM! QUERO TUDO POR R$ 9,99
+                        </Button>
+
+                        <button
+                            className="text-xs md:text-sm text-gray-500 hover:text-white transition-colors underline decoration-gray-700 hover:decoration-white underline-offset-4 py-2 px-4"
+                            onClick={() => openCheckout('https://www.ggcheckout.com/checkout/v2/kinHlxMmxB9mSAelkzX5')}
+                        >
+                            Não, obrigado. Quero perder os bônus e pagar R$ 5,99 pelo básico.
+                        </button>
+                    </div>
+
+                    <div className="mt-6 flex items-center gap-2 text-[10px] text-gray-600 uppercase tracking-wider font-bold">
+                        <Lock className="w-3 h-3" /> Oferta única e intransferível
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -33,20 +33,6 @@ export default function RootLayout({
     <html lang="pt-BR" className={`${inter.variable} ${poppins.variable}`}>
       <head>
         <link rel="preload" href="/_next/static/css/app/layout.css" as="style" />
-        <link
-          rel="preload"
-          href={inter.style.fontFamily}
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href={poppins.style.fontFamily}
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
 
         <script
           dangerouslySetInnerHTML={{
@@ -82,7 +68,7 @@ export default function RootLayout({
           async
           defer
         ></script>
-        
+
         <noscript>
           <img
             height="1"

@@ -26,8 +26,8 @@ export default function ResultadoPage() {
   const guaranteeRef = useRef<HTMLDivElement>(null);
 
   // URLs de checkout
-  const basicCheckoutUrl = "https://www.ggcheckout.com/checkout/v2/kinHlxMmxB9mSAelkzX5";
-  const completeCheckoutUrl = "https://www.ggcheckout.com/checkout/v2/m4slNQAn5ssCpFqXUmtS";
+  const basicCheckoutUrl = "https://www.ggcheckout.com/checkout/v4/kinHlxMmxB9mSAelkzX5";
+  const completeCheckoutUrl = "https://www.ggcheckout.com/checkout/v4/m4slNQAn5ssCpFqXUmtS";
 
   // Helper to open checkout with UTMs
   const openCheckout = (url: string) => {

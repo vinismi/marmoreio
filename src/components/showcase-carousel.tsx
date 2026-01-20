@@ -16,11 +16,25 @@ import { cn } from '@/lib/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const showcaseImages = [
-  PlaceHolderImages.find(img => img.id === 'showcase-1'),
-  PlaceHolderImages.find(img => img.id === 'showcase-2'),
-  PlaceHolderImages.find(img => img.id === 'showcase-3'),
-  PlaceHolderImages.find(img => img.id === 'showcase-4'),
-].filter(Boolean) as (typeof PlaceHolderImages)[0][];
+  {
+    id: 'showcase-1',
+    imageUrl: 'https://i.postimg.cc/tCTnGNrd/1.webp',
+    description: 'Efeito marmorizado elegante',
+    imageHint: 'marble effect elegant'
+  },
+  {
+    id: 'showcase-2',
+    imageUrl: 'https://i.postimg.cc/QxtKZJ6b/2.webp',
+    description: 'Acabamento premium de luxo',
+    imageHint: 'premium luxury finish'
+  },
+  {
+    id: 'showcase-3',
+    imageUrl: 'https://i.postimg.cc/y6n3GbTT/3.jpg',
+    description: 'Transformação marmorizada',
+    imageHint: 'marble transformation'
+  },
+];
 
 export default function ShowcaseCarousel() {
   const plugin = React.useRef(
@@ -75,6 +89,7 @@ export default function ShowcaseCarousel() {
                       data-ai-hint={image.imageHint}
                       priority={index < 2}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      unoptimized
                     />
 
                     {/* Caption on Hover */}

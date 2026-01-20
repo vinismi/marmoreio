@@ -45,7 +45,7 @@ export default function PremiumBenefitsSection() {
                 <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-4 tracking-tight">
                     A TÉCNICA QUE MAIS GERA
                     <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 animate-gradient-x mt-2 drop-shadow-[0_0_15px_rgba(251,191,36,0.5)]">
-                        CONTRATOS EM 2025
+                        CONTRATOS EM 2026
                     </span>
                 </h2>
                 <div className="h-1 w-32 mx-auto bg-gradient-to-r from-transparent via-amber-500 to-transparent rounded-full shadow-[0_0_10px_#f59e0b]" />

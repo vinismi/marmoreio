@@ -182,12 +182,16 @@ export default function ResultadoPage() {
         <div className="container mx-auto max-w-4xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 mb-6 animate-fade-in-up">
             <Sparkles className="w-4 h-4 text-amber-400" />
-            <span className="text-sm font-bold text-amber-400 tracking-wider uppercase">Resultados Reais de Alunos</span>
+            <span className="text-sm font-bold text-amber-400 tracking-wider uppercase">💎 Obras Reais de Alunos</span>
           </div>
 
-          <h2 className="font-headline text-3xl md:text-5xl font-black text-white mb-8 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-            TRANSFORMAÇÕES <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">INCRÍVEIS</span>
+          <h2 className="font-headline text-2xl md:text-4xl lg:text-5xl font-black text-white mb-4 animate-fade-in-up leading-tight" style={{ animationDelay: '100ms' }}>
+            OBRAS QUE NOSSOS ALUNOS COBRARAM <br className="hidden md:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-green-400 to-green-500">R$ 12-28 MIL</span>
           </h2>
+          <p className="text-base md:text-lg text-gray-400 mb-8 animate-fade-in-up" style={{ animationDelay: '150ms' }}>
+            (Usando Exatamente o Que Você Vai Aprender)
+          </p>
 
           {/* Interactive Instruction */}
           <div className="flex items-center justify-center gap-3 mb-12 animate-pulse">
@@ -347,14 +351,38 @@ export default function ResultadoPage() {
 
       {/* Testimonials */}
       <section ref={testimonialsRef} className="flex flex-col items-center justify-center gap-8 bg-black py-16 px-6 md:py-24">
-        <h2 className="font-headline text-3xl font-extrabold md:text-4xl text-center text-white">Quem aprendeu essa técnica está mudando de vida</h2>
+
+        {/* Stats Header */}
+        <div className="text-center mb-8">
+          <h2 className="font-headline text-2xl md:text-4xl font-black text-white mb-8">
+            🏆 <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-500">+1.847 PINTORES JÁ DOMINARAM A TÉCNICA</span>
+          </h2>
+          <p className="text-gray-400 text-lg mb-8">Veja Os Resultados Reais (e o $$ Que Eles Estão Faturando)</p>
+
+          {/* Big Stats */}
+          <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto mb-8">
+            <div className="bg-gradient-to-b from-white/5 to-transparent border border-white/10 rounded-xl p-4 md:p-6">
+              <p className="text-2xl md:text-4xl font-black text-white">1.847</p>
+              <p className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Alunos Treinados</p>
+            </div>
+            <div className="bg-gradient-to-b from-green-500/10 to-transparent border border-green-500/20 rounded-xl p-4 md:p-6">
+              <p className="text-2xl md:text-4xl font-black text-green-400">R$ 12.300</p>
+              <p className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Faturamento Médio/Mês</p>
+            </div>
+            <div className="bg-gradient-to-b from-amber-500/10 to-transparent border border-amber-500/20 rounded-xl p-4 md:p-6">
+              <p className="text-2xl md:text-4xl font-black text-amber-400">R$ 94 MIL</p>
+              <p className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Maior Projeto de Aluno</p>
+            </div>
+          </div>
+        </div>
+
         <div className='w-full max-w-4xl mx-auto'>
           <div className="space-y-8">
             <TestimonialCarousel videoIds={['6tdjfbsqle', 'xab9r7nndh']} />
             <TestimonialCarousel videoIds={['ihs0hcvo3h', 'foutga0xyz']} />
           </div>
         </div>
-        <p className="mt-8 text-center text-lg md:text-xl max-w-3xl text-white/80">Assim como eles, você também pode começar do zero e dominar o efeito marmorizado. Agora é só escolher como quer começar.</p>
+        <p className="mt-8 text-center text-lg md:text-xl max-w-3xl text-white/80">Assim como eles, você também pode começar <span className="text-amber-400 font-bold">do zero</span> e dominar o efeito marmorizado. Agora é só <span className="text-green-400 font-bold">escolher como quer começar</span>.</p>
       </section>
 
       {/* Plans Section */}
@@ -366,19 +394,35 @@ export default function ResultadoPage() {
         <div className="container mx-auto max-w-5xl relative z-10">
 
           {/* Header Agressivo */}
-          <div className="text-center mb-16 animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 mb-6 animate-pulse">
+          <div className="text-center mb-12 animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 mb-4 animate-pulse">
               <Clock className="w-4 h-4 text-red-500" />
-              <span className="text-sm font-bold text-red-500 tracking-wider uppercase">Oferta por tempo limitado</span>
+              <span className="text-sm font-bold text-red-500 tracking-wider uppercase">⚠️ TURMA FECHA EM 100 ALUNOS</span>
             </div>
-            <h2 className="font-headline text-4xl md:text-6xl font-black text-white mb-6 leading-none">
-              SUA NOVA VIDA <br className="md:hidden" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-500 to-amber-600">COMEÇA AGORA</span>
+            <h2 className="font-headline text-3xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-[0.95]">
+              ÚLTIMA TURMA ABERTA EM 2026
             </h2>
-            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto font-medium">
-              Você já viu o potencial. Já viu os resultados. <br className="hidden md:block" />
-              Agora só falta você tomar a decisão que vai mudar o seu jogo financeiro.
+            <h3 className="font-headline text-2xl md:text-4xl font-black mb-6 leading-tight">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-500 to-amber-600">PARE DE COBRAR R$ 40/m² POR PINTURA SIMPLES</span>
+            </h3>
+            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto font-medium leading-relaxed">
+              Você já viu o potencial. Já viu os resultados.<br className="hidden md:block" />
+              <span className="text-white font-bold">Agora só falta VOCÊ tomar a decisão</span> que vai mudar seu jogo financeiro.
             </p>
+          </div>
+
+          {/* Barra de Urgência - Vagas */}
+          <div className="w-full max-w-md mx-auto mb-12 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+            <div className="bg-gradient-to-r from-red-500/20 via-red-500/10 to-red-500/20 rounded-xl p-4 border border-red-500/30">
+              <p className="text-sm text-gray-400 mb-2 text-center font-medium">VAGAS PREENCHIDAS</p>
+              <div className="w-full bg-black/50 rounded-full h-4 border border-white/10 overflow-hidden">
+                <div className="bg-gradient-to-r from-red-500 to-amber-500 h-full rounded-full transition-all duration-1000" style={{ width: '83%' }}></div>
+              </div>
+              <div className="flex justify-between items-center mt-2">
+                <span className="text-xs text-gray-500">83/100</span>
+                <span className="text-sm font-bold text-red-400 animate-pulse">🔥 RESTAM APENAS 17 VAGAS</span>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
@@ -468,19 +512,35 @@ export default function ResultadoPage() {
 
                 <Button
                   size="lg"
-                  className="w-full rounded-xl bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-black text-xl h-20 shadow-[0_0_30px_rgba(34,197,94,0.6)] hover:shadow-[0_0_50px_rgba(34,197,94,0.8)] hover:scale-[1.02] transition-all duration-300 relative overflow-hidden group"
+                  className="w-full rounded-xl bg-gradient-to-r from-green-600 via-green-500 to-emerald-500 hover:from-green-500 hover:via-green-400 hover:to-emerald-400 text-white font-black text-lg md:text-xl h-20 shadow-[0_0_30px_rgba(34,197,94,0.6)] hover:shadow-[0_0_50px_rgba(34,197,94,0.8)] hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group border-2 border-green-400/30"
                   onClick={() => openCheckout(completeCheckoutUrl)}
                 >
                   <span className="relative z-10 flex flex-col items-center justify-center leading-tight">
-                    <span className="flex items-center gap-2">QUERO ACESSO TOTAL <Rocket className="w-6 h-6 group-hover:translate-x-1 transition-transform" /></span>
-                    <span className="text-xs font-medium opacity-90 uppercase tracking-wide mt-1">Desconto encerra em breve</span>
+                    <span className="flex items-center gap-2 text-base md:text-xl">COMEÇAR MINHA TRANSFORMAÇÃO <Rocket className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></span>
+                    <span className="text-[10px] md:text-xs font-medium opacity-90 uppercase tracking-wider mt-1">🎉 Oferta Especial de Ano Novo</span>
                   </span>
                   {/* Shine Effect */}
-                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-in-out"></div>
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-in-out"></div>
                 </Button>
 
-                <div className="mt-6 flex items-center justify-center gap-2 text-[11px] text-gray-500 uppercase tracking-wider font-bold">
-                  <Shield className="w-3 h-3" /> Compra 100% Segura e Garantida
+                {/* Trust badges - More Professional */}
+                <div className="mt-5 grid grid-cols-3 gap-2 text-center">
+                  <div className="flex flex-col items-center gap-1 p-2 rounded-lg bg-white/5 border border-white/10">
+                    <span className="text-lg">🔒</span>
+                    <span className="text-[9px] md:text-[10px] text-gray-400 font-medium">Compra Segura</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-1 p-2 rounded-lg bg-white/5 border border-white/10">
+                    <span className="text-lg">⚡</span>
+                    <span className="text-[9px] md:text-[10px] text-gray-400 font-medium">Acesso Imediato</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-1 p-2 rounded-lg bg-green-500/10 border border-green-500/20">
+                    <span className="text-lg">✅</span>
+                    <span className="text-[9px] md:text-[10px] text-green-400 font-medium">30 Dias Garantia</span>
+                  </div>
+                </div>
+
+                <div className="mt-4 flex items-center justify-center gap-2 text-[10px] text-gray-500 uppercase tracking-wider font-medium">
+                  <Shield className="w-3 h-3" /> Seus dados estão protegidos
                 </div>
               </div>
             </div>
@@ -503,14 +563,19 @@ export default function ResultadoPage() {
           {/* Guarantee Block */}
           <div className="flex flex-col items-center">
             <div className="flex items-center gap-4 mb-4">
-              <ShieldCheck className="w-12 h-12 text-accent" />
+              <ShieldCheck className="w-12 h-12 text-green-400" />
               <h3 className="font-headline text-2xl md:text-3xl font-bold text-white">
-                Garantia Incondicional de 7 Dias 🕒
+                🛡️ Garantia Incondicional de 30 Dias
               </h3>
             </div>
-            <p className="text-base md:text-lg text-gray-300 max-w-xl">
-              Se por qualquer motivo você não ficar satisfeito com o conteúdo, pode solicitar reembolso integral dentro de 7 dias. Sem burocracia. Sem perguntas. 100% do seu dinheiro de volta.
+            <p className="text-base md:text-lg text-gray-300 max-w-xl mb-4">
+              Se por qualquer motivo você não ficar satisfeito com o conteúdo, pode solicitar reembolso integral dentro de 30 dias. Sem burocracia. Sem perguntas. 100% do seu dinheiro de volta.
             </p>
+            <div className="bg-green-500/10 border border-green-500/30 rounded-xl px-6 py-3 mt-2">
+              <p className="text-green-400 font-bold text-sm md:text-base">
+                🎁 BÔNUS: Se não gostar, devolvemos 100% + <span className="text-white">R$ 50,00</span> pelo seu tempo investido
+              </p>
+            </div>
             <div className="mt-6 w-full h-px bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
           </div>
         </div>

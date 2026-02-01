@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { Box, Gem, AlertTriangle, ShieldCheck, CheckCircle, MoveHorizontal, Sparkles, Smartphone, Video, Palette, Rocket, Coins, Zap, Clock, CreditCard, Shield } from 'lucide-react';
+import { Box, Gem, AlertTriangle, ShieldCheck, CheckCircle, MoveHorizontal, Sparkles, Smartphone, Video, Palette, Rocket, Coins, Zap, Clock, CreditCard, Shield, Users, FileText } from 'lucide-react';
 import GoldenParticles from '@/components/particles';
 import UpsellFlow from '@/components/upsell-flow';
 import WistiaWebPlayer from '@/components/wistia-web-player';
@@ -15,6 +15,7 @@ import TestimonialCarousel from '@/components/testimonial-carousel';
 import WistiaEmbed from '@/components/wistia-embed';
 import BeforeAfterSlider from '@/components/before-after-slider';
 import { assessMarmorizedPattern } from '@/ai/flows/marmorized-pattern-assessment';
+import SocialProofToast from '@/components/social-proof-toast';
 
 export default function ResultadoPage() {
   const router = useRouter();
@@ -26,8 +27,8 @@ export default function ResultadoPage() {
   const guaranteeRef = useRef<HTMLDivElement>(null);
 
   // URLs de checkout
-  const basicCheckoutUrl = "https://www.ggcheckout.com/checkout/v4/kinHlxMmxB9mSAelkzX5";
-  const completeCheckoutUrl = "https://www.ggcheckout.com/checkout/v4/m4slNQAn5ssCpFqXUmtS";
+  const basicCheckoutUrl = "https://www.ggcheckout.com/checkout/v5/kinHlxMmxB9mSAelkzX5"; // R$5,99
+  const completeCheckoutUrl = "https://www.ggcheckout.com/checkout/v5/m4slNQAn5ssCpFqXUmtS"; // R$14,99
 
   // Helper to open checkout with UTMs
   const openCheckout = (url: string) => {
@@ -65,13 +66,13 @@ export default function ResultadoPage() {
     }
   ];
 
-  // Bônus Data
+  // Bônus Data - Originais
   const bonuses = [
-    { name: "Como viver de pintura marmorizada", before: "R$ 9,99" },
-    { name: "Transforme a técnica em renda extra ou principal", before: "R$ 12,99" },
-    { name: "Guia completo de precificação", before: "R$ 7,99" },
-    { name: "Como achar clientes que pagam bem", before: "R$ 14,99" },
-    { name: "Melhores tintas, resinas e pigmentos", before: "R$ 8,99" },
+    { name: "Como viver de pintura marmorizada", before: "R$ 47,00" },
+    { name: "Transforme a técnica em renda extra ou principal", before: "R$ 37,00" },
+    { name: "Guia completo de precificação", before: "R$ 67,00" },
+    { name: "Como achar clientes que pagam bem", before: "R$ 47,00" },
+    { name: "Melhores tintas, resinas e pigmentos", before: "R$ 37,00" },
   ];
 
   useEffect(() => {
@@ -105,6 +106,7 @@ export default function ResultadoPage() {
 
   return (
     <main className="overflow-x-hidden bg-black">
+      <SocialProofToast />
       {/* Bonus Section */}
       <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-gradient-to-b from-[#0A0A0A] to-[#1E1500] p-6 text-foreground overflow-hidden origin-top transition-transform duration-300">
         <GoldenParticles visible={true} count={60} />
@@ -220,38 +222,64 @@ export default function ResultadoPage() {
         </div>
       </section>
 
-      {/* Course Info Section - Compact Version */}
-      <section className="relative bg-[#080808] py-12 px-4 overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-900/10 via-black to-black opacity-40"></div>
+      {/* What You'll Receive Section - Premium Design */}
+      <section className="relative bg-gradient-to-b from-[#080808] via-[#0a0a0a] to-[#050505] py-16 px-4 overflow-hidden">
+        {/* Glow Effect */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-500/5 rounded-full blur-[120px]"></div>
 
-        <div className="container mx-auto max-w-5xl relative z-10">
-          <div className="text-center mb-10 animate-fade-in-up">
-            <h2 className="font-headline text-2xl md:text-4xl font-black text-white mb-2">
-              O QUE VOCÊ VAI <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-600">DOMINAR</span>
+        <div className="container mx-auto max-w-3xl relative z-10">
+          {/* Header */}
+          <div className="text-center mb-12 animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 mb-6">
+              <Sparkles className="w-4 h-4 text-amber-400" />
+              <span className="text-sm font-bold text-amber-400 uppercase tracking-wider">Acesso Completo</span>
+            </div>
+            <h2 className="font-headline text-3xl md:text-5xl font-black text-white mb-3">
+              Tudo que você vai <span className="text-amber-400">receber</span>
             </h2>
+            <p className="text-gray-400 text-lg">Sistema completo para dominar o marmorizado e faturar alto</p>
           </div>
 
-          <div className="grid grid-cols-2 min-[400px]:grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
+          {/* Benefits List - Premium Style */}
+          <div className="space-y-4">
             {[
-              { icon: Gem, title: 'Acesso Vitalício', color: 'text-amber-400', bg: 'bg-amber-400/10', border: 'border-amber-400/20' },
-              { icon: Video, title: 'Aulas em Vídeo', color: 'text-blue-400', bg: 'bg-blue-400/10', border: 'border-blue-400/20' },
-              { icon: Palette, title: '300 Modelos', color: 'text-pink-400', bg: 'bg-pink-400/10', border: 'border-pink-400/20' },
-              { icon: Rocket, title: 'Resultado Rápido', color: 'text-orange-400', bg: 'bg-orange-400/10', border: 'border-orange-400/20' },
-              { icon: Coins, title: 'Renda Real', color: 'text-green-400', bg: 'bg-green-400/10', border: 'border-green-400/20' },
-              { icon: Smartphone, title: '100% Online', color: 'text-purple-400', bg: 'bg-purple-400/10', border: 'border-purple-400/20' },
+              { title: "Técnicas Completas de Marmorização", subtitle: "Do básico ao avançado, passo a passo", emoji: "🎨" },
+              { title: "Aulas em Vídeo HD", subtitle: "Aprenda no seu ritmo com conteúdo gravado", emoji: "📹" },
+              { title: "Guia Completo de Precificação", subtitle: "Saiba exatamente quanto cobrar", emoji: "💰" },
+              { title: "Como Encontrar Clientes Premium", subtitle: "Técnicas para atrair quem paga bem", emoji: "🎯" },
+              { title: "Posicionamento em Redes Sociais", subtitle: "Destaque-se e atraia clientes pelo Instagram", emoji: "📱" },
+              { title: "Modelos de Posts Prontos", subtitle: "Copie e cole para suas redes", emoji: "📝" },
+              { title: "Plano de Ação R$15K/mês", subtitle: "Roteiro para escalar seus ganhos", emoji: "🚀" },
+              { title: "Acesso Vitalício + Atualizações", subtitle: "Nunca mais pague nada extra", emoji: "♾️" },
             ].map((item, index) => (
               <div
                 key={index}
-                className={`group flex flex-col items-center justify-center p-4 rounded-xl border ${item.border} bg-[#111] hover:bg-[#161616] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg animate-fade-in-up`}
-                style={{ animationDelay: `${index * 50}ms` }}
+                className="group flex items-center gap-4 p-4 md:p-5 rounded-2xl bg-[#111]/80 backdrop-blur-sm border border-white/5 hover:border-amber-500/30 transition-all duration-300 hover:bg-[#161616] animate-fade-in-up"
+                style={{ animationDelay: `${index * 80}ms` }}
               >
-                <div className={`p-2.5 rounded-full ${item.bg} ${item.color} mb-3 group-hover:scale-110 transition-transform duration-300`}>
-                  <item.icon size={24} />
+                {/* Emoji */}
+                <span className="text-3xl md:text-4xl">{item.emoji}</span>
+
+                {/* Content */}
+                <div className="flex-1">
+                  <h3 className="font-bold text-white text-base md:text-lg group-hover:text-amber-400 transition-colors">{item.title}</h3>
+                  <p className="text-sm text-gray-500">{item.subtitle}</p>
                 </div>
-                <h3 className="font-bold text-xs md:text-sm text-center text-white leading-tight">{item.title}</h3>
+
+                {/* Checkmark */}
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-green-500/20 border border-green-500/30 flex items-center justify-center">
+                  <CheckCircle className="w-5 h-5 text-green-400" />
+                </div>
               </div>
             ))}
+          </div>
+
+          {/* Bottom CTA */}
+          <div className="mt-10 text-center animate-fade-in-up" style={{ animationDelay: '700ms' }}>
+            <div className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30">
+              <Gem className="w-5 h-5 text-amber-400" />
+              <span className="text-amber-400 font-bold">+R$500 em bônus inclusos</span>
+            </div>
           </div>
         </div>
       </section>
@@ -484,9 +512,10 @@ export default function ResultadoPage() {
                 <div className="flex flex-col gap-3 mb-10 relative z-10">
                   {[
                     { title: "Curso Completo em Vídeo", desc: "Do zero ao avançado", icon: Video },
-                    { title: "5 Bônus Exclusivos", desc: "Desbloqueados hoje", icon: Gem },
-                    { title: "Acesso Vitalício", desc: "Assista onde quiser", icon: Zap },
-                    { title: "Suporte VIP", desc: "Direto no WhatsApp", icon: Smartphone }
+                    { title: "Posicionamento nas Redes", desc: "Atraia clientes premium", icon: Smartphone },
+                    { title: "Posts Prontos + Estratégia", desc: "Copie e ganhe seguidores", icon: Palette },
+                    { title: "Plano até R$15K/mês", desc: "Passo a passo completo", icon: Rocket },
+                    { title: "Acompanhamento VIP", desc: "Suporte no WhatsApp", icon: Zap }
                   ].map((item, i) => (
                     <div key={i} className="relative overflow-hidden group flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-white/5 to-transparent border border-white/5 hover:border-amber-500/30 transition-all duration-300">
                       {/* Hover Glow */}

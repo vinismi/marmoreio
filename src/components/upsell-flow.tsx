@@ -74,14 +74,14 @@ const OfferScreen = () => {
                     <div className="w-full space-y-4">
                         <Button
                             className="w-full h-16 rounded-xl bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-black text-lg md:text-xl shadow-[0_0_20px_rgba(34,197,94,0.4)] hover:shadow-[0_0_30px_rgba(34,197,94,0.6)] hover:scale-[1.02] transition-all duration-300 animate-subtle-pulse"
-                            onClick={() => openCheckout('https://www.ggcheckout.com/checkout/v4/Yj4f7amE5UXaHzZUt3Uz')}
+                            onClick={() => openCheckout('https://www.ggcheckout.com/checkout/v5/Yj4f7amE5UXaHzZUt3Uz')}
                         >
                             SIM! QUERO TUDO POR R$ 9,99
                         </Button>
 
                         <button
                             className="text-xs md:text-sm text-gray-500 hover:text-white transition-colors underline decoration-gray-700 hover:decoration-white underline-offset-4 py-2 px-4"
-                            onClick={() => openCheckout('https://www.ggcheckout.com/checkout/v4/kinHlxMmxB9mSAelkzX5')}
+                            onClick={() => openCheckout('https://www.ggcheckout.com/checkout/v5/kinHlxMmxB9mSAelkzX5')}
                         >
                             Não, obrigado. Quero perder os bônus e pagar R$ 5,99 pelo básico.
                         </button>

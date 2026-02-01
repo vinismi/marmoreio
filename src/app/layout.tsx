@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Poppins } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
-import SocialProofToast from '@/components/social-proof-toast';
+
 import Script from 'next/script';
 import Head from 'next/head';
 
@@ -81,7 +81,7 @@ export default function RootLayout({
       <body className="font-body antialiased overflow-x-hidden">
         {children}
         <Toaster />
-        <SocialProofToast />
+
       </body>
     </html>
   );

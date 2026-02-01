@@ -41,59 +41,66 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 flex w-full max-w-7xl flex-col items-center gap-4 px-4 pt-8 md:px-6 md:pt-0">
-          {/* Urgency Badge - Animated */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-red-500/30 via-orange-500/20 to-red-500/30 border border-red-500/50 mb-6 animate-fade-in-up animate-pulse">
-            <span className="text-xl">🔥</span>
-            <span className="text-base md:text-lg font-black text-white tracking-wider uppercase">ÚLTIMA TURMA 2026</span>
-            <span className="text-xl">🔥</span>
+          {/* Single Premium Badge */}
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-amber-500/20 via-yellow-500/30 to-amber-500/20 border border-amber-400/60 backdrop-blur-sm animate-fade-in-up">
+            <span className="text-amber-400 text-lg">✨</span>
+            <span className="text-sm md:text-base font-bold text-amber-200 tracking-widest uppercase">A Técnica Mais Lucrativa do Brasil</span>
+            <span className="text-amber-400 text-lg">✨</span>
           </div>
 
-          {/* Main Headline - Bigger & Bolder */}
-          <div className="animate-fade-in-up w-full text-center px-2" style={{ animationDelay: '0.2s' }}>
-            {/* Line 1: "FATURE" */}
-            <h1 className="font-headline text-4xl min-[400px]:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] text-white mb-2"
-              style={{ textShadow: '0 10px 40px rgba(0,0,0,0.8)' }}>
-              FATURE
-            </h1>
-
-            {/* Line 2: Price in Green */}
-            <div className="flex items-center justify-center gap-3 mb-3">
-              <span className="font-headline text-4xl min-[400px]:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-green-400 to-emerald-400"
-                style={{ textShadow: '0 0 30px rgba(74, 222, 128, 0.5)' }}>
-                R$ 8-15K
-              </span>
-              <span className="text-3xl sm:text-4xl md:text-5xl animate-bounce">💰</span>
+          {/* Main Impact Headline */}
+          <div className="animate-fade-in-up w-full text-center mt-2" style={{ animationDelay: '0.15s' }}>
+            {/* Big Number - Hero Impact */}
+            <div className="relative mb-2">
+              <h1 className="font-headline text-6xl min-[400px]:text-7xl sm:text-8xl md:text-9xl font-black leading-none">
+                <span className="text-transparent bg-clip-text bg-gradient-to-b from-green-300 via-emerald-400 to-green-500"
+                  style={{
+                    filter: 'drop-shadow(0 0 40px rgba(74, 222, 128, 0.5))',
+                    WebkitTextStroke: '1px rgba(74, 222, 128, 0.3)'
+                  }}>
+                  +R$15K
+                </span>
+              </h1>
+              <p className="font-headline text-2xl min-[400px]:text-3xl sm:text-4xl md:text-5xl font-black text-white/90 -mt-1">
+                POR MÊS
+              </p>
             </div>
 
-            {/* Line 3: "/MÊS" */}
-            <p className="font-headline text-2xl min-[400px]:text-3xl sm:text-4xl md:text-5xl font-black text-white/80 mb-4">
-              POR MÊS
-            </p>
-          </div>
-
-          {/* Sub-headline with Golden Accent */}
-          <div className="animate-fade-in-up mt-2" style={{ animationDelay: '0.3s' }}>
-            <p className="font-headline text-2xl min-[400px]:text-3xl sm:text-4xl md:text-5xl font-black text-center">
-              <span className="text-white">COM </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500"
-                style={{ filter: 'drop-shadow(0 0 20px rgba(251, 191, 36, 0.6))' }}>
+            {/* Technique Name - Golden */}
+            <div className="flex items-center justify-center gap-2 mt-4 mb-2">
+              <div className="h-px w-8 sm:w-16 bg-gradient-to-r from-transparent to-amber-400/70"></div>
+              <span className="font-headline text-xl min-[400px]:text-2xl sm:text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-400 tracking-wide"
+                style={{ filter: 'drop-shadow(0 0 15px rgba(251, 191, 36, 0.5))' }}>
                 EFEITO MÁRMORE
               </span>
-              <span className="ml-2 text-2xl sm:text-3xl md:text-4xl animate-float inline-block">💎</span>
+              <span className="text-xl sm:text-2xl md:text-3xl animate-float">💎</span>
+              <div className="h-px w-8 sm:w-16 bg-gradient-to-l from-transparent to-amber-400/70"></div>
+            </div>
+
+            {/* Sub-hook */}
+            <p className="text-base min-[400px]:text-lg sm:text-xl md:text-2xl font-medium text-white/70 mt-3 max-w-2xl mx-auto leading-relaxed">
+              O método completo que está fazendo <span className="text-white font-bold">pintores comuns</span> faturarem como <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-400 font-bold">profissionais de elite</span> em apenas 7 dias
             </p>
           </div>
 
-          {/* Trust Indicators */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mt-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/30">
-              <span className="text-green-400 text-xs font-bold">✓ +1.847 Alunos</span>
+          {/* Trust Indicators - More Premium */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-5 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <div className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-green-500/15 to-emerald-500/10 border border-green-500/40">
+              <span className="text-green-400 text-sm font-bold">✓ +1.847 Alunos</span>
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30">
-              <span className="text-amber-400 text-xs font-bold">⚡ Resultado em 7 Dias</span>
+            <div className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-amber-500/15 to-yellow-500/10 border border-amber-500/40">
+              <span className="text-amber-400 text-sm font-bold">⚡ Resultado em 7 Dias</span>
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/20">
-              <span className="text-white/80 text-xs font-bold">🏆 #1 Brasil</span>
+            <div className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-white/10 to-white/5 border border-white/30">
+              <span className="text-white/90 text-sm font-bold">🏆 #1 Brasil</span>
             </div>
+          </div>
+
+          {/* Urgency Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/20 border border-red-500/50 mt-2 animate-pulse">
+            <span className="text-base">🔥</span>
+            <span className="text-xs sm:text-sm font-black text-red-300 tracking-wider uppercase">Última Turma 2026 • Vagas Limitadas</span>
+            <span className="text-base">🔥</span>
           </div>
 
           <div className="mt-4 mb-2 w-3/5 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent mx-auto opacity-70"></div>

@@ -66,19 +66,19 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Technique Name - Golden */}
-            <div className="flex items-center justify-center gap-2 mt-4 mb-2">
-              <div className="h-px w-8 sm:w-16 bg-gradient-to-r from-transparent to-amber-400/70"></div>
-              <span className="font-headline text-xl min-[400px]:text-2xl sm:text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-400 tracking-wide"
-                style={{ filter: 'drop-shadow(0 0 15px rgba(251, 191, 36, 0.5))' }}>
+            {/* Technique Name - Golden - BIGGER */}
+            <div className="flex items-center justify-center gap-2 sm:gap-3 mt-6 mb-4">
+              <div className="h-px w-10 sm:w-20 bg-gradient-to-r from-transparent to-amber-400/70"></div>
+              <span className="font-headline text-3xl min-[400px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-400 tracking-wider"
+                style={{ filter: 'drop-shadow(0 0 25px rgba(251, 191, 36, 0.6))' }}>
                 EFEITO MÁRMORE
               </span>
-              <span className="text-xl sm:text-2xl md:text-3xl animate-float">💎</span>
-              <div className="h-px w-8 sm:w-16 bg-gradient-to-l from-transparent to-amber-400/70"></div>
+              <span className="text-2xl sm:text-3xl md:text-4xl animate-float">💎</span>
+              <div className="h-px w-10 sm:w-20 bg-gradient-to-l from-transparent to-amber-400/70"></div>
             </div>
 
-            {/* Sub-hook */}
-            <p className="text-base min-[400px]:text-lg sm:text-xl md:text-2xl font-medium text-white/70 mt-3 max-w-2xl mx-auto leading-relaxed">
+            {/* Sub-hook - BIGGER */}
+            <p className="text-lg min-[400px]:text-xl sm:text-2xl md:text-3xl font-semibold text-white/80 mt-4 max-w-3xl mx-auto leading-relaxed px-2">
               O método completo que está fazendo <span className="text-white font-bold">pintores comuns</span> faturarem como <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-400 font-bold">profissionais de elite</span> em apenas 7 dias
             </p>
           </div>
@@ -125,7 +125,7 @@ export default function Home() {
                 className="button-shine-gradient text-black hover:text-black text-base md:text-lg font-black w-full rounded-full h-16 animate-fade-in-up animate-subtle-pulse shadow-2xl shadow-amber-500/30 hover:shadow-amber-400/50 active:scale-95 hover:-translate-y-1 transition-transform flex flex-col items-center justify-center gap-0.5"
                 style={{ animationDelay: '1.2s' }}
               >
-                <span>QUERO FATURAR R$ 8-15K/MÊS →</span>
+                <span>COMEÇAR AGORA →</span>
                 <span className="text-[10px] md:text-xs font-medium opacity-80">🎉 Oferta de Ano Novo • Última Turma 2026</span>
               </Button>
 

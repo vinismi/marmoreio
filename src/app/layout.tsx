@@ -32,6 +32,31 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} ${sora.variable}`}>
       <head>
+        {/* Connection points to speed up image/video fetching */}
+        <link rel="preconnect" href="https://i.postimg.cc" />
+        <link rel="dns-prefetch" href="https://i.postimg.cc" />
+        <link rel="preconnect" href="https://fast.wistia.com" />
+        <link rel="dns-prefetch" href="https://fast.wistia.com" />
+
+        {/* Global style for "instant" feel image loading */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+          img {
+            transition: opacity 0.3s ease-in-out;
+            opacity: 1;
+          }
+          img:not([src]) {
+            opacity: 0;
+          }
+          .next-image-fade-in {
+            animation: fadeIn 0.4s ease-in-out forwards;
+          }
+          @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+        `}} />
+
         {/* Pixel scripts moved to Next.js Script component for optimization */}
       </head>
       <body className="font-body antialiased overflow-x-hidden">

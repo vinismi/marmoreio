@@ -77,8 +77,9 @@ export default function Home() {
                 alt="Mármore Premium 1"
                 width={200}
                 height={260}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover next-image-fade-in"
                 priority
+                quality={75}
               />
             </div>
 
@@ -90,8 +91,9 @@ export default function Home() {
                 alt="Mármore Premium 2"
                 width={200}
                 height={260}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover next-image-fade-in"
                 priority
+                quality={75}
               />
             </div>
           </div>
@@ -154,8 +156,9 @@ export default function Home() {
                     alt="Antes"
                     width={400}
                     height={300}
-                    className="w-full h-48 md:h-60 object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500"
+                    className="w-full h-48 md:h-60 object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500 next-image-fade-in"
                     loading="lazy"
+                    quality={70}
                   />
                   <div className="absolute inset-0 bg-black/30" />
                   <div className="absolute bottom-4 left-4 text-left">
@@ -169,8 +172,9 @@ export default function Home() {
                     alt="Depois"
                     width={400}
                     height={300}
-                    className="w-full h-48 md:h-60 object-cover"
+                    className="w-full h-48 md:h-60 object-cover next-image-fade-in"
                     loading="lazy"
+                    quality={70}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[var(--turquoise)]/60 via-transparent to-transparent" />
                   <div className="absolute bottom-4 left-4 text-left">

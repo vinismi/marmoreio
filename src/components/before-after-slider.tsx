@@ -94,9 +94,10 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after, pr
           src={after}
           alt="Depois"
           fill
-          className="object-cover pointer-events-none"
+          className="object-cover pointer-events-none next-image-fade-in"
           priority={priority}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          quality={75}
         />
       </div>
 
@@ -106,9 +107,10 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ before, after, pr
           src={before}
           alt="Antes"
           fill
-          className="object-cover pointer-events-none"
+          className="object-cover pointer-events-none next-image-fade-in"
           priority={priority}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          quality={75}
         />
       </div>
 

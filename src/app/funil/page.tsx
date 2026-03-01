@@ -34,9 +34,10 @@ const MiniTestimonial = ({ t }: { t: typeof testimonials[0] }) => (
         alt={t.name}
         width={40}
         height={40}
-        className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+        className="w-10 h-10 rounded-full object-cover flex-shrink-0 next-image-fade-in"
         style={{ border: '2px solid rgba(0,194,203,0.3)' }}
         loading="lazy"
+        quality={60}
       />
       <div className="flex-1">
         <div className="flex items-center gap-1.5 mb-1"><span className="font-bold text-gray-900 text-xs">{t.name}</span><span className="text-[10px] text-gray-400">• {t.city}</span></div>
@@ -93,8 +94,9 @@ const Q1 = ({ onDone }: { onDone: (v: string) => void }) => {
                 alt={img.label}
                 width={500}
                 height={500}
-                className="w-full object-cover aspect-square"
+                className="w-full object-cover aspect-square next-image-fade-in"
                 priority={i < 2}
+                quality={75}
               />
               <div className="absolute bottom-0 left-0 right-0 p-3" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%)' }}>
                 <p className="text-white font-bold text-sm leading-tight">{img.label}</p>

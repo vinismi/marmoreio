@@ -71,9 +71,10 @@ export default function ShowcaseCarousel() {
                       alt={image.description}
                       width={600}
                       height={800}
-                      className="aspect-[3/4] w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                      className="aspect-[3/4] w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-110 next-image-fade-in"
                       priority={index < 2}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      quality={75}
                     />
 
                     {/* Caption on hover */}

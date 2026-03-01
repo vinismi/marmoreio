@@ -3,468 +3,301 @@
 
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Award, CheckCircle, Rocket, Zap, Sparkles, Star, Quote, ArrowRight, Users, TrendingUp, Target } from 'lucide-react';
-import { Progress } from '@/components/ui/progress';
-import GoldenParticles from '@/components/particles';
+import { CheckCircle, ArrowRight, TrendingUp, Rocket, Award, Sparkles, Star } from 'lucide-react';
 
 const floorImages = [
-  {
-    id: 'marble-1',
-    imageUrl: 'https://i.postimg.cc/tR6mtFdc/D-NQ-NP-834485-MLB69719549184-052023-O.webp',
-    description: 'Mármore clássico elegante',
-    label: 'Clássico'
-  },
-  {
-    id: 'marble-2',
-    imageUrl: 'https://i.postimg.cc/WpZf60mH/efeito-marmorizado-11.jpg',
-    description: 'Efeito marmorizado moderno',
-    label: 'Moderno'
-  },
-  {
-    id: 'marble-3',
-    imageUrl: 'https://i.postimg.cc/jqfkQy63/kk4.jpg',
-    description: 'Piso de luxo premium',
-    label: 'Premium'
-  },
+  { id: 'marble-1', url: 'https://i.postimg.cc/tR6mtFdc/D-NQ-NP-834485-MLB69719549184-052023-O.webp', label: '🤍 Mármore Branco Luxo', sub: 'Elegante e atemporal' },
+  { id: 'marble-2', url: 'https://i.postimg.cc/WpZf60mH/efeito-marmorizado-11.jpg', label: '🖤 Negro com Veias Douradas', sub: 'Sofisticado e impactante' },
+  { id: 'marble-3', url: 'https://i.postimg.cc/jqfkQy63/kk4.jpg', label: '🎨 Colorido Moderno', sub: 'Criativo e chamativo' },
+  { id: 'marble-4', url: 'https://i.postimg.cc/cHkT97L3/1-depois.png', label: '🏛️ Rústico Artesanal', sub: 'Natural e aconchegante' },
 ];
 
-// Depoimentos para mostrar entre as perguntas
 const testimonials = [
-  {
-    name: "Carlos M.",
-    location: "São Paulo, SP",
-    text: "Já fiz 3 obras essa semana. Antes eu cobrava R$40/m², agora cobro R$180/m² pelo marmorizado!",
-    earnings: "+R$4.200/semana",
-    image: "https://i.postimg.cc/6p3mTd9r/Screenshot-353.png"
-  },
-  {
-    name: "Roberto S.",
-    location: "Belo Horizonte, MG",
-    text: "Comecei do zero, sem experiência nenhuma. Em 15 dias já tinha fechado meu primeiro contrato de R$3.800.",
-    earnings: "R$3.800 em 15 dias",
-    image: "https://i.postimg.cc/jS5FCzsz/Screenshot-354.png"
-  },
-  {
-    name: "André L.",
-    location: "Rio de Janeiro, RJ",
-    text: "O melhor investimento que fiz. O conteúdo é direto ao ponto e já apliquei no mesmo dia que comprei.",
-    earnings: "R$12.000/mês",
-    image: "https://i.postimg.cc/YC9sj1pN/Screenshot-355.png"
-  },
-  {
-    name: "Marcos P.",
-    location: "Curitiba, PR",
-    text: "Larguei meu emprego de CLT. Hoje faço meus horários e ganho 3x mais do que antes.",
-    earnings: "R$18.500/mês",
-    image: "https://i.postimg.cc/xTgZ0sS5/Screenshot-356.png"
-  },
-  {
-    name: "Fernando R.",
-    location: "Salvador, BA",
-    text: "Os posts prontos me ajudaram demais! Meu Instagram saiu de 200 pra 5.000 seguidores em 2 meses.",
-    earnings: "+4.800 seguidores",
-    image: "https://i.postimg.cc/44WvyjmG/aawadada.png"
-  },
-  {
-    name: "Lucas T.",
-    location: "Brasília, DF",
-    text: "Fechei 5 contratos em um mês só com as técnicas do curso. Melhor decisão que tomei!",
-    earnings: "R$9.500/mês",
-    image: "https://i.postimg.cc/PfSbJ0PT/awdwdwd.png"
-  }
+  { name: "Carlos M.", city: "SP", text: "Antes eu cobrava R$40/m². Agora cobro R$180/m² pelo marmorizado!", earn: "+R$4.200/sem", img: "https://i.postimg.cc/6p3mTd9r/Screenshot-353.png" },
+  { name: "Roberto S.", city: "MG", text: "Do zero. Em 15 dias fechei meu primeiro contrato de R$3.800.", earn: "R$3.800/15d", img: "https://i.postimg.cc/jS5FCzsz/Screenshot-354.png" },
+  { name: "André L.", city: "RJ", text: "Apliquei no mesmo dia. Melhor investimento que já fiz.", earn: "R$12K/mês", img: "https://i.postimg.cc/YC9sj1pN/Screenshot-355.png" },
+  { name: "Marcos P.", city: "PR", text: "Larguei o CLT. Hoje ganho 3x mais com meus horários.", earn: "R$18.5K/mês", img: "https://i.postimg.cc/xTgZ0sS5/Screenshot-356.png" },
+  { name: "Fernando R.", city: "BA", text: "Instagram saiu de 200 pra 5.000 seguidores em 2 meses!", earn: "+4.8K seg", img: "https://i.postimg.cc/44WvyjmG/aawadada.png" },
+  { name: "Lucas T.", city: "DF", text: "5 contratos em um mês. Melhor decisão que tomei!", earn: "R$9.5K/mês", img: "https://i.postimg.cc/PfSbJ0PT/awdwdwd.png" },
 ];
 
-type FunnelStep = 1 | 2 | 3 | 4;
+type Step = 1 | 2 | 3 | 4 | 5;
 
-// Componente de Depoimento Inline com foto
-const InlineTestimonial = ({ testimonial }: { testimonial: typeof testimonials[0] }) => (
-  <div className="relative w-full my-4 p-4 rounded-2xl bg-[#111] border border-white/10 animate-fade-in-up">
+const MiniTestimonial = ({ t }: { t: typeof testimonials[0] }) => (
+  <div className="w-full my-3 p-4 rounded-2xl animate-fade-in-up" style={{ background: '#F7F8FA', border: '1px solid #E8EBF0' }}>
     <div className="flex items-start gap-3">
-      <img
-        src={testimonial.image}
-        alt={testimonial.name}
-        className="flex-shrink-0 w-12 h-12 rounded-full object-cover border-2 border-amber-500/50"
+      <Image
+        src={t.img}
+        alt={t.name}
+        width={40}
+        height={40}
+        className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+        style={{ border: '2px solid rgba(0,194,203,0.3)' }}
+        loading="lazy"
       />
       <div className="flex-1">
-        <div className="flex items-center gap-2 mb-1">
-          <span className="font-bold text-white text-sm">{testimonial.name}</span>
-          <span className="text-[10px] text-gray-500">• {testimonial.location}</span>
-        </div>
-        <p className="text-sm text-gray-300 leading-relaxed">"{testimonial.text}"</p>
-        <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/10 border border-green-500/20">
-          <TrendingUp className="w-3 h-3 text-green-400" />
-          <span className="text-xs font-bold text-green-400">{testimonial.earnings}</span>
-        </div>
+        <div className="flex items-center gap-1.5 mb-1"><span className="font-bold text-gray-900 text-xs">{t.name}</span><span className="text-[10px] text-gray-400">• {t.city}</span></div>
+        <p className="text-xs text-gray-600 leading-relaxed">"{t.text}"</p>
+        <span className="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white" style={{ background: 'linear-gradient(135deg, var(--turquoise), #009AA2)' }}>
+          <TrendingUp className="w-2.5 h-2.5" />{t.earn}
+        </span>
       </div>
     </div>
   </div>
 );
 
-// Step 1: Pergunta sobre gosto estético
-const Step1 = ({ onComplete }: { onComplete: (choice: string) => void }) => {
-  const [aestheticChoice, setAestheticChoice] = useState('');
-  const [isCompleted, setIsCompleted] = useState(false);
-
-  const handleChoice = (value: string) => {
-    setAestheticChoice(value);
-    setIsCompleted(true);
-  };
-
+function Bar({ value }: { value: number }) {
   return (
-    <div className="dark relative flex w-full flex-col items-center justify-start gap-6 overflow-hidden bg-black p-5 min-h-screen">
-      <GoldenParticles visible={true} count={15} />
+    <div className="w-full rounded-full overflow-hidden" style={{ height: '8px', background: '#E8EBF0' }}>
+      <div className="h-full rounded-full transition-all duration-700" style={{ width: `${value}%`, background: 'linear-gradient(90deg, var(--turquoise), #F5A623)' }} />
+    </div>
+  );
+}
 
-      <div className="relative z-10 flex w-full max-w-md flex-col items-center text-center pt-4">
-        {/* Progress */}
-        <Progress value={isCompleted ? 25 : 5} className="mb-6 h-2.5 w-full" />
+function Header({ label, step, total, value, done }: { label: string; step: number; total: number; value: number; done: boolean }) {
+  return (
+    <div className="w-full mb-6">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-xs font-bold uppercase tracking-widest" style={{ color: step === total ? '#22c55e' : 'var(--turquoise)' }}>{label}</span>
+        <span className="text-xs text-gray-400">Pergunta {step} de {total}</span>
+      </div>
+      <Bar value={done ? (step / total) * 100 : ((step - 1) / total) * 100 + 3} />
+    </div>
+  );
+}
 
-        {/* Question */}
+// Q1: Qual acabamento quer dominar
+const Q1 = ({ onDone }: { onDone: (v: string) => void }) => {
+  const [sel, setSel] = useState('');
+  const done = sel !== '';
+  return (
+    <div className="flex w-full flex-col items-center p-5 min-h-screen bg-white">
+      <div className="w-full max-w-md flex flex-col items-center text-center pt-4">
+        <Header label="Estilo" step={1} total={5} value={done ? 20 : 3} done={done} />
         <div className="animate-fade-in-up">
-          <h2 className="font-headline text-2xl sm:text-3xl font-extrabold text-white">
-            <span className="text-amber-400">Qual</span> desses pisos você acha mais bonito?
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900" style={{ fontFamily: 'Sora' }}>
+            Qual acabamento você quer <span style={{ color: 'var(--turquoise)' }}>dominar primeiro</span>?
           </h2>
-          <p className="mt-2 text-base text-gray-400">
-            Selecione o acabamento que mais combina com você
-          </p>
+          <p className="mt-2 text-sm text-gray-500">Escolha o estilo que mais combina com os clientes da sua região</p>
         </div>
-
-        {/* Images - Large Column Layout */}
-        <div className="mt-6 flex flex-col gap-4 w-full animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          {floorImages.map((image, index) => (
-            <button
-              key={image.id}
-              onClick={() => handleChoice(image.description)}
-              className={cn(
-                "group relative overflow-hidden rounded-xl border-2 transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-amber-500/50 focus:ring-offset-2 focus:ring-offset-black w-full",
-                aestheticChoice === image.description
-                  ? 'border-amber-400 shadow-[0_0_30px_rgba(251,191,36,0.5)] scale-[1.02] ring-2 ring-amber-400'
-                  : 'border-white/10 hover:scale-[1.01] hover:shadow-xl hover:border-amber-500/50 opacity-90 hover:opacity-100'
-              )}
-            >
+        <div className="mt-6 flex flex-col gap-3 w-full animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          {floorImages.slice(0, 3).map((img, i) => (
+            <button key={img.id} onClick={() => setSel(img.id)}
+              className={cn("group relative overflow-hidden rounded-xl border-2 transition-all duration-300 w-full",
+                sel === img.id ? 'quiz-option-selected scale-[1.01]' : 'border-gray-200 hover:shadow-md opacity-90 hover:opacity-100')}>
               <Image
-                src={image.imageUrl}
-                alt={image.description}
+                src={img.url}
+                alt={img.label}
                 width={500}
-                height={300}
-                className="w-full h-auto object-cover aspect-[16/10] transition-transform duration-300"
-                priority={index < 2}
-                unoptimized
+                height={500}
+                className="w-full object-cover aspect-square"
+                priority={i < 2}
               />
-              {aestheticChoice === image.description && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px]">
-                  <span className="font-headline text-xl text-white flex items-center gap-2 animate-fade-in-up drop-shadow-lg">
-                    <CheckCircle className="text-green-400 w-7 h-7" /> Selecionado!
-                  </span>
+              <div className="absolute bottom-0 left-0 right-0 p-3" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%)' }}>
+                <p className="text-white font-bold text-sm leading-tight">{img.label}</p>
+                <p className="text-white/70 text-xs">{img.sub}</p>
+              </div>
+              {sel === img.id && (
+                <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'rgba(0,194,203,0.3)', backdropFilter: 'blur(2px)' }}>
+                  <CheckCircle className="w-12 h-12 text-white drop-shadow-lg" />
                 </div>
               )}
             </button>
           ))}
         </div>
-
-        {isCompleted && (
-          <div className="mt-6 w-full animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            {/* Success Message */}
-            <div className="w-full rounded-xl bg-green-500/10 p-4 border border-green-500/30 mb-4">
-              <p className="flex items-center justify-center gap-2 text-lg font-semibold text-green-400">
-                <CheckCircle size={22} /> Ótima escolha!
-              </p>
-              <p className="mt-1 text-gray-400 text-sm">
-                Agora vamos entender melhor seu perfil profissional...
-              </p>
-            </div>
-
-            {/* Inline Testimonial */}
-            <InlineTestimonial testimonial={testimonials[0]} />
-            <InlineTestimonial testimonial={testimonials[4]} />
-
-            <Button
-              onClick={() => onComplete(aestheticChoice)}
-              className="button-shine-gradient w-full rounded-full h-14 text-base font-bold text-black flex items-center justify-center gap-2"
-            >
-              CONTINUAR PARA A PRÓXIMA ETAPA <ArrowRight className="w-5 h-5" />
-            </Button>
+        {done && (
+          <div className="mt-5 w-full animate-fade-in-up">
+            <MiniTestimonial t={testimonials[0]} />
+            <Button onClick={() => onDone(sel)} className="btn-cta w-full rounded-full h-14 text-base font-bold text-white flex items-center justify-center gap-2">CONTINUAR <ArrowRight className="w-5 h-5" /></Button>
           </div>
         )}
       </div>
     </div>
   );
-}
+};
 
-// Step 2: Situação atual
-const Step2 = ({ onComplete }: { onComplete: (choice: string) => void }) => {
-  const [profileChoice, setProfileChoice] = useState('');
-  const [isCompleted, setIsCompleted] = useState(false);
-
-  const profileOptions = [
-    { id: 'pintor', emoji: '🎨', title: 'Sou Pintor', desc: 'Já trabalho com pintura' },
-    { id: 'reformas', emoji: '🏗️', title: 'Faço Reformas', desc: 'Trabalho com construção' },
-    { id: 'zero', emoji: '🌟', title: 'Começando do Zero', desc: 'Quero aprender' },
-    { id: 'marmorizado', emoji: '💎', title: 'Já Tentei Marmorizar', desc: 'Quero melhorar' },
+// Q2: Maior Frustração
+const Q2 = ({ onDone }: { onDone: (v: string) => void }) => {
+  const [sel, setSel] = useState('');
+  const done = sel !== '';
+  const opts = [
+    { id: 'esforco_sem_valor', emoji: '😓', title: 'Trabalho muito, ganho pouco', desc: 'Sinto que meu esforço físico não é valorizado financeiramente' },
+    { id: 'concorrencia_desleal', emoji: '📉', title: 'Muita concorrência por preço', desc: 'Sempre perco orçamento pra quem cobra mais barato' },
+    { id: 'sem_tempo', emoji: '⏳', title: 'Não tenho tempo pra mim', desc: 'Trabalho de segunda a sábado e vivo cansado' },
+    { id: 'falta_reconhecimento', emoji: '👀', title: 'Falta de reconhecimento', desc: 'Quero ser visto como um profissional de alto nível' },
   ];
-
-  const handleChoice = (value: string) => {
-    setProfileChoice(value);
-    setIsCompleted(true);
-  };
-
   return (
-    <div className="dark relative flex w-full min-h-screen flex-col items-center justify-start bg-black px-4 py-6">
-      <div className="relative z-10 flex w-full max-w-md flex-col items-center text-center">
-        {/* Header */}
-        <div className="w-full mb-6">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-bold text-amber-400 uppercase tracking-wider">Experiência</span>
-            <span className="text-xs text-gray-500">Pergunta 2 de 4</span>
-          </div>
-          <Progress value={isCompleted ? 50 : 25} className="h-2.5 w-full" />
+    <div className="flex w-full min-h-screen flex-col items-center px-4 py-6" style={{ background: '#F7F8FA' }}>
+      <div className="w-full max-w-md flex flex-col items-center text-center">
+        <Header label="Diagnóstico" step={2} total={5} value={done ? 40 : 20} done={done} />
+        <div className="mb-5 animate-fade-in-up">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-1" style={{ fontFamily: 'Sora' }}>Hoje, qual é a sua <span style={{ color: 'var(--turquoise)' }}>maior frustração</span> profissional?</h2>
+          <p className="text-sm text-gray-500">Isso nos ajuda a entender exatamente como o método vai transformar sua realidade.</p>
         </div>
-
-        {/* Question */}
-        <div className="mb-6 animate-fade-in-up">
-          <h2 className="font-headline text-2xl sm:text-3xl font-extrabold text-white mb-2">
-            Qual sua <span className="text-amber-400">experiência</span> atual?
-          </h2>
-          <p className="text-base text-gray-400">
-            Selecione a opção que mais combina com você
-          </p>
-        </div>
-
-        {/* Options - Clean Dark Cards */}
-        <div className="grid grid-cols-1 gap-3 w-full animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          {profileOptions.map((option) => (
-            <button
-              key={option.id}
-              onClick={() => handleChoice(option.id)}
-              className={cn(
-                "group relative flex items-center gap-4 p-4 rounded-xl border-2 transition-all duration-300 text-left bg-[#111]",
-                profileChoice === option.id
-                  ? 'border-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.3)]'
-                  : 'border-white/10 hover:border-white/30 hover:bg-[#161616]'
-              )}
-            >
-              <span className="text-3xl sm:text-4xl flex-shrink-0">{option.emoji}</span>
-              <div className="flex-1">
-                <h4 className="font-bold text-white text-base sm:text-lg">{option.title}</h4>
-                <p className="text-sm text-gray-400">{option.desc}</p>
-              </div>
-              {profileChoice === option.id && (
-                <div className="flex-shrink-0 w-7 h-7 rounded-full bg-green-500 flex items-center justify-center">
-                  <CheckCircle className="w-4 h-4 text-white" />
-                </div>
-              )}
+        <div className="grid grid-cols-1 gap-3 w-full animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          {opts.map(o => (
+            <button key={o.id} onClick={() => setSel(o.id)} className={cn("flex items-center gap-3 p-4 rounded-xl border-2 transition-all duration-300 text-left bg-white", sel === o.id ? 'quiz-option-selected' : 'border-gray-200 hover:shadow-sm')}>
+              <span className="text-3xl flex-shrink-0">{o.emoji}</span>
+              <div className="flex-1"><h4 className="font-bold text-gray-900">{o.title}</h4><p className="text-xs text-gray-500">{o.desc}</p></div>
+              {sel === o.id && <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'var(--turquoise)' }}><CheckCircle className="w-3.5 h-3.5 text-white" /></div>}
             </button>
           ))}
         </div>
-
-        {isCompleted && (
-          <div className="mt-6 w-full animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <InlineTestimonial testimonial={testimonials[1]} />
-            <InlineTestimonial testimonial={testimonials[2]} />
-
-            <Button
-              onClick={() => onComplete(profileChoice)}
-              className="button-shine-gradient w-full rounded-full h-14 text-base font-bold text-black flex items-center justify-center gap-2"
-            >
-              PRÓXIMA PERGUNTA <ArrowRight className="w-5 h-5" />
-            </Button>
+        {done && (
+          <div className="mt-5 w-full animate-fade-in-up">
+            <MiniTestimonial t={testimonials[1]} />
+            <Button onClick={() => onDone(sel)} className="btn-cta w-full rounded-full h-14 text-base font-bold text-white flex items-center justify-center gap-2">PRÓXIMA <ArrowRight className="w-5 h-5" /></Button>
           </div>
         )}
       </div>
     </div>
   );
-}
+};
 
-// Step 3: Objetivo principal
-const Step3 = ({ onComplete }: { onComplete: (choices: string[]) => void }) => {
-  const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
-  const [isCompleted, setIsCompleted] = useState(false);
-
-  const goalOptions = [
-    { id: 'renda', emoji: '💰', title: 'Aumentar minha renda mensal' },
-    { id: 'premium', emoji: '🏆', title: 'Cobrar mais caro pelo meu trabalho' },
-    { id: 'demanda', emoji: '📈', title: 'Ter mais clientes me procurando' },
-    { id: 'diferencial', emoji: '⭐', title: 'Me destacar da concorrência' },
-    { id: 'liberdade', emoji: '🌴', title: 'Ter mais liberdade financeira' },
+// Q3: Motivação Pessoal
+const Q3 = ({ onDone }: { onDone: (v: string) => void }) => {
+  const [sel, setSel] = useState('');
+  const done = sel !== '';
+  const opts = [
+    { id: 'familia', emoji: '👨‍👩‍👧', title: 'Dar o melhor para minha família', desc: 'Quero poder pagar as contas em dia e ter segurança' },
+    { id: 'liberdade', emoji: '✈️', title: 'Liberdade e poder viajar', desc: 'Quero ter tempo de qualidade e dinheiro sobrando' },
+    { id: 'patrao', emoji: '👑', title: 'Ser meu próprio chefe', desc: 'Quero parar de trabalhar pros outros e construir algo meu' },
+    { id: 'respeito', emoji: '🏆', title: 'Mudar de vida radicalmente', desc: 'Quero ser cobiçado pelos clientes de alto padrão' },
   ];
-
-  const toggleGoal = (id: string) => {
-    setSelectedGoals(prev => {
-      const newGoals = prev.includes(id)
-        ? prev.filter(g => g !== id)
-        : [...prev, id];
-
-      if (newGoals.length > 0 && !isCompleted) {
-        setIsCompleted(true);
-      }
-      return newGoals;
-    });
-  };
-
   return (
-    <div className="dark relative flex w-full min-h-screen flex-col items-center justify-start bg-black px-4 py-6">
-      <div className="relative z-10 flex w-full max-w-md flex-col items-center text-center">
-        {/* Header */}
-        <div className="w-full mb-6">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-bold text-amber-400 uppercase tracking-wider">Objetivos</span>
-            <span className="text-xs text-gray-500">Pergunta 3 de 4</span>
-          </div>
-          <Progress value={isCompleted ? 75 : 50} className="h-2.5 w-full" />
+    <div className="flex w-full min-h-screen flex-col items-center px-4 py-6 bg-white">
+      <div className="w-full max-w-md flex flex-col items-center text-center">
+        <Header label="Propósito" step={3} total={5} value={done ? 60 : 40} done={done} />
+        <div className="mb-5 animate-fade-in-up">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-1" style={{ fontFamily: 'Sora' }}>Quem você quer colocar em <span style={{ color: 'var(--turquoise)' }}>primeiro lugar</span>?</h2>
+          <p className="text-sm text-gray-500">Qual é o seu maior "Por quê" para querer ganhar bem?</p>
         </div>
-
-        {/* Question */}
-        <div className="mb-6 animate-fade-in-up">
-          <h2 className="font-headline text-2xl sm:text-3xl font-extrabold text-white mb-2">
-            O que você mais <span className="text-amber-400">deseja alcançar</span>?
-          </h2>
-          <p className="text-base text-gray-400">
-            <span className="text-amber-400 font-bold">Marque todas</span> que se aplicam a você
-          </p>
-        </div>
-
-        {/* Options - Multiple Select */}
-        <div className="flex flex-col gap-3 w-full animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          {goalOptions.map((option) => (
-            <button
-              key={option.id}
-              onClick={() => toggleGoal(option.id)}
-              className={cn(
-                "group relative flex items-center gap-4 p-4 rounded-xl border-2 transition-all duration-300 text-left bg-[#111]",
-                selectedGoals.includes(option.id)
-                  ? 'border-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.3)]'
-                  : 'border-white/10 hover:border-white/30 hover:bg-[#161616]'
-              )}
-            >
-              <div className={cn(
-                "w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all flex-shrink-0",
-                selectedGoals.includes(option.id)
-                  ? 'bg-amber-500 border-amber-500'
-                  : 'border-white/30'
-              )}>
-                {selectedGoals.includes(option.id) && (
-                  <CheckCircle className="w-4 h-4 text-black" />
-                )}
-              </div>
-              <span className="text-2xl flex-shrink-0">{option.emoji}</span>
-              <span className={cn("font-medium text-sm sm:text-base", selectedGoals.includes(option.id) ? 'text-white' : 'text-gray-300')}>
-                {option.title}
-              </span>
+        <div className="grid grid-cols-1 gap-3 w-full animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          {opts.map(o => (
+            <button key={o.id} onClick={() => setSel(o.id)} className={cn("flex items-center gap-3 p-4 rounded-xl border-2 transition-all duration-300 text-left bg-white", sel === o.id ? 'quiz-option-selected' : 'border-gray-200 hover:shadow-sm')}>
+              <span className="text-3xl flex-shrink-0">{o.emoji}</span>
+              <div className="flex-1"><h4 className="font-bold text-gray-900">{o.title}</h4><p className="text-xs text-gray-500">{o.desc}</p></div>
+              {sel === o.id && <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'var(--turquoise)' }}><CheckCircle className="w-3.5 h-3.5 text-white" /></div>}
             </button>
           ))}
         </div>
-
-        {selectedGoals.length > 0 && (
-          <div className="mt-6 w-full animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <div className="mb-4 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-center">
-              <p className="text-sm text-amber-400 font-medium">
-                <span className="font-bold">{selectedGoals.length}</span> objetivo(s) selecionado(s)
-              </p>
-            </div>
-
-            <Button
-              onClick={() => onComplete(selectedGoals)}
-              className="button-shine-gradient w-full rounded-full h-14 text-base font-bold text-black flex items-center justify-center gap-2"
-            >
-              ÚLTIMA PERGUNTA <ArrowRight className="w-5 h-5" />
-            </Button>
+        {done && (
+          <div className="mt-5 w-full animate-fade-in-up">
+            <MiniTestimonial t={testimonials[4]} />
+            <Button onClick={() => onDone(sel)} className="btn-cta w-full rounded-full h-14 text-base font-bold text-white flex items-center justify-center gap-2">CONTINUAR <ArrowRight className="w-5 h-5" /></Button>
           </div>
         )}
       </div>
     </div>
   );
-}
+};
 
-// Step 4: Motivação para começar agora
-const Step4 = ({ aestheticChoice, profileChoice, goals }: { aestheticChoice: string; profileChoice: string; goals: string[] }) => {
+// Q4: Percepção de Valor
+const Q4 = ({ onDone }: { onDone: (v: string) => void }) => {
+  const [sel, setSel] = useState('');
+  const done = sel !== '';
+  const opts = [
+    { id: 'medo_vender', emoji: '🥶', title: 'Ainda tenho receio', desc: 'Não sei como falar de valores altos com o cliente' },
+    { id: 'topa_tudo', emoji: '💪', title: 'Toparia o desafio', desc: 'Se eu tiver o script e as táticas, eu fecho!' },
+    { id: 'ja_vendo', emoji: '🗣️', title: 'Eu já sei negociar', desc: 'Só me falta o produto certo nas mãos' },
+    { id: 'vendedor_nato', emoji: '🦁', title: 'Sou um leão pra vendas', desc: 'Mostrando que é bom, eu coloco o preço lá em cima' },
+  ];
+  return (
+    <div className="flex w-full min-h-screen flex-col items-center px-4 py-6" style={{ background: '#F7F8FA' }}>
+      <div className="w-full max-w-md flex flex-col items-center text-center">
+        <Header label="Habilidade" step={4} total={5} value={done ? 80 : 60} done={done} />
+        <div className="mb-5 animate-fade-in-up">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-1" style={{ fontFamily: 'Sora' }}>Como você lida ao ter que <span style={{ color: 'var(--turquoise)' }}>cobrar caro</span>?</h2>
+          <p className="text-sm text-gray-500">Marmorizado é serviço de luxo e exige uma postura diferente</p>
+        </div>
+        <div className="grid grid-cols-1 gap-3 w-full animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          {opts.map(o => (
+            <button key={o.id} onClick={() => setSel(o.id)} className={cn("flex items-center gap-3 p-4 rounded-xl border-2 transition-all duration-300 text-left bg-white", sel === o.id ? 'quiz-option-selected' : 'border-gray-200 hover:shadow-sm')}>
+              <span className="text-3xl flex-shrink-0">{o.emoji}</span>
+              <div className="flex-1"><h4 className="font-bold text-gray-900">{o.title}</h4><p className="text-xs text-gray-500">{o.desc}</p></div>
+              {sel === o.id && <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'var(--turquoise)' }}><CheckCircle className="w-3.5 h-3.5 text-white" /></div>}
+            </button>
+          ))}
+        </div>
+        {done && (
+          <div className="mt-5 w-full animate-fade-in-up">
+            <MiniTestimonial t={testimonials[2]} />
+            <Button onClick={() => onDone(sel)} className="btn-cta w-full rounded-full h-14 text-base font-bold text-white flex items-center justify-center gap-2">ÚLTIMA PERGUNTA <ArrowRight className="w-5 h-5" /></Button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// Q5: Comprometimento
+const Q5 = ({ answers }: { answers: Record<string, string> }) => {
   const router = useRouter();
-  const [commitment, setCommitment] = useState('');
-  const [isCompleted, setIsCompleted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [sel, setSel] = useState('');
+  const done = sel !== '';
+  const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
 
-  const commitmentOptions = [
-    { id: 'total', emoji: '🔥', title: 'Estou 100% comprometido', desc: 'Quero resultados rápidos' },
-    { id: 'curioso', emoji: '🤔', title: 'Ainda estou avaliando', desc: 'Preciso ver mais detalhes' },
-    { id: 'pronto', emoji: '🚀', title: 'Pronto para começar HOJE', desc: 'Já quero aplicar' },
+  const opts = [
+    { id: '110por_cento', emoji: '🔥', title: 'Vou dar meu sangue', desc: 'Vou estudar, praticar e não paro até faturar alto' },
+    { id: 'dedicado', emoji: '📖', title: 'Sou muito dedicado', desc: 'Vou seguir todo o método passo a passo' },
+    { id: 'pouco_tempo', emoji: '⏰', title: 'Tenho pouco tempo', desc: 'Vou fazer aos finais de semana até engrenar' },
+    { id: 'curioso', emoji: '👀', title: 'Só estou curioso', desc: 'Achei bacana e quero ver como funciona' },
   ];
-  const [loadingProgress, setLoadingProgress] = useState(0);
 
-  const handleChoice = (value: string) => {
-    setCommitment(value);
-    setIsCompleted(true);
+  const handleGo = () => {
+    setLoading(true);
+    let p = 0;
+    const it = setInterval(() => {
+      p += 1; setProgress(p);
+      if (p >= 100) { clearInterval(it); router.push(`/resultado?${new URLSearchParams({ ...answers, timing: sel }).toString()}`); }
+    }, 55);
   };
 
-  const handleComplete = () => {
-    setIsLoading(true);
+  if (loading) {
+    const msgs = [
+      { at: 0, icon: '🔍', text: 'Analisando suas respostas...' },
+      { at: 20, icon: '📊', text: 'Calculando seu potencial de faturamento...' },
+      { at: 40, icon: '🎯', text: 'Montando seu plano personalizado...' },
+      { at: 60, icon: '🎁', text: 'Liberando seus bônus exclusivos...' },
+      { at: 80, icon: '🏆', text: 'Finalizando sua avaliação...' },
+      { at: 95, icon: '✅', text: 'Tudo pronto!' },
+    ];
+    const current = [...msgs].reverse().find(m => progress >= m.at) || msgs[0];
 
-    // Progress animation - more slow
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += 1;
-      setLoadingProgress(progress);
-      if (progress >= 100) {
-        clearInterval(interval);
-        const params = new URLSearchParams({
-          aestheticChoice: aestheticChoice,
-          profileChoice: profileChoice,
-          goals: goals.join(','),
-          commitment: commitment,
-        }).toString();
-        router.push(`/resultado?${params}`);
-      }
-    }, 60); // 6 seconds total (60ms * 100 = 6000ms)
-  };
-
-  // Loading Screen with percentage
-  if (isLoading) {
     return (
-      <div className="dark relative flex w-full min-h-screen flex-col items-center justify-start bg-black px-4 py-8 text-center overflow-y-auto">
-        <GoldenParticles visible={true} count={30} />
-        <div className="relative z-10 flex flex-col items-center gap-6 max-w-md w-full">
-          {/* Progress Circle */}
-          <div className="relative flex h-32 w-32 items-center justify-center mt-8">
+      <div className="flex w-full min-h-screen flex-col items-center justify-center px-4 py-8 text-center bg-white">
+        <div className="flex flex-col items-center gap-6 max-w-sm w-full">
+          {/* Animated circle */}
+          <div className="relative w-36 h-36">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="45" fill="none" stroke="#1f1f1f" strokeWidth="8" />
-              <circle
-                cx="50" cy="50" r="45" fill="none"
-                stroke="url(#gradient)"
-                strokeWidth="8"
-                strokeLinecap="round"
-                strokeDasharray={`${loadingProgress * 2.83} 283`}
-                className="transition-all duration-100"
-              />
-              <defs>
-                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#fbbf24" />
-                  <stop offset="100%" stopColor="#22c55e" />
-                </linearGradient>
-              </defs>
+              <circle cx="50" cy="50" r="42" fill="none" stroke="#E8EBF0" strokeWidth="6" />
+              <circle cx="50" cy="50" r="42" fill="none" stroke="url(#loadGrad)" strokeWidth="6" strokeLinecap="round" strokeDasharray={`${progress * 2.64} 264`} className="transition-all duration-100" />
+              <defs><linearGradient id="loadGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stopColor="#00C2CB" /><stop offset="100%" stopColor="#F5A623" /></linearGradient></defs>
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-4xl font-black text-white">{loadingProgress}%</span>
+              <span className="text-4xl font-black" style={{ fontFamily: 'Sora', color: 'var(--turquoise)' }}>{progress}%</span>
             </div>
           </div>
 
-          {/* Text */}
-          <div className="mt-2">
-            <h2 className="font-headline text-2xl font-bold text-white mb-2">
-              Analisando seu perfil...
-            </h2>
-            <p className="text-base text-gray-400">
-              {loadingProgress < 30 && "Verificando suas respostas"}
-              {loadingProgress >= 30 && loadingProgress < 60 && "Preparando seus bônus exclusivos"}
-              {loadingProgress >= 60 && loadingProgress < 90 && "Liberando seu acesso VIP"}
-              {loadingProgress >= 90 && "Quase pronto!"}
-            </p>
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <span className="text-2xl">{current.icon}</span>
+              <h2 className="text-xl font-bold text-gray-900" style={{ fontFamily: 'Sora' }}>{current.text}</h2>
+            </div>
+            <div className="flex items-center gap-1 justify-center mt-3">
+              {[0, 1, 2].map(i => (
+                <div key={i} className="w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--turquoise)', animationDelay: `${i * 200}ms` }} />
+              ))}
+            </div>
           </div>
 
-          {/* Testimonials during loading */}
-          <div className="w-full mt-4 space-y-4">
-            <InlineTestimonial testimonial={testimonials[3]} />
-            {loadingProgress > 40 && <InlineTestimonial testimonial={testimonials[5]} />}
+          <div className="w-full mt-4 space-y-3">
+            <MiniTestimonial t={testimonials[3]} />
+            {progress > 35 && <MiniTestimonial t={testimonials[5]} />}
           </div>
         </div>
       </div>
@@ -472,121 +305,63 @@ const Step4 = ({ aestheticChoice, profileChoice, goals }: { aestheticChoice: str
   }
 
   return (
-    <div className="dark relative flex w-full min-h-screen flex-col items-center justify-start bg-black px-4 py-6">
-      <GoldenParticles visible={isCompleted} count={30} />
-      <div className="relative z-10 flex w-full max-w-md flex-col items-center text-center">
-        {/* Header */}
-        <div className="w-full mb-6">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-bold text-green-400 uppercase tracking-wider">Última Pergunta</span>
-            <span className="text-xs text-gray-500">Pergunta 4 de 4</span>
-          </div>
-          <Progress value={isCompleted ? 100 : 75} className="h-2.5 w-full" />
-        </div>
-
-        {/* Final Question */}
-        <div className="mb-6 animate-fade-in-up">
-          <h2 className="font-headline text-2xl sm:text-3xl font-extrabold text-white mb-2">
-            Qual seu nível de <span className="text-amber-400">comprometimento</span>?
+    <div className="flex w-full min-h-screen flex-col items-center px-4 py-6 bg-white">
+      <div className="w-full max-w-md flex flex-col items-center text-center">
+        <Header label="Última!" step={5} total={5} value={done ? 100 : 80} done={done} />
+        <div className="mb-5 animate-fade-in-up">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-1" style={{ fontFamily: 'Sora' }}>
+            Quando você quer <span style={{ color: 'var(--turquoise)' }}>fechar seu primeiro contrato</span>?
           </h2>
-          <p className="text-base text-gray-400">
-            Seja honesto - isso nos ajuda a te direcionar melhor
-          </p>
+          <p className="text-sm text-gray-500">Nossos alunos fecham contratos em média em 7 dias</p>
         </div>
-
-        {/* Options */}
-        <div className="flex flex-col gap-3 w-full animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          {commitmentOptions.map((option) => (
-            <button
-              key={option.id}
-              onClick={() => handleChoice(option.id)}
-              className={cn(
-                "group relative flex items-center gap-4 p-4 rounded-xl border-2 transition-all duration-300 text-left bg-[#111]",
-                commitment === option.id
-                  ? 'border-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.3)]'
-                  : 'border-white/10 hover:border-white/30 hover:bg-[#161616]'
-              )}
-            >
-              <span className="text-3xl sm:text-4xl flex-shrink-0">{option.emoji}</span>
-              <div className="flex-1">
-                <h4 className="font-bold text-white text-base sm:text-lg">{option.title}</h4>
-                <p className="text-sm text-gray-400">{option.desc}</p>
-              </div>
-              {commitment === option.id && (
-                <div className="flex-shrink-0 w-7 h-7 rounded-full bg-green-500 flex items-center justify-center">
-                  <CheckCircle className="w-4 h-4 text-white" />
-                </div>
-              )}
+        <div className="grid grid-cols-1 gap-3 w-full animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          {opts.map(o => (
+            <button key={o.id} onClick={() => setSel(o.id)} className={cn("flex items-center gap-3 p-4 rounded-xl border-2 transition-all duration-300 text-left bg-white", sel === o.id ? 'quiz-option-selected' : 'border-gray-200 hover:shadow-sm')}>
+              <span className="text-3xl flex-shrink-0">{o.emoji}</span>
+              <div className="flex-1"><h4 className="font-bold text-gray-900">{o.title}</h4><p className="text-xs text-gray-500">{o.desc}</p></div>
+              {sel === o.id && <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'var(--turquoise)' }}><CheckCircle className="w-3.5 h-3.5 text-white" /></div>}
             </button>
           ))}
         </div>
-
-        {isCompleted && (
-          <div className="mt-6 w-full animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            {/* Success Message */}
-            <div className="mb-6 p-4 rounded-2xl bg-gradient-to-br from-amber-500/20 via-yellow-500/10 to-amber-500/20 border border-amber-500/40">
+        {done && (
+          <div className="mt-5 w-full animate-fade-in-up">
+            <div className="mb-5 p-5 rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(0,194,203,0.06), rgba(245,166,35,0.06))', border: '1px solid rgba(0,194,203,0.2)' }}>
               <div className="flex items-center justify-center gap-2 mb-2">
-                <Award className="w-6 h-6 text-amber-400" />
-                <h3 className="font-headline text-xl font-black text-amber-400">AVALIAÇÃO COMPLETA!</h3>
+                <Award className="w-6 h-6" style={{ color: 'var(--turquoise)' }} />
+                <h3 className="text-lg font-black" style={{ fontFamily: 'Sora', color: 'var(--turquoise)' }}>AVALIAÇÃO COMPLETA!</h3>
               </div>
-              <p className="text-sm text-gray-300">
-                Você foi <span className="text-green-400 font-bold">aprovado</span> para receber acesso aos bônus exclusivos.
-              </p>
+              <p className="text-sm text-gray-600">Agora vamos montar seu <span className="font-bold" style={{ color: 'var(--turquoise)' }}>plano personalizado</span> com bônus exclusivos.</p>
             </div>
-
-            {/* Final Testimonial */}
-            <InlineTestimonial testimonial={testimonials[2]} />
-
-            <Button
-              onClick={handleComplete}
-              className="button-shine-gradient w-full rounded-full h-16 text-lg font-bold text-black flex items-center justify-center gap-2 animate-subtle-pulse"
-            >
-              <Rocket className="w-5 h-5" /> VER MEUS BÔNUS EXCLUSIVOS
+            <Button onClick={handleGo} className="btn-cta w-full rounded-full h-16 text-lg font-bold text-white flex items-center justify-center gap-2 animate-subtle-pulse">
+              <Rocket className="w-5 h-5" /> VER MEU PLANO PERSONALIZADO
             </Button>
-
-            <p className="mt-3 text-xs text-gray-500 text-center">
-              🔒 Seus dados estão seguros e não serão compartilhados
-            </p>
+            <p className="mt-3 text-[11px] text-gray-400">🔒 Seus dados estão seguros</p>
           </div>
         )}
       </div>
     </div>
   );
-}
-
+};
 
 export default function FunnelPage() {
-  const [step, setStep] = useState<FunnelStep>(1);
-  const [aestheticChoice, setAestheticChoice] = useState('');
-  const [profileChoice, setProfileChoice] = useState('');
-  const [goals, setGoals] = useState<string[]>([]);
+  const [step, setStep] = useState<Step>(1);
+  const [answers, setAnswers] = useState<Record<string, string>>({});
   const router = useRouter();
 
-  const handleStep1Complete = (choice: string) => {
-    setAestheticChoice(choice);
-    setStep(2);
+  const next = (key: string, val: string, nextStep: Step) => {
+    setAnswers(p => ({ ...p, [key]: val }));
+    setStep(nextStep);
     window.scrollTo(0, 0);
-  };
-
-  const handleStep2Complete = (choice: string) => {
-    setProfileChoice(choice);
-    setStep(3);
-    window.scrollTo(0, 0);
-  };
-
-  const handleStep3Complete = (selectedGoals: string[]) => {
-    setGoals(selectedGoals);
-    setStep(4);
-    window.scrollTo(0, 0);
-    router.prefetch('/resultado');
+    if (nextStep === 5) router.prefetch('/resultado');
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a]">
-      {step === 1 && <Step1 onComplete={handleStep1Complete} />}
-      {step === 2 && <Step2 onComplete={handleStep2Complete} />}
-      {step === 3 && <Step3 onComplete={handleStep3Complete} />}
-      {step === 4 && <Step4 aestheticChoice={aestheticChoice} profileChoice={profileChoice} goals={goals} />}
+    <main className="min-h-screen bg-white">
+      {step === 1 && <Q1 onDone={v => next('style', v, 2)} />}
+      {step === 2 && <Q2 onDone={v => next('experience', v, 3)} />}
+      {step === 3 && <Q3 onDone={v => next('income', v, 4)} />}
+      {step === 4 && <Q4 onDone={v => next('goal', v, 5)} />}
+      {step === 5 && <Q5 answers={answers} />}
     </main>
   );
 }

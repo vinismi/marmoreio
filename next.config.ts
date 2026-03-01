@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   swcMinify: true,
   compress: true,
+  reactStrictMode: true,
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -11,6 +12,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -39,7 +41,7 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
-    // allowedDevOrigins property is now at the root level
+    scrollRestoration: true,
   },
   allowedDevOrigins: [
     'https://6000-firebase-studio-1760653920184.cluster-mdgxqvvkkbfpqrfigfiuugu5pk.cloudworkstations.dev',

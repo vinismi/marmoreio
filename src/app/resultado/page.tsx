@@ -2,220 +2,352 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { Box, Gem, AlertTriangle, ShieldCheck, CheckCircle, MoveHorizontal, Sparkles, Smartphone, Video, Palette, Rocket, Coins, Zap, Clock, CreditCard, Shield, Users, FileText } from 'lucide-react';
-import GoldenParticles from '@/components/particles';
+import { Button } from '@/components/ui/button';
+import { CheckCircle, MoveHorizontal, Sparkles, Smartphone, Video, Palette, Rocket, Zap, Clock, Shield } from 'lucide-react';
 import UpsellFlow from '@/components/upsell-flow';
-import WistiaWebPlayer from '@/components/wistia-web-player';
 import TestimonialCarousel from '@/components/testimonial-carousel';
-import WistiaEmbed from '@/components/wistia-embed';
 import BeforeAfterSlider from '@/components/before-after-slider';
-import { assessMarmorizedPattern } from '@/ai/flows/marmorized-pattern-assessment';
-import SocialProofToast from '@/components/social-proof-toast';
+import MemberAreaDemo from '@/components/member-area-demo';
+
+function useInView(threshold = 0.2) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [vis, setVis] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVis(true); }, { threshold });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, vis };
+}
+
+function AnimatedNumber({ target, prefix = '', suffix = '', duration = 2000 }: { target: number; prefix?: string; suffix?: string; duration?: number }) {
+  const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting && !started) setStarted(true); }, { threshold: 0.5 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [started]);
+  useEffect(() => {
+    if (!started) return;
+    let c = 0; const inc = target / 60;
+    const t = setInterval(() => { c += inc; if (c >= target) { setCount(target); clearInterval(t); } else setCount(Math.floor(c)); }, duration / 60);
+    return () => clearInterval(t);
+  }, [started, target, duration]);
+  return <span ref={ref}>{prefix}{count.toLocaleString('pt-BR')}{suffix}</span>;
+}
+
+function FAQItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="faq-item py-4 cursor-pointer" onClick={() => setOpen(!open)}>
+      <div className="flex items-center justify-between gap-4"><h4 className="text-sm md:text-base font-bold text-gray-900 flex-1">{q}</h4><div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-all" style={{ background: open ? 'var(--turquoise)' : '#F7F8FA', color: open ? '#fff' : '#666' }}><span className="text-sm font-bold">{open ? '−' : '+'}</span></div></div>
+      {open && <p className="mt-2 text-gray-600 text-sm leading-relaxed animate-fade-in-up">{a}</p>}
+    </div>
+  );
+}
+
+function Countdown() {
+  const [t, setT] = useState({ h: 2, m: 34, s: 17 });
+  useEffect(() => { const i = setInterval(() => setT(p => { let { h, m, s } = p; s--; if (s < 0) { s = 59; m--; } if (m < 0) { m = 59; h--; } if (h < 0) { h = 23; m = 59; s = 59; } return { h, m, s }; }), 1000); return () => clearInterval(i); }, []);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return (
+    <div className="flex items-center gap-1.5 justify-center">
+      {[pad(t.h), pad(t.m), pad(t.s)].map((v, i) => (
+        <div key={i} className="flex items-center gap-1.5"><div className="countdown-digit text-xl px-2.5 py-1.5 min-w-[45px]">{v}</div>{i < 2 && <span className="text-lg font-black text-gray-400">:</span>}</div>
+      ))}
+    </div>
+  );
+}
 
 export default function ResultadoPage() {
-  const router = useRouter();
   const [startUpsell, setStartUpsell] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [bonusItemsVisible, setBonusItemsVisible] = useState([false, false, false, false, false]);
-  const plansRef = useRef<HTMLDivElement>(null);
+  const [bonusVis, setBonusVis] = useState([false, false, false, false, false]);
+  const [showSticky, setShowSticky] = useState(false);
   const testimonialsRef = useRef<HTMLDivElement>(null);
-  const guaranteeRef = useRef<HTMLDivElement>(null);
+  const revenueSection = useInView(0.15);
+  const sellSection = useInView(0.15);
 
-  // URLs de checkout
-  const basicCheckoutUrl = "https://www.ggcheckout.com/checkout/v5/kinHlxMmxB9mSAelkzX5"; // R$5,99
-  const completeCheckoutUrl = "https://www.ggcheckout.com/checkout/v5/m4slNQAn5ssCpFqXUmtS"; // R$14,99
+  const checkoutComplete = "https://www.ggcheckout.com/checkout/v5/m4slNQAn5ssCpFqXUmtS";
+  const openCheckout = (url: string) => { const p = window.location.search; window.open(`${url}${url.includes('?') ? '&' : '?'}${p.substring(1)}`, '_blank'); };
 
-  // Helper to open checkout with UTMs
-  const openCheckout = (url: string) => {
-    const params = window.location.search;
-    const separator = url.includes('?') ? '&' : '?';
-    window.open(`${url}${separator}${params.substring(1)}`, '_blank');
-  };
-
-  // Hero Image Data (simulated from previous context)
-  const heroImage = {
-    imageUrl: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop',
-    description: 'Luxury marble texture background',
-    imageHint: 'dark marble luxury gold veins'
-  };
-
-  // Transformations Data
   const transformations = [
-    {
-      id: 1,
-      before: 'https://i.postimg.cc/j5SZ43ty/1-antes.png',
-      after: 'https://i.postimg.cc/cHkT97L3/1-depois.png',
-      priority: true
-    },
-    {
-      id: 2,
-      before: 'https://i.postimg.cc/85ztmXNT/2-antes.png',
-      after: 'https://i.postimg.cc/Tw3CJNfb/2-depois.png',
-      priority: false
-    },
-    {
-      id: 3,
-      before: 'https://i.postimg.cc/d1V4jNwd/3-antes.png',
-      after: 'https://i.postimg.cc/k4gfvYqK/3-depois.png',
-      priority: false
-    }
+    { id: 1, before: 'https://i.postimg.cc/j5SZ43ty/1-antes.png', after: 'https://i.postimg.cc/cHkT97L3/1-depois.png', label: 'Sala de Estar — De R$40/m² para R$250/m²', priority: true },
+    { id: 2, before: 'https://i.postimg.cc/85ztmXNT/2-antes.png', after: 'https://i.postimg.cc/Tw3CJNfb/2-depois.png', label: 'Banheiro Premium — Contrato de R$8.500', priority: false },
+    { id: 3, before: 'https://i.postimg.cc/d1V4jNwd/3-antes.png', after: 'https://i.postimg.cc/k4gfvYqK/3-depois.png', label: 'Hall de Entrada — Projeto de R$12.000', priority: false },
   ];
 
-  // Bônus Data - Originais
-  const bonuses = [
-    { name: "Como viver de pintura marmorizada", before: "R$ 47,00" },
-    { name: "Transforme a técnica em renda extra ou principal", before: "R$ 37,00" },
-    { name: "Guia completo de precificação", before: "R$ 67,00" },
-    { name: "Como achar clientes que pagam bem", before: "R$ 47,00" },
-    { name: "Melhores tintas, resinas e pigmentos", before: "R$ 37,00" },
+
+
+
+  const faqs = [
+    { q: 'Preciso ter experiência com pintura?', a: 'Não! O curso foi desenhado do zero.' },
+    { q: 'Em quanto tempo vejo resultado?', a: 'A maioria fecha o primeiro contrato em até 7 dias.' },
+    { q: 'Quais materiais vou precisar?', a: 'Incluímos guia completo com as melhores tintas e onde comprar com desconto.' },
+    { q: 'Como funciona o suporte VIP?', a: 'Grupo exclusivo no WhatsApp com suporte em tempo real.' },
+    { q: 'O acesso é vitalício?', a: 'Sim! Pagamento único, acesso para sempre, atualizações incluídas.' },
+    { q: 'E se eu não gostar?', a: '30 dias de garantia. Devolvemos 100% sem perguntas.' },
   ];
 
   useEffect(() => {
-    setIsMounted(true);
+    const timers = Array.from({ length: 5 }, (_, i) => setTimeout(() => setBonusVis(p => { const n = [...p]; n[i] = true; return n; }), 500 + i * 200));
+    const h = () => setShowSticky(window.scrollY > 800);
+    window.addEventListener('scroll', h);
+    return () => { timers.forEach(clearTimeout); window.removeEventListener('scroll', h); };
   }, []);
 
-  useEffect(() => {
-    // Animate bonus items appearing one by one
-    const timers = bonuses.map((_, index) => {
-      return setTimeout(() => {
-        setBonusItemsVisible(prev => {
-          const newState = [...prev];
-          newState[index] = true;
-          return newState;
-        });
-      }, 500 + (index * 200));
-    });
-
-    return () => timers.forEach(timer => clearTimeout(timer));
-  }, []);
-
-  const scrollTo = (ref: React.RefObject<HTMLDivElement>) => {
-    if (ref.current) {
-      ref.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  if (startUpsell) {
-    return <UpsellFlow />;
-  }
+  if (startUpsell) return <UpsellFlow />;
 
   return (
-    <main className="overflow-x-hidden bg-black">
-      <SocialProofToast />
-      {/* Bonus Section */}
-      <div className="dark relative flex min-h-screen flex-col items-center justify-center gap-8 bg-gradient-to-b from-[#0A0A0A] to-[#1E1500] p-6 text-foreground overflow-hidden origin-top transition-transform duration-300">
-        <GoldenParticles visible={true} count={60} />
-        {heroImage && <Image src={heroImage.imageUrl} alt={heroImage.description} fill className="object-cover z-0 opacity-10 mix-blend-overlay" data-ai-hint={heroImage.imageHint} priority />}
+    <main className="overflow-x-hidden bg-white">
 
-        {/* Ambient Glow Behind Title */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[150%] h-[500px] bg-amber-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+      {/* ===== HERO ===== */}
+      <section className="relative py-16 px-4 text-center overflow-hidden" style={{ background: 'linear-gradient(160deg, #0A1628 0%, #0F2035 40%, #0A1628 100%)' }}>
+        {/* Animated bg particles */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="absolute rounded-full animate-float" style={{
+              width: `${8 + i * 4}px`, height: `${8 + i * 4}px`,
+              background: i % 2 === 0 ? 'rgba(0,194,203,0.15)' : 'rgba(245,166,35,0.12)',
+              left: `${10 + i * 15}%`, top: `${15 + (i % 3) * 25}%`,
+              animationDuration: `${3 + i * 0.7}s`, animationDelay: `${i * 0.3}s`,
+            }} />
+          ))}
+        </div>
 
-        <div className="relative z-10 flex flex-col items-center w-full max-w-5xl text-center">
-
-          {/* Badge de Conquista */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 shadow-[0_0_20px_rgba(245,158,11,0.2)] mb-8 animate-fade-in-up">
-            <span className="text-xl">🏆</span>
-            <span className="font-bold text-amber-400 tracking-wide uppercase text-sm md:text-base">Conquista Desbloqueada</span>
+        <div className="relative z-10 max-w-3xl mx-auto">
+          {/* Animated badge */}
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full mb-6 animate-fade-in-up" style={{ background: 'linear-gradient(135deg, rgba(0,194,203,0.15), rgba(245,166,35,0.1))', border: '1px solid rgba(0,194,203,0.3)', backdropFilter: 'blur(10px)' }}>
+            <span className="text-xl animate-float" style={{ animationDuration: '2s' }}>🏆</span>
+            <span className="font-black text-sm uppercase tracking-wider" style={{ color: 'var(--turquoise)' }}>Análise Completa</span>
           </div>
 
-          <h2 className="font-headline text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter animate-fade-in-up mb-6" style={{ animationDelay: '200ms', lineHeight: 0.9 }}>
-            <span className="block text-white mb-2 text-2xl md:text-4xl font-bold tracking-normal opacity-80">Parabéns!</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-amber-200 via-yellow-400 to-amber-600 drop-shadow-[0_0_25px_rgba(251,191,36,0.5)]">
-              VOCÊ GANHOU <br /> OS BÔNUS!
-            </span>
-          </h2>
+          {/* Title */}
+          <h1 className="text-3xl md:text-5xl font-black mb-3 text-white animate-fade-in-up" style={{ fontFamily: 'Sora', animationDelay: '0.1s' }}>
+            Seu Perfil Foi <span className="text-gradient-turquoise">Analisado!</span>
+          </h1>
 
-          <div className="w-full max-w-3xl mx-auto my-8 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
-            <p className="text-lg md:text-2xl text-gray-200 font-medium leading-relaxed">
-              Todos esses itens eram pagos... mas por ter completado o treino, você acabou de liberar o <span className="text-green-400 font-black bg-green-400/10 px-2 py-1 rounded border border-green-400/20 shadow-[0_0_15px_rgba(74,222,128,0.3)]">ACESSO GRATUITO</span> a todos eles!
-            </p>
+          {/* Revenue highlight */}
+          <div className="my-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <p className="text-sm text-gray-400 uppercase tracking-widest mb-2">Potencial de faturamento identificado</p>
+            <div className="inline-block relative">
+              <div className="absolute -inset-4 rounded-2xl opacity-30 animate-pulse" style={{ background: 'radial-gradient(circle, rgba(0,194,203,0.4), transparent 70%)' }} />
+              <span className="relative text-5xl md:text-7xl font-black text-gradient-turquoise" style={{ fontFamily: 'Sora' }}>R$15K+</span>
+            </div>
+            <p className="text-lg text-gray-300 font-medium mt-2">por mês com pintura marmorizada</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-4xl mt-4 px-2">
-            {bonuses.map((bonus, index) => {
-              return (
-                <div
-                  key={index}
-                  className={cn(
-                    "group relative flex items-center gap-4 p-5 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-md transition-all duration-500 hover:scale-[1.02] hover:border-amber-500/50 hover:bg-black/60",
-                    bonusItemsVisible[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                  )}
-                >
-                  {/* Glow effect on hover */}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-amber-500/0 via-amber-500/5 to-amber-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                  <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-2xl md:text-3xl shadow-lg shadow-amber-500/20">
-                    {['💰', '🔥', '📊', '🎯', '🎨'][index]}
-                  </div>
-
-                  <div className="flex-1 text-left">
-                    <h4 className="font-bold text-white text-base md:text-lg leading-tight mb-1 group-hover:text-amber-300 transition-colors">{bonus.name}</h4>
-                    <div className="flex items-center gap-3 text-sm">
-                      <span className="text-red-400/70 line-through font-medium">{bonus.before}</span>
-                      <span className="text-green-400 font-bold bg-green-400/10 px-1.5 rounded text-xs md:text-sm border border-green-400/20">GRÁTIS HOJE</span>
-                    </div>
-                  </div>
-
-                  <div className="absolute top-1/2 right-4 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <CheckCircle className="text-green-400 w-6 h-6" />
-                  </div>
-                </div>
-              )
-            })}
+          {/* Stats row */}
+          <div className="grid grid-cols-3 gap-3 max-w-md mx-auto mb-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            {[
+              { icon: '🎯', value: '3', label: 'Projetos/mês' },
+              { icon: '📅', value: '8', label: 'Dias de trabalho' },
+              { icon: '💰', value: '85%', label: 'Margem de lucro' },
+            ].map((s, i) => (
+              <div key={i} className="p-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                <span className="text-lg">{s.icon}</span>
+                <p className="text-xl font-black text-white mt-1" style={{ fontFamily: 'Sora' }}>{s.value}</p>
+                <p className="text-[9px] text-gray-500 uppercase tracking-wider">{s.label}</p>
+              </div>
+            ))}
           </div>
 
-          <div className="mt-12 animate-bounce">
-            <p className="text-amber-400/80 text-sm font-bold tracking-widest uppercase">Role para baixo para ver mais</p>
-            <div className="w-px h-8 bg-gradient-to-b from-amber-400/0 via-amber-400 to-amber-400/0 mx-auto mt-2"></div>
+          {/* Bonuses unlocked */}
+          <div className="inline-flex items-center gap-2 px-5 py-3 rounded-xl animate-fade-in-up" style={{ animationDelay: '0.4s', background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.25)' }}>
+            <CheckCircle className="w-5 h-5" style={{ color: '#22c55e' }} />
+            <span className="text-sm font-bold text-gray-300">5 bônus exclusivos desbloqueados — <span style={{ color: '#22c55e' }}>R$235 em conteúdo grátis</span></span>
           </div>
         </div>
-      </div>
 
-      {/* Transformations Section */}
-      <section className="relative bg-black py-16 px-4 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-900/20 via-black to-black pointer-events-none"></div>
+        {/* Bottom gradient fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none" style={{ background: 'linear-gradient(to top, white, transparent)' }} />
+      </section>
 
-        <div className="container mx-auto max-w-4xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 mb-6 animate-fade-in-up">
-            <Sparkles className="w-4 h-4 text-amber-400" />
-            <span className="text-sm font-bold text-amber-400 tracking-wider uppercase">💎 Obras Reais de Alunos</span>
+      {/* ===== REVENUE DEMONSTRATION ===== */}
+      <section className="py-16 px-4 overflow-hidden" style={{ background: 'linear-gradient(160deg, #0A1628, #0F2035, #0A1628)' }}>
+        <div ref={revenueSection.ref} className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--amber-brand)' }}>💰 Simulação Real</p>
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-3" style={{ fontFamily: 'Sora' }}>
+              Como Você Vai Faturar <span className="text-gradient-turquoise">+R$15 Mil/Mês</span>
+            </h2>
+            <p className="text-gray-400 text-lg">Veja a matemática por trás do sucesso dos nossos alunos</p>
           </div>
 
-          <h2 className="font-headline text-2xl md:text-4xl lg:text-5xl font-black text-white mb-4 animate-fade-in-up leading-tight" style={{ animationDelay: '100ms' }}>
-            OBRAS QUE NOSSOS ALUNOS COBRARAM <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-green-400 to-green-500">R$ 12-28 MIL</span>
-          </h2>
-          <p className="text-base md:text-lg text-gray-400 mb-8 animate-fade-in-up" style={{ animationDelay: '150ms' }}>
-            (Usando Exatamente o Que Você Vai Aprender)
-          </p>
+          {/* Contract Simulation */}
+          <div className={`transition-all duration-1000 ${revenueSection.vis ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+            {/* Step-by-step visual flow */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+              {[
+                { step: '1️⃣', title: 'Cliente te Encontra', desc: 'Pelo Instagram ou indicação', icon: '📲', delay: 0 },
+                { step: '2️⃣', title: 'Você Envia o Orçamento', desc: 'Com nosso script pronto', icon: '📋', delay: 200 },
+                { step: '3️⃣', title: 'Contrato Fechado!', desc: 'Cliente paga adiantado', icon: '🤝', delay: 400 },
+              ].map((s, i) => (
+                <div key={i} className={`relative p-5 rounded-2xl text-center transition-all duration-700 ${revenueSection.vis ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                  style={{ transitionDelay: `${s.delay + 300}ms`, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <div className="text-3xl mb-3">{s.icon}</div>
+                  <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--turquoise)' }}>{s.step}</p>
+                  <h4 className="text-lg font-black text-white mb-1" style={{ fontFamily: 'Sora' }}>{s.title}</h4>
+                  <p className="text-sm text-gray-400">{s.desc}</p>
+                  {i < 2 && <div className="hidden md:block absolute top-1/2 -right-3 -translate-y-1/2 text-2xl" style={{ color: 'var(--turquoise)' }}>→</div>}
+                </div>
+              ))}
+            </div>
 
-          {/* Interactive Instruction */}
-          <div className="flex items-center justify-center gap-3 mb-12 animate-pulse">
-            <MoveHorizontal className="text-white/50 w-6 h-6" />
-            <p className="text-sm md:text-base text-white/70 font-bold uppercase tracking-widest border-b border-white/20 pb-0.5">
-              Arraste para comparar
-            </p>
-            <MoveHorizontal className="text-white/50 w-6 h-6" />
+            {/* 3 Real Projects */}
+            <div className={`rounded-3xl overflow-hidden transition-all duration-1000 ${revenueSection.vis ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+              style={{ transitionDelay: '800ms', background: 'linear-gradient(135deg, rgba(0,194,203,0.1), rgba(245,166,35,0.05))', border: '2px solid rgba(0,194,203,0.2)' }}>
+              <div className="p-6 md:p-8">
+                <div className="text-center mb-6">
+                  <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">📋 3 Projetos Simples no Mês</p>
+                  <div className="h-px w-20 mx-auto" style={{ background: 'var(--turquoise)' }} />
+                </div>
+
+                {/* 3 Projects cards */}
+                <div className="flex flex-col gap-3 mb-6">
+                  {[
+                    { emoji: '🛋️', room: 'Sala de Estar', area: '40m²', price: 'R$180/m²', total: 'R$7.200', cost: 'R$1.080', profit: 'R$6.120', days: '3 dias', color: 'var(--turquoise)' },
+                    { emoji: '🚿', room: 'Banheiro', area: '18m²', price: 'R$200/m²', total: 'R$3.600', cost: 'R$540', profit: 'R$3.060', days: '2 dias', color: 'var(--amber-brand)' },
+                    { emoji: '🛏️', room: 'Quarto Casal', area: '30m²', price: 'R$180/m²', total: 'R$5.400', cost: 'R$810', profit: 'R$4.590', days: '3 dias', color: '#7C4DFF' },
+                  ].map((p, i) => (
+                    <div key={i} className={`p-4 rounded-2xl flex items-center gap-4 transition-all duration-700 ${revenueSection.vis ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}
+                      style={{ transitionDelay: `${1000 + i * 250}ms`, background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                      <div className="text-3xl flex-shrink-0">{p.emoji}</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h4 className="text-sm font-black text-white">{p.room}</h4>
+                          <span className="text-[9px] font-bold px-1.5 py-0.5 rounded text-white" style={{ background: p.color }}>{p.days}</span>
+                        </div>
+                        <p className="text-[11px] text-gray-400">{p.area} × {p.price} = {p.total}</p>
+                        <p className="text-[10px] text-gray-500">Material: -{p.cost}</p>
+                      </div>
+                      <div className="text-right flex-shrink-0">
+                        <p className="text-xs text-gray-500 uppercase">Lucro</p>
+                        <p className="text-lg font-black" style={{ fontFamily: 'Sora', color: '#22c55e' }}>{p.profit}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Totals */}
+                <div className="p-5 rounded-2xl mb-6" style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div className="flex items-center justify-between mb-2.5 pb-2.5" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                    <span className="text-sm text-gray-400">Faturamento total (3 projetos)</span>
+                    <span className="text-base font-bold text-white">R$ 16.200</span>
+                  </div>
+                  <div className="flex items-center justify-between mb-2.5 pb-2.5" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                    <span className="text-sm text-gray-400">(-) Materiais e tintas</span>
+                    <span className="text-base font-bold text-red-400">- R$ 2.430</span>
+                  </div>
+                  <div className="flex items-center justify-between mb-2.5 pb-2.5" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                    <span className="text-sm text-gray-400">Dias trabalhados no mês</span>
+                    <span className="text-base font-bold text-white">Apenas 8 dias</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-base font-bold" style={{ color: '#22c55e' }}>💰 LUCRO LÍQUIDO MENSAL</span>
+                    <span className="text-2xl font-black" style={{ fontFamily: 'Sora', color: '#22c55e' }}>
+                      <AnimatedNumber target={13770} prefix="R$" duration={2500} />
+                    </span>
+                  </div>
+                </div>
+
+                {/* Premium Days comparison */}
+                <div className="mt-8 relative animate-fade-in-up" style={{ animationDelay: '1s' }}>
+                  <div className="text-center mb-6">
+                    <span className="inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest text-white mb-2" style={{ background: 'linear-gradient(135deg, #E91E63, #9A1440)', boxShadow: '0 4px 15px rgba(233,30,99,0.3)' }}>A Verdade Que Não Te Contam</span>
+                    <h3 className="text-2xl font-black text-white" style={{ fontFamily: 'Sora' }}>CLT vs <span className="text-gradient-turquoise">Ser o Seu Próprio Chefe</span></h3>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-3xl overflow-hidden" style={{ border: '2px solid rgba(255,255,255,0.1)', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
+                    {/* Vida Comum (CLT) */}
+                    <div className="p-8 relative" style={{ background: 'linear-gradient(180deg, rgba(30,15,20,0.9), rgba(15,10,12,0.95))' }}>
+                      <div className="absolute top-0 right-0 p-4 opacity-10 text-6xl">🏢</div>
+                      <p className="text-xs font-bold text-red-400 uppercase tracking-widest mb-6 flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" /> A Vida Comum (CLT)</p>
+
+                      <div className="space-y-5">
+                        <div className="flex items-start gap-4">
+                          <div className="w-10 h-10 rounded-xl bg-red-950/50 flex items-center justify-center text-red-500 border border-red-900/50 flex-shrink-0">⏳</div>
+                          <div>
+                            <p className="text-2xl font-black text-white" style={{ fontFamily: 'Sora' }}>22 Dias</p>
+                            <p className="text-xs text-gray-400 leading-tight mt-1">Trabalhando de seg a sex,<br />bater ponto e pegar trânsito</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-4">
+                          <div className="w-10 h-10 rounded-xl bg-red-950/50 flex items-center justify-center text-red-500 border border-red-900/50 flex-shrink-0">💸</div>
+                          <div>
+                            <p className="text-2xl font-black text-red-400" style={{ fontFamily: 'Sora' }}>R$ 2.500</p>
+                            <p className="text-xs text-gray-400 leading-tight mt-1">Salário médio fixo,<br />sem perspectiva de aumento</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Vida Premium */}
+                    <div className="p-8 relative" style={{ background: 'linear-gradient(180deg, rgba(0,194,203,0.15), rgba(0,194,203,0.05))', borderLeft: '1px solid rgba(0,194,203,0.2)' }}>
+                      <div className="absolute top-0 right-0 w-full h-full pointer-events-none" style={{ background: 'radial-gradient(circle at top right, rgba(0,194,203,0.2), transparent 60%)' }} />
+                      <div className="absolute top-0 right-0 p-4 opacity-20 text-6xl">🏖️</div>
+                      <p className="text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2" style={{ color: 'var(--turquoise)' }}><span className="w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--turquoise)' }} /> A Vida Especialista</p>
+
+                      <div className="space-y-5 relative z-10">
+                        <div className="flex items-start gap-4">
+                          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white border flex-shrink-0" style={{ background: 'rgba(0,194,203,0.2)', borderColor: 'rgba(0,194,203,0.4)', boxShadow: '0 0 15px rgba(0,194,203,0.2)' }}>⚡</div>
+                          <div>
+                            <p className="text-2xl font-black text-white" style={{ fontFamily: 'Sora' }}>Apenas 8 Dias</p>
+                            <p className="text-xs text-gray-300 leading-tight mt-1">Fazendo os seus horários,<br />com 22 dias livres no mês</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-4">
+                          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white border flex-shrink-0" style={{ background: 'rgba(34,197,94,0.2)', borderColor: 'rgba(34,197,94,0.4)', boxShadow: '0 0 15px rgba(34,197,94,0.2)' }}>💰</div>
+                          <div>
+                            <p className="text-3xl font-black" style={{ fontFamily: 'Sora', color: '#22c55e' }}>R$ 13.770</p>
+                            <p className="text-xs text-gray-300 leading-tight mt-1">Lucro limpo no seu bolso,<br />sendo o seu próprio chefe</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 text-center p-6 rounded-2xl relative overflow-hidden animate-subtle-pulse" style={{ background: 'linear-gradient(135deg, rgba(0,194,203,0.15), rgba(245,166,35,0.1))', border: '1px solid rgba(0,194,203,0.3)' }}>
+                  <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(var(--turquoise) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+                  <p className="relative z-10 text-xl font-black text-white leading-snug">
+                    <span className="text-gradient-turquoise text-2xl mb-1 block">Mais de 5x o lucro.</span>
+                    Trabalhando <span style={{ color: 'var(--amber-brand)' }}>menos da metade</span> do tempo.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+      </section>
 
-          <div className="flex flex-col items-center gap-16">
-            {transformations.map((t, index) => (
-              <div key={t.id} className="relative w-full group animate-fade-in-up" style={{ animationDelay: `${200 + index * 100}ms` }}>
-                {/* Decorative border/glow for each slider */}
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-500/30 via-white/10 to-amber-500/30 rounded-xl blur opacity-30 group-hover:opacity-60 transition-opacity duration-500"></div>
-                <div className="relative rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-black">
-                  <BeforeAfterSlider
-                    before={t.before}
-                    after={t.after}
-                    priority={t.priority}
-                  />
+      {/* ===== HOW TO SELL - Visual ===== */}
+      <section className="py-16 px-4" style={{ background: '#F7F8FA' }}>
+        <div ref={sellSection.ref} className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--turquoise)' }}>✨ Sistema Completo de Vendas</p>
+            <h2 className="text-2xl md:text-4xl font-black" style={{ fontFamily: 'Sora', color: '#111' }}>Tudo Para Você <span style={{ color: 'var(--turquoise)' }}>Vender, Fechar e Faturar</span></h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              { gradient: 'linear-gradient(135deg, #E91E63, #C2185B)', icon: '📲', title: 'Instagram que Vende', items: ['Perfil profissional otimizado', 'Templates prontos de posts', 'Estratégia para clientes premium'], stat: '+5K seg/mês' },
+              { gradient: 'linear-gradient(135deg, #00C2CB, #009AA2)', icon: '💼', title: 'Orçamento que Fecha', items: ['Script de apresentação completo', 'Justificativa de valor premium', 'Proposta pronta para WhatsApp'], stat: '87% fechamento' },
+              { gradient: 'linear-gradient(135deg, #F5A623, #D4880A)', icon: '🚀', title: 'Plano R$15K/mês', items: ['Projetos necessários/mês', 'Agenda de visitas organizada', 'Sistema de indicações automáticas'], stat: 'R$15K/mês' },
+            ].map((card, i) => (
+              <div key={i} className={`rounded-2xl overflow-hidden transition-all duration-700 hover:scale-[1.03] ${sellSection.vis ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{ transitionDelay: `${i * 200}ms` }}>
+                <div className="h-1.5" style={{ background: card.gradient }} />
+                <div className="card-clean p-6 rounded-t-none border-t-0">
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: card.gradient, boxShadow: '0 6px 20px rgba(0,0,0,0.15)' }}>{card.icon}</div>
+                  <h3 className="text-xl font-black mb-3" style={{ fontFamily: 'Sora', color: '#111' }}>{card.title}</h3>
+                  <ul className="space-y-2.5 mb-5">{card.items.map((item, j) => (
+                    <li key={j} className="flex items-center gap-2 text-sm text-gray-600"><span className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] text-white" style={{ background: card.gradient }}>✓</span>{item}</li>
+                  ))}</ul>
+                  <div className="pt-3" style={{ borderTop: '1px solid #E8EBF0' }}>
+                    <p className="text-xl font-black" style={{ fontFamily: 'Sora', backgroundImage: card.gradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{card.stat}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -223,443 +355,348 @@ export default function ResultadoPage() {
         </div>
       </section>
 
-      {/* What You'll Receive Section - Ultra Premium Design */}
-      <section className="relative bg-gradient-to-b from-[#080808] via-[#0d0d0d] to-[#050505] py-20 px-4 overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[150px] pointer-events-none"></div>
-        <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-amber-500/5 to-transparent rounded-full pointer-events-none"></div>
-
-        <div className="container mx-auto max-w-4xl relative z-10">
-          {/* Header */}
-          <div className="text-center mb-16 animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-500/20 via-yellow-500/10 to-amber-500/20 border border-amber-500/30 mb-8 shadow-[0_0_30px_rgba(245,158,11,0.2)]">
-              <Sparkles className="w-5 h-5 text-amber-400 animate-pulse" />
-              <span className="text-sm font-bold text-amber-400 uppercase tracking-widest">🎁 Acesso Completo Liberado</span>
-            </div>
-            <h2 className="font-headline text-4xl md:text-6xl font-black text-white mb-4 leading-tight">
-              Tudo que você vai{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 drop-shadow-[0_0_25px_rgba(251,191,36,0.5)]">
-                receber
-              </span>
+      {/* ===== BONUSES ===== */}
+      <section className="py-16 px-4 bg-white">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-4xl font-black" style={{ fontFamily: 'Sora', color: '#111' }}>
+              <span style={{ color: 'var(--amber-brand)' }}>R$235 em Bônus</span> Exclusivos
             </h2>
-            <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
-              Sistema completo para dominar o marmorizado e faturar <span className="text-green-400 font-bold">R$ 15.000/mês</span> ou mais
-            </p>
+            <p className="mt-2 text-gray-500">Inclusos gratuitamente no seu acesso</p>
           </div>
-
-          {/* Benefits Grid - Ultra Premium Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+          <div className="flex flex-col gap-5">
+            {/* Bonus 1 */}
             {[
               {
-                title: "Técnicas Completas de Marmorização",
-                subtitle: "Do básico ao avançado, passo a passo",
-                icon: Palette,
-                gradient: "from-pink-500 via-rose-500 to-red-500",
-                glowColor: "rgba(244,63,94,0.4)"
+                num: 1,
+                name: 'Guia de Precificação Lucrativa',
+                desc: 'Saiba exatamente quanto cobrar por cada m² para ter o máximo de lucro.',
+                val: 'R$47',
+                gradient: 'linear-gradient(135deg, #00C2CB, #009AA2)',
+                shadow: 'rgba(0,194,203,0.3)',
+                icon: (
+                  <svg viewBox="0 0 80 80" className="w-full h-full animate-float" style={{ animationDuration: '4s' }}>
+                    <defs>
+                      <linearGradient id="coinG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#F5A623" /><stop offset="100%" stopColor="#D4880A" /></linearGradient>
+                    </defs>
+                    <ellipse cx="40" cy="58" rx="22" ry="6" fill="#D4880A" opacity="0.3" />
+                    <rect x="22" y="36" width="36" height="16" rx="3" fill="url(#coinG)" stroke="#B8860B" strokeWidth="1.5" />
+                    <text x="40" y="48" textAnchor="middle" fill="white" fontSize="11" fontWeight="bold" fontFamily="Sora">R$</text>
+                    <rect x="22" y="24" width="36" height="16" rx="3" fill="url(#coinG)" stroke="#B8860B" strokeWidth="1.5" />
+                    <text x="40" y="36" textAnchor="middle" fill="white" fontSize="11" fontWeight="bold" fontFamily="Sora">R$</text>
+                    <rect x="22" y="12" width="36" height="16" rx="3" fill="url(#coinG)" stroke="#B8860B" strokeWidth="1.5" />
+                    <text x="40" y="24" textAnchor="middle" fill="white" fontSize="11" fontWeight="bold" fontFamily="Sora">R$</text>
+                    <circle cx="58" cy="16" r="10" fill="#22c55e" stroke="white" strokeWidth="2">
+                      <animate attributeName="r" values="10;12;10" dur="2s" repeatCount="indefinite" />
+                    </circle>
+                    <text x="58" y="20" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">✓</text>
+                  </svg>
+                ),
               },
               {
-                title: "Aulas em Vídeo HD",
-                subtitle: "Aprenda no seu ritmo com conteúdo gravado",
-                icon: Video,
-                gradient: "from-violet-500 via-purple-500 to-indigo-500",
-                glowColor: "rgba(139,92,246,0.4)"
+                num: 2,
+                name: 'Pack de Artes para Instagram',
+                desc: '+50 templates prontos para postar e atrair clientes premium no Instagram.',
+                val: 'R$97',
+                gradient: 'linear-gradient(135deg, #E91E63, #C2185B)',
+                shadow: 'rgba(233,30,99,0.3)',
+                icon: (
+                  <svg viewBox="0 0 80 80" className="w-full h-full" style={{ animation: 'float 3.5s ease-in-out infinite' }}>
+                    <defs>
+                      <linearGradient id="phoneG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#E91E63" /><stop offset="100%" stopColor="#C2185B" /></linearGradient>
+                    </defs>
+                    <rect x="22" y="8" width="36" height="64" rx="8" fill="url(#phoneG)" stroke="#AD1457" strokeWidth="1.5" />
+                    <rect x="26" y="18" width="28" height="40" rx="2" fill="white" opacity="0.95" />
+                    <circle cx="40" cy="66" r="3" fill="white" opacity="0.5" />
+                    <rect x="34" y="10" width="12" height="3" rx="1.5" fill="white" opacity="0.3" />
+                    {/* Mini grid inside */}
+                    <rect x="28" y="20" width="12" height="12" rx="1" fill="#FCE4EC" />
+                    <rect x="42" y="20" width="12" height="12" rx="1" fill="#F8BBD0" />
+                    <rect x="28" y="34" width="12" height="12" rx="1" fill="#F48FB1" />
+                    <rect x="42" y="34" width="12" height="12" rx="1" fill="#FCE4EC" />
+                    <rect x="28" y="48" width="26" height="8" rx="1" fill="#E91E63" opacity="0.3" />
+                    {/* Notification ping */}
+                    <circle cx="56" cy="14" r="6" fill="#F5A623">
+                      <animate attributeName="opacity" values="1;0.4;1" dur="1.5s" repeatCount="indefinite" />
+                    </circle>
+                    <text x="56" y="17" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">!</text>
+                  </svg>
+                ),
               },
               {
-                title: "Guia Completo de Precificação",
-                subtitle: "Saiba exatamente quanto cobrar",
-                icon: Coins,
-                gradient: "from-amber-400 via-yellow-500 to-orange-500",
-                glowColor: "rgba(245,158,11,0.4)"
+                num: 3,
+                name: 'Lista de Materiais Econômicos',
+                desc: 'Onde comprar tintas e materiais mais baratos. Economize até 60%!',
+                val: 'R$37',
+                gradient: 'linear-gradient(135deg, #00C2CB, #00838F)',
+                shadow: 'rgba(0,194,203,0.3)',
+                icon: (
+                  <svg viewBox="0 0 80 80" className="w-full h-full animate-float" style={{ animationDuration: '3s' }}>
+                    <defs>
+                      <linearGradient id="paintG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#00C2CB" /><stop offset="100%" stopColor="#00838F" /></linearGradient>
+                    </defs>
+                    {/* Paint bucket */}
+                    <path d="M24 30 L24 60 Q24 66 30 66 L50 66 Q56 66 56 60 L56 30 Z" fill="url(#paintG)" stroke="#006064" strokeWidth="1.5" />
+                    <rect x="20" y="26" width="40" height="8" rx="3" fill="url(#paintG)" stroke="#006064" strokeWidth="1.5" />
+                    {/* Handle */}
+                    <path d="M60 30 Q68 30 68 22 Q68 14 60 14 L50 14" fill="none" stroke="#006064" strokeWidth="2.5" strokeLinecap="round" />
+                    {/* Paint drip */}
+                    <path d="M56 40 Q62 42 60 50 Q58 56 56 50" fill="#00C2CB" opacity="0.7">
+                      <animate attributeName="d" values="M56 40 Q62 42 60 50 Q58 56 56 50;M56 40 Q64 44 62 54 Q58 62 56 50;M56 40 Q62 42 60 50 Q58 56 56 50" dur="3s" repeatCount="indefinite" />
+                    </path>
+                    {/* Shine */}
+                    <rect x="30" y="34" width="4" height="12" rx="2" fill="white" opacity="0.3" />
+                  </svg>
+                ),
               },
               {
-                title: "Como Encontrar Clientes Premium",
-                subtitle: "Técnicas para atrair quem paga bem",
-                icon: Users,
-                gradient: "from-cyan-400 via-sky-500 to-blue-500",
-                glowColor: "rgba(14,165,233,0.4)"
+                num: 4,
+                name: 'Guia de Vendas para Iniciantes',
+                desc: 'Como vender seus primeiros projetos por WhatsApp e indicações.',
+                val: 'R$67',
+                gradient: 'linear-gradient(135deg, #F5A623, #E65100)',
+                shadow: 'rgba(245,166,35,0.3)',
+                icon: (
+                  <svg viewBox="0 0 80 80" className="w-full h-full">
+                    <defs>
+                      <linearGradient id="rocketG" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stopColor="#F5A623" /><stop offset="100%" stopColor="#FF6D00" /></linearGradient>
+                    </defs>
+                    {/* Rocket body */}
+                    <g style={{ animation: 'float 2.5s ease-in-out infinite' }}>
+                      <path d="M40 10 Q32 28 32 44 L48 44 Q48 28 40 10 Z" fill="url(#rocketG)" stroke="#E65100" strokeWidth="1.5" />
+                      <circle cx="40" cy="32" r="5" fill="white" opacity="0.9" />
+                      <circle cx="40" cy="32" r="2.5" fill="#F5A623" />
+                      {/* Fins */}
+                      <path d="M32 38 L22 48 L32 44 Z" fill="#FF6D00" />
+                      <path d="M48 38 L58 48 L48 44 Z" fill="#FF6D00" />
+                      {/* Flame */}
+                      <path d="M35 44 Q40 58 45 44" fill="#ef4444">
+                        <animate attributeName="d" values="M35 44 Q40 58 45 44;M36 44 Q40 62 44 44;M35 44 Q40 58 45 44" dur="0.5s" repeatCount="indefinite" />
+                      </path>
+                      <path d="M37 44 Q40 54 43 44" fill="#FFA726">
+                        <animate attributeName="d" values="M37 44 Q40 54 43 44;M38 44 Q40 58 42 44;M37 44 Q40 54 43 44" dur="0.4s" repeatCount="indefinite" />
+                      </path>
+                    </g>
+                    {/* Stars */}
+                    <circle cx="18" cy="20" r="2" fill="#F5A623" opacity="0.6"><animate attributeName="opacity" values="0.6;0.1;0.6" dur="2s" repeatCount="indefinite" /></circle>
+                    <circle cx="62" cy="26" r="1.5" fill="#F5A623" opacity="0.4"><animate attributeName="opacity" values="0.4;0.1;0.4" dur="1.8s" repeatCount="indefinite" /></circle>
+                    <circle cx="24" cy="58" r="1.5" fill="#F5A623" opacity="0.5"><animate attributeName="opacity" values="0.5;0.1;0.5" dur="2.2s" repeatCount="indefinite" /></circle>
+                  </svg>
+                ),
               },
               {
-                title: "Posicionamento em Redes Sociais",
-                subtitle: "Destaque-se e atraia clientes pelo Instagram",
-                icon: Smartphone,
-                gradient: "from-fuchsia-500 via-pink-500 to-rose-500",
-                glowColor: "rgba(236,72,153,0.4)"
+                num: 5,
+                name: 'Transforme em Renda Principal',
+                desc: 'Plano completo para sair do emprego e fazer do marmorizado sua profissão.',
+                val: 'R$37',
+                gradient: 'linear-gradient(135deg, #7C4DFF, #512DA8)',
+                shadow: 'rgba(124,77,255,0.3)',
+                icon: (
+                  <svg viewBox="0 0 80 80" className="w-full h-full animate-float" style={{ animationDuration: '3.5s' }}>
+                    <defs>
+                      <linearGradient id="crownG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#F5A623" /><stop offset="100%" stopColor="#FF6F00" /></linearGradient>
+                    </defs>
+                    {/* Trophy */}
+                    <path d="M28 28 L28 46 Q28 56 40 58 Q52 56 52 46 L52 28 Z" fill="url(#crownG)" stroke="#E65100" strokeWidth="1.5" />
+                    <rect x="34" y="58" width="12" height="6" rx="1" fill="#D4880A" />
+                    <rect x="30" y="64" width="20" height="4" rx="2" fill="#D4880A" />
+                    {/* Handles */}
+                    <path d="M28 32 Q18 32 18 40 Q18 48 28 48" fill="none" stroke="#E65100" strokeWidth="2.5" strokeLinecap="round" />
+                    <path d="M52 32 Q62 32 62 40 Q62 48 52 48" fill="none" stroke="#E65100" strokeWidth="2.5" strokeLinecap="round" />
+                    {/* Star */}
+                    <polygon points="40,32 42,38 48,38 43,42 45,48 40,44 35,48 37,42 32,38 38,38" fill="white" opacity="0.9">
+                      <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2s" repeatCount="indefinite" />
+                    </polygon>
+                    {/* Sparkles */}
+                    <circle cx="22" cy="18" r="2" fill="#F5A623"><animate attributeName="r" values="2;3;2" dur="1.5s" repeatCount="indefinite" /></circle>
+                    <circle cx="58" cy="16" r="1.5" fill="#F5A623"><animate attributeName="r" values="1.5;2.5;1.5" dur="1.8s" repeatCount="indefinite" /></circle>
+                    <circle cx="40" cy="14" r="2.5" fill="#F5A623"><animate attributeName="r" values="2.5;3.5;2.5" dur="2s" repeatCount="indefinite" /></circle>
+                  </svg>
+                ),
               },
-              {
-                title: "Modelos de Posts Prontos",
-                subtitle: "Copie e cole para suas redes",
-                icon: FileText,
-                gradient: "from-emerald-400 via-green-500 to-teal-500",
-                glowColor: "rgba(16,185,129,0.4)"
-              },
-              {
-                title: "Plano de Ação R$15K/mês",
-                subtitle: "Roteiro para escalar seus ganhos",
-                icon: Rocket,
-                gradient: "from-orange-400 via-red-500 to-pink-500",
-                glowColor: "rgba(249,115,22,0.4)"
-              },
-              {
-                title: "Acesso Vitalício + Atualizações",
-                subtitle: "Nunca mais pague nada extra",
-                icon: Zap,
-                gradient: "from-lime-400 via-emerald-500 to-green-500",
-                glowColor: "rgba(132,204,22,0.4)"
-              },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="group relative flex items-center gap-4 p-5 md:p-6 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 animate-fade-in-up overflow-hidden"
-                style={{
-                  animationDelay: `${index * 100}ms`,
-                }}
-              >
-                {/* Hover Glow Effect */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
-                  style={{
-                    background: `radial-gradient(circle at 30% 50%, ${item.glowColor} 0%, transparent 60%)`,
-                  }}
-                ></div>
-
-                {/* Animated Border Glow */}
-                <div className="absolute -inset-[1px] bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl blur-sm pointer-events-none" style={{ backgroundImage: `linear-gradient(to right, ${item.gradient.split(' ').filter(c => c.startsWith('from-') || c.startsWith('via-') || c.startsWith('to-')).map(c => c.replace('from-', '').replace('via-', '').replace('to-', '')).join(',')})` }}></div>
-
-                {/* Icon Container */}
-                <div className={`relative flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110`}
-                  style={{ boxShadow: `0 8px 32px ${item.glowColor}` }}
-                >
-                  <item.icon className="w-7 h-7 md:w-8 md:h-8 text-white drop-shadow-lg" />
-                </div>
-
+            ].map((b, i) => (
+              <div key={i} className={cn("rounded-2xl p-6 text-center transition-all duration-700 hover:scale-[1.02]", bonusVis[i] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8')}
+                style={{ background: '#F7F8FA', border: '1px solid #E8EBF0' }}>
+                {/* Badge */}
+                <span className="inline-block text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full mb-4" style={{ background: `${b.gradient}`, color: 'white' }}>
+                  Bônus {b.num}
+                </span>
+                {/* Animated Icon */}
+                <div className="w-20 h-20 mx-auto mb-4">{b.icon}</div>
                 {/* Content */}
-                <div className="relative flex-1 min-w-0">
-                  <h3 className="font-bold text-white text-base md:text-lg leading-tight mb-1 group-hover:text-white transition-colors truncate">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors truncate">
-                    {item.subtitle}
-                  </p>
-                </div>
-
-                {/* Checkmark with Glow */}
-                <div className="relative flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center shadow-[0_0_20px_rgba(34,197,94,0.5)] group-hover:shadow-[0_0_30px_rgba(34,197,94,0.7)] transition-all duration-300">
-                  <CheckCircle className="w-5 h-5 text-white" strokeWidth={3} />
+                <h4 className="text-lg font-black text-gray-900 mb-2" style={{ fontFamily: 'Sora' }}>{b.name}</h4>
+                <p className="text-sm text-gray-500 leading-relaxed mb-3">{b.desc}</p>
+                <div className="flex items-center justify-center gap-2">
+                  <span className="text-sm text-gray-400 line-through">{b.val}</span>
+                  <span className="px-3 py-1 rounded-full text-xs font-black text-white" style={{ background: '#22c55e' }}>GRÁTIS</span>
                 </div>
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* Bottom CTA - Premium */}
-          <div className="mt-14 text-center animate-fade-in-up" style={{ animationDelay: '900ms' }}>
-            <div className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-500/20 via-yellow-500/10 to-amber-500/20 border border-amber-500/40 shadow-[0_0_40px_rgba(245,158,11,0.2)] hover:shadow-[0_0_60px_rgba(245,158,11,0.3)] transition-all duration-300 hover:scale-105">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg">
-                <Gem className="w-6 h-6 text-white" />
-              </div>
-              <div className="text-left">
-                <p className="text-amber-400 font-black text-lg md:text-xl">+R$ 500 em bônus</p>
-                <p className="text-amber-400/60 text-sm font-medium">Inclusos gratuitamente</p>
-              </div>
-            </div>
+      {/* ===== BEFORE/AFTER ===== */}
+      <section className="py-16 px-4" style={{ background: '#F7F8FA' }}>
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--turquoise)' }}>Obras Reais</p>
+          <h2 className="text-2xl md:text-4xl font-black text-gray-900 mb-2" style={{ fontFamily: 'Sora' }}>Resultados que Valem <span className="text-gradient-turquoise">R$12–28 MIL</span></h2>
+          <div className="flex items-center justify-center gap-2 mb-10 mt-4 animate-pulse"><MoveHorizontal className="w-5 h-5 text-gray-400" /><span className="text-xs font-bold uppercase tracking-widest text-gray-400">Arraste para comparar</span><MoveHorizontal className="w-5 h-5 text-gray-400" /></div>
+          <div className="flex flex-col gap-10">
+            {transformations.map((t, i) => (
+              <div key={t.id}><div className="rounded-xl overflow-hidden shadow-xl" style={{ border: '1px solid #E8EBF0' }}><BeforeAfterSlider before={t.before} after={t.after} priority={t.priority} /></div><p className="mt-3 text-sm font-bold text-gray-700">{t.label}</p></div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Video Gate Section - Replaces Area de Membros */}
-      <section className="relative bg-[#050505] py-20 px-4 overflow-hidden border-b border-white/5">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-900/10 via-black to-black opacity-50"></div>
-
-        <div className="container mx-auto max-w-4xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 mb-6 animate-fade-in-up">
-            <span className="px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold uppercase tracking-widest shadow-[0_0_15px_rgba(245,158,11,0.1)]">
-              Vídeo Exclusivo para Você
-            </span>
-          </div>
-
-          <h2 className="font-headline text-3xl md:text-5xl font-black text-white mb-8 leading-tight animate-fade-in-up">
-            VEJA COMO FUNCIONA <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-br from-amber-300 via-yellow-500 to-amber-700">NA PRÁTICA</span>
+      {/* ===== MEMBER AREA DEMO ===== */}
+      <section className="py-16 px-4 bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--turquoise)' }}>👀 Prévia Exclusiva</p>
+          <h2 className="text-2xl md:text-4xl font-black text-gray-900 mb-3" style={{ fontFamily: 'Sora' }}>
+            Veja Por Dentro da <span className="text-gradient-turquoise">Área de Membros</span>
           </h2>
-
-          {/* Single Vertical Video */}
-          <div className="relative group animate-fade-in-up max-w-[320px] mx-auto mb-12" style={{ animationDelay: '300ms' }}>
-            <div className="absolute -inset-4 bg-amber-500/10 blur-3xl rounded-full opacity-0 group-hover:opacity-40 transition-opacity duration-700"></div>
-
-            {/* Phone Frame */}
-            <div className="relative mx-auto bg-[#1a1a1a] rounded-[2.5rem] border-[4px] border-[#2a2a2a] shadow-2xl overflow-hidden ring-1 ring-white/10">
-              <div className="relative bg-black aspect-[9/16] w-full overflow-hidden">
-                <WistiaWebPlayer mediaId="2tj2pzmgz2" aspect={0.5625} />
-              </div>
-            </div>
-
-            <div className="mt-6 flex items-center justify-center gap-2 text-amber-400/60 text-sm font-bold uppercase tracking-widest animate-pulse">
-              <Smartphone className="w-4 h-4" /> Assista até o final
-            </div>
-          </div>
-
-          {/* Unlock Button */}
-          {!isUnlocked && (
-            <div className="animate-fade-in-up" style={{ animationDelay: '500ms' }}>
-              <Button
-                size="lg"
-                className="button-shine-gradient text-black hover:text-black font-black w-full max-w-md mx-auto rounded-full h-20 text-lg md:text-xl shadow-[0_0_40px_rgba(245,158,11,0.4)] hover:shadow-[0_0_60px_rgba(245,158,11,0.6)] active:scale-95 transition-all duration-300 border-2 border-amber-400/30"
-                onClick={() => {
-                  setIsUnlocked(true);
-                  setTimeout(() => {
-                    testimonialsRef.current?.scrollIntoView({ behavior: 'smooth' });
-                  }, 100);
-                }}
-              >
-                QUERO DESBLOQUEAR MEU ACESSO AGORA
-              </Button>
-              <p className="mt-4 text-gray-500 text-sm font-medium">Clique no botão acima para liberar os planos e bônus.</p>
-            </div>
-          )}
+          <p className="text-gray-500 mb-10">É isso que você vai acessar assim que garantir sua vaga</p>
+          <MemberAreaDemo />
         </div>
       </section>
 
-      {/* Conditional Content - Only visible after unlock */}
-      {isUnlocked && (
-        <div className="animate-fade-in">
-          {/* Testimonials */}
-          <section ref={testimonialsRef} className="flex flex-col items-center justify-center gap-8 bg-black py-16 px-6 md:py-24">
-            {/* ... Testimonials Content ... */}
+      {/* ===== TESTIMONIALS & PRICING ===== */}
+      <>
+        {/* Testimonials */}
+        <section ref={testimonialsRef} className="py-16 px-4 bg-white">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-10">
+              <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--turquoise)' }}>⭐ Depoimentos Reais em Vídeo</p>
+              <h2 className="text-2xl md:text-4xl font-black" style={{ fontFamily: 'Sora', color: '#111' }}>Veja Quem Já <span className="text-gradient-turquoise">Transformou Sua Vida</span></h2>
+              <p className="mt-2 text-gray-500">Alunos reais, resultados reais — assista os depoimentos</p>
+            </div>
+            <div className="grid grid-cols-3 gap-4 mb-10 p-6 rounded-2xl" style={{ background: '#F7F8FA', border: '1px solid #E8EBF0' }}>
+              {[{ v: '1.847+', l: 'Alunos Treinados', c: 'var(--turquoise)' }, { v: 'R$12.300', l: 'Média/Mês', c: 'var(--turquoise)' }, { v: 'R$94K', l: 'Maior Projeto', c: 'var(--amber-brand)' }].map((s, i) => (
+                <div key={i} className="text-center"><p className="text-xl md:text-3xl font-black" style={{ fontFamily: 'Sora', color: s.c }}>{s.v}</p><p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wider mt-1">{s.l}</p></div>
+              ))}
+            </div>
+            <div className="space-y-6">
+              <TestimonialCarousel videoIds={['6tdjfbsqle', 'xab9r7nndh']} />
+              <TestimonialCarousel videoIds={['ihs0hcvo3h', 'foutga0xyz']} />
+            </div>
+          </div>
+        </section>
 
-            {/* Stats Header */}
+        {/* Pricing */}
+        <section className="py-16 px-4" style={{ background: '#F7F8FA' }}>
+          <div className="max-w-5xl mx-auto">
             <div className="text-center mb-8">
-              <h2 className="font-headline text-2xl md:text-4xl font-black text-white mb-8">
-                🏆 <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-500">+1.847 PINTORES JÁ DOMINARAM A TÉCNICA</span>
-              </h2>
-              <p className="text-gray-400 text-lg mb-8">Veja Os Resultados Reais (e o $$ Que Eles Estão Faturando)</p>
-
-              {/* Big Stats */}
-              <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto mb-8">
-                <div className="bg-gradient-to-b from-white/5 to-transparent border border-white/10 rounded-xl p-4 md:p-6">
-                  <p className="text-2xl md:text-4xl font-black text-white">1.847</p>
-                  <p className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Alunos Treinados</p>
-                </div>
-                <div className="bg-gradient-to-b from-green-500/10 to-transparent border border-green-500/20 rounded-xl p-4 md:p-6">
-                  <p className="text-2xl md:text-4xl font-black text-green-400">R$ 12.300</p>
-                  <p className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Faturamento Médio/Mês</p>
-                </div>
-                <div className="bg-gradient-to-b from-amber-500/10 to-transparent border border-amber-500/20 rounded-xl p-4 md:p-6">
-                  <p className="text-2xl md:text-4xl font-black text-amber-400">R$ 94 MIL</p>
-                  <p className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Maior Projeto de Aluno</p>
-                </div>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-red-500 text-sm font-bold mb-4 animate-pulse" style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.2)' }}>🔥 OFERTA POR TEMPO LIMITADO</div>
+              <h2 className="text-3xl md:text-5xl font-black" style={{ fontFamily: 'Sora', color: '#111' }}>Escolha Seu Plano</h2>
+              <div className="mt-4 mb-6"><Countdown /></div>
+              <div className="max-w-xs mx-auto p-3 rounded-xl" style={{ background: 'rgba(239,68,68,0.04)', border: '1px solid rgba(239,68,68,0.15)' }}>
+                <div className="w-full rounded-full overflow-hidden mb-1" style={{ height: '10px', background: '#E8EBF0' }}><div className="h-full rounded-full" style={{ width: '83%', background: 'linear-gradient(90deg, #ef4444, #F5A623)' }} /></div>
+                <p className="text-xs text-gray-500">83/100 vagas — <span className="font-bold text-red-500">restam 17</span></p>
               </div>
             </div>
 
-            <div className='w-full max-w-4xl mx-auto'>
-              <div className="space-y-8">
-                <TestimonialCarousel videoIds={['6tdjfbsqle', 'xab9r7nndh']} />
-                <TestimonialCarousel videoIds={['ihs0hcvo3h', 'foutga0xyz']} />
-              </div>
-            </div>
-            <p className="mt-8 text-center text-lg md:text-xl max-w-3xl text-white/80">Assim como eles, você também pode começar <span className="text-amber-400 font-bold">do zero</span> e dominar o efeito marmorizado. Agora é só <span className="text-green-400 font-bold">escolher como quer começar</span>.</p>
-          </section>
-
-          {/* Plans Section */}
-          <section ref={plansRef} className="relative py-20 px-4 overflow-hidden bg-[#050505]">
-            {/* Background Atmosphere */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-900/10 via-black to-black"></div>
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[500px] bg-amber-500/5 blur-[100px] rounded-full pointer-events-none"></div>
-
-            <div className="container mx-auto max-w-5xl relative z-10">
-
-              {/* Header Agressivo */}
-              <div className="text-center mb-12 animate-fade-in-up">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 mb-4 animate-pulse">
-                  <Clock className="w-4 h-4 text-red-500" />
-                  <span className="text-sm font-bold text-red-500 tracking-wider uppercase">⚠️ TURMA FECHA EM 100 ALUNOS</span>
-                </div>
-                <h2 className="font-headline text-3xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-[0.95]">
-                  ÚLTIMA TURMA ABERTA EM 2026
-                </h2>
-                <h3 className="font-headline text-2xl md:text-4xl font-black mb-6 leading-tight">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-500 to-amber-600">PARE DE COBRAR R$ 40/m² POR PINTURA SIMPLES</span>
-                </h3>
-                <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto font-medium leading-relaxed">
-                  Você já viu o potencial. Já viu os resultados.<br className="hidden md:block" />
-                  <span className="text-white font-bold">Agora só falta VOCÊ tomar a decisão</span> que vai mudar seu jogo financeiro.
-                </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center max-w-4xl mx-auto">
+              <div className="card-alt p-6 opacity-80 scale-95 order-2 md:order-1">
+                <h3 className="text-xl font-bold text-gray-500 mb-1" style={{ fontFamily: 'Sora' }}>Básico</h3>
+                <p className="text-3xl font-bold text-gray-700 mb-6">R$5,99</p>
+                <ul className="space-y-2 mb-6 text-sm">
+                  <li className="flex items-center gap-2 text-gray-500"><CheckCircle className="w-4 h-4 text-gray-300" />Conteúdo escrito</li>
+                  <li className="flex items-center gap-2 text-gray-500"><CheckCircle className="w-4 h-4 text-gray-300" />Lista de materiais</li>
+                  <li className="flex items-center gap-2 text-gray-300 line-through">Aulas em Vídeo</li>
+                  <li className="flex items-center gap-2 text-gray-300 line-through">5 Bônus Exclusivos</li>
+                  <li className="flex items-center gap-2 text-gray-300 line-through">Certificado</li>
+                </ul>
+                <Button variant="outline" className="w-full rounded-xl h-12" style={{ border: '1px solid #E8EBF0', color: '#888' }} onClick={() => setStartUpsell(true)}>Quero o básico</Button>
               </div>
 
-              {/* Barra de Urgência - Vagas */}
-              <div className="w-full max-w-md mx-auto mb-12 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-                <div className="bg-gradient-to-r from-red-500/20 via-red-500/10 to-red-500/20 rounded-xl p-4 border border-red-500/30">
-                  <p className="text-sm text-gray-400 mb-2 text-center font-medium">VAGAS PREENCHIDAS</p>
-                  <div className="w-full bg-black/50 rounded-full h-4 border border-white/10 overflow-hidden">
-                    <div className="bg-gradient-to-r from-red-500 to-amber-500 h-full rounded-full transition-all duration-1000" style={{ width: '83%' }}></div>
+              <div className="relative rounded-3xl overflow-visible md:scale-110 z-20 order-1 md:order-2" style={{ border: '3px solid var(--turquoise)', boxShadow: '0 0 60px rgba(0,194,203,0.15)' }}>
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 text-white px-6 py-1.5 rounded-full font-black text-sm uppercase flex items-center gap-1.5 whitespace-nowrap animate-pulse z-30" style={{ background: 'linear-gradient(135deg, #ef4444, #dc2626)' }}><Sparkles className="w-4 h-4" /> MAIS ESCOLHIDO</div>
+                <div className="bg-white rounded-[20px] p-6 md:p-8">
+                  <div className="text-center pb-5 mb-5" style={{ borderBottom: '1px solid #E8EBF0' }}>
+                    <h3 className="text-2xl md:text-3xl font-black text-gray-900" style={{ fontFamily: 'Sora' }}>COMPLETO + BÔNUS</h3>
+                    <p className="text-sm font-bold mt-1" style={{ color: 'var(--turquoise)' }}>Tudo para lucrar com marmorizado</p>
                   </div>
-                  <div className="flex justify-between items-center mt-2">
-                    <span className="text-xs text-gray-500">83/100</span>
-                    <span className="text-sm font-bold text-red-400 animate-pulse">🔥 RESTAM APENAS 17 VAGAS</span>
+                  <div className="text-center mb-6">
+                    <div className="flex items-center justify-center gap-2 mb-1"><span className="text-gray-400 text-lg line-through">R$97,90</span><span className="text-[10px] font-black text-white px-2 py-0.5 rounded" style={{ background: '#22c55e' }}>85% OFF</span></div>
+                    <div className="text-6xl md:text-7xl font-black" style={{ fontFamily: 'Sora', color: 'var(--turquoise)' }}>R$14,99</div>
+                    <p className="text-gray-500 text-xs mt-2">Pagamento único • Acesso vitalício</p>
                   </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
-
-                {/* Plano Básico (Decoy) */}
-                <div className="order-2 md:order-1 flex flex-col p-6 rounded-2xl bg-[#0a0a0a] border border-white/5 hover:border-white/10 transition-all duration-300 opacity-80 hover:opacity-100 scale-95">
-                  <div className="mb-4">
-                    <h3 className="font-headline text-xl font-bold text-gray-400">Acesso Básico</h3>
-                    <p className="text-sm text-gray-500">Apenas o essencial</p>
+                  <div className="mb-6 divide-y" style={{ borderColor: '#F7F8FA' }}>
+                    {[{ t: 'Curso Completo em Vídeo', i: Video }, { t: 'Posicionamento nas Redes', i: Smartphone }, { t: 'Posts Prontos + Estratégia', i: Palette }, { t: 'Plano até R$15K/mês', i: Rocket }, { t: 'Suporte VIP WhatsApp', i: Zap }].map((item, i) => (
+                      <div key={i} className="flex items-center gap-3 py-3"><div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'rgba(0,194,203,0.08)' }}><item.i className="w-4 h-4" style={{ color: 'var(--turquoise)' }} /></div><span className="text-sm font-medium text-gray-900 flex-1">{item.t}</span><CheckCircle className="w-5 h-5" style={{ color: '#22c55e' }} /></div>
+                    ))}
                   </div>
-                  <div className="mb-6">
-                    <span className="text-3xl font-bold text-white">R$ 5,99</span>
-                    <span className="text-sm text-gray-500 ml-2">pagamento único</span>
-                  </div>
-                  <ul className="space-y-3 mb-8 text-sm text-gray-400">
-                    <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-gray-600" /> Acesso ao conteúdo escrito</li>
-                    <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-gray-600" /> Lista de materiais</li>
-                    <li className="flex items-center gap-2 text-gray-600 line-through"><Video className="w-4 h-4" /> Aulas em Vídeo</li>
-                    <li className="flex items-center gap-2 text-gray-600 line-through"><Gem className="w-4 h-4" /> 5 Bônus Exclusivos</li>
-                    <li className="flex items-center gap-2 text-gray-600 line-through"><ShieldCheck className="w-4 h-4" /> Certificado Profissional</li>
-                  </ul>
-                  <Button
-                    variant="outline"
-                    className="w-full rounded-xl border-white/10 bg-transparent text-white hover:bg-white/5 hover:text-white font-semibold h-12"
-                    onClick={() => setStartUpsell(true)}
-                  >
-                    Quero apenas o básico
+                  <Button size="lg" className="btn-cta w-full rounded-2xl font-black text-lg sm:text-xl h-14 sm:h-16 animate-subtle-pulse mb-4 shadow-xl hover:scale-105 transition-transform"
+                    onClick={() => openCheckout(checkoutComplete)}>
+                    Quero o Plano Completo →
                   </Button>
-                </div>
 
-                {/* Plano Completo (Hero) */}
-                <div className="order-1 md:order-2 relative flex flex-col p-1 rounded-3xl bg-gradient-to-b from-amber-300 via-yellow-500 to-amber-700 shadow-[0_0_60px_rgba(245,158,11,0.5)] transform md:scale-110 z-20 animate-fade-in-up hover:shadow-[0_0_80px_rgba(245,158,11,0.7)] transition-all duration-500" style={{ animationDelay: '200ms' }}>
-                  <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-gradient-to-r from-red-600 to-red-500 text-white px-8 py-2 rounded-full font-black text-base uppercase tracking-wide shadow-[0_0_20px_rgba(220,38,38,0.6)] flex items-center gap-2 whitespace-nowrap animate-pulse z-30">
-                    <Sparkles className="w-5 h-5 fill-current" /> OPORTUNIDADE ÚNICA
+                  <div className="rounded-2xl border p-4 sm:p-5 pb-5" style={{ background: 'rgba(34, 197, 94, 0.05)', borderColor: 'rgba(34, 197, 94, 0.2)' }}>
+                    <p className="text-center text-xs font-bold text-gray-700 mb-4 flex items-center justify-center gap-1.5" style={{ fontFamily: 'Inter' }}>
+                      📩 Você receberá seu acesso por:
+                    </p>
+
+                    <div className="flex items-center justify-between gap-1 sm:gap-2 mb-4">
+                      <div className="flex-1 bg-white rounded-xl p-2 sm:p-2.5 flex items-center gap-2 sm:gap-3 shadow-sm border border-green-100">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-green-500 flex items-center justify-center text-white shrink-0 shadow-sm">
+                          <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>
+                        </div>
+                        <div className="flex flex-col text-left">
+                          <span className="text-[10px] sm:text-xs font-black text-gray-900 leading-none mb-0.5">WhatsApp</span>
+                          <span className="text-[8px] sm:text-[9px] text-gray-400 font-bold uppercase tracking-wider">Ac. imediato</span>
+                        </div>
+                      </div>
+
+                      <span className="text-gray-300 text-xs sm:text-sm font-bold opacity-60">+</span>
+
+                      <div className="flex-1 bg-white rounded-xl p-2 sm:p-2.5 flex items-center gap-2 sm:gap-3 shadow-sm border border-pink-100">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-pink-500 flex items-center justify-center text-white shrink-0 shadow-sm">
+                          <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                        </div>
+                        <div className="flex flex-col text-left">
+                          <span className="text-[10px] sm:text-xs font-black text-gray-900 leading-none mb-0.5">E-mail</span>
+                          <span className="text-[8px] sm:text-[9px] text-gray-400 font-bold uppercase tracking-wider">Backup seg</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="font-bold text-xs sm:text-[13px] py-2 sm:py-2.5 px-4 rounded-full text-center flex items-center justify-center gap-1.5 shadow-[0_2px_10px_rgba(34,197,94,0.15)]" style={{ background: '#A3E6CD', color: '#047857' }}>
+                      ⚡ Acesso liberado em poucos minutos!
+                    </div>
                   </div>
 
-                  <div className="flex-1 bg-[#0a0a0a] rounded-[22px] p-6 md:p-8 overflow-hidden relative border-2 border-amber-500/50">
-                    {/* Background Shine */}
-                    <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/20 blur-[100px] rounded-full pointer-events-none animate-pulse"></div>
-                    <div className="absolute bottom-0 left-0 w-60 h-60 bg-yellow-500/10 blur-[80px] rounded-full pointer-events-none"></div>
-
-                    <div className="mb-8 relative z-10 text-center border-b border-white/10 pb-6">
-                      <h3 className="font-headline text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">COMPLETO + BÔNUS</h3>
-                      <p className="text-amber-400 font-bold text-sm uppercase tracking-widest">O pacote definitivo para lucrar</p>
-                    </div>
-
-                    <div className="mb-8 relative z-10 text-center">
-                      <div className="flex items-center justify-center gap-3 mb-2">
-                        <span className="text-gray-500 text-xl line-through font-medium">R$ 97,90</span>
-                        <span className="text-xs font-bold bg-green-500 text-black px-2 py-1 rounded uppercase">85% OFF</span>
-                      </div>
-                      <div className="flex items-center justify-center">
-                        <span className="text-7xl md:text-8xl font-black text-white tracking-tighter drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">14,99</span>
-                        <span className="text-xl font-bold text-gray-400 self-start mt-4">R$</span>
-                      </div>
-                      <p className="text-gray-400 text-sm mt-3 font-medium">Pagamento único • Sem mensalidades</p>
-                    </div>
-
-                    {/* Benefits List - Clean & Premium */}
-                    <div className="mb-8 relative z-10">
-                      <div className="divide-y divide-white/5">
-                        {[
-                          { title: "Curso Completo em Vídeo", desc: "Do zero ao avançado", icon: Video },
-                          { title: "Posicionamento nas Redes", desc: "Atraia clientes premium", icon: Smartphone },
-                          { title: "Posts Prontos + Estratégia", desc: "Copie e ganhe seguidores", icon: Palette },
-                          { title: "Plano até R$15K/mês", desc: "Passo a passo completo", icon: Rocket },
-                          { title: "Acompanhamento VIP", desc: "Suporte no WhatsApp", icon: Zap }
-                        ].map((item, i) => (
-                          <div
-                            key={i}
-                            className="flex items-center gap-4 py-4 first:pt-0 last:pb-0"
-                          >
-                            {/* Icon */}
-                            <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
-                              <item.icon className="w-5 h-5 text-amber-400" />
-                            </div>
-
-                            {/* Text */}
-                            <div className="flex-1 min-w-0">
-                              <h4 className="font-semibold text-white text-sm leading-tight">{item.title}</h4>
-                              <p className="text-xs text-white/50 mt-0.5">{item.desc}</p>
-                            </div>
-
-                            {/* Check */}
-                            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                              <CheckCircle className="w-4 h-4 text-white" strokeWidth={3} />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <Button
-                      size="lg"
-                      className="w-full rounded-xl bg-gradient-to-r from-green-600 via-green-500 to-emerald-500 hover:from-green-500 hover:via-green-400 hover:to-emerald-400 text-white font-black text-lg md:text-xl h-20 shadow-[0_0_30px_rgba(34,197,94,0.6)] hover:shadow-[0_0_50px_rgba(34,197,94,0.8)] hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group border-2 border-green-400/30"
-                      onClick={() => openCheckout(completeCheckoutUrl)}
-                    >
-                      <span className="relative z-10 flex flex-col items-center justify-center leading-tight">
-                        <span className="flex items-center gap-2 text-base md:text-xl">COMEÇAR MINHA TRANSFORMAÇÃO <Rocket className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></span>
-                        <span className="text-[10px] md:text-xs font-medium opacity-90 uppercase tracking-wider mt-1">🎉 Oferta Especial de Ano Novo</span>
-                      </span>
-                      {/* Shine Effect */}
-                      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-in-out"></div>
-                    </Button>
-
-                    {/* Trust badges - More Professional */}
-                    <div className="mt-5 grid grid-cols-3 gap-2 text-center">
-                      <div className="flex flex-col items-center gap-1 p-2 rounded-lg bg-white/5 border border-white/10">
-                        <span className="text-lg">🔒</span>
-                        <span className="text-[9px] md:text-[10px] text-gray-400 font-medium">Compra Segura</span>
-                      </div>
-                      <div className="flex flex-col items-center gap-1 p-2 rounded-lg bg-white/5 border border-white/10">
-                        <span className="text-lg">⚡</span>
-                        <span className="text-[9px] md:text-[10px] text-gray-400 font-medium">Acesso Imediato</span>
-                      </div>
-                      <div className="flex flex-col items-center gap-1 p-2 rounded-lg bg-green-500/10 border border-green-500/20">
-                        <span className="text-lg">✅</span>
-                        <span className="text-[9px] md:text-[10px] text-green-400 font-medium">30 Dias Garantia</span>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 flex items-center justify-center gap-2 text-[10px] text-gray-500 uppercase tracking-wider font-medium">
-                      <Shield className="w-3 h-3" /> Seus dados estão protegidos
-                    </div>
+                  <div className="text-center flex justify-center items-center gap-1.5 text-[11px] sm:text-xs text-gray-400 font-medium mt-4">
+                    <span className="text-base">🔒</span> 7 dias de garantia incondicional
                   </div>
                 </div>
               </div>
-
-              <div className="mt-16 max-w-2xl mx-auto text-center">
-                <p className="text-amber-400 font-bold text-lg mb-2">⚡ O primeiro trabalho paga o curso.</p>
-                <p className="text-gray-400 text-sm">
-                  Pense comigo: com R$ 14,99 você não compra nem uma pizza hoje em dia. Mas com esse conhecimento, você pode faturar R$ 300, R$ 500 ou até R$ 1.000 em um único dia de trabalho. <span className="text-white font-bold">O risco é zero e o retorno é infinito.</span>
-                </p>
-              </div>
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Guarantee and Support Section */}
-          <section ref={guaranteeRef} id="garantia" className="relative bg-black text-white py-16 md:py-24 px-6 overflow-hidden">
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-marble.png')] opacity-[0.03]"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black"></div>
-            <div className="relative z-10 container mx-auto flex flex-col items-center justify-center gap-8 max-w-4xl text-center">
-              {/* Guarantee Block */}
-              <div className="flex flex-col items-center">
-                <div className="flex items-center gap-4 mb-4">
-                  <ShieldCheck className="w-12 h-12 text-green-400" />
-                  <h3 className="font-headline text-2xl md:text-3xl font-bold text-white">
-                    🛡️ Garantia Incondicional de 30 Dias
-                  </h3>
-                </div>
-                <p className="text-base md:text-lg text-gray-300 max-w-xl mb-4">
-                  Se por qualquer motivo você não ficar satisfeito com o conteúdo, pode solicitar reembolso integral dentro de 30 dias. Sem burocracia. Sem perguntas. 100% do seu dinheiro de volta.
-                </p>
-                <div className="bg-green-500/10 border border-green-500/30 rounded-xl px-6 py-3 mt-2">
-                  <p className="text-green-400 font-bold text-sm md:text-base">
-                    🎁 BÔNUS: Se não gostar, devolvemos 100% + <span className="text-white">R$ 50,00</span> pelo seu tempo investido
-                  </p>
-                </div>
-                <div className="mt-6 w-full h-px bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
-              </div>
-            </div>
-          </section>
-        </div>
+        {/* Guarantee */}
+        <section className="py-14 px-4 bg-white">
+          <div className="max-w-xl mx-auto card-clean p-8 text-center">
+            <div className="w-16 h-16 rounded-full flex items-center justify-center text-3xl mx-auto mb-5" style={{ background: 'rgba(34,197,94,0.08)', border: '2px solid rgba(34,197,94,0.2)' }}>🛡️</div>
+            <h2 className="text-2xl font-black mb-3" style={{ fontFamily: 'Sora', color: '#111' }}>Garantia Incondicional de 30 Dias</h2>
+            <p className="text-gray-600 text-sm leading-relaxed">Se não ficar satisfeito, devolvemos <strong>100% do seu dinheiro</strong>. Sem perguntas.</p>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="py-14 px-4" style={{ background: '#F7F8FA' }}>
+          <div className="max-w-2xl mx-auto">
+            <div className="text-center mb-8"><h2 className="text-2xl md:text-3xl font-black" style={{ fontFamily: 'Sora', color: '#111' }}>Perguntas Frequentes</h2></div>
+            <div className="card-clean px-5">{faqs.map((f, i) => <FAQItem key={i} q={f.q} a={f.a} />)}</div>
+          </div>
+        </section>
+      </>
+
+      {/* Sticky */}
+      {showSticky && (
+        <div className="sticky-cta"><div className="max-w-sm mx-auto flex items-center gap-3"><div className="flex-1"><p className="text-xs font-bold text-gray-800">🔥 R$14,99 — Últimas vagas!</p></div><button className="btn-cta px-5 h-10 rounded-xl text-sm font-black flex-shrink-0" onClick={() => openCheckout(checkoutComplete)}>GARANTIR →</button></div></div>
       )}
     </main>
   );

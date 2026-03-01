@@ -1,96 +1,58 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
-import { cn } from '@/lib/utils';
-import { Zap, Gem, Award, UserCheck, TrendingUp, Sparkles, Star, Rocket, ShoppingCart, ThumbsUp, Activity, BarChart } from 'lucide-react';
 
-const messages = [
-  { icon: <Zap className="h-5 w-5 text-yellow-400" />, text: 'Carlos M. acabou de desbloquear o pacote completo!' },
-  { icon: <UserCheck className="h-5 w-5 text-green-400" />, text: 'Mais de 1.200 pessoas estão participando do treinamento agora!' },
-  { icon: <Award className="h-5 w-5 text-amber-500" />, text: 'Ana P. liberou o bônus de precificação há 2 minutos!' },
-  { icon: <TrendingUp className="h-5 w-5 text-blue-400" />, text: 'Marcos L. aplicou a técnica e fechou seu primeiro serviço!' },
-  { icon: <Gem className="h-5 w-5 text-fuchsia-500" />, text: 'João S. terminou a Etapa 2 e desbloqueou o acesso premium!' },
-  { icon: <Sparkles className="h-5 w-5 text-white" />, text: 'Novos alunos estão entrando a cada minuto!' },
-  { icon: <Star className="h-5 w-5 text-yellow-300" />, text: 'Fernanda R. de SP acabou de se inscrever no plano VIP.' },
-  { icon: <Rocket className="h-5 w-5 text-red-500" />, text: 'O último acesso foi vendido há menos de 5 minutos!' },
-  { icon: <UserCheck className="h-5 w-5 text-teal-400" />, text: 'Lucas B. concluiu o treinamento com sucesso.' },
-  { icon: <Award className="h-5 w-5 text-orange-400" />, text: 'Juliana C. desbloqueou um bônus de acabamento especial!' },
-  { icon: <ShoppingCart className="h-5 w-5 text-cyan-400" />, text: 'Mais 3 pessoas adicionaram o curso ao carrinho!' },
-  { icon: <ThumbsUp className="h-5 w-5 text-lime-400" />, text: '“Incrível!” - Avaliação 5 estrelas de um novo aluno.' },
-  { icon: <Activity className="h-5 w-5 text-pink-400" />, text: 'Grande atividade no módulo de precificação agora.' },
-  { icon: <BarChart className="h-5 w-5 text-indigo-400" />, text: '97% dos alunos recomendam o curso completo.' },
+const proofs = [
+  { name: 'Carlos', city: 'São Paulo', time: '3 min' },
+  { name: 'Marcos', city: 'Curitiba', time: '7 min' },
+  { name: 'Roberto', city: 'BH', time: '12 min' },
+  { name: 'André', city: 'Rio de Janeiro', time: '2 min' },
+  { name: 'Lucas', city: 'Brasília', time: '5 min' },
+  { name: 'Fernando', city: 'Salvador', time: '8 min' },
+  { name: 'Diego', city: 'Fortaleza', time: '1 min' },
+  { name: 'Thiago', city: 'Porto Alegre', time: '15 min' },
 ];
 
-const sidePositions = [
-  'bottom-5 left-5',
-  'bottom-5 right-5',
-  'top-5 left-5',
-  'top-5 right-5',
-];
-
-const centerPositions = [
-  'top-5 left-1/2 -translate-x-1/2',
-  'bottom-5 left-1/2 -translate-x-1/2',
-];
-
-const TEXT_LENGTH_THRESHOLD = 50; // Character count to distinguish between short and long notifications
-
-
-const SocialProofToast = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [currentMessage, setCurrentMessage] = useState(messages[0]);
-  const [currentPosition, setCurrentPosition] = useState(sidePositions[0]);
+export default function SocialProofToast() {
+  const [visible, setVisible] = useState(false);
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    const showRandomNotification = () => {
-      const messageIndex = Math.floor(Math.random() * messages.length);
-      const selectedMessage = messages[messageIndex];
-      
-      let positionPool = [];
-      if (selectedMessage.text.length < TEXT_LENGTH_THRESHOLD) {
-        // Shorter "squarish" messages can go to the sides
-        positionPool = sidePositions;
-      } else {
-        // Longer "rectangular" messages should be centered
-        positionPool = centerPositions;
-      }
-      
-      const positionIndex = Math.floor(Math.random() * positionPool.length);
-      
-      setCurrentMessage(selectedMessage);
-      setCurrentPosition(positionPool[positionIndex]);
-      setIsVisible(true);
-
-      setTimeout(() => {
-        setIsVisible(false);
-      }, 5000); // Notification stays for 5 seconds
+    const show = () => {
+      setCurrent(Math.floor(Math.random() * proofs.length));
+      setVisible(true);
+      setTimeout(() => setVisible(false), 4000);
     };
 
-    // Show first notification after a delay
-    const initialTimeout = setTimeout(showRandomNotification, 8000);
-
-    // Then, show notifications periodically
-    const interval = setInterval(showRandomNotification, 12000);
+    const initialTimeout = setTimeout(show, 5000);
+    const interval = setInterval(show, 15000);
 
     return () => {
-        clearTimeout(initialTimeout);
-        clearInterval(interval);
+      clearTimeout(initialTimeout);
+      clearInterval(interval);
     };
   }, []);
 
+  if (!visible) return null;
+
+  const proof = proofs[current];
+
   return (
-    <div
-      className={cn(
-        'fixed z-[9999] flex items-center gap-3 rounded-lg border border-amber-500/30 bg-black/80 p-3 pr-4 shadow-2xl shadow-black/50 backdrop-blur-md transition-all duration-500',
-        currentPosition,
-        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0',
-        'font-headline' // Ensure Poppins is used
-      )}
-    >
-      <div className="flex-shrink-0 animate-pulse">{currentMessage.icon}</div>
-      <p className="text-sm font-medium text-white">{currentMessage.text}</p>
+    <div className="social-proof-toast">
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-black text-sm flex-shrink-0"
+          style={{ background: 'linear-gradient(135deg, var(--turquoise), #009AA2)' }}>
+          {proof.name[0]}
+        </div>
+        <div>
+          <p className="text-xs font-bold text-gray-900">
+            {proof.name} de {proof.city}
+          </p>
+          <p className="text-xs text-gray-600">acabou de comprar — há {proof.time}</p>
+          <div className="flex mt-1">{'⭐⭐⭐⭐⭐'.split('').map((s, i) => <span key={i} className="text-xs">{s}</span>)}</div>
+        </div>
+      </div>
     </div>
   );
-};
-
-export default SocialProofToast;
+}

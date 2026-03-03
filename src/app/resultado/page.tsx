@@ -9,6 +9,7 @@ import UpsellFlow from '@/components/upsell-flow';
 import TestimonialCarousel from '@/components/testimonial-carousel';
 import BeforeAfterSlider from '@/components/before-after-slider';
 import MemberAreaDemo from '@/components/member-area-demo';
+import Script from 'next/script';
 
 function useInView(threshold = 0.2) {
   const ref = useRef<HTMLDivElement>(null);
@@ -323,30 +324,143 @@ export default function ResultadoPage() {
         </div>
       </section>
 
-      {/* ===== HOW TO SELL - Visual ===== */}
-      <section className="py-16 px-4" style={{ background: '#F7F8FA' }}>
-        <div ref={sellSection.ref} className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--turquoise)' }}>✨ Sistema Completo de Vendas</p>
-            <h2 className="text-2xl md:text-4xl font-black" style={{ fontFamily: 'Sora', color: '#111' }}>Tudo Para Você <span style={{ color: 'var(--turquoise)' }}>Vender, Fechar e Faturar</span></h2>
+      {/* ===== VSL ===== */}
+      <section className="py-20 px-4 relative overflow-hidden" style={{ background: 'linear-gradient(160deg, #0A1628 0%, #0F2035 50%, #0A1628 100%)' }}>
+        {/* Animated Background Gradients */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-25%] left-[-10%] w-[50%] h-[50%] rounded-full opacity-20 blur-[100px]" style={{ background: 'var(--turquoise)' }} />
+          <div className="absolute bottom-[-25%] right-[-10%] w-[50%] h-[50%] rounded-full opacity-10 blur-[100px]" style={{ background: 'var(--amber-brand)' }} />
+        </div>
+
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <div className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full mb-8" style={{ background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)', backdropFilter: 'blur(10px)' }}>
+            <span className="text-red-500 text-sm animate-pulse">🔴</span>
+            <span className="font-black text-xs md:text-sm uppercase tracking-widest text-red-500">Atenção: Assista Antes Que Saia do Ar</span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+          <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight" style={{ fontFamily: 'Sora' }}>
+            A Estratégia Exata Para <br className="hidden md:block" />
+            <span className="text-gradient-turquoise">Faturar Múltiplos Dígitos</span> Em 30 Dias
+          </h2>
+
+          <p className="text-gray-300 text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
+            Dê o play abaixo e veja como transformar um trabalho simples em um negócio premium altamente lucrativo.
+          </p>
+
+          {/* Video Player */}
+          <div className="relative mx-auto w-full max-w-[360px] rounded-[24px] overflow-hidden transition-all duration-500 hover:scale-[1.02]" style={{ border: '2px solid rgba(0,194,203,0.3)', boxShadow: '0 30px 60px -15px rgba(0,194,203,0.4), 0 0 30px rgba(0,194,203,0.2)' }}>
+            <Script src="https://fast.wistia.com/player.js" />
+            <Script src="https://fast.wistia.com/embed/x1i6o6xfse.js" type="module" />
+            <style dangerouslySetInnerHTML={{
+              __html: `
+               wistia-player[media-id='x1i6o6xfse']:not(:defined) { 
+                 background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/x1i6o6xfse/swatch'); 
+                 display: block; 
+                 filter: blur(5px); 
+                 padding-top: 177.78%; 
+               }
+             `}} />
+            {/* @ts-ignore */}
+            <wistia-player media-id="x1i6o6xfse" aspect="0.5625"></wistia-player>
+          </div>
+
+          <div className="mt-8 text-center text-sm font-bold text-gray-500 flex items-center justify-center gap-2">
+            <Clock className="w-5 h-5 text-gray-400" />
+            <span>O vídeo revela o passo a passo completo</span>
+          </div>
+        </div>
+
+        {/* Bottom wave/gradient to transition into the next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" style={{ background: 'linear-gradient(to top, #F7F8FA, transparent)' }} />
+      </section>
+
+      {/* ===== HOW TO SELL - Visual Bold ===== */}
+      <section className="py-20 px-4 overflow-hidden" style={{ background: 'linear-gradient(180deg, #F7F8FA 0%, #FFFFFF 100%)' }}>
+        <div ref={sellSection.ref} className="max-w-4xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--turquoise)' }}>✨ Sistema Completo de Vendas</p>
+            <h2 className="text-3xl md:text-5xl font-black" style={{ fontFamily: 'Sora', color: '#111' }}>
+              Tudo Para Você <span style={{ color: 'var(--turquoise)' }}>Vender,<br />Fechar e Faturar</span>
+            </h2>
+            <p className="mt-4 text-gray-500 text-lg max-w-xl mx-auto">Não basta saber pintar — você precisa de um sistema completo de vendas</p>
+          </div>
+
+          {/* Big visual metrics row */}
+          <div className={`grid grid-cols-3 gap-0 rounded-3xl overflow-hidden mb-10 transition-all duration-700 ${sellSection.vis ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+            style={{ border: '2px solid #E8EBF0', boxShadow: '0 20px 60px rgba(0,0,0,0.06)' }}>
             {[
-              { gradient: 'linear-gradient(135deg, #E91E63, #C2185B)', icon: '📲', title: 'Instagram que Vende', items: ['Perfil profissional otimizado', 'Templates prontos de posts', 'Estratégia para clientes premium'], stat: '+5K seg/mês' },
-              { gradient: 'linear-gradient(135deg, #00C2CB, #009AA2)', icon: '💼', title: 'Orçamento que Fecha', items: ['Script de apresentação completo', 'Justificativa de valor premium', 'Proposta pronta para WhatsApp'], stat: '87% fechamento' },
-              { gradient: 'linear-gradient(135deg, #F5A623, #D4880A)', icon: '🚀', title: 'Plano R$15K/mês', items: ['Projetos necessários/mês', 'Agenda de visitas organizada', 'Sistema de indicações automáticas'], stat: 'R$15K/mês' },
-            ].map((card, i) => (
-              <div key={i} className={`rounded-2xl overflow-hidden transition-all duration-700 hover:scale-[1.03] ${sellSection.vis ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                style={{ transitionDelay: `${i * 200}ms` }}>
-                <div className="h-1.5" style={{ background: card.gradient }} />
-                <div className="card-clean p-6 rounded-t-none border-t-0">
-                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-4" style={{ background: card.gradient, boxShadow: '0 6px 20px rgba(0,0,0,0.15)' }}>{card.icon}</div>
-                  <h3 className="text-xl font-black mb-3" style={{ fontFamily: 'Sora', color: '#111' }}>{card.title}</h3>
-                  <ul className="space-y-2.5 mb-5">{card.items.map((item, j) => (
-                    <li key={j} className="flex items-center gap-2 text-sm text-gray-600"><span className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] text-white" style={{ background: card.gradient }}>✓</span>{item}</li>
-                  ))}</ul>
-                  <div className="pt-3" style={{ borderTop: '1px solid #E8EBF0' }}>
-                    <p className="text-xl font-black" style={{ fontFamily: 'Sora', backgroundImage: card.gradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{card.stat}</p>
+              { stat: '+5K', label: 'Seguidores/mês', sub: 'Pelo Instagram otimizado', icon: '📲', color: '#E91E63', bg: 'linear-gradient(135deg, #FFF0F5 0%, #FFFFFF 100%)' },
+              { stat: '87%', label: 'Taxa de Fechamento', sub: 'Usando nosso script', icon: '💼', color: 'var(--turquoise)', bg: 'linear-gradient(135deg, #F0FFFE 0%, #FFFFFF 100%)' },
+              { stat: 'R$15K', label: 'Faturamento/Mês', sub: 'Com apenas 3 projetos', icon: '🚀', color: '#F5A623', bg: 'linear-gradient(135deg, #FFFBF0 0%, #FFFFFF 100%)' },
+            ].map((m, i) => (
+              <div key={i} className="p-6 md:p-8 text-center" style={{ background: m.bg, borderRight: i < 2 ? '1px solid #E8EBF0' : 'none' }}>
+                <div className="text-3xl md:text-4xl mb-3">{m.icon}</div>
+                <p className="text-2xl md:text-4xl font-black mb-1" style={{ fontFamily: 'Sora', color: m.color }}>{m.stat}</p>
+                <p className="text-xs md:text-sm font-black text-gray-800 mb-1">{m.label}</p>
+                <p className="text-[10px] md:text-xs text-gray-400 hidden md:block">{m.sub}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* 3 Visual pillars - horizontal stack */}
+          <div className="flex flex-col gap-4">
+            {[
+              {
+                num: '01',
+                icon: '📲',
+                title: 'Instagram que Vende',
+                desc: 'Perfil profissional otimizado para atrair clientes premium que pagam R$150–300/m²',
+                points: ['Templates prontos de posts', 'Estratégia de conteúdo', 'Como atrair +5K seguidores/mês'],
+                gradient: 'linear-gradient(135deg, #E91E63, #C2185B)',
+                bgLight: 'rgba(233,30,99,0.04)',
+                borderColor: 'rgba(233,30,99,0.15)',
+                accentColor: '#E91E63',
+              },
+              {
+                num: '02',
+                icon: '💼',
+                title: 'Orçamento que Fecha',
+                desc: '87% dos alunos fecham o primeiro contrato na primeira semana usando nosso script',
+                points: ['Script de apresentação completo', 'Justificativa de valor premium', 'Proposta profissional WhatsApp'],
+                gradient: 'linear-gradient(135deg, #00C2CB, #009AA2)',
+                bgLight: 'rgba(0,194,203,0.04)',
+                borderColor: 'rgba(0,194,203,0.15)',
+                accentColor: 'var(--turquoise)',
+              },
+              {
+                num: '03',
+                icon: '🚀',
+                title: 'Plano de R$15K/Mês',
+                desc: 'Sistema completo para escalar: quantidade de projetos, agenda e indicações automáticas',
+                points: ['Quantos projetos por mês', 'Agenda de visitas otimizada', 'Sistema de indicações automáticas'],
+                gradient: 'linear-gradient(135deg, #F5A623, #D4880A)',
+                bgLight: 'rgba(245,166,35,0.04)',
+                borderColor: 'rgba(245,166,35,0.15)',
+                accentColor: '#F5A623',
+              },
+            ].map((pillar, i) => (
+              <div key={i}
+                className={`flex items-start gap-5 p-5 md:p-7 rounded-2xl transition-all duration-700 ${sellSection.vis ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}
+                style={{ transitionDelay: `${i * 150}ms`, background: pillar.bgLight, border: `1.5px solid ${pillar.borderColor}` }}>
+                {/* Big number */}
+                <div className="flex-shrink-0 hidden md:block">
+                  <span className="text-7xl font-black leading-none opacity-[0.07]" style={{ fontFamily: 'Sora', color: '#111' }}>{pillar.num}</span>
+                </div>
+                {/* Icon circle */}
+                <div className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shadow-lg" style={{ background: pillar.gradient }}>
+                  {pillar.icon}
+                </div>
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-lg md:text-xl font-black text-gray-900 mb-1" style={{ fontFamily: 'Sora' }}>{pillar.title}</h3>
+                  <p className="text-sm text-gray-500 mb-3 leading-relaxed">{pillar.desc}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {pillar.points.map((pt, j) => (
+                      <span key={j} className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1 rounded-full bg-white"
+                        style={{ border: `1px solid ${pillar.borderColor}`, color: '#444' }}>
+                        <span style={{ color: pillar.accentColor }}>✓</span> {pt}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -565,110 +679,264 @@ export default function ResultadoPage() {
       {/* ===== TESTIMONIALS & PRICING ===== */}
       <>
         {/* Testimonials */}
-        <section ref={testimonialsRef} className="py-16 px-4 bg-white">
+        <section ref={testimonialsRef} className="py-20 px-4" style={{ background: 'linear-gradient(160deg, #0A1628 0%, #0F2035 50%, #0A1628 100%)' }}>
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-10">
-              <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--turquoise)' }}>⭐ Depoimentos Reais em Vídeo</p>
-              <h2 className="text-2xl md:text-4xl font-black" style={{ fontFamily: 'Sora', color: '#111' }}>Veja Quem Já <span className="text-gradient-turquoise">Transformou Sua Vida</span></h2>
-              <p className="mt-2 text-gray-500">Alunos reais, resultados reais — assista os depoimentos</p>
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full mb-5" style={{ background: 'rgba(0,194,203,0.12)', border: '1px solid rgba(0,194,203,0.3)' }}>
+                <span className="text-yellow-400 text-lg">⭐</span>
+                <span className="text-sm font-black uppercase tracking-widest" style={{ color: 'var(--turquoise)' }}>Depoimentos Reais em Vídeo</span>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-black text-white" style={{ fontFamily: 'Sora' }}>
+                Veja Quem Já <span className="text-gradient-turquoise">Transformou Sua Vida</span>
+              </h2>
+              <p className="mt-3 text-gray-400 text-lg">Alunos reais • Resultados verificados • Assista agora</p>
             </div>
-            <div className="grid grid-cols-3 gap-4 mb-10 p-6 rounded-2xl" style={{ background: '#F7F8FA', border: '1px solid #E8EBF0' }}>
-              {[{ v: '1.847+', l: 'Alunos Treinados', c: 'var(--turquoise)' }, { v: 'R$12.300', l: 'Média/Mês', c: 'var(--turquoise)' }, { v: 'R$94K', l: 'Maior Projeto', c: 'var(--amber-brand)' }].map((s, i) => (
-                <div key={i} className="text-center"><p className="text-xl md:text-3xl font-black" style={{ fontFamily: 'Sora', color: s.c }}>{s.v}</p><p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wider mt-1">{s.l}</p></div>
+
+            {/* Big visual social proof bar */}
+            <div className="grid grid-cols-3 gap-0 rounded-3xl overflow-hidden mb-12" style={{ border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)' }}>
+              {[
+                { v: '1.847+', l: 'Alunos Treinados', icon: '👨‍🎓', c: 'var(--turquoise)' },
+                { v: 'R$12.300', l: 'Faturamento Médio/Mês', icon: '💰', c: '#22c55e' },
+                { v: 'R$94K', l: 'Maior Projeto Fechado', icon: '🏆', c: 'var(--amber-brand)' }
+              ].map((s, i) => (
+                <div key={i} className="text-center py-8 px-4" style={{ borderRight: i < 2 ? '1px solid rgba(255,255,255,0.07)' : 'none' }}>
+                  <div className="text-2xl mb-2">{s.icon}</div>
+                  <p className="text-2xl md:text-4xl font-black" style={{ fontFamily: 'Sora', color: s.c }}>{s.v}</p>
+                  <p className="text-[9px] md:text-xs text-gray-500 uppercase tracking-wider mt-1.5">{s.l}</p>
+                </div>
               ))}
             </div>
-            <div className="space-y-6">
+
+            <div className="space-y-6 mb-16">
               <TestimonialCarousel videoIds={['6tdjfbsqle', 'xab9r7nndh']} />
               <TestimonialCarousel videoIds={['ihs0hcvo3h', 'foutga0xyz']} />
+            </div>
+
+            {/* 3 Written Testimonials - SUPER IMPACTFUL */}
+            <div>
+              <div className="text-center mb-10">
+                <p className="text-xs font-black uppercase tracking-widest mb-2" style={{ color: 'var(--turquoise)' }}>💬 Relatos de Alunos</p>
+                <h3 className="text-2xl md:text-3xl font-black text-white" style={{ fontFamily: 'Sora' }}>O Que Estão Dizendo</h3>
+              </div>
+              <div className="flex flex-col gap-5">
+                {/* Testimonial 1 */}
+                <div className="relative rounded-3xl p-7 overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(0,194,203,0.12), rgba(0,194,203,0.04))', border: '1.5px solid rgba(0,194,203,0.25)' }}>
+                  <div className="absolute top-0 right-0 w-32 h-32 opacity-5 pointer-events-none" style={{ background: 'radial-gradient(circle, var(--turquoise), transparent)' }} />
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center text-2xl font-black text-white shadow-lg" style={{ background: 'linear-gradient(135deg, #00C2CB, #009AA2)' }}>M</div>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between gap-2 mb-3">
+                        <div>
+                          <p className="font-black text-white text-sm">Marcos A.</p>
+                          <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: 'var(--turquoise)' }}>Pintor • São Paulo, SP</p>
+                        </div>
+                        <div className="flex gap-0.5 flex-shrink-0">{[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-sm">★</span>)}</div>
+                      </div>
+                      <blockquote className="text-gray-300 leading-relaxed text-sm md:text-base">
+                        Em 3 semanas de curso já fechei meu <strong className="text-white">primeiro projeto de R$8.400</strong>. Antes eu cobrava R$35/m² e a galera regateava. Agora apresento o orçamento com confiança e os clientes <strong className="text-white">pagam sem questionar</strong>. O script de vendas foi o divisor de águas pra mim.
+                      </blockquote>
+                      <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full" style={{ background: 'rgba(34,197,94,0.12)', border: '1px solid rgba(34,197,94,0.25)' }}>
+                        <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                        <span className="text-xs font-black" style={{ color: '#22c55e' }}>+R$8.400 no 1º projeto ✓</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Testimonial 2 */}
+                <div className="relative rounded-3xl p-7 overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(245,166,35,0.1), rgba(245,166,35,0.03))', border: '1.5px solid rgba(245,166,35,0.2)' }}>
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center text-2xl font-black text-white shadow-lg" style={{ background: 'linear-gradient(135deg, #F5A623, #D4880A)' }}>J</div>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between gap-2 mb-3">
+                        <div>
+                          <p className="font-black text-white text-sm">Juliana R.</p>
+                          <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: '#F5A623' }}>Pintora • Belo Horizonte, MG</p>
+                        </div>
+                        <div className="flex gap-0.5 flex-shrink-0">{[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-sm">★</span>)}</div>
+                      </div>
+                      <blockquote className="text-gray-300 leading-relaxed text-sm md:text-base">
+                        Nunca imaginei que sairia de R$2.800 por mês no emprego para <strong className="text-white">R$14.600 em apenas 40 dias</strong>. Os 300 modelos prontos de efeito foram o que me diferenciou da concorrência. Os clientes ficam sem palavras quando mostro o portfólio. <strong className="text-white">Meu marido também largou o emprego</strong> pra me ajudar.
+                      </blockquote>
+                      <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full" style={{ background: 'rgba(245,166,35,0.12)', border: '1px solid rgba(245,166,35,0.3)' }}>
+                        <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#F5A623' }} />
+                        <span className="text-xs font-black" style={{ color: '#F5A623' }}>De R$2.800 → R$14.600/mês ✓</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Testimonial 3 - Biggest impact */}
+                <div className="relative rounded-3xl p-7 overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(124,77,255,0.12), rgba(124,77,255,0.03))', border: '1.5px solid rgba(124,77,255,0.25)' }}>
+                  <div className="absolute -bottom-6 -right-6 text-9xl opacity-5 pointer-events-none select-none">🏆</div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center text-2xl font-black text-white shadow-lg" style={{ background: 'linear-gradient(135deg, #7C4DFF, #512DA8)' }}>R</div>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between gap-2 mb-3">
+                        <div>
+                          <p className="font-black text-white text-sm">Roberto S.</p>
+                          <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: '#A78BFA' }}>Pintor Especialista • Rio de Janeiro, RJ</p>
+                        </div>
+                        <div className="flex gap-0.5 flex-shrink-0">{[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-sm">★</span>)}</div>
+                      </div>
+                      <blockquote className="text-gray-300 leading-relaxed text-sm md:text-base">
+                        Fiz meu <strong className="text-white">maior projeto em 8 anos de carreira</strong>: um apartamento completo por <strong className="text-white">R$94.000</strong>. O cliente me achou pelo Instagram usando a estratégia do curso. O método de orçamento Premium me deu confiança de apresentar esse valor sem tremer. <strong className="text-white">Valeu cada centavo</strong> dos R$14,99.
+                      </blockquote>
+                      <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full" style={{ background: 'rgba(167,139,250,0.12)', border: '1px solid rgba(167,139,250,0.3)' }}>
+                        <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+                        <span className="text-xs font-black text-purple-300">Projeto de R$94.000 fechado ✓</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Pricing */}
-        <section className="py-16 px-4" style={{ background: '#F7F8FA' }}>
+        <section className="py-20 px-4 overflow-hidden" style={{ background: 'linear-gradient(180deg, #F7F8FA 0%, #FFFFFF 100%)' }}>
           <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-red-500 text-sm font-bold mb-4 animate-pulse" style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.2)' }}>🔥 OFERTA POR TEMPO LIMITADO</div>
-              <h2 className="text-3xl md:text-5xl font-black" style={{ fontFamily: 'Sora', color: '#111' }}>Escolha Seu Plano</h2>
-              <div className="mt-4 mb-6"><Countdown /></div>
-              <div className="max-w-xs mx-auto p-3 rounded-xl" style={{ background: 'rgba(239,68,68,0.04)', border: '1px solid rgba(239,68,68,0.15)' }}>
-                <div className="w-full rounded-full overflow-hidden mb-1" style={{ height: '10px', background: '#E8EBF0' }}><div className="h-full rounded-full" style={{ width: '83%', background: 'linear-gradient(90deg, #ef4444, #F5A623)' }} /></div>
-                <p className="text-xs text-gray-500">83/100 vagas — <span className="font-bold text-red-500">restam 17</span></p>
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-red-500 text-sm font-black mb-5 animate-pulse" style={{ background: 'rgba(239,68,68,0.07)', border: '1.5px solid rgba(239,68,68,0.25)' }}>🔥 OFERTA POR TEMPO LIMITADO</div>
+              <h2 className="text-3xl md:text-5xl font-black mb-2" style={{ fontFamily: 'Sora', color: '#111' }}>Escolha Seu Plano</h2>
+              <p className="text-gray-500 mb-5">Oferta expira em:</p>
+              <div className="mb-6"><Countdown /></div>
+              <div className="max-w-xs mx-auto p-4 rounded-2xl" style={{ background: 'rgba(239,68,68,0.04)', border: '1px solid rgba(239,68,68,0.15)' }}>
+                <div className="w-full rounded-full overflow-hidden mb-2" style={{ height: '12px', background: '#E8EBF0' }}><div className="h-full rounded-full" style={{ width: '83%', background: 'linear-gradient(90deg, #ef4444, #F5A623)' }} /></div>
+                <p className="text-sm text-gray-500">83/100 vagas — <span className="font-black text-red-500">restam apenas 17</span></p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center max-w-4xl mx-auto">
-              <div className="card-alt p-6 opacity-80 scale-95 order-2 md:order-1">
-                <h3 className="text-xl font-bold text-gray-500 mb-1" style={{ fontFamily: 'Sora' }}>Básico</h3>
-                <p className="text-3xl font-bold text-gray-700 mb-6">R$5,99</p>
-                <ul className="space-y-2 mb-6 text-sm">
-                  <li className="flex items-center gap-2 text-gray-500"><CheckCircle className="w-4 h-4 text-gray-300" />Conteúdo escrito</li>
-                  <li className="flex items-center gap-2 text-gray-500"><CheckCircle className="w-4 h-4 text-gray-300" />Lista de materiais</li>
-                  <li className="flex items-center gap-2 text-gray-300 line-through">Aulas em Vídeo</li>
-                  <li className="flex items-center gap-2 text-gray-300 line-through">5 Bônus Exclusivos</li>
-                  <li className="flex items-center gap-2 text-gray-300 line-through">Certificado</li>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto">
+              {/* Basic plan - dimmed */}
+              <div className="card-alt p-7 opacity-75 order-2 md:order-1 flex flex-col">
+                <div className="mb-6">
+                  <span className="text-xs font-black uppercase tracking-widest text-gray-400">Plano</span>
+                  <h3 className="text-2xl font-black text-gray-500 mt-1" style={{ fontFamily: 'Sora' }}>Básico</h3>
+                  <p className="text-4xl font-black text-gray-600 mt-3">R$5,99</p>
+                  <p className="text-xs text-gray-400 mt-1">Acesso por 30 dias</p>
+                </div>
+                <ul className="space-y-3 mb-8 flex-1">
+                  <li className="flex items-center gap-2.5 text-sm text-gray-500"><CheckCircle className="w-4 h-4 text-gray-300 flex-shrink-0" />Conteúdo escrito</li>
+                  <li className="flex items-center gap-2.5 text-sm text-gray-500"><CheckCircle className="w-4 h-4 text-gray-300 flex-shrink-0" />Lista de materiais</li>
+                  <li className="flex items-center gap-2.5 text-sm text-gray-300 line-through">Aulas em Vídeo HD</li>
+                  <li className="flex items-center gap-2.5 text-sm text-gray-300 line-through">+300 Modelos Prontos</li>
+                  <li className="flex items-center gap-2.5 text-sm text-gray-300 line-through">5 Bônus Exclusivos</li>
+                  <li className="flex items-center gap-2.5 text-sm text-gray-300 line-through">Certificado Profissional</li>
+                  <li className="flex items-center gap-2.5 text-sm text-gray-300 line-through">Suporte VIP</li>
                 </ul>
-                <Button variant="outline" className="w-full rounded-xl h-12" style={{ border: '1px solid #E8EBF0', color: '#888' }} onClick={() => setStartUpsell(true)}>Quero o básico</Button>
+                <Button variant="outline" className="w-full rounded-xl h-12 text-gray-400" style={{ border: '1px solid #E8EBF0' }} onClick={() => setStartUpsell(true)}>Quero só o básico</Button>
+                <p className="text-center text-xs text-gray-400 mt-3">⚠️ Sem vídeos, sem modelos, sem suporte</p>
               </div>
 
-              <div className="relative rounded-3xl overflow-visible md:scale-110 z-20 order-1 md:order-2" style={{ border: '3px solid var(--turquoise)', boxShadow: '0 0 60px rgba(0,194,203,0.15)' }}>
-                <div className="absolute -top-5 left-1/2 -translate-x-1/2 text-white px-6 py-1.5 rounded-full font-black text-sm uppercase flex items-center gap-1.5 whitespace-nowrap animate-pulse z-30" style={{ background: 'linear-gradient(135deg, #ef4444, #dc2626)' }}><Sparkles className="w-4 h-4" /> MAIS ESCOLHIDO</div>
-                <div className="bg-white rounded-[20px] p-6 md:p-8">
-                  <div className="text-center pb-5 mb-5" style={{ borderBottom: '1px solid #E8EBF0' }}>
-                    <h3 className="text-2xl md:text-3xl font-black text-gray-900" style={{ fontFamily: 'Sora' }}>COMPLETO + BÔNUS</h3>
-                    <p className="text-sm font-bold mt-1" style={{ color: 'var(--turquoise)' }}>Tudo para lucrar com marmorizado</p>
-                  </div>
-                  <div className="text-center mb-6">
-                    <div className="flex items-center justify-center gap-2 mb-1"><span className="text-gray-400 text-lg line-through">R$97,90</span><span className="text-[10px] font-black text-white px-2 py-0.5 rounded" style={{ background: '#22c55e' }}>85% OFF</span></div>
-                    <div className="text-6xl md:text-7xl font-black" style={{ fontFamily: 'Sora', color: 'var(--turquoise)' }}>R$14,99</div>
-                    <p className="text-gray-500 text-xs mt-2">Pagamento único • Acesso vitalício</p>
-                  </div>
-                  <div className="mb-6 divide-y" style={{ borderColor: '#F7F8FA' }}>
-                    {[{ t: 'Curso Completo em Vídeo', i: Video }, { t: 'Posicionamento nas Redes', i: Smartphone }, { t: 'Posts Prontos + Estratégia', i: Palette }, { t: 'Plano até R$15K/mês', i: Rocket }, { t: 'Suporte VIP WhatsApp', i: Zap }].map((item, i) => (
-                      <div key={i} className="flex items-center gap-3 py-3"><div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'rgba(0,194,203,0.08)' }}><item.i className="w-4 h-4" style={{ color: 'var(--turquoise)' }} /></div><span className="text-sm font-medium text-gray-900 flex-1">{item.t}</span><CheckCircle className="w-5 h-5" style={{ color: '#22c55e' }} /></div>
-                    ))}
-                  </div>
-                  <Button size="lg" className="btn-cta w-full rounded-2xl font-black text-lg sm:text-xl h-14 sm:h-16 animate-subtle-pulse mb-4 shadow-xl hover:scale-105 transition-transform"
-                    onClick={() => openCheckout(checkoutComplete)}>
-                    Quero o Plano Completo →
-                  </Button>
-
-                  <div className="rounded-2xl border p-4 sm:p-5 pb-5" style={{ background: 'rgba(34, 197, 94, 0.05)', borderColor: 'rgba(34, 197, 94, 0.2)' }}>
-                    <p className="text-center text-xs font-bold text-gray-700 mb-4 flex items-center justify-center gap-1.5" style={{ fontFamily: 'Inter' }}>
-                      📩 Você receberá seu acesso por:
+              {/* COMPLETE PLAN — mega premium CTA */}
+              <div className="relative order-1 md:order-2" style={{ filter: 'drop-shadow(0 25px 60px rgba(0,194,203,0.18))' }}>
+                {/* Animated glow */}
+                <div className="absolute -inset-1 rounded-3xl opacity-50" style={{ background: 'linear-gradient(135deg, var(--turquoise), #7C4DFF, var(--amber-brand))', filter: 'blur(16px)' }} />
+                <div className="relative rounded-3xl overflow-hidden" style={{ border: '2px solid rgba(0,194,203,0.7)', background: 'white' }}>
+                  {/* TOP BANNER */}
+                  <div className="relative py-3 px-6 text-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%)' }}>
+                    <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,0.1) 5px, rgba(255,255,255,0.1) 10px)' }} />
+                    <p className="relative text-white font-black text-sm uppercase tracking-widest flex items-center justify-center gap-2">
+                      <Sparkles className="w-4 h-4" /> MAIS ESCOLHIDO — MELHOR CUSTO-BENEFÍCIO
                     </p>
-
-                    <div className="flex items-center justify-between gap-1 sm:gap-2 mb-4">
-                      <div className="flex-1 bg-white rounded-xl p-2 sm:p-2.5 flex items-center gap-2 sm:gap-3 shadow-sm border border-green-100">
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-green-500 flex items-center justify-center text-white shrink-0 shadow-sm">
-                          <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>
-                        </div>
-                        <div className="flex flex-col text-left">
-                          <span className="text-[10px] sm:text-xs font-black text-gray-900 leading-none mb-0.5">WhatsApp</span>
-                          <span className="text-[8px] sm:text-[9px] text-gray-400 font-bold uppercase tracking-wider">Ac. imediato</span>
-                        </div>
-                      </div>
-
-                      <span className="text-gray-300 text-xs sm:text-sm font-bold opacity-60">+</span>
-
-                      <div className="flex-1 bg-white rounded-xl p-2 sm:p-2.5 flex items-center gap-2 sm:gap-3 shadow-sm border border-pink-100">
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-pink-500 flex items-center justify-center text-white shrink-0 shadow-sm">
-                          <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                        </div>
-                        <div className="flex flex-col text-left">
-                          <span className="text-[10px] sm:text-xs font-black text-gray-900 leading-none mb-0.5">E-mail</span>
-                          <span className="text-[8px] sm:text-[9px] text-gray-400 font-bold uppercase tracking-wider">Backup seg</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="font-bold text-xs sm:text-[13px] py-2 sm:py-2.5 px-4 rounded-full text-center flex items-center justify-center gap-1.5 shadow-[0_2px_10px_rgba(34,197,94,0.15)]" style={{ background: '#A3E6CD', color: '#047857' }}>
-                      ⚡ Acesso liberado em poucos minutos!
-                    </div>
                   </div>
 
-                  <div className="text-center flex justify-center items-center gap-1.5 text-[11px] sm:text-xs text-gray-400 font-medium mt-4">
-                    <span className="text-base">🔒</span> 7 dias de garantia incondicional
+                  <div className="p-6 md:p-8">
+                    {/* Plan name */}
+                    <div className="text-center mb-6">
+                      <span className="text-xs font-black uppercase tracking-widest" style={{ color: 'var(--turquoise)' }}>Plano</span>
+                      <h3 className="text-2xl md:text-3xl font-black text-gray-900 mt-1" style={{ fontFamily: 'Sora' }}>COMPLETO + BÔNUS</h3>
+                      <p className="text-sm text-gray-500 mt-1">Tudo para dominar e lucrar com marmorizado</p>
+                    </div>
+
+                    {/* Big price */}
+                    <div className="text-center py-5 mb-6 rounded-2xl relative overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(0,194,203,0.07), rgba(0,194,203,0.02))', border: '1.5px solid rgba(0,194,203,0.18)' }}>
+                      <div className="flex items-center justify-center gap-3 mb-1">
+                        <span className="text-gray-400 text-lg line-through">R$97,90</span>
+                        <span className="text-sm font-black text-white px-3 py-1 rounded-full" style={{ background: 'linear-gradient(135deg, #22c55e, #16a34a)' }}>85% OFF</span>
+                      </div>
+                      <div className="flex items-end justify-center gap-1">
+                        <span className="text-xl font-black text-gray-400 mb-2">R$</span>
+                        <span className="font-black leading-none" style={{ fontFamily: 'Sora', color: 'var(--turquoise)', fontSize: 'clamp(64px, 18vw, 96px)' }}>14</span>
+                        <span className="text-4xl font-black mb-2" style={{ color: 'var(--turquoise)' }}>,99</span>
+                      </div>
+                      <p className="text-xs font-bold text-gray-400 mt-2">💳 Pagamento único • Acesso vitalício</p>
+                    </div>
+
+                    {/* What's included — visual checklist */}
+                    <div className="mb-6">
+                      <p className="text-xs font-black uppercase tracking-widest text-gray-400 mb-4 text-center">Tudo que você recebe no plano completo:</p>
+                      <div className="flex flex-col gap-2">
+                        {[
+                          { icon: '🎬', label: 'Aulas em Vídeo HD — do zero ao avançado', highlight: true },
+                          { icon: '🎨', label: '+300 Modelos Prontos de Efeito Marmorizado', highlight: true },
+                          { icon: '📲', label: 'Instagram que Vende — sistema de posicionamento', highlight: false },
+                          { icon: '📋', label: 'Posts Prontos + Estratégia de Conteúdo', highlight: false },
+                          { icon: '💼', label: 'Script de Orçamento com 87% de fechamento', highlight: false },
+                          { icon: '🚀', label: 'Plano Completo para Faturar R$15K/mês', highlight: false },
+                          { icon: '💬', label: 'Suporte VIP Exclusivo no WhatsApp', highlight: false },
+                          { icon: '🎁', label: '5 Bônus Exclusivos — valor de R$235 GRÁTIS', highlight: true },
+                          { icon: '📜', label: 'Certificado Profissional de Conclusão', highlight: false },
+                        ].map((item, i) => (
+                          <div key={i} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl ${item.highlight ? 'font-black' : 'font-medium'}`}
+                            style={{ background: item.highlight ? 'rgba(0,194,203,0.06)' : 'transparent', border: item.highlight ? '1px solid rgba(0,194,203,0.12)' : 'none' }}>
+                            <span className="text-lg flex-shrink-0">{item.icon}</span>
+                            <span className={`text-sm flex-1 ${item.highlight ? 'text-gray-900' : 'text-gray-700'}`}>{item.label}</span>
+                            <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: '#22c55e' }} />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Shimmer CTA button */}
+                    <style dangerouslySetInnerHTML={{ __html: `@keyframes ctaShimmer { 0% { transform: translateX(-150%) skewX(-20deg); } 100% { transform: translateX(300%) skewX(-20deg); } }` }} />
+                    <button
+                      onClick={() => openCheckout(checkoutComplete)}
+                      className="relative w-full overflow-hidden rounded-2xl font-black text-lg text-white mb-4"
+                      style={{ height: '70px', background: 'linear-gradient(135deg, #00C2CB 0%, #009AA2 50%, #007A81 100%)', boxShadow: '0 10px 35px rgba(0,194,203,0.45), 0 2px 8px rgba(0,0,0,0.1)', transition: 'all 0.2s ease' }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1.03)'; (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 16px 50px rgba(0,194,203,0.55)'; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)'; (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 10px 35px rgba(0,194,203,0.45)'; }}>
+                      <div className="absolute top-0 w-16 h-full opacity-40" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)', animation: 'ctaShimmer 2.5s ease-in-out infinite' }} />
+                      <span className="relative flex items-center justify-center gap-2 text-lg font-black tracking-wide">
+                        🔓 QUERO O PLANO COMPLETO — R$14,99 →
+                      </span>
+                    </button>
+
+                    {/* Access method */}
+                    <div className="rounded-2xl p-4 mb-4" style={{ background: 'rgba(34,197,94,0.05)', border: '1px solid rgba(34,197,94,0.2)' }}>
+                      <p className="text-center text-xs font-black text-gray-600 mb-3">📩 Você recebe acesso por:</p>
+                      <div className="flex gap-2 mb-3">
+                        <div className="flex-1 bg-white rounded-xl p-2.5 flex items-center gap-2.5 shadow-sm border border-green-100">
+                          <div className="w-9 h-9 rounded-full bg-green-500 flex items-center justify-center text-white flex-shrink-0">
+                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>
+                          </div>
+                          <div>
+                            <p className="text-xs font-black text-gray-900">WhatsApp</p>
+                            <p className="text-[9px] text-gray-400 uppercase tracking-wider">Acesso imediato</p>
+                          </div>
+                        </div>
+                        <span className="text-gray-300 font-bold self-center">+</span>
+                        <div className="flex-1 bg-white rounded-xl p-2.5 flex items-center gap-2.5 shadow-sm border border-pink-100">
+                          <div className="w-9 h-9 rounded-full bg-pink-500 flex items-center justify-center text-white flex-shrink-0">
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                          </div>
+                          <div>
+                            <p className="text-xs font-black text-gray-900">E-mail</p>
+                            <p className="text-[9px] text-gray-400 uppercase tracking-wider">Backup seguro</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="py-2.5 px-4 rounded-full text-center text-sm font-black" style={{ background: '#A3E6CD', color: '#047857' }}>
+                        ⚡ Acesso liberado em poucos minutos!
+                      </div>
+                    </div>
+
+                    {/* Trust seal */}
+                    <p className="text-center text-xs text-gray-400 flex items-center justify-center gap-1.5">
+                      <span>🔒</span> 7 dias de garantia incondicional • Sem perguntas
+                    </p>
                   </div>
                 </div>
               </div>

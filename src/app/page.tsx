@@ -16,11 +16,11 @@ export default function Home() {
         __html: `
         @keyframes fanRevealLeft {
           0%   { opacity:0; transform: translateX(0) rotate(0deg) scale(0.8) translateY(30px); }
-          100% { opacity:1; transform: translateX(-45%) rotate(-18deg) scale(0.9) translateY(5px); }
+          100% { opacity:1; transform: translateX(-110px) rotate(-18deg) scale(0.85) translateY(10px); }
         }
         @keyframes fanRevealRight {
           0%   { opacity:0; transform: translateX(0) rotate(0deg) scale(0.8) translateY(30px); }
-          100% { opacity:1; transform: translateX(45%) rotate(18deg) scale(0.9) translateY(5px); }
+          100% { opacity:1; transform: translateX(110px) rotate(18deg) scale(0.85) translateY(10px); }
         }
         @keyframes fanRevealCenter {
           0%   { opacity:0; transform: translateY(30px) scale(0.9); }
@@ -42,14 +42,14 @@ export default function Home() {
         </div>
 
         {/* ── FAN DE IMAGENS ATUALIZADO ──
-            Layout fiel à referência: as imagens se separam para os lados (translation) para não haver oclusão severa.
+            Layout fiel à referência: as imagens escapam 110px pras laterais mantendo-as totalmente visíveis
         */}
-        <div className="relative flex justify-center items-end" style={{ zIndex: 1, width: '100%', height: '300px', flexShrink: 0, marginTop: '20px' }}>
+        <div className="relative flex justify-center items-end" style={{ zIndex: 1, width: '100%', height: '320px', flexShrink: 0, marginTop: '20px' }}>
 
           {/* ESQUERDA */}
           <div className="fan-left absolute" style={{
             width: '180px', height: '240px',
-            bottom: '20px',
+            bottom: '40px',
             transformOrigin: 'center center',
             borderRadius: '20px',
             overflow: 'hidden',
@@ -64,7 +64,7 @@ export default function Home() {
           {/* DIREITA */}
           <div className="fan-right absolute" style={{
             width: '180px', height: '240px',
-            bottom: '20px',
+            bottom: '40px',
             transformOrigin: 'center center',
             borderRadius: '20px',
             overflow: 'hidden',
@@ -78,8 +78,8 @@ export default function Home() {
 
           {/* CENTRAL */}
           <div className="fan-center absolute" style={{
-            width: '200px', height: '270px',
-            bottom: '15px',
+            width: '210px', height: '280px',
+            bottom: '20px',
             transformOrigin: 'bottom center',
             borderRadius: '24px',
             overflow: 'hidden',

@@ -94,7 +94,13 @@ export default function ResultadoPage() {
 
   useEffect(() => {
     const timers = Array.from({ length: 5 }, (_, i) => setTimeout(() => setBonusVis(p => { const n = [...p]; n[i] = true; return n; }), 500 + i * 200));
-    const h = () => setShowSticky(window.scrollY > 800);
+    const h = () => {
+      const scrollPos = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const totalHeight = document.documentElement.scrollHeight;
+      const isNearBottom = scrollPos + windowHeight > totalHeight - 800;
+      setShowSticky(scrollPos > 800 && !isNearBottom);
+    };
     window.addEventListener('scroll', h);
     return () => { timers.forEach(clearTimeout); window.removeEventListener('scroll', h); };
   }, []);
@@ -104,66 +110,196 @@ export default function ResultadoPage() {
   return (
     <main className="overflow-x-hidden bg-white">
 
-      {/* ===== HERO ===== */}
-      <section className="relative py-16 px-4 text-center overflow-hidden" style={{ background: 'linear-gradient(160deg, #0A1628 0%, #0F2035 40%, #0A1628 100%)' }}>
-        {/* Animated bg particles */}
+      {/* ===== HERO — ANÁLISE IMPACTANTE ===== */}
+      <section className="relative overflow-hidden" style={{ background: 'linear-gradient(160deg, #060D1A 0%, #0A1628 40%, #0F2035 70%, #060D1A 100%)' }}>
+
+        {/* Animated keyframes */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+          @keyframes revealUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+          @keyframes revealScale { from { opacity:0; transform:scale(0.85); } to { opacity:1; transform:scale(1); } }
+          @keyframes glowPulse { 0%,100% { opacity:0.35; transform:scale(1); } 50% { opacity:0.6; transform:scale(1.08); } }
+          @keyframes ringProgress { from { stroke-dashoffset: 283; } to { stroke-dashoffset: 28; } }
+          @keyframes counterUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+          @keyframes shimmerSlide { from { transform:translateX(-200%) skewX(-15deg); } to { transform:translateX(400%) skewX(-15deg); } }
+          @keyframes fanRevealLeft {
+            0%   { opacity:0; transform: rotate(-18deg) translateY(20px) scale(0.75); }
+            100% { opacity:1; transform: rotate(-18deg) translateY(0)    scale(1); }
+          }
+          @keyframes fanRevealRight {
+            0%   { opacity:0; transform: rotate(18deg) translateY(20px) scale(0.75); }
+            100% { opacity:1; transform: rotate(18deg) translateY(0)    scale(1); }
+          }
+          @keyframes fanRevealCenter {
+            0%   { opacity:0; transform: translateY(24px) scale(0.75); }
+            100% { opacity:1; transform: translateY(0)    scale(1); }
+          }
+          .fan-left   { animation: fanRevealLeft   1.0s cubic-bezier(0.22,1,0.36,1) 0.25s both; }
+          .fan-right  { animation: fanRevealRight  1.0s cubic-bezier(0.22,1,0.36,1) 0.4s  both; }
+          .fan-center { animation: fanRevealCenter 1.0s cubic-bezier(0.22,1,0.36,1) 0.08s both; }
+          @keyframes badgePop { 0% { opacity:0; transform:scale(0.5) rotate(-5deg); } 70% { transform:scale(1.08) rotate(2deg); } 100% { opacity:1; transform:scale(1) rotate(0deg); } }
+          @keyframes starsReveal { from { opacity:0; transform:scale(0) rotate(-20deg); } to { opacity:1; transform:scale(1) rotate(0); } }
+          @keyframes lineExpand { from { width:0; } to { width:100%; } }
+          @keyframes capabilityIn { from { opacity:0; transform:translateX(-20px); } to { opacity:1; transform:translateX(0); } }
+          .reveal-1 { animation: revealUp 0.7s cubic-bezier(0.2,0.8,0.2,1) 0.1s both; }
+          .reveal-2 { animation: revealUp 0.7s cubic-bezier(0.2,0.8,0.2,1) 0.25s both; }
+          .reveal-3 { animation: revealScale 0.8s cubic-bezier(0.2,0.8,0.2,1) 0.4s both; }
+          .reveal-4 { animation: revealUp 0.7s cubic-bezier(0.2,0.8,0.2,1) 0.55s both; }
+          .reveal-5 { animation: revealUp 0.7s cubic-bezier(0.2,0.8,0.2,1) 0.7s both; }
+          .reveal-6 { animation: revealUp 0.7s cubic-bezier(0.2,0.8,0.2,1) 0.85s both; }
+          .glow-ring { animation: glowPulse 3s ease-in-out infinite; }
+          .ring-progress { animation: ringProgress 2.5s cubic-bezier(0.2,0.8,0.2,1) 0.6s both; }
+          .badge-pop { animation: badgePop 0.6s cubic-bezier(0.2,0.8,0.2,1) 1.2s both; opacity:0; }
+          .cap-1 { animation: capabilityIn 0.5s ease 0.9s both; }
+          .cap-2 { animation: capabilityIn 0.5s ease 1.05s both; }
+          .cap-3 { animation: capabilityIn 0.5s ease 1.2s both; }
+          .cap-4 { animation: capabilityIn 0.5s ease 1.35s both; }
+          .shimmer-btn::after { content:''; position:absolute; top:0; width:40%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent); animation: shimmerSlide 3s ease-in-out infinite; }
+        `}} />
+
+        {/* Ambient glow blobs */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {[...Array(6)].map((_, i) => (
+          <div className="glow-ring absolute w-[600px] h-[600px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(0,194,203,0.18) 0%, transparent 70%)', top: '-150px', left: '50%', transform: 'translateX(-50%)' }} />
+          <div className="glow-ring absolute w-[400px] h-[400px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(245,166,35,0.1) 0%, transparent 70%)', bottom: '-100px', right: '-100px', animationDelay: '1s' }} />
+          {/* Floating particles */}
+          {[...Array(8)].map((_, i) => (
             <div key={i} className="absolute rounded-full animate-float" style={{
-              width: `${8 + i * 4}px`, height: `${8 + i * 4}px`,
-              background: i % 2 === 0 ? 'rgba(0,194,203,0.15)' : 'rgba(245,166,35,0.12)',
-              left: `${10 + i * 15}%`, top: `${15 + (i % 3) * 25}%`,
-              animationDuration: `${3 + i * 0.7}s`, animationDelay: `${i * 0.3}s`,
+              width: `${4 + i * 3}px`, height: `${4 + i * 3}px`,
+              background: i % 3 === 0 ? 'rgba(0,194,203,0.3)' : i % 3 === 1 ? 'rgba(245,166,35,0.2)' : 'rgba(124,77,255,0.2)',
+              left: `${5 + i * 12}%`, top: `${10 + (i % 4) * 20}%`,
+              animationDuration: `${3 + i * 0.5}s`, animationDelay: `${i * 0.35}s`,
             }} />
           ))}
         </div>
 
-        <div className="relative z-10 max-w-3xl mx-auto">
-          {/* Animated badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full mb-6 animate-fade-in-up" style={{ background: 'linear-gradient(135deg, rgba(0,194,203,0.15), rgba(245,166,35,0.1))', border: '1px solid rgba(0,194,203,0.3)', backdropFilter: 'blur(10px)' }}>
-            <span className="text-xl animate-float" style={{ animationDuration: '2s' }}>🏆</span>
-            <span className="font-black text-sm uppercase tracking-wider" style={{ color: 'var(--turquoise)' }}>Análise Completa</span>
+        <div className="relative z-10 max-w-2xl mx-auto px-5 pt-14 pb-8 text-center">
+
+          {/* ── TOP BADGE ── */}
+          <div className="reveal-1 inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full mb-5"
+            style={{ background: 'linear-gradient(135deg, rgba(0,194,203,0.18), rgba(124,77,255,0.12))', border: '1px solid rgba(0,194,203,0.4)', backdropFilter: 'blur(12px)' }}>
+            <span className="text-lg animate-float" style={{ animationDuration: '2s' }}>⚡</span>
+            <span className="font-black text-xs uppercase tracking-[0.18em]" style={{ color: 'var(--turquoise)' }}>Análise Personalizada Concluída</span>
           </div>
 
-          {/* Title */}
-          <h1 className="text-3xl md:text-5xl font-black mb-3 text-white animate-fade-in-up" style={{ fontFamily: 'Sora', animationDelay: '0.1s' }}>
-            Seu Perfil Foi <span className="text-gradient-turquoise">Analisado!</span>
-          </h1>
+          {/* ── MAIN HEADLINE ── */}
+          <div className="reveal-2">
+            <h1 className="text-3xl sm:text-4xl md:text-[3.2rem] font-black leading-[1.05] tracking-tight text-white" style={{ fontFamily: 'Sora' }}>
+              Você tem o perfil{' '}
+              <span className="relative inline-block">
+                <span className="text-gradient-turquoise">perfeito</span>
+                <svg className="absolute -bottom-1 left-0 w-full" height="4" viewBox="0 0 100 4" preserveAspectRatio="none">
+                  <path d="M0 2 Q50 0 100 2" stroke="url(#underlineGrad)" strokeWidth="3" fill="none" strokeLinecap="round">
+                    <animate attributeName="stroke-dasharray" from="0 200" to="200 0" dur="0.8s" begin="0.6s" fill="freeze" />
+                  </path>
+                  <defs><linearGradient id="underlineGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stopColor="#00C2CB" /><stop offset="100%" stopColor="#7C4DFF" /></linearGradient></defs>
+                </svg>
+              </span>
+              {' '}para se tornar um<br />
+              <span style={{ color: '#F5A623' }}>Especialista de Elite</span>
+            </h1>
+            <p className="mt-4 text-gray-400 text-base sm:text-lg leading-relaxed">
+              Nossa análise identificou seu plano personalizado. Veja tudo que você é capaz de conquistar:
+            </p>
+          </div>
 
-          {/* Revenue highlight */}
-          <div className="my-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            <p className="text-sm text-gray-400 uppercase tracking-widest mb-2">Potencial de faturamento identificado</p>
-            <div className="inline-block relative">
-              <div className="absolute -inset-4 rounded-2xl opacity-30 animate-pulse" style={{ background: 'radial-gradient(circle, rgba(0,194,203,0.4), transparent 70%)' }} />
-              <span className="relative text-5xl md:text-7xl font-black text-gradient-turquoise" style={{ fontFamily: 'Sora' }}>R$15K+</span>
+          {/* ── ANIMATED SCORE RING + POTENTIAL ── */}
+          <div className="reveal-3 my-8 flex flex-col items-center gap-6">
+            {/* Score Ring */}
+            <div className="relative w-48 h-48">
+              {/* Outer glow */}
+              <div className="absolute inset-0 rounded-full opacity-40 animate-pulse" style={{ background: 'radial-gradient(circle, rgba(0,194,203,0.5), transparent 70%)' }} />
+              <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                {/* Track */}
+                <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="6" />
+                {/* Glow shadow */}
+                <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(0,194,203,0.15)" strokeWidth="10" />
+                {/* Progress */}
+                <circle cx="50" cy="50" r="45" fill="none" strokeWidth="6" strokeLinecap="round"
+                  stroke="url(#scoreGrad)" strokeDasharray="283" strokeDashoffset="283"
+                  className="ring-progress" />
+                <defs>
+                  <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#00C2CB" />
+                    <stop offset="50%" stopColor="#7C4DFF" />
+                    <stop offset="100%" stopColor="#F5A623" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              {/* Inner content */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className="text-[11px] font-bold uppercase tracking-widest text-gray-500 mb-1">Potencial</span>
+                <span className="text-4xl font-black text-gradient-turquoise" style={{ fontFamily: 'Sora' }}>90%</span>
+                <span className="text-[10px] text-gray-500 mt-0.5">de sucesso</span>
+              </div>
             </div>
-            <p className="text-lg text-gray-300 font-medium mt-2">por mês com pintura marmorizada</p>
+
+            {/* Revenue Highlight */}
+            <div className="relative">
+              <div className="absolute -inset-3 rounded-2xl opacity-25 animate-pulse" style={{ background: 'radial-gradient(circle, rgba(0,194,203,0.6), transparent 70%)' }} />
+              <div className="relative text-center">
+                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-1">Faturamento identificado</p>
+                <span className="text-6xl sm:text-7xl font-black" style={{ fontFamily: 'Sora', background: 'linear-gradient(135deg, #00C2CB, #7C4DFF, #F5A623)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>R$15K+</span>
+                <p className="text-gray-400 text-sm font-medium mt-1">por mês • com apenas 3 projetos</p>
+              </div>
+            </div>
           </div>
 
-          {/* Stats row */}
-          <div className="grid grid-cols-3 gap-3 max-w-md mx-auto mb-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          {/* ── CAPABILITY AFFIRMATIONS ── */}
+          <div className="reveal-4 mb-7 flex flex-col gap-3 text-left">
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-center mb-1" style={{ color: 'var(--turquoise)' }}>✦ O que você é capaz de conquistar</p>
             {[
-              { icon: '🎯', value: '3', label: 'Projetos/mês' },
-              { icon: '📅', value: '8', label: 'Dias de trabalho' },
-              { icon: '💰', value: '85%', label: 'Margem de lucro' },
-            ].map((s, i) => (
-              <div key={i} className="p-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
-                <span className="text-lg">{s.icon}</span>
-                <p className="text-xl font-black text-white mt-1" style={{ fontFamily: 'Sora' }}>{s.value}</p>
-                <p className="text-[9px] text-gray-500 uppercase tracking-wider">{s.label}</p>
+              { icon: '💰', text: 'Faturar R$15.000+ por mês trabalhando apenas 8 dias', color: '#22c55e' },
+              { icon: '🏆', text: 'Cobrar R$150–300/m² por trabalho que outros cobram R$40', color: '#F5A623' },
+              { icon: '🚀', text: 'Fechar contratos de R$5K a R$30K com confiança', color: '#00C2CB' },
+              { icon: '👑', text: 'Ser reconhecido como especialista premium na sua região', color: '#A78BFA' },
+            ].map((item, i) => (
+              <div key={i} className={`cap-${i + 1} flex items-center gap-3.5 px-4 py-3.5 rounded-2xl`}
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
+                  style={{ background: `${item.color}20`, border: `1px solid ${item.color}40` }}>
+                  {item.icon}
+                </div>
+                <p className="text-sm text-gray-200 font-medium leading-snug flex-1">{item.text}</p>
+                <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: `${item.color}30` }}>
+                  <CheckCircle className="w-3.5 h-3.5" style={{ color: item.color }} />
+                </div>
               </div>
             ))}
           </div>
 
-          {/* Bonuses unlocked */}
-          <div className="inline-flex items-center gap-2 px-5 py-3 rounded-xl animate-fade-in-up" style={{ animationDelay: '0.4s', background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.25)' }}>
-            <CheckCircle className="w-5 h-5" style={{ color: '#22c55e' }} />
-            <span className="text-sm font-bold text-gray-300">5 bônus exclusivos desbloqueados — <span style={{ color: '#22c55e' }}>R$235 em conteúdo grátis</span></span>
+          {/* ── STATS ROW ── */}
+          <div className="reveal-5 grid grid-cols-3 gap-3 mb-6">
+            {[
+              { icon: '🎯', value: '3', label: 'projetos/mês' },
+              { icon: '📅', value: '8', label: 'dias trabalhados' },
+              { icon: '📈', value: '85%', label: 'margem de lucro' },
+            ].map((s, i) => (
+              <div key={i} className="py-4 px-2 rounded-2xl flex flex-col items-center gap-1"
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                <span className="text-xl">{s.icon}</span>
+                <p className="text-xl font-black text-white" style={{ fontFamily: 'Sora' }}>{s.value}</p>
+                <p className="text-[9px] text-gray-500 uppercase tracking-wider text-center">{s.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* ── BADGE EXCLUSIVO ── */}
+          <div className="reveal-6">
+            {/* Badge completa */}
+            <div className="badge-pop relative inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl"
+              style={{ background: 'linear-gradient(135deg, rgba(34,197,94,0.12), rgba(34,197,94,0.06))', border: '1.5px solid rgba(34,197,94,0.35)' }}>
+              <div className="w-8 h-8 rounded-xl flex items-center justify-center text-lg flex-shrink-0" style={{ background: 'rgba(34,197,94,0.2)' }}>🎁</div>
+              <div className="text-left">
+                <p className="text-xs font-black text-white">5 bônus desbloqueados para você</p>
+                <p className="text-[10px]" style={{ color: '#22c55e' }}>R$235 em conteúdo • Totalmente grátis</p>
+              </div>
+              <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: '#22c55e' }} />
+            </div>
           </div>
         </div>
 
         {/* Bottom gradient fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none" style={{ background: 'linear-gradient(to top, white, transparent)' }} />
+        <div className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none" style={{ background: 'linear-gradient(to top, white, transparent)' }} />
       </section>
 
       {/* ===== REVENUE DEMONSTRATION ===== */}
@@ -179,23 +315,6 @@ export default function ResultadoPage() {
 
           {/* Contract Simulation */}
           <div className={`transition-all duration-1000 ${revenueSection.vis ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-            {/* Step-by-step visual flow */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-              {[
-                { step: '1️⃣', title: 'Cliente te Encontra', desc: 'Pelo Instagram ou indicação', icon: '📲', delay: 0 },
-                { step: '2️⃣', title: 'Você Envia o Orçamento', desc: 'Com nosso script pronto', icon: '📋', delay: 200 },
-                { step: '3️⃣', title: 'Contrato Fechado!', desc: 'Cliente paga adiantado', icon: '🤝', delay: 400 },
-              ].map((s, i) => (
-                <div key={i} className={`relative p-5 rounded-2xl text-center transition-all duration-700 ${revenueSection.vis ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-                  style={{ transitionDelay: `${s.delay + 300}ms`, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <div className="text-3xl mb-3">{s.icon}</div>
-                  <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--turquoise)' }}>{s.step}</p>
-                  <h4 className="text-lg font-black text-white mb-1" style={{ fontFamily: 'Sora' }}>{s.title}</h4>
-                  <p className="text-sm text-gray-400">{s.desc}</p>
-                  {i < 2 && <div className="hidden md:block absolute top-1/2 -right-3 -translate-y-1/2 text-2xl" style={{ color: 'var(--turquoise)' }}>→</div>}
-                </div>
-              ))}
-            </div>
 
             {/* 3 Real Projects */}
             <div className={`rounded-3xl overflow-hidden transition-all duration-1000 ${revenueSection.vis ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
@@ -374,97 +493,126 @@ export default function ResultadoPage() {
         <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" style={{ background: 'linear-gradient(to top, #F7F8FA, transparent)' }} />
       </section>
 
-      {/* ===== HOW TO SELL - Visual Bold ===== */}
-      <section className="py-20 px-4 overflow-hidden" style={{ background: 'linear-gradient(180deg, #F7F8FA 0%, #FFFFFF 100%)' }}>
-        <div ref={sellSection.ref} className="max-w-4xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--turquoise)' }}>✨ Sistema Completo de Vendas</p>
-            <h2 className="text-3xl md:text-5xl font-black" style={{ fontFamily: 'Sora', color: '#111' }}>
-              Tudo Para Você <span style={{ color: 'var(--turquoise)' }}>Vender,<br />Fechar e Faturar</span>
+      {/* ===== O QUE VOCÊ VAI RECEBER ===== */}
+      <section className="py-16 px-4 overflow-hidden" style={{ background: 'linear-gradient(180deg, #F7F8FA 0%, #FFFFFF 100%)' }}>
+        <div className="max-w-lg mx-auto">
+          {/* Header */}
+          <div className="text-center mb-10">
+            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-[0.18em] mb-4"
+              style={{ background: 'rgba(0,194,203,0.1)', color: 'var(--turquoise)', border: '1px solid rgba(0,194,203,0.25)' }}>
+              📦 Conteúdo Completo
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black leading-tight" style={{ fontFamily: 'Sora', color: '#0A1628' }}>
+              O Que Você Vai{' '}
+              <span className="text-gradient-turquoise">Receber</span>
             </h2>
-            <p className="mt-4 text-gray-500 text-lg max-w-xl mx-auto">Não basta saber pintar — você precisa de um sistema completo de vendas</p>
+            <p className="mt-3 text-gray-500 text-sm leading-relaxed">
+              Tudo que você precisa para ir do zero ao especialista premium — sem enrolação
+            </p>
           </div>
 
-          {/* Big visual metrics row */}
-          <div className={`grid grid-cols-3 gap-0 rounded-3xl overflow-hidden mb-10 transition-all duration-700 ${sellSection.vis ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-            style={{ border: '2px solid #E8EBF0', boxShadow: '0 20px 60px rgba(0,0,0,0.06)' }}>
-            {[
-              { stat: '+5K', label: 'Seguidores/mês', sub: 'Pelo Instagram otimizado', icon: '📲', color: '#E91E63', bg: 'linear-gradient(135deg, #FFF0F5 0%, #FFFFFF 100%)' },
-              { stat: '87%', label: 'Taxa de Fechamento', sub: 'Usando nosso script', icon: '💼', color: 'var(--turquoise)', bg: 'linear-gradient(135deg, #F0FFFE 0%, #FFFFFF 100%)' },
-              { stat: 'R$15K', label: 'Faturamento/Mês', sub: 'Com apenas 3 projetos', icon: '🚀', color: '#F5A623', bg: 'linear-gradient(135deg, #FFFBF0 0%, #FFFFFF 100%)' },
-            ].map((m, i) => (
-              <div key={i} className="p-6 md:p-8 text-center" style={{ background: m.bg, borderRight: i < 2 ? '1px solid #E8EBF0' : 'none' }}>
-                <div className="text-3xl md:text-4xl mb-3">{m.icon}</div>
-                <p className="text-2xl md:text-4xl font-black mb-1" style={{ fontFamily: 'Sora', color: m.color }}>{m.stat}</p>
-                <p className="text-xs md:text-sm font-black text-gray-800 mb-1">{m.label}</p>
-                <p className="text-[10px] md:text-xs text-gray-400 hidden md:block">{m.sub}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* 3 Visual pillars - horizontal stack */}
-          <div className="flex flex-col gap-4">
+          {/* Items grid */}
+          <div className="flex flex-col gap-3">
             {[
               {
-                num: '01',
-                icon: '📲',
-                title: 'Instagram que Vende',
-                desc: 'Perfil profissional otimizado para atrair clientes premium que pagam R$150–300/m²',
-                points: ['Templates prontos de posts', 'Estratégia de conteúdo', 'Como atrair +5K seguidores/mês'],
-                gradient: 'linear-gradient(135deg, #E91E63, #C2185B)',
-                bgLight: 'rgba(233,30,99,0.04)',
-                borderColor: 'rgba(233,30,99,0.15)',
-                accentColor: '#E91E63',
+                icon: '🎬',
+                title: 'Aulas em Vídeo HD',
+                desc: 'Assista quando e quantas vezes quiser, no celular ou computador',
+                badge: 'Principal',
+                badgeColor: '#00C2CB',
+                gradient: 'linear-gradient(135deg, rgba(0,194,203,0.12), rgba(0,194,203,0.04))',
+                border: 'rgba(0,194,203,0.25)',
               },
               {
-                num: '02',
-                icon: '💼',
-                title: 'Orçamento que Fecha',
-                desc: '87% dos alunos fecham o primeiro contrato na primeira semana usando nosso script',
-                points: ['Script de apresentação completo', 'Justificativa de valor premium', 'Proposta profissional WhatsApp'],
-                gradient: 'linear-gradient(135deg, #00C2CB, #009AA2)',
-                bgLight: 'rgba(0,194,203,0.04)',
-                borderColor: 'rgba(0,194,203,0.15)',
-                accentColor: 'var(--turquoise)',
+                icon: '🖼️',
+                title: '+300 Efeitos Marmorizado Prontos',
+                desc: 'Biblioteca completa de padrões para você aplicar e vender imediatamente',
+                badge: '+300 efeitos',
+                badgeColor: '#7C4DFF',
+                gradient: 'linear-gradient(135deg, rgba(124,77,255,0.10), rgba(124,77,255,0.03))',
+                border: 'rgba(124,77,255,0.2)',
               },
               {
-                num: '03',
-                icon: '🚀',
-                title: 'Plano de R$15K/Mês',
-                desc: 'Sistema completo para escalar: quantidade de projetos, agenda e indicações automáticas',
-                points: ['Quantos projetos por mês', 'Agenda de visitas otimizada', 'Sistema de indicações automáticas'],
-                gradient: 'linear-gradient(135deg, #F5A623, #D4880A)',
-                bgLight: 'rgba(245,166,35,0.04)',
-                borderColor: 'rgba(245,166,35,0.15)',
-                accentColor: '#F5A623',
+                icon: '📈',
+                title: 'Método Para Chegar aos R$15K/Mês',
+                desc: 'O passo a passo exato para faturar de forma consistente com apenas 3 projetos',
+                badge: 'Exclusivo',
+                badgeColor: '#F5A623',
+                gradient: 'linear-gradient(135deg, rgba(245,166,35,0.10), rgba(245,166,35,0.03))',
+                border: 'rgba(245,166,35,0.22)',
               },
-            ].map((pillar, i) => (
+              {
+                icon: '🎓',
+                title: 'Aulas Passo a Passo do 0 ao Avançado',
+                desc: 'Do iniciante absoluto até técnicas avançadas de marmorização premium',
+                badge: 'Completo',
+                badgeColor: '#22c55e',
+                gradient: 'linear-gradient(135deg, rgba(34,197,94,0.10), rgba(34,197,94,0.03))',
+                border: 'rgba(34,197,94,0.22)',
+              },
+              {
+                icon: '🧴',
+                title: 'Lista de Materiais Completa',
+                desc: 'Tudo que você precisa comprar, onde encontrar e quanto custar para o seu lucro ser máximo',
+                badge: 'Pratico',
+                badgeColor: '#E91E63',
+                gradient: 'linear-gradient(135deg, rgba(233,30,99,0.08), rgba(233,30,99,0.02))',
+                border: 'rgba(233,30,99,0.18)',
+              },
+              {
+                icon: '📄',
+                title: 'Materiais de Apoio em PDF',
+                desc: 'Apostilas, fichas técnicas e checklists para usar em cada projeto',
+                badge: 'PDF',
+                badgeColor: '#FF6D00',
+                gradient: 'linear-gradient(135deg, rgba(255,109,0,0.08), rgba(255,109,0,0.02))',
+                border: 'rgba(255,109,0,0.18)',
+              },
+              {
+                icon: '🎁',
+                title: '+5 Bônus Exclusivos Inclusos',
+                desc: 'Scripts de vendas, templates de posts, guia de precificação e muito mais — totalmente grátis',
+                badge: 'R$235 grátis',
+                badgeColor: '#22c55e',
+                gradient: 'linear-gradient(135deg, rgba(34,197,94,0.14), rgba(34,197,94,0.04))',
+                border: 'rgba(34,197,94,0.3)',
+              },
+            ].map((item, i) => (
               <div key={i}
-                className={`flex items-start gap-5 p-5 md:p-7 rounded-2xl transition-all duration-700 ${sellSection.vis ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}
-                style={{ transitionDelay: `${i * 150}ms`, background: pillar.bgLight, border: `1.5px solid ${pillar.borderColor}` }}>
-                {/* Big number */}
-                <div className="flex-shrink-0 hidden md:block">
-                  <span className="text-7xl font-black leading-none opacity-[0.07]" style={{ fontFamily: 'Sora', color: '#111' }}>{pillar.num}</span>
-                </div>
-                {/* Icon circle */}
-                <div className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shadow-lg" style={{ background: pillar.gradient }}>
-                  {pillar.icon}
+                className="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all duration-300 hover:scale-[1.01]"
+                style={{ background: item.gradient, border: `1.5px solid ${item.border}` }}>
+                {/* Icon */}
+                <div className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
+                  style={{ background: 'rgba(255,255,255,0.7)', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+                  {item.icon}
                 </div>
                 {/* Content */}
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-lg md:text-xl font-black text-gray-900 mb-1" style={{ fontFamily: 'Sora' }}>{pillar.title}</h3>
-                  <p className="text-sm text-gray-500 mb-3 leading-relaxed">{pillar.desc}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {pillar.points.map((pt, j) => (
-                      <span key={j} className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1 rounded-full bg-white"
-                        style={{ border: `1px solid ${pillar.borderColor}`, color: '#444' }}>
-                        <span style={{ color: pillar.accentColor }}>✓</span> {pt}
-                      </span>
-                    ))}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="font-black text-gray-900 text-sm leading-tight" style={{ fontFamily: 'Sora' }}>{item.title}</h3>
+                    <span className="flex-shrink-0 px-2 py-0.5 rounded-full text-white font-bold"
+                      style={{ fontSize: '9px', background: item.badgeColor, letterSpacing: '0.04em' }}>
+                      {item.badge}
+                    </span>
                   </div>
+                  <p className="text-xs text-gray-500 leading-relaxed mt-0.5">{item.desc}</p>
                 </div>
+                {/* Check */}
+                <CheckCircle className="flex-shrink-0 w-5 h-5" style={{ color: item.badgeColor }} />
               </div>
             ))}
+          </div>
+
+          {/* Total value banner */}
+          <div className="mt-8 p-5 rounded-2xl text-center relative overflow-hidden"
+            style={{ background: 'linear-gradient(135deg, #0A1628, #0F2035)', border: '1.5px solid rgba(0,194,203,0.3)' }}>
+            <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 0%, rgba(0,194,203,0.15), transparent 60%)' }} />
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-1">Valor total do conteúdo</p>
+            <div className="flex items-center justify-center gap-3 flex-wrap">
+              <span className="text-gray-500 line-through text-lg font-bold">De R$497</span>
+              <span className="text-3xl font-black text-gradient-turquoise" style={{ fontFamily: 'Sora' }}>Por muito menos</span>
+            </div>
+            <p className="mt-2 text-gray-400 text-xs">+ os 5 bônus que valem R$235 de graça</p>
           </div>
         </div>
       </section>
@@ -712,83 +860,78 @@ export default function ResultadoPage() {
               <TestimonialCarousel videoIds={['ihs0hcvo3h', 'foutga0xyz']} />
             </div>
 
-            {/* 3 Written Testimonials - SUPER IMPACTFUL */}
-            <div>
-              <div className="text-center mb-10">
-                <p className="text-xs font-black uppercase tracking-widest mb-2" style={{ color: 'var(--turquoise)' }}>💬 Relatos de Alunos</p>
-                <h3 className="text-2xl md:text-3xl font-black text-white" style={{ fontFamily: 'Sora' }}>O Que Estão Dizendo</h3>
+            {/* OLD WRITTEN TESTS REMOVED - Ending Dark Section Here */}
+          </div>
+        </section>
+
+        {/* Written Testimonials - New Minimalist Style */}
+        <section className="py-16 px-4 bg-white">
+          <div className="max-w-2xl mx-auto">
+            <div className="text-center mb-10">
+              <div className="inline-flex justify-center items-center gap-2 text-xl font-black" style={{ color: 'var(--turquoise)' }}>
+                <span className="text-2xl">💬</span> O que nossos alunos dizem:
               </div>
-              <div className="flex flex-col gap-5">
-                {/* Testimonial 1 */}
-                <div className="relative rounded-3xl p-7 overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(0,194,203,0.12), rgba(0,194,203,0.04))', border: '1.5px solid rgba(0,194,203,0.25)' }}>
-                  <div className="absolute top-0 right-0 w-32 h-32 opacity-5 pointer-events-none" style={{ background: 'radial-gradient(circle, var(--turquoise), transparent)' }} />
-                  <div className="flex items-start gap-4">
-                    <div className="w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center text-2xl font-black text-white shadow-lg" style={{ background: 'linear-gradient(135deg, #00C2CB, #009AA2)' }}>M</div>
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between gap-2 mb-3">
-                        <div>
-                          <p className="font-black text-white text-sm">Marcos A.</p>
-                          <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: 'var(--turquoise)' }}>Pintor • São Paulo, SP</p>
-                        </div>
-                        <div className="flex gap-0.5 flex-shrink-0">{[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-sm">★</span>)}</div>
-                      </div>
-                      <blockquote className="text-gray-300 leading-relaxed text-sm md:text-base">
-                        Em 3 semanas de curso já fechei meu <strong className="text-white">primeiro projeto de R$8.400</strong>. Antes eu cobrava R$35/m² e a galera regateava. Agora apresento o orçamento com confiança e os clientes <strong className="text-white">pagam sem questionar</strong>. O script de vendas foi o divisor de águas pra mim.
-                      </blockquote>
-                      <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full" style={{ background: 'rgba(34,197,94,0.12)', border: '1px solid rgba(34,197,94,0.25)' }}>
-                        <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                        <span className="text-xs font-black" style={{ color: '#22c55e' }}>+R$8.400 no 1º projeto ✓</span>
-                      </div>
-                    </div>
-                  </div>
+              <p className="text-gray-500 text-sm mt-2">Mais de <strong className="text-gray-900">1.847 alunos</strong> já transformaram suas vidas com o método:</p>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              {/* Testimonial 1 */}
+              <div className="relative bg-white rounded-2xl p-5" style={{ border: '1.5px solid border-gray-100', boxShadow: '0 4px 20px rgba(0,0,0,0.04)', borderColor: 'var(--turquoise)' }}>
+                {/* Mais curtido badge */}
+                <div className="absolute top-0 right-4 transform -translate-y-1/2 text-white text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-md" style={{ background: 'linear-gradient(90deg, #F5A623, #FF6D00)' }}>
+                  🔥 Mais curtido
                 </div>
 
-                {/* Testimonial 2 */}
-                <div className="relative rounded-3xl p-7 overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(245,166,35,0.1), rgba(245,166,35,0.03))', border: '1.5px solid rgba(245,166,35,0.2)' }}>
-                  <div className="flex items-start gap-4">
-                    <div className="w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center text-2xl font-black text-white shadow-lg" style={{ background: 'linear-gradient(135deg, #F5A623, #D4880A)' }}>J</div>
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between gap-2 mb-3">
-                        <div>
-                          <p className="font-black text-white text-sm">Juliana R.</p>
-                          <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: '#F5A623' }}>Pintora • Belo Horizonte, MG</p>
-                        </div>
-                        <div className="flex gap-0.5 flex-shrink-0">{[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-sm">★</span>)}</div>
-                      </div>
-                      <blockquote className="text-gray-300 leading-relaxed text-sm md:text-base">
-                        Nunca imaginei que sairia de R$2.800 por mês no emprego para <strong className="text-white">R$14.600 em apenas 40 dias</strong>. Os 300 modelos prontos de efeito foram o que me diferenciou da concorrência. Os clientes ficam sem palavras quando mostro o portfólio. <strong className="text-white">Meu marido também largou o emprego</strong> pra me ajudar.
-                      </blockquote>
-                      <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full" style={{ background: 'rgba(245,166,35,0.12)', border: '1px solid rgba(245,166,35,0.3)' }}>
-                        <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#F5A623' }} />
-                        <span className="text-xs font-black" style={{ color: '#F5A623' }}>De R$2.800 → R$14.600/mês ✓</span>
-                      </div>
-                    </div>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-full text-white flex items-center justify-center font-bold text-lg" style={{ background: 'var(--turquoise)' }}>M</div>
+                  <div className="flex flex-col">
+                    <span className="font-bold text-gray-900 text-sm">Marcos A.</span>
+                    <span className="text-[10px] text-green-500 font-bold flex items-center gap-1">
+                      <CheckCircle className="w-3 h-3" /> Compra verificada
+                    </span>
                   </div>
                 </div>
+                <div className="flex gap-0.5 text-yellow-400 text-xs mb-3">★★★★★</div>
+                <p className="text-gray-700 text-sm leading-relaxed mb-4">
+                  "Em 3 semanas de curso já fechei meu <strong className="text-gray-900">primeiro projeto de R$8.400</strong>. Antes eu cobrava pouco e a galera regateava. Agora apresento o orçamento com confiança e os clientes pagam sem questionar. O script de vendas foi o divisor de águas pra mim." 🙌🔥
+                </p>
+                <span className="text-[10px] text-gray-400 font-medium">Há 5 dias</span>
+              </div>
 
-                {/* Testimonial 3 - Biggest impact */}
-                <div className="relative rounded-3xl p-7 overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(124,77,255,0.12), rgba(124,77,255,0.03))', border: '1.5px solid rgba(124,77,255,0.25)' }}>
-                  <div className="absolute -bottom-6 -right-6 text-9xl opacity-5 pointer-events-none select-none">🏆</div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center text-2xl font-black text-white shadow-lg" style={{ background: 'linear-gradient(135deg, #7C4DFF, #512DA8)' }}>R</div>
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between gap-2 mb-3">
-                        <div>
-                          <p className="font-black text-white text-sm">Roberto S.</p>
-                          <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: '#A78BFA' }}>Pintor Especialista • Rio de Janeiro, RJ</p>
-                        </div>
-                        <div className="flex gap-0.5 flex-shrink-0">{[...Array(5)].map((_, i) => <span key={i} className="text-yellow-400 text-sm">★</span>)}</div>
-                      </div>
-                      <blockquote className="text-gray-300 leading-relaxed text-sm md:text-base">
-                        Fiz meu <strong className="text-white">maior projeto em 8 anos de carreira</strong>: um apartamento completo por <strong className="text-white">R$94.000</strong>. O cliente me achou pelo Instagram usando a estratégia do curso. O método de orçamento Premium me deu confiança de apresentar esse valor sem tremer. <strong className="text-white">Valeu cada centavo</strong> dos R$14,99.
-                      </blockquote>
-                      <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full" style={{ background: 'rgba(167,139,250,0.12)', border: '1px solid rgba(167,139,250,0.3)' }}>
-                        <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-                        <span className="text-xs font-black text-purple-300">Projeto de R$94.000 fechado ✓</span>
-                      </div>
-                    </div>
+              {/* Testimonial 2 */}
+              <div className="relative bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-full text-white flex items-center justify-center font-bold text-lg" style={{ background: 'var(--turquoise)' }}>J</div>
+                  <div className="flex flex-col">
+                    <span className="font-bold text-gray-900 text-sm">Juliano R.</span>
+                    <span className="text-[10px] text-green-500 font-bold flex items-center gap-1">
+                      <CheckCircle className="w-3 h-3" /> Compra verificada
+                    </span>
                   </div>
                 </div>
+                <div className="flex gap-0.5 text-yellow-400 text-xs mb-3">★★★★★</div>
+                <p className="text-gray-700 text-sm leading-relaxed mb-4">
+                  "Nunca imaginei que sairia de R$2.800 por mês no emprego para <strong className="text-gray-900">R$14.600 em apenas 40 dias</strong>. Os modelos prontos foram o que me diferenciou. A esposa também largou o emprego pra me ajudar na demanda!" 🎯💸
+                </p>
+                <span className="text-[10px] text-gray-400 font-medium">Há 1 semana</span>
+              </div>
+
+              {/* Testimonial 3 */}
+              <div className="relative bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-full text-white flex items-center justify-center font-bold text-lg" style={{ background: 'var(--turquoise)' }}>R</div>
+                  <div className="flex flex-col">
+                    <span className="font-bold text-gray-900 text-sm">Roberto S.</span>
+                    <span className="text-[10px] text-green-500 font-bold flex items-center gap-1">
+                      <CheckCircle className="w-3 h-3" /> Compra verificada
+                    </span>
+                  </div>
+                </div>
+                <div className="flex gap-0.5 text-yellow-400 text-xs mb-3">★★★★★</div>
+                <p className="text-gray-700 text-sm leading-relaxed mb-4">
+                  "Fiz meu maior projeto em 8 anos: <strong className="text-gray-900">um apartamento por R$94.000</strong>. O cliente achou pelo Instagram usando a estratégia do curso... Valeu cada centavo." 🏆✍️
+                </p>
+                <span className="text-[10px] text-gray-400 font-medium">Há 2 semanas</span>
               </div>
             </div>
           </div>
@@ -797,14 +940,33 @@ export default function ResultadoPage() {
         {/* Pricing */}
         <section className="py-20 px-4 overflow-hidden" style={{ background: 'linear-gradient(180deg, #F7F8FA 0%, #FFFFFF 100%)' }}>
           <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-red-500 text-sm font-black mb-5 animate-pulse" style={{ background: 'rgba(239,68,68,0.07)', border: '1.5px solid rgba(239,68,68,0.25)' }}>🔥 OFERTA POR TEMPO LIMITADO</div>
-              <h2 className="text-3xl md:text-5xl font-black mb-2" style={{ fontFamily: 'Sora', color: '#111' }}>Escolha Seu Plano</h2>
-              <p className="text-gray-500 mb-5">Oferta expira em:</p>
-              <div className="mb-6"><Countdown /></div>
-              <div className="max-w-xs mx-auto p-4 rounded-2xl" style={{ background: 'rgba(239,68,68,0.04)', border: '1px solid rgba(239,68,68,0.15)' }}>
-                <div className="w-full rounded-full overflow-hidden mb-2" style={{ height: '12px', background: '#E8EBF0' }}><div className="h-full rounded-full" style={{ width: '83%', background: 'linear-gradient(90deg, #ef4444, #F5A623)' }} /></div>
-                <p className="text-sm text-gray-500">83/100 vagas — <span className="font-black text-red-500">restam apenas 17</span></p>
+            <div className="text-center mb-16 flex flex-col items-center">
+              <div className="inline-block px-5 py-2 rounded-full text-white text-[11px] font-black tracking-widest uppercase mb-6 shadow-md"
+                style={{ background: 'linear-gradient(90deg, #F5A623, #FF6D00)' }}>
+                🔥 Oferta Exclusiva — Vagas Limitadas
+              </div>
+
+              <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight text-gray-900" style={{ fontFamily: 'Sora' }}>
+                Garanta Seu Acesso <span className="relative inline-block px-1" style={{ color: 'var(--turquoise)' }}>
+                  Agora
+                  <span className="absolute bottom-1 left-0 w-full h-1.5 opacity-30 rounded-full" style={{ background: 'var(--turquoise)' }} />
+                </span> e <br className="hidden md:block" />Comece a Lucrar!
+              </h2>
+
+              <p className="text-gray-500 text-base md:text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
+                Essa é a <strong className="text-gray-800">menor condição que você vai encontrar</strong> para ter acesso a tudo isso. Centenas de alunos já estão lucrando — <strong className="text-gray-800">não fique de fora!</strong>
+              </p>
+
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-full text-xs font-bold text-gray-700 shadow-sm border border-gray-100">
+                  <span className="text-[#FF3366]">⚡</span> Acesso imediato
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-full text-xs font-bold text-gray-700 shadow-sm border border-gray-100">
+                  <span className="text-yellow-500">🔒</span> Pagamento 100% seguro
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-full text-xs font-bold text-gray-700 shadow-sm border border-gray-100">
+                  <span className="text-yellow-500">💰</span> Se paga na 1ª venda
+                </div>
               </div>
             </div>
 

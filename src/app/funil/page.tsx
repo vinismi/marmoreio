@@ -9,10 +9,10 @@ import { Button } from '@/components/ui/button';
 import { CheckCircle, ArrowRight, TrendingUp, Rocket, Award, Sparkles, Star } from 'lucide-react';
 
 const floorImages = [
-  { id: 'marble-1', url: 'https://i.postimg.cc/tR6mtFdc/D-NQ-NP-834485-MLB69719549184-052023-O.webp', label: '🤍 Mármore Branco Luxo', sub: 'Elegante e atemporal' },
-  { id: 'marble-2', url: 'https://i.postimg.cc/WpZf60mH/efeito-marmorizado-11.jpg', label: '🖤 Negro com Veias Douradas', sub: 'Sofisticado e impactante' },
-  { id: 'marble-3', url: 'https://i.postimg.cc/jqfkQy63/kk4.jpg', label: '🎨 Colorido Moderno', sub: 'Criativo e chamativo' },
-  { id: 'marble-4', url: 'https://i.postimg.cc/cHkT97L3/1-depois.png', label: '🏛️ Rústico Artesanal', sub: 'Natural e aconchegante' },
+  { id: 'marble-1', url: 'https://i.postimg.cc/RhxwsXcy/3867dd5b-a2f5-4bcd-9225-9de04454be6c38b21dbca4d476e67pm94p3001.webp', label: 'Mármore Branco Luxo', sub: 'Elegante e atemporal' },
+  { id: 'marble-2', url: 'https://i.postimg.cc/WpZf60mH/efeito-marmorizado-11.jpg', label: 'Negro com Veias Douradas', sub: 'Sofisticado e impactante' },
+  { id: 'marble-3', url: 'https://i.postimg.cc/jqfkQy63/kk4.jpg', label: 'Colorido Moderno', sub: 'Criativo e chamativo' },
+  { id: 'marble-4', url: 'https://i.postimg.cc/cHkT97L3/1-depois.png', label: 'Rústico Artesanal', sub: 'Natural e aconchegante' },
 ];
 
 const testimonials = [
@@ -27,23 +27,28 @@ const testimonials = [
 type Step = 1 | 2 | 3 | 4 | 5;
 
 const MiniTestimonial = ({ t }: { t: typeof testimonials[0] }) => (
-  <div className="w-full my-3 p-4 rounded-2xl animate-fade-in-up" style={{ background: '#F7F8FA', border: '1px solid #E8EBF0' }}>
-    <div className="flex items-start gap-3">
-      <Image
-        src={t.img}
-        alt={t.name}
-        width={40}
-        height={40}
-        className="w-10 h-10 rounded-full object-cover flex-shrink-0 next-image-fade-in"
-        style={{ border: '2px solid rgba(0,194,203,0.3)' }}
-        loading="lazy"
-        quality={60}
-      />
-      <div className="flex-1">
-        <div className="flex items-center gap-1.5 mb-1"><span className="font-bold text-gray-900 text-xs">{t.name}</span><span className="text-[10px] text-gray-400">• {t.city}</span></div>
-        <p className="text-xs text-gray-600 leading-relaxed">"{t.text}"</p>
-        <span className="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white" style={{ background: 'linear-gradient(135deg, var(--turquoise), #009AA2)' }}>
-          <TrendingUp className="w-2.5 h-2.5" />{t.earn}
+  <div className="w-full my-4 p-5 rounded-[20px] bg-white shadow-sm border border-gray-100 animate-fade-in-up">
+    <div className="flex flex-col text-center">
+      <div className="flex items-center gap-3 mb-2 px-1">
+        <div className="relative flex-shrink-0">
+          <Image
+            src={t.img}
+            alt={t.name}
+            width={48}
+            height={48}
+            className="w-12 h-12 rounded-full object-cover"
+            style={{ border: '2px solid rgba(0,194,203,0.3)' }}
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="font-bold text-gray-900 text-[15px]">{t.name}</span>
+          <span className="text-[11px] text-gray-400 font-bold">• {t.city}</span>
+        </div>
+      </div>
+      <p className="text-[14px] text-gray-600 leading-relaxed mb-4 px-2">"{t.text}"</p>
+      <div className="w-full flex justify-center">
+        <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[12px] font-black text-white shadow-sm" style={{ background: 'var(--turquoise)', letterSpacing: '0.02em' }}>
+          <TrendingUp className="w-4 h-4" /> {t.earn}
         </span>
       </div>
     </div>
@@ -94,14 +99,10 @@ const Q1 = ({ onDone }: { onDone: (v: string) => void }) => {
                 alt={img.label}
                 width={500}
                 height={500}
-                className="w-full object-cover aspect-square next-image-fade-in"
+                className="w-full object-cover aspect-[4/5] next-image-fade-in"
                 priority={i < 2}
                 quality={75}
               />
-              <div className="absolute bottom-0 left-0 right-0 p-3" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%)' }}>
-                <p className="text-white font-bold text-sm leading-tight">{img.label}</p>
-                <p className="text-white/70 text-xs">{img.sub}</p>
-              </div>
               {sel === img.id && (
                 <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'rgba(0,194,203,0.3)', backdropFilter: 'blur(2px)' }}>
                   <CheckCircle className="w-12 h-12 text-white drop-shadow-lg" />
@@ -271,26 +272,26 @@ const Q5 = ({ answers }: { answers: Record<string, string> }) => {
     const current = [...msgs].reverse().find(m => progress >= m.at) || msgs[0];
 
     return (
-      <div className="flex w-full min-h-screen flex-col items-center justify-center px-4 py-8 text-center bg-white">
-        <div className="flex flex-col items-center gap-6 max-w-sm w-full">
+      <div className="flex w-full min-h-screen flex-col items-center justify-start pt-16 px-4 pb-8 text-center bg-white">
+        <div className="flex flex-col items-center gap-8 max-w-sm w-full">
           {/* Animated circle */}
-          <div className="relative w-36 h-36">
-            <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="42" fill="none" stroke="#E8EBF0" strokeWidth="6" />
-              <circle cx="50" cy="50" r="42" fill="none" stroke="url(#loadGrad)" strokeWidth="6" strokeLinecap="round" strokeDasharray={`${progress * 2.64} 264`} className="transition-all duration-100" />
-              <defs><linearGradient id="loadGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stopColor="#00C2CB" /><stop offset="100%" stopColor="#F5A623" /></linearGradient></defs>
+          <div className="relative w-40 h-40">
+            <svg className="w-full h-full -rotate-90 drop-shadow-sm" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#F0F4F8" strokeWidth="8" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="url(#loadGrad)" strokeWidth="8" strokeLinecap="round" strokeDasharray={`${progress * 2.51} 251`} className="transition-all duration-100" />
+              <defs><linearGradient id="loadGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#00C2CB" /><stop offset="60%" stopColor="#00C2CB" /><stop offset="100%" stopColor="#F5A623" /></linearGradient></defs>
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-4xl font-black" style={{ fontFamily: 'Sora', color: 'var(--turquoise)' }}>{progress}%</span>
+              <span className="text-5xl font-black tracking-tight" style={{ fontFamily: 'Sora', color: 'var(--turquoise)' }}>{progress}%</span>
             </div>
           </div>
 
-          <div className="text-center">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <span className="text-2xl">{current.icon}</span>
-              <h2 className="text-xl font-bold text-gray-900" style={{ fontFamily: 'Sora' }}>{current.text}</h2>
+          <div className="text-center w-full px-2">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="text-3xl drop-shadow-sm">{current.icon}</span>
+              <h2 className="text-[22px] font-extrabold text-gray-900 leading-tight text-left" style={{ fontFamily: 'Sora' }}>{current.text}</h2>
             </div>
-            <div className="flex items-center gap-1 justify-center mt-3">
+            <div className="flex items-center gap-1.5 justify-center mt-4">
               {[0, 1, 2].map(i => (
                 <div key={i} className="w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--turquoise)', animationDelay: `${i * 200}ms` }} />
               ))}

@@ -1124,10 +1124,6 @@ export default function ResultadoPage() {
         </section>
       </>
 
-      {/* Sticky */}
-      {showSticky && (
-        <div className="sticky-cta"><div className="max-w-sm mx-auto flex items-center gap-3"><div className="flex-1"><p className="text-xs font-bold text-gray-800">🔥 R$14,99 — Últimas vagas!</p></div><button className="btn-cta px-5 h-10 rounded-xl text-sm font-black flex-shrink-0" onClick={() => openCheckout(checkoutComplete)}>GARANTIR →</button></div></div>
-      )}
     </main>
   );
 }

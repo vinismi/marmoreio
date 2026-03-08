@@ -133,7 +133,7 @@ const Q2 = ({ onDone }: { onDone: (v: string) => void }) => {
     { id: 'falta_reconhecimento', emoji: '👀', title: 'Falta de reconhecimento', desc: 'Quero ser visto como um profissional de alto nível' },
   ];
   return (
-    <div className="flex w-full min-h-screen flex-col items-center px-4 py-6" style={{ background: '#F7F8FA' }}>
+    <div className="flex w-full min-h-full pb-20 flex-col items-center px-4 py-6" style={{ background: '#F7F8FA' }}>
       <div className="w-full max-w-md flex flex-col items-center text-center">
         <Header label="Diagnóstico" step={2} total={5} value={done ? 40 : 20} done={done} />
         <div className="mb-5 animate-fade-in-up">
@@ -152,7 +152,7 @@ const Q2 = ({ onDone }: { onDone: (v: string) => void }) => {
         {done && (
           <div className="mt-5 w-full animate-fade-in-up">
             <MiniTestimonial t={testimonials[1]} />
-            <Button onClick={() => onDone(sel)} className="btn-cta w-full rounded-full h-14 text-base font-bold text-white flex items-center justify-center gap-2">PRÓXIMA <ArrowRight className="w-5 h-5" /></Button>
+            <Button onClick={() => onDone(sel)} className="btn-cta w-full rounded-full h-16 text-lg tracking-wide font-black text-white flex items-center justify-center gap-2">PRÓXIMA <ArrowRight className="w-5 h-5" /></Button>
           </div>
         )}
       </div>
@@ -171,7 +171,7 @@ const Q3 = ({ onDone }: { onDone: (v: string) => void }) => {
     { id: 'respeito', emoji: '🏆', title: 'Mudar de vida radicalmente', desc: 'Quero ser cobiçado pelos clientes de alto padrão' },
   ];
   return (
-    <div className="flex w-full min-h-screen flex-col items-center px-4 py-6 bg-white">
+    <div className="flex w-full min-h-full pb-20 flex-col items-center px-4 py-6 bg-white">
       <div className="w-full max-w-md flex flex-col items-center text-center">
         <Header label="Propósito" step={3} total={5} value={done ? 60 : 40} done={done} />
         <div className="mb-5 animate-fade-in-up">
@@ -190,7 +190,7 @@ const Q3 = ({ onDone }: { onDone: (v: string) => void }) => {
         {done && (
           <div className="mt-5 w-full animate-fade-in-up">
             <MiniTestimonial t={testimonials[4]} />
-            <Button onClick={() => onDone(sel)} className="btn-cta w-full rounded-full h-14 text-base font-bold text-white flex items-center justify-center gap-2">CONTINUAR <ArrowRight className="w-5 h-5" /></Button>
+            <Button onClick={() => onDone(sel)} className="btn-cta w-full rounded-full h-16 text-lg tracking-wide font-black text-white flex items-center justify-center gap-2">CONTINUAR <ArrowRight className="w-5 h-5" /></Button>
           </div>
         )}
       </div>
@@ -209,7 +209,7 @@ const Q4 = ({ onDone }: { onDone: (v: string) => void }) => {
     { id: 'vendedor_nato', emoji: '🦁', title: 'Sou um leão pra vendas', desc: 'Mostrando que é bom, eu coloco o preço lá em cima' },
   ];
   return (
-    <div className="flex w-full min-h-screen flex-col items-center px-4 py-6" style={{ background: '#F7F8FA' }}>
+    <div className="flex w-full min-h-full pb-20 flex-col items-center px-4 py-6" style={{ background: '#F7F8FA' }}>
       <div className="w-full max-w-md flex flex-col items-center text-center">
         <Header label="Habilidade" step={4} total={5} value={done ? 80 : 60} done={done} />
         <div className="mb-5 animate-fade-in-up">
@@ -228,7 +228,7 @@ const Q4 = ({ onDone }: { onDone: (v: string) => void }) => {
         {done && (
           <div className="mt-5 w-full animate-fade-in-up">
             <MiniTestimonial t={testimonials[2]} />
-            <Button onClick={() => onDone(sel)} className="btn-cta w-full rounded-full h-14 text-base font-bold text-white flex items-center justify-center gap-2">ÚLTIMA PERGUNTA <ArrowRight className="w-5 h-5" /></Button>
+            <Button onClick={() => onDone(sel)} className="btn-cta w-full rounded-full h-16 text-lg tracking-wide font-black text-white flex items-center justify-center gap-2">ÚLTIMA PERGUNTA <ArrowRight className="w-5 h-5" /></Button>
           </div>
         )}
       </div>

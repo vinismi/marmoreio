@@ -75,9 +75,6 @@ export default function ShowcaseCarousel() {
               <CarouselItem key={i} className="pl-4 basis-[85%] sm:basis-[60%] md:basis-1/3">
                 <div className="relative overflow-hidden rounded-2xl group shadow-md hover:shadow-xl transition-all duration-500"
                   style={{ aspectRatio: '3/4', border: '2px solid #E8EBF0' }}>
-                  {/* Hover overlay no desktop, Gradiente base no mobile */}
-                  <div className="absolute inset-0 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 z-10"
-                    style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent 65%)' }} />
                   <Image
                     src={img.imageUrl}
                     alt={img.label}
@@ -91,11 +88,6 @@ export default function ShowcaseCarousel() {
                   <div className="absolute top-3 xl:top-4 left-3 xl:left-4 z-20 px-3 py-1 rounded-full text-white font-black shadow-md border border-white/20"
                     style={{ fontSize: '11px', background: img.tagColor, letterSpacing: '0.05em' }}>
                     {img.tag}
-                  </div>
-                  {/* Text details */}
-                  <div className="absolute bottom-0 left-0 right-0 z-20 p-4 xl:p-6 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500">
-                    <p className="font-black text-white text-lg xl:text-xl leading-tight drop-shadow-md" style={{ fontFamily: 'Sora' }}>{img.label}</p>
-                    <div className="w-8 h-1 rounded-full mt-2.5 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 delay-100" style={{ background: img.tagColor }} />
                   </div>
                 </div>
               </CarouselItem>

@@ -16,11 +16,11 @@ export default function Home() {
         __html: `
         @keyframes fanRevealLeft {
           0%   { opacity:0; transform: translateX(0) rotate(0deg) scale(0.8) translateY(30px); }
-          100% { opacity:1; transform: translateX(-110px) rotate(-18deg) scale(0.85) translateY(10px); }
+          100% { opacity:1; transform: translateX(-95%) rotate(-15deg) scale(1) translateY(8px); }
         }
         @keyframes fanRevealRight {
           0%   { opacity:0; transform: translateX(0) rotate(0deg) scale(0.8) translateY(30px); }
-          100% { opacity:1; transform: translateX(110px) rotate(18deg) scale(0.85) translateY(10px); }
+          100% { opacity:1; transform: translateX(95%) rotate(15deg) scale(1) translateY(8px); }
         }
         @keyframes fanRevealCenter {
           0%   { opacity:0; transform: translateY(30px) scale(0.9); }
@@ -42,18 +42,19 @@ export default function Home() {
         </div>
 
         {/* ── FAN DE IMAGENS ATUALIZADO ──
-            Layout fiel à referência: as imagens escapam 110px pras laterais mantendo-as totalmente visíveis
+            Layout fiel à referência na base de matemáticas responsivas (vw + clamp)
         */}
-        <div className="relative flex justify-center items-end" style={{ zIndex: 1, width: '100%', height: '320px', flexShrink: 0, marginTop: '20px' }}>
+        <div className="relative flex justify-center items-end" style={{ zIndex: 1, width: '100%', height: 'clamp(220px, 50vw, 320px)', flexShrink: 0, marginTop: '20px' }}>
 
           {/* ESQUERDA */}
           <div className="fan-left absolute" style={{
-            width: '180px', height: '240px',
-            bottom: '40px',
+            width: 'clamp(105px, 28vw, 180px)',
+            height: 'clamp(145px, 38vw, 240px)',
+            bottom: '15%',
             transformOrigin: 'center center',
             borderRadius: '20px',
             overflow: 'hidden',
-            border: '6px solid white',
+            border: '4px solid white',
             boxShadow: '0 12px 28px rgba(0,0,0,0.18)',
             zIndex: 10,
           }}>
@@ -63,12 +64,13 @@ export default function Home() {
 
           {/* DIREITA */}
           <div className="fan-right absolute" style={{
-            width: '180px', height: '240px',
-            bottom: '40px',
+            width: 'clamp(105px, 28vw, 180px)',
+            height: 'clamp(145px, 38vw, 240px)',
+            bottom: '15%',
             transformOrigin: 'center center',
             borderRadius: '20px',
             overflow: 'hidden',
-            border: '6px solid white',
+            border: '4px solid white',
             boxShadow: '0 12px 28px rgba(0,0,0,0.18)',
             zIndex: 10,
           }}>
@@ -78,12 +80,13 @@ export default function Home() {
 
           {/* CENTRAL */}
           <div className="fan-center absolute" style={{
-            width: '210px', height: '280px',
-            bottom: '20px',
+            width: 'clamp(125px, 34vw, 210px)',
+            height: 'clamp(166px, 45vw, 280px)',
+            bottom: '5%',
             transformOrigin: 'bottom center',
             borderRadius: '24px',
             overflow: 'hidden',
-            border: '7px solid white',
+            border: '5px solid white',
             boxShadow: '0 25px 50px rgba(0,0,0,0.3)',
             zIndex: 20,
           }}>

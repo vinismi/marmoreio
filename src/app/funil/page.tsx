@@ -354,7 +354,18 @@ export default function FunnelPage() {
   const next = (key: string, val: string, nextStep: Step) => {
     setAnswers(p => ({ ...p, [key]: val }));
     setStep(nextStep);
-    window.scrollTo(0, 0);
+
+    // Disable smooth scroll to avoid fighting user scrolls
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.body.style.scrollBehavior = 'auto';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
+    // Restore quickly
+    setTimeout(() => {
+      document.documentElement.style.scrollBehavior = '';
+      document.body.style.scrollBehavior = '';
+    }, 50);
+
     if (nextStep === 5) router.prefetch('/resultado');
   };
 

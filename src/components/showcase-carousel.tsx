@@ -7,48 +7,62 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from '@/components/ui/carousel';
-import Autoplay from "embla-carousel-autoplay";
-import { cn } from '@/lib/utils';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Autoplay from 'embla-carousel-autoplay';
 
 const showcaseImages = [
   {
     id: 'showcase-1',
     imageUrl: 'https://i.postimg.cc/tCTnGNrd/1.webp',
-    description: 'Efeito marmorizado elegante',
     label: 'Mármore Branco Luxo',
+    tag: 'Clássico',
+    tagColor: '#00C2CB',
   },
   {
     id: 'showcase-2',
     imageUrl: 'https://i.postimg.cc/QxtKZJ6b/2.webp',
-    description: 'Acabamento premium de luxo',
-    label: 'Mármore com Veias Douradas',
+    label: 'Veias Douradas',
+    tag: 'Premium',
+    tagColor: '#F5A623',
   },
   {
     id: 'showcase-3',
     imageUrl: 'https://i.postimg.cc/y6n3GbTT/3.jpg',
-    description: 'Transformação marmorizada',
     label: 'Mármore Moderno',
+    tag: 'Tendência',
+    tagColor: '#7C4DFF',
   },
   {
     id: 'showcase-4',
-    imageUrl: 'https://i.postimg.cc/tR6mtFdc/D-NQ-NP-834485-MLB69719549184-052023-O.webp',
-    description: 'Mármore clássico',
-    label: 'Mármore Clássico Elegante',
+    imageUrl: 'https://i.postimg.cc/WpZf60mH/efeito-marmorizado-11.jpg',
+    label: 'Negro Impactante',
+    tag: 'Luxo',
+    tagColor: '#E91E63',
+  },
+  {
+    id: 'showcase-5',
+    imageUrl: 'https://i.postimg.cc/jqfkQy63/kk4.jpg',
+    label: 'Colorido Artístico',
+    tag: 'Criativo',
+    tagColor: '#22c55e',
+  },
+  {
+    id: 'showcase-6',
+    imageUrl: 'https://i.postimg.cc/cHkT97L3/1-depois.png',
+    label: 'Rústico Artesanal',
+    tag: 'Natural',
+    tagColor: '#FF6D00',
   },
 ];
 
 export default function ShowcaseCarousel() {
   const plugin = React.useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })
+    Autoplay({ delay: 3500, stopOnInteraction: true, stopOnMouseEnter: true })
   );
 
   return (
-    <div className="relative w-full animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-      <div className="relative max-w-5xl mx-auto px-4 md:px-12">
+    <div className="w-full">
+      <div className="w-full relative max-w-5xl mx-auto md:px-12">
         <Carousel
           plugins={[plugin.current]}
           className="w-full"
@@ -56,67 +70,45 @@ export default function ShowcaseCarousel() {
           onMouseLeave={() => plugin.current.play()}
           opts={{ loop: true, align: 'center' }}
         >
-          <CarouselContent className="-ml-4">
-            {showcaseImages.map((image, index) => (
-              <CarouselItem key={index} className={cn("pl-4 basis-full md:basis-1/2 lg:basis-1/3")}>
-                <div className="p-2">
-                  <div className="relative overflow-hidden rounded-2xl transition-all duration-500 group shadow-lg hover:shadow-xl"
-                    style={{ border: '1px solid #E8EBF0' }}>
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
-                      style={{ background: 'linear-gradient(to top, rgba(0,194,203,0.8), transparent 50%)' }} />
-
-                    <Image
-                      src={image.imageUrl}
-                      alt={image.description}
-                      width={600}
-                      height={800}
-                      className="aspect-[3/4] w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-110 next-image-fade-in"
-                      priority={index < 2}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      quality={75}
-                    />
-
-                    {/* Caption on hover */}
-                    <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-20">
-                      <p className="text-white font-bold text-base drop-shadow-md"
-                        style={{ borderLeft: '4px solid var(--amber-brand)', paddingLeft: '12px' }}>
-                        {image.label}
-                      </p>
-                    </div>
-
-                    {/* Corner badge */}
-                    <div className="absolute top-3 right-3 px-2 py-1 rounded-lg text-xs font-bold text-white z-10"
-                      style={{ background: 'rgba(0,194,203,0.9)', opacity: 0 }}
-                      data-hover-show>
-                      Premium
-                    </div>
+          <CarouselContent className="ml-0 md:-ml-4 flex items-center">
+            {showcaseImages.map((img, i) => (
+              <CarouselItem key={i} className="pl-4 basis-[85%] sm:basis-[60%] md:basis-1/3">
+                <div className="relative overflow-hidden rounded-2xl group shadow-md hover:shadow-xl transition-all duration-500"
+                  style={{ aspectRatio: '3/4', border: '2px solid #E8EBF0' }}>
+                  {/* Hover overlay no desktop, Gradiente base no mobile */}
+                  <div className="absolute inset-0 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 z-10"
+                    style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent 65%)' }} />
+                  <Image
+                    src={img.imageUrl}
+                    alt={img.label}
+                    fill
+                    className="object-cover transition-transform duration-700 md:group-hover:scale-105"
+                    sizes="(max-width: 768px) 85vw, 33vw"
+                    quality={85}
+                    priority={i < 3}
+                  />
+                  {/* Badge */}
+                  <div className="absolute top-3 xl:top-4 left-3 xl:left-4 z-20 px-3 py-1 rounded-full text-white font-black shadow-md border border-white/20"
+                    style={{ fontSize: '11px', background: img.tagColor, letterSpacing: '0.05em' }}>
+                    {img.tag}
+                  </div>
+                  {/* Text details */}
+                  <div className="absolute bottom-0 left-0 right-0 z-20 p-4 xl:p-6 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500">
+                    <p className="font-black text-white text-lg xl:text-xl leading-tight drop-shadow-md" style={{ fontFamily: 'Sora' }}>{img.label}</p>
+                    <div className="w-8 h-1 rounded-full mt-2.5 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 delay-100" style={{ background: img.tagColor }} />
                   </div>
                 </div>
               </CarouselItem>
             ))}
           </CarouselContent>
-
-          <CarouselPrevious
-            className="hidden md:flex absolute -left-4 lg:-left-12 top-1/2 -translate-y-1/2 w-12 h-12 border-none text-white transition-all duration-300 shadow-lg group"
-            style={{ background: 'var(--turquoise)' }}
-          >
-            <ChevronLeft className="w-6 h-6 group-hover:scale-125 transition-transform" />
-          </CarouselPrevious>
-          <CarouselNext
-            className="hidden md:flex absolute -right-4 lg:-right-12 top-1/2 -translate-y-1/2 w-12 h-12 border-none text-white transition-all duration-300 shadow-lg group"
-            style={{ background: 'var(--turquoise)' }}
-          >
-            <ChevronRight className="w-6 h-6 group-hover:scale-125 transition-transform" />
-          </CarouselNext>
-
-          <div className="flex md:hidden justify-center gap-4 mt-6">
-            <CarouselPrevious className="static translate-y-0 w-12 h-12 text-white border-none"
-              style={{ background: 'var(--turquoise)' }} />
-            <CarouselNext className="static translate-y-0 w-12 h-12 text-white border-none"
-              style={{ background: 'var(--turquoise)' }} />
-          </div>
         </Carousel>
+
+        {/* Swipe indicators para mobile apenas para UX */}
+        <div className="flex md:hidden items-center justify-center gap-1.5 mt-5">
+          <div className="w-5 h-1.5 rounded-full" style={{ background: 'var(--turquoise)' }} />
+          <div className="w-1.5 h-1.5 rounded-full bg-gray-300" />
+          <div className="w-1.5 h-1.5 rounded-full bg-gray-300" />
+        </div>
       </div>
     </div>
   );
